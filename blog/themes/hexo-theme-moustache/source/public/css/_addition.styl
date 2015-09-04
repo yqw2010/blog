@@ -1,0 +1,241 @@
+.barretSay
+  color: #999
+  font-size: 14px
+  line-height: 24px
+br
+  display: none
+.highlight br
+  display block
+.old-article-warning, .history-article
+  background-color: #FFFFD0;
+  margin: 0 -30px;
+  padding: 10px 15px;
+  border: 1px dashed #CCC;
+  color: #5F5F5F;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  &:hover
+    background-color: #FFFF8B;
+    transition: background-color 0.3s;
+  b
+    color: #F40;
+.history-article
+  margin: 0;
+  &:hover
+    background-color: #FFFFD0;
+.grey
+  color: grey
+.body-bg-moon
+  .highlight, pre, .post img, .history-article, .old-article-warning,.func-item>div
+    opacity: 0.85 !important;
+    filter: unquote("alpha(opacity=85)");
+    border-radius: 6px;
+  .highlight pre
+    opacity: 1;
+    border-radius 0;
+.post-font-song
+  font-family: Simsun
+.entry-cates {
+  position: relative;
+}
+.entry-cates .page-search {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+}
+#menuIndex ul li.h4 {
+  text-indent: 12px;
+}
+.web-feed {
+  float: right;
+  color: #333;
+}
+.web-feed .icon {
+  font-size: 27px;
+  transform: rotate(15deg);
+  display: inline-block;
+  transition: all 0.3s;
+  opacity: 0.3;
+}
+.web-feed .icon:hover {
+  transform: rotate(-345deg);
+  transition: all 0.3s;
+  opacity: 1;
+}
+.message .cate-wraper {
+  font-size 16px;
+}
+.message .ds-thread,.aboutme .ds-thread {
+  margin-top: 30px;
+}
+
+.arrow-tips {
+  position: fixed;
+  right: 60px;
+  top: 80px;
+  background-color: #EFEFEF;
+  padding: 10px;
+  border-radius: 2px;
+  opacity: 0.5;
+  z-index: 6;
+  box-shadow: 2px 2px 4px #CCC;
+  transition: opacity 0.3s;
+}
+.arrow-tips:hover {
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+.arrow-tips h5 {
+  line-height: 28px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.arrow-tips ul {
+  font-size: 14px;
+  padding-left: 4px;
+  line-height: 18px;
+}
+.arrow-tips code {
+  background-color:#E4E4E4;
+  display: inline-block;
+  width: 100px;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+.arrow-tips .close{
+  position: absolute;
+  cursor: pointer;
+  right: 10px;
+  top: 13px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #D4D3D3;
+  border-radius: 100%;
+  font-size: 9px;
+}
+.arrow-tips .close:hover {
+  transition: all 0.3s;
+  background-color: #E8E8E8;
+  color: #e58c7c;
+}
+.alertInfo {
+  position: fixed;
+  right: -9999px;
+  top: 20px;
+  z-index: 10;
+  background-color: #FAFAFA;
+  padding: 12px 18px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px #CCC,0 0 1px #FFF;
+  color: #888;
+}
+.alertInfo .alert-avatar {
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+  border-radius: 100%;
+  margin-right: 5px;
+}
+
+.home-box p {
+  transition: background  0.3s;
+}
+.home-box p:hover {
+  transition: background 0.3s;
+}
+.entry-recent-posts {
+  margin-bottom: 30px;
+}
+
+
+.ds-thread .ds-loading {
+  padding: 20px 0;
+  text-align: center;
+  color: #AFAFAF;
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  line-height: 30px;
+  font-style: 15px;
+}
+
+#ds-thread .ds-loading {
+  display: none;
+  height: 0;
+  visibility: hidden;
+}
+
+// duoshuo
+#ds-thread #ds-reset .ds-comments {
+  border-bottom: none;
+}
+.ds-like-panel,#ds-thread #ds-reset a:hover {
+  color: #999;
+}
+#ds-reset .ds-avatar,#ds-reset .ds-avatar img {
+  border-radius: 100%;
+}
+#ds-thread #ds-reset li.ds-post {
+  border-top: none;
+}
+div#ds-thread #ds-reset .ds-comment-body p {
+  color: #000;
+}
+#ds-thread #ds-reset .ds-comment-body a {
+  color: #777 !important;
+}
+#ds-thread #ds-reset li.ds-tab a {
+  text-shadow: none;
+}
+#ds-thread #ds-reset .ds-sort a.ds-current, #ds-thread #ds-reset .ds-sort a:active {
+  color: #e58c7c;
+}
+#ds-thread #ds-reset .ds-post-self {
+  border-top: none;
+}
+#ds-thread #ds-reset .ds-meta {
+  border-bottom: none;
+}
+.ds-thread-like-text {
+  display: block;
+}
+.ds-thread-cancel-like {
+  display: none;
+}
+.ds-thread-liked .ds-thread-like-text {
+  display: none;
+}
+.ds-thread-liked .ds-thread-cancel-like {
+  display: block;
+}
+.footer #ds-thread #ds-reset .ds-meta {
+  text-align: right;
+  margin-top: -65px;
+}
+#ds-thread #ds-reset img  {
+  transition: all 0.3s;
+}
+#ds-thread #ds-reset img:hover {
+  transform: rotate(180deg);
+  transition: all 0.3s;
+}
+#ds-thread #ds-reset a.ds-like-thread-button {
+  position: relative;
+  z-index: 3;
+}
+.footer #ds-reset {
+  position: relative;
+}
+.footer #ds-thread #ds-reset .ds-comment-body p {
+  color: #CCC;
+}
+div#ds-thread #ds-reset .ds-comment-body {
+  color: #555;
+}
+.footer #ds-thread #ds-reset .ds-like-tooltip {
+  right: 0 !important;
+  left: auto !important;
+  top: 0 !important;
+}

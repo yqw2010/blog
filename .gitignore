@@ -1,0 +1,11 @@
+.deploy_git/
+build/
+
+databackup/
+blogsources/
+themes/hexo-theme-yilia/
+themes/landscape/
+
+.idea/
+node_modules/
+blog/node_modules/

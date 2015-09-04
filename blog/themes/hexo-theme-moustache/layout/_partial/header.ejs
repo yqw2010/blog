@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html<% if(config.language) {%> lang="<%- config.language %>"<% } %>>
+<head><%
+var title = page.title;
+var type = "article";
+if (is_archive()){
+	title = 'Archives';
+	type = 'archives page';
+	if (is_month()){
+		title += ': ' + page.year + '/' + page.month;
+	} else if (is_year()){
+		title += ': ' + page.year;
+	}
+} else if (is_category()){
+	title = 'Category: ' + page.category;
+	type = "category page";
+} else if (is_tag()){
+	title = 'Tag: ' + page.tag;
+	type = "tag page";
+}
+var ogtitle = title ? title : config.author;
+title = ogtitle + ' | ' + config.title;
+var description = config.description
+if(page.description) {
+	description = page.description
+} else if(page.content) {
+	description = page.content.replace(/<\/?[\s\S]+?>|\n/gm, '').slice(0, 150);
+}
+%>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="<%- theme.social.mail %>">
+  <meta name="description" content="<%= description %>">
+  <meta property="og:type" content="<%- type %>">
+  <meta property="og:title" content="<%= title %>">
+  <meta property="og:url" content="<%- config.url %><%- url_for(page.path) %>">
+  <meta property="og:site_name" content="<%- page.title %>">
+  <meta property="og:description" content="<%= description %>">
+  <link rel="shoticon" href="<%- theme.imgs.favicon %>" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="<%- theme.imgs.app_icon %>" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="<%- theme.pages.feed %>" title="<%= config.title %>" />
+  <%- css('public/css/style') %>
+  <%- js(['public/js/jquery', 'public/js/main']) %>
+</head>

@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name"><%= page.title %></h1>
+        <a href="<%- url_for('/entry/') %>"><img src="<%- url_for(theme.imgs.avatar150) %>" alt="<%- config.author %>" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="<%- url_for('about/') %>" itemprop="author"><%- config.author %></a></span>
+        <span><time itemprop="timeCreated"><%- date(page.date, 'YYYY-MM-DD hh:mm:ss') %></time></span>
+        <span>分类: <%- partial('post/category', {post: page}) %></span>
+        <span>标签: <%- partial('post/tag', {post: page}) %></span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="<%- page.slug || page.path %>"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <%- page.content %>
+        <p>本文链接：<a href="<%- config.url %><%- url_for(page.path) %>"><%- config.url %><%- url_for(page.path) %></a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    <%- partial('post/warning') %>
+    <%- partial('post/copyright') %>
+    <div class="share-article clearfix">
+      <%- partial('post/share') %>
+    </div>
+  </div>
+  <div class="post-relative"><%- partial('post/nav') %></div>
+</div>
+<%- partial('sidebar') %>
+<%- partial('_partial/footer') %>
+<%- partial('post/gotop') %>

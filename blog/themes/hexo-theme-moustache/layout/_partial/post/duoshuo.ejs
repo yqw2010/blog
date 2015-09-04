@@ -1,0 +1,22 @@
+<%var key, title, url = config.url;
+	if(typeof page !== null) {
+		key = page.slug || page.path;
+		title = page.title;
+		url += url_for(page.path);
+	} else if(typeof post !== null) {
+		key = post.slug || post.path;
+		title = post.title;
+		url += url_for(post.path);
+	} else {
+		key = "barretlee-blog";
+		title = config.title;
+	}
+%>
+<div class="ds-thread" data-thread-key="<%- key %>" data-title="<%- title %>" data-url="<%- url %>" data-name="<%- theme.duoshuo%>">
+	<div class="ds-loading">
+		<img src="<%- theme.loading %>" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+

@@ -1,0 +1,7 @@
+<% var diff = Math.ceil((new Date - page.date) / (1000*60*60*24));
+if(diff > 180 && page.waring) { %>
+<div class="old-article-warning">
+	本文在 <b><%- diff %></b> 天之前发表，技术更替飞快，文中部分内容可能已经不再生效，如有疑问，
+	请在下方留言，或者联系 <a href="<%- url_for(url_for('demo')) %>">本文作者</a>。
+</div>
+<% } %>

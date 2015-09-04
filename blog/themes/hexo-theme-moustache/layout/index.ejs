@@ -1,0 +1,24 @@
+<div class="home">
+	<div class="home-color-bg"></div>
+	<!--[if IE]>
+	<div class="home-bg"><img src="<%- url_for('/blogimgs/bg.jpg') %>" /></div>
+	<![endif]-->
+	<div class="home-box">
+		<h2 title="<%- config.subtitle %>">
+			<%- config.title %>
+			<a href="<%- url_for('entry/') %>"><img src="<%- url_for(theme.imgs.avatar150) %>" alt="<%- config.author %>"></a>
+		</h2>
+		<h3 title="<%- config.subtitle %>"><%- config.title_en %></h3>
+		<p>»
+			<a href="<%- url_for('entry/') %>">博客</a> /
+			<a href="<%- url_for('demo/') %>">实验室</a> /
+			<a href="<%- url_for('message/') %>">留言</a> /
+			<a href="<%- url_for('about/') %>">关于</a>
+		</p>
+		<p>»
+			<i class="icon" title="新浪微博"><a href="http://weibo.com/hustskyking" target="_blank">&#x535a;</a></i>
+			<i class="icon" title="Rss"><a href="<%- theme.pages.feed %>" target="_blank">&#x25c8;</a></i>
+			<i class="icon" title="Github"><a href="https://github.com/barretlee" target="_blank">&#x2603;</a></i>
+		</p>
+	</div>
+</div>

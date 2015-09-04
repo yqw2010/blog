@@ -1,0 +1,11 @@
+<div class="container message">
+	<div class="cate-wraper post">
+		<h2>
+      <%- partial("../_partial/post/rss.ejs") %>
+			<a href="/"><%- config.author %></a> » 留言 & 问答
+		</h2>
+		<p><%- site.data.text.message %></p>
+		<%- partial("page_footer") %>
+	</div>
+</div>
+<%- partial("../_partial/sidebar") %>

@@ -1,0 +1,17 @@
+<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="<%- url_for('friends') %>">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		<%- partial("duoshuo") %>
+	</div>
+	<div class="friends-box">
+		<ul>
+		<% var fs = site.data.text.friends;
+		Object.keys(fs).forEach(function(name){%>
+			<li><a href="<%- fs[name] %>" target="_blank"><%- name %></a></li>
+		<%})%>
+		</ul>
+	</div>
+</div>
