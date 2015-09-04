@@ -21,8 +21,8 @@ r: goroot mkfile run
 d: goroot mkfile deploy
 b: goroot mkfile backup
 n: goroot mkfile new
-c: goroot clear
-h: goroot help
+c: clear
+h: help
 
 # 回到根文件夹
 goroot:
@@ -41,8 +41,8 @@ init:
 
 # 清理工作
 clear:
-	rm ${DRAFTS}*; \
-	rm -rf ${BACKUPDRAFTS_BAC};
+	rm -rf ${DRAFTS}*;
+	rm -rf ${BACKUPDRAFTS_BAC}*;
 
 # 打开 hexo 本地服务
 run:
