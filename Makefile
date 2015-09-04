@@ -1,56 +1,83 @@
-.PHONY: r d b h n run backup deploy help new
+.PHONY: r d b h n i c run backup deploy help new mkfile init clear goroot
 
-DRAFTS = ./blog/src/_drafts/
-POSTS = ./blog/src/_posts/
+ROOT = ~/work/blogsys/
+DRAFTS = ${ROOT}blog/src/_drafts/
+POSTS = ${ROOT}blog/src/_posts/
+BACKUPPOSTS = ${ROOT}blogsources/backup/posts/
+BACKUPDRAFTS = ${ROOT}blogsources/backup/drafts/
+BACKUPPOSTS_BAC = ${ROOT}databackup/posts/
+BACKUPDRAFTS_BAC = ${ROOT}databackup/drafts/
+
+TMP = ${ROOT}blog/src/_tmp/
+BUILD = ${ROOT}blog/src/build/
+DEPLOY_GIT = ${ROOT}blog/src/.deploy*/
+
 LOCAL = http://0.0.0.0:4000/entry/
 WEB = http://www.barretlee.com/entry/
-TMP = ./blog/src/_tmp
-BACKUPPOSTS = ./blogsources/backup/posts
-BACKUPDRAFTS = ./blogsources/backup/drafts
-BACKUPPOSTS_BAC = ./databackup/posts
-BACKUPDRAFTS_BAC = ./databackup/drafts
 
 
-r: run
+i: goroot init
+r: goroot mkfile run
+d: goroot mkfile deploy
+b: goroot mkfile backup
+n: goroot mkfile new
+c: goroot clear
+h: goroot help
 
-d: deploy
+# 回到根文件夹
+goroot:
+	cd ${ROOT};
 
-b: backup
+# 新建两个备份文件夹
+mkfile:
+	@[ -d ${BACKUPPOSTS} ] || mkdir ${BACKUPPOSTS};
+	@[ -d ${BACKUPDRAFTS} ] || mkdir ${BACKUPDRAFTS};
+	@[ -d ${BACKUPPOSTS_BAC} ] || mkdir ${BACKUPPOSTS_BAC};
+	@[ -d ${BACKUPDRAFTS_BAC} ] || mkdir ${BACKUPDRAFTS_BAC};
 
-h: help
+# 初始化,执行 cnpm install
+init:
+	cnpm i;
 
-n: new
+# 清理工作
+clear:
+	rm ${DRAFTS}*; \
+	rm -rf ${BACKUPDRAFTS_BAC};
 
 # 打开 hexo 本地服务
 run:
+ifneq (${R},)
+	- cp -f ${BACKUPPOSTS_BAC}* ${POSTS};
+	- cp -f ${BACKUPDRAFTS_BAC}* ${DRAFTS};
+endif
 	cd blog; \
-	hexo g;\
+	rm -rf ${TMP}; \
+	hexo g; \
 	open ${LOCAL}; \
 	hexo s;
 
-
+# 备份文件,部署到 gitcafe 和 github
 deploy:
-	# cp -rf ./databackup/* ${POSTS}; \
+	- cp -f ${BACKUPPOSTS_BAC}* ${POSTS};
+	- cp -f ${BACKUPDRAFTS_BAC}* ${DRAFTS};
 	cd blog; \
-	rm -rf build/; \
-	rm -rf .deploy*/; \
+	rm -rf ${BUILD}; \
+	rm -rf ${DEPLOY_GIT}; \
+	rm -rf ${TMP}; \
 	hexo g; \
 	hexo d; \
 	open ${WEB};
 
+# 备份内容
 backup:
 	# 备份 posts
-	@[ -d ${BACKUPPOSTS} ] || mkdir ${BACKUPPOSTS}; \
-	cp -rf ${POSTS}* ${BACKUPPOSTS};
+	- cp -f ${POSTS}* ${BACKUPPOSTS};
 	# 二次备份 posts
-	@[ -d ${BACKUPPOSTS_BAC} ] || mkdir ${BACKUPPOSTS_BAC}; \
-	cp -rf ${POSTS}* ${BACKUPPOSTS_BAC};
+	- cp -f ${POSTS}* ${BACKUPPOSTS_BAC};
 	# 备份 drafts
-	@[ -d ${BACKUPDRAFTS} ] || mkdir ${BACKUPDRAFTS}; \
-	cp -rf ${DRAFTS}* ${BACKUPDRAFTS};
+	- cp -f ${DRAFTS}* ${BACKUPDRAFTS};
 	# 二次备份 drafts
-	@[ -d ${BACKUPDRAFTS_BAC} ] || mkdir ${BACKUPDRAFTS_BAC}; \
-	cp -rf ${DRAFTS}* ${BACKUPDRAFTS_BAC};
+	- cp -f ${DRAFTS}* ${BACKUPDRAFTS_BAC};
 ifneq (${P},)
 	# 参数中包含 push, 推到仓库中去备份
 	git add --all; \
@@ -58,28 +85,41 @@ ifneq (${P},)
 	git push origin master -f;
 endif
 
+# 创建一个新文件
 new:
 ifneq (${P},)
-	@echo "'N' is must be a string";
+	cd blog; \
+	rm src/_post/*-${N}.md; \
+	cp -f ${DRAFTS}* ${BACKUPDRAFTS}; \
+	hexo publish ${N};
+ifeq (${P}, run)
+	make run;
+endif
 else
 ifneq (${N},)
-	@[ -d ${TMP} ] || mkdir ${TMP}; \
-	mv ${POSTS}* ${TMP}; \
-	touch ${DRAFTS}${N}.md;
+	@[ -d ${TMP} ] || mkdir ${TMP};
+	- mv -f ${POSTS}* ${TMP}; \
+	touch ${DRAFTS}${N}.md; \
+	open http://0.0.0.0:4001; \
+	node bin/startblog.js;
 endif
 endif
 
+# 帮助命令
 help:
-	@echo "===============A common Makefilefor blog system==============";
+	@echo "====================A common Makefilefor blog system========================";
 	@echo "Copyright (C) 2015 barret.china@gmail.com";
 	@echo "The following targets are support:";
 	@echo;
+	@echo " i --init             - init, run npm install";
 	@echo " r --run              - start local serve at http://0.0.0.0:4000";
 	@echo " d --deploy           - deploy project to gitcafe & github";
-	@echo " b --backup           - backup dates";
+	@echo " b --backup (P=)      - backup dates, push to git";
+	@echo "                         make backup P=1; P->PUSH";
 	@echo " h --help             - show help info";
-	@echo " n --new (N=postname) - write new page, fg: 'make new N=postname'";
+	@echo " n --new (N=|P=)      - init new post";
+	@echo "                         make new N=postname; N->NEW";
+	@echo "                         make new N=postname P=1; P->PUBLISH";
 	@echo;
-	@echo "To make a target, do 'make [target]', short for 'make [t]'";
-	@echo "========================= Version0.1 ========================"
-
+	@echo "To make a target, do make [target], short for make [t]";
+	@echo "============================== Version0.1 =================================="

@@ -33,7 +33,7 @@
 		</div>
 		<div class="rightbar-frame"></div>
 	</div>
-		<% var recentPost = site.posts.data[0];
+		<% var recentPost = site.posts.data[1];
 		var rTitle = recentPost.title;
 		var excerpt = recentPost.excerpt || recentPost.content.replace(/<[^>]+?>|\n/gm, '').slice(0, 100) + "...";
 		%>
