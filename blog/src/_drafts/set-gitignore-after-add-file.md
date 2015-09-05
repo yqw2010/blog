@@ -1,6 +1,10 @@
-title: 在 add file 之后添加 gitignore
-descrition:
-date: 2015-09-05 22:03:41
----
-
 ### 测试
+
+> hello world
+
+```
+var a = 1;
+window.location.reload()
+```
+
+### wahaha

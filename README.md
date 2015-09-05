@@ -2,6 +2,34 @@
 
 [![小胡子哥](http://barretlee.com/avatar150.png)](http://barretlee.com)
 
+博客地址: <http://barretlee.com>
+
+
+### Makefile使用说明
+
+还未做优化, 博客的 hexo 主题暂未发布.
+
+```
+====================A common Makefilefor blog system========================
+Copyright (C) 2015 barret.china@gmail.com
+The following targets are support:
+
+ i --init             - init, run npm install
+ r --run              - start local serve at http://0.0.0.0:4000
+ d --deploy           - deploy project to gitcafe & github
+ b --backup (P=)      - backup dates, push to git
+                         make backup P=1; P->PUSH
+ h --help             - show help info
+ n --new (N=|P=)      - init new post
+                         make new N=postname; N->NEW
+                         make new N=postname P=1; P->PUBLISH
+
+To make a target, do make [target], short for make [t]
+============================== Version0.1 ==================================
+```
+
+### 博客说明
+
 博客在 `gh-pages` 分支上，`master` 分支博客静态资源的生成程序。博客基于 [hexo](https://hexo.io) 构建，用到的相关 `hexo` 组件如下所示：
 
 ```
