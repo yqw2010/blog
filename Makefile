@@ -74,6 +74,7 @@ ifneq (${P},)
 	# 参数中包含 push, 推到仓库中去备份
 	git add --all; \
 	git commit -am "backup"; \
+	git push gitcafe master -f; \
 	git push origin master -f;
 endif
 
