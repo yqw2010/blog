@@ -19,7 +19,7 @@ module.exports = function(article){
   http.createServer(function(req, res){
     if(req.url === '/') {
       var ctt = fs.readFileSync(path.join(Root, "./public/index.html")).toString();
-      ctt = ctt.replace("$$article$$", fs.readFileSync(articlePath));
+      ctt = ctt.replace(/<textarea>[\s\S]+?<\/textarea>/m, "<textarea>" + fs.readFileSync(articlePath) + "</textarea>");
       res.write(ctt);
       res.end();
     } else if(req.url === '/img') {
