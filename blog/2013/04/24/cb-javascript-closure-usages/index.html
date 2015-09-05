@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>JS闭包的用途 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.我们来看看闭包的用途。事实上，通过使用闭包，我们可以做很多事情。比如模拟面向对象的代码风格；更优雅，更简洁的表达出代码；在某些方面提升代码的执行效率。1. 匿名自执行函数我们知道所有的变量，如果不加上var关键字，则默认的会添加到全局对象的属性上去，这样的临时变量">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="JS闭包的用途 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/">
+  <meta property="og:site_name" content="JS闭包的用途">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.我们来看看闭包的用途。事实上，通过使用闭包，我们可以做很多事情。比如模拟面向对象的代码风格；更优雅，更简洁的表达出代码；在某些方面提升代码的执行效率。1. 匿名自执行函数我们知道所有的变量，如果不加上var关键字，则默认的会添加到全局对象的属性上去，这样的临时变量">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">JS闭包的用途</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-04-24 08:41:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/剪贴板/">剪贴板</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/JavaScript闭包/">JavaScript闭包</a>, <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-javascript-closure-usages"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/04/24/javascript-closure-usages.html" target="_blank">博客园</a>.</div>
+
+<p>我们来看看闭包的用途。事实上，通过使用闭包，我们可以做很多事情。比如模拟面向对象的代码风格；更优雅，更简洁的表达出代码；在某些方面提升代码的执行效率。</p><br><p><strong>1. 匿名自执行函数</strong></p><br><p>我们知道所有的变量，如果不加上var关键字，则默认的会添加到全局对象的属性上去，这样的临时变量加入全局对象有很多坏处，比如：别的函数可能误用这些变量；造成全局对象过于庞大，影响访问速度(因为变量的取值是需要从原型链上遍历的)。除了每次使用变量都是用var关键字外，我们在实际情况下经常遇到这样一种情况，即有的函数只需要执行一次，其内部变量无需维护，比如UI的初始化，那么我们可以使用闭包：</p>
+
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> datamodel = <span class="comment">&#123;</span><br><span class="line">    table : [],</span><br><span class="line">    tree : &#123;&#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">(dm)</span><span class="comment">&#123;</span><br><span class="line">    for(var i = 0; i &lt; dm.table.rows; i++)&#123;</span><br><span class="line">       var row = dm.table.rows[i];</span><br><span class="line">       for(var j = 0; j &lt; row.cells; i++)&#123;</span><br><span class="line">           drawCell(i, j);</span><br><span class="line">       &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//build dm.tree    </span></span><br><span class="line">&#125;)<span class="params">(datamodel)</span>;</span></span><br></pre></td></tr></table></figure>
+<p>我们创建了一个匿名的函数，并立即执行它，由于外部无法引用它内部的变量，因此在执行完后很快就会被释放，关键是这种机制不会污染全局对象。<strong>2.缓存</strong></p><br><p>再来看一个例子，设想我们有一个处理过程很耗时的函数对象，每次调用都会花费很长时间，那么我们就需要将计算出来的值存储起来，当调用这个函数的时候，首先在缓存中查找，如果找不到，则进行计算，然后更新缓存并返回值，如果找到了，直接返回查找到的值即可。闭包正是可以做到这一点，因为它不会释放外部的引用，从而函数内部的值可以得以保留。</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> CachedSearchBox = (<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;,  </span><br><span class="line">       count = [];  </span><br><span class="line">    <span class="keyword">return</span> &#123;  </span><br><span class="line">       attachSearchBox : <span class="function"><span class="keyword">function</span><span class="params">(dsid)</span></span>&#123;  </span><br><span class="line">           <span class="keyword">if</span>(dsid <span class="keyword">in</span> cache)&#123;<span class="comment">//如果结果在缓存中  </span></span><br><span class="line">              <span class="keyword">return</span> cache[dsid];<span class="comment">//直接返回缓存中的对象  </span></span><br><span class="line">           &#125;  </span><br><span class="line">           <span class="keyword">var</span> fsb = <span class="keyword">new</span> uikit.webctrl.SearchBox(dsid);<span class="comment">//新建  </span></span><br><span class="line">           cache[dsid] = fsb;<span class="comment">//更新缓存  </span></span><br><span class="line">           <span class="keyword">if</span>(count.length &gt; <span class="number">100</span>)&#123;<span class="comment">//保正缓存的大小&lt;=100  </span></span><br><span class="line">              <span class="keyword">delete</span> cache[count.shift()];  </span><br><span class="line">           &#125;  </span><br><span class="line">           <span class="keyword">return</span> fsb;        </span><br><span class="line">       &#125;,  </span><br><span class="line">   </span><br><span class="line">       clearSearchBox : <span class="function"><span class="keyword">function</span><span class="params">(dsid)</span></span>&#123;  </span><br><span class="line">           <span class="keyword">if</span>(dsid <span class="keyword">in</span> cache)&#123;  </span><br><span class="line">              cache[dsid].clearSelection();    </span><br><span class="line">           &#125;  </span><br><span class="line">       &#125;  </span><br><span class="line">    &#125;;  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>CachedSearchBox.attachSearchBox(“input1”);  </p>
+<p>这样，当我们第二次调用CachedSearchBox.attachSerachBox(\input1”)的时候，我们就可以从缓存中取道该对象，而不用再去创建一个新的searchbox对象。<strong>3.实现封装</strong></p><br><p>可以先来看一个关于封装的例子，在person之外的地方无法访问其内部的变量，而通过提供闭包的形式来访问：</p>
+
+<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">var <span class="keyword">person</span> = function()&#123;</span><br><span class="line">    //变量作用域为函数内部，外部无法访问  </span><br><span class="line">    var name = <span class="string">"default"</span>;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">       getName : function()&#123;</span><br><span class="line">           return name;</span><br><span class="line">       &#125;,</span><br><span class="line">       setName : function(newName)&#123;</span><br><span class="line">           name = newName;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line">print(<span class="keyword">person</span>.name);//直接访问，结果为undefined  </span><br><span class="line">print(<span class="keyword">person</span>.getName());</span><br><span class="line"><span class="keyword">person</span>.setName(<span class="string">"abruzzi"</span>);</span><br><span class="line">print(<span class="keyword">person</span>.getName());</span><br><span class="line"></span><br><span class="line">得到结果如下：</span><br><span class="line"></span><br><span class="line">undefined</span><br><span class="line">default</span><br><span class="line">abruzzi</span><br></pre></td></tr></table></figure>
+<p><strong>4. 闭包的另一个重要用途是实现面向对象中的对象，传统的对象语言都提供类的模板机制</strong>这样不同的对象(类的实例)拥有独立的成员及状态，互不干涉。虽然JavaScript中没有类这样的机制，但是通过使用闭包，我们可以模拟出这样的机制。还是以上边的例子来讲：</p>
+
+<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">function <span class="keyword">Person</span>()&#123;</span><br><span class="line">    var name = <span class="string">"default"</span>;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">       getName : function()&#123;</span><br><span class="line">           return name;</span><br><span class="line">       &#125;,</span><br><span class="line">       setName : function(newName)&#123;</span><br><span class="line">           name = newName;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var john = <span class="keyword">Person</span>();</span><br><span class="line">print(john.getName());</span><br><span class="line">john.setName(<span class="string">"john"</span>);</span><br><span class="line">print(john.getName());</span><br><span class="line"></span><br><span class="line">var jack = <span class="keyword">Person</span>();</span><br><span class="line">print(jack.getName());</span><br><span class="line">jack.setName(<span class="string">"jack"</span>);</span><br><span class="line">print(jack.getName());</span><br><span class="line"></span><br><span class="line">运行结果如下：</span><br><span class="line"></span><br><span class="line">default</span><br><span class="line">john</span><br><span class="line">default</span><br><span class="line">jack</span><br></pre></td></tr></table></figure>
+<p>由此代码可知，john和jack都可以称为是Person这个类的实例，因为这两个实例对name这个成员的访问是独立的，互不影响的。</p>
+
+
+<p>当然，除此之外，从不同的角度来看待闭包，他的作用也可以有不同的说法。</p><br><ul><br><li>闭包可以防止变量重名，保证变量不污染全局</li><br><li>闭包可以创建私有变量和私有方法</li><br><li>闭包可以….</li><br></ul><br><br><br><p>本文参考：<a href="http://blog.csdn.net/sunlylorn/article/details/6534610" target="_blank">sunlylorn的专栏</a></p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/">http://barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-04-24 08:41:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/剪贴板/">剪贴板</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/JavaScript闭包/">JavaScript闭包</a>, <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/04/27/cb-garbage-collection/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>JavaScript垃圾回收机制</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/04/24/cb-ie6-bugs/" class="post-next">
+      <b>IE6 bug集</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/04/27/cb-garbage-collection/" class="prev" title="JavaScript垃圾回收机制">
+    <i class="icon">&#xe600;</i>
+    
+    <b>JavaScript垃圾回收机制</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/04/24/cb-ie6-bugs/" class="next" title="IE6 bug集">
+    <i class="icon">&#x261e;</i>
+    <b>IE6 bug集</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-javascript-closure-usages" data-title="JS闭包的用途" data-url="http://barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

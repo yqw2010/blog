@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>IE6的一个小bug | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;&amp;lt;html x">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IE6的一个小bug | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/08/09/cb-css-bug-in-IE6/">
+  <meta property="og:site_name" content="IE6的一个小bug">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;&amp;lt;html x">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">IE6的一个小bug</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-08-09 03:53:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/剪贴板/">剪贴板</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-css-bug-in-IE6"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/08/09/css-bug-in-IE6.html" target="_blank">博客园</a>.</div>
+
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">xmlns</span>=<span class="value">"//www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css"></span><br><span class="line">    &lt;!<span class="tag">--</span></span><br><span class="line">    <span class="tag">p</span><span class="rules">&#123;<span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">12px</span></span></span>;&#125;</span></span><br><span class="line">    <span class="rule"><span class="attribute">p</span>:<span class="value">first-letter&#123;font-size:<span class="number">300%</span>&#125;</span><br><span class="line">    --&gt;</span><br><span class="line">    </span></span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span>对于世界而言，你是一个人；但是对于某个人，你是他的整个世界。纵然伤心，也不要愁眉不展，因为你不知是谁会爱上你的笑容。<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><span>这段代码对&lt;p&gt;的首字符样式定义在IE6上看是没有效果的,而在p:first-letter和{font-size:300%}加上空格，也就是p:first-letter {font-size:300%}后，显示就正常了。&nbsp;</span><span>这个问题主要是出现在IE6浏览器中，而且这位朋友也说明了一些必要的触发条件：&nbsp;</span><span>1、IE6浏览器&nbsp;</span><span>2、选择符是带有伪类的&nbsp;</span><span>3、伪类中必须是有连接符-“的，例如:first-letter&nbsp;</span><span>4、是否有空格的存在</span></p>
+
+
+<p><span>本文转自：<a href="http://www.jb51.net/web/20615.html" target="_blank" rel="external">http://www.jb51.net/web/20615.html</a></span></p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/08/09/cb-css-bug-in-IE6/">http://barretlee.com/blog/2013/08/09/cb-css-bug-in-IE6/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-08-09 03:53:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/剪贴板/">剪贴板</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/08/11/cb-responsive-web-desigin/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>那些年，我们一起玩过的响应式布局</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/08/09/cb-css-spec/" class="post-next">
+      <b>前端编码规范之CSS</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/08/11/cb-responsive-web-desigin/" class="prev" title="那些年，我们一起玩过的响应式布局">
+    <i class="icon">&#xe600;</i>
+    
+    <b>那些年，我们一起玩过的响应式布局</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/08/09/cb-css-spec/" class="next" title="前端编码规范之CSS">
+    <i class="icon">&#x261e;</i>
+    <b>前端编码规范之CSS</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-css-bug-in-IE6" data-title="IE6的一个小bug" data-url="http://barretlee.com/blog/2013/08/09/cb-css-bug-in-IE6/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

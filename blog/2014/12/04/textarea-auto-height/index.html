@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>textarea高度自适应 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="问题：textarea数据是数据库直接输出填充，请问如何做到自适应?回答：var tt = document.getElementsByTagName(&quot;textarea&quot;).item(0),     len = tt.value.length,    width = tt.clientWidth,">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="textarea高度自适应 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/12/04/textarea-auto-height/">
+  <meta property="og:site_name" content="textarea高度自适应">
+  <meta property="og:description" content="问题：textarea数据是数据库直接输出填充，请问如何做到自适应?回答：var tt = document.getElementsByTagName(&quot;textarea&quot;).item(0),     len = tt.value.length,    width = tt.clientWidth,">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">textarea高度自适应</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-12-04 12:00:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/textarea/">textarea</a>, <a class="article-tag-link" href="/blog/tags/自适应/">自适应</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="textarea-auto-height"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <p>问题：textarea数据是数据库直接输出填充，请问如何做到自适应?</p>
+<p>回答：</p>
+<pre><code><span class="keyword">var</span> tt = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"textarea"</span>).item(<span class="number">0</span>), 
+    len = tt.value.length,
+    width = tt.clientWidth,
+    style = (<span class="built_in">window</span>.getComputedStyle
+                ||<span class="function"><span class="keyword">function</span>(<span class="params">a</span>)</span>{<span class="keyword">return</span> a.currentStyle})(tt, <span class="literal">null</span>),
+    fs = <span class="built_in">parseInt</span>(style[<span class="string">'font-size'</span>]) || <span class="number">12</span>,
+    lh = <span class="built_in">parseInt</span>(style[<span class="string">'line-height'</span>]) || fs * <span class="number">1.2</span>;
+
+tt.style.height = <span class="built_in">Math</span>.ceil(len / (width / fs)) * lh + <span class="string">"px"</span>;
+</code></pre><p>这里需要注意的是：</p>
+<ul>
+<li>line-height 可能是 normal/inherit 之类的值，所以最好加上一个默认值</li>
+<li>上面算法适合等宽字体</li>
+<li>防止计算误差，使用 Math.ceil 函数，比较靠谱的方式是 Math.ceil(len / (width / fs) - 1)，可以少一行~</li>
+</ul>
+<p>当然，最简单的方式莫过于：</p>
+<pre><code>tt.onpropertychange = tt.oninput = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.style.height = <span class="keyword">this</span>.scrollHeight;
+};
+</code></pre><p>虽然 css 也可以做到，但效果并不是很好：</p>
+<pre><code><span class="class">.tt</span> <span class="rules">{
+    <span class="rule"><span class="attribute">overflow-x</span>:<span class="value"> hide</span></span>;
+    <span class="rule"><span class="attribute">overflow-y</span>:<span class="value"> visible</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;
+}</span>
+</code></pre><p>找个有 textarea 的页面，打开控制台，输入字符，验证下吧~</p>
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/12/04/textarea-auto-height/">http://barretlee.com/blog/2014/12/04/textarea-auto-height/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-12-04 12:00:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/textarea/">textarea</a>, <a class="article-tag-link" href="/blog/tags/自适应/">自适应</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/12/14/种子，的眺望/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>种子，的眺望</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/11/28/data-compile-by-f2e-or-r2e/" class="post-next">
+      <b>数据交给谁来解析，前端还是后端？</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/12/14/种子，的眺望/" class="prev" title="种子，的眺望">
+    <i class="icon">&#xe600;</i>
+    
+    <b>种子，的眺望</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/11/28/data-compile-by-f2e-or-r2e/" class="next" title="数据交给谁来解析，前端还是后端？">
+    <i class="icon">&#x261e;</i>
+    <b>数据交给谁来解析，前端还是后端？</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="textarea-auto-height" data-title="textarea高度自适应" data-url="http://barretlee.com/blog/2014/12/04/textarea-auto-height/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

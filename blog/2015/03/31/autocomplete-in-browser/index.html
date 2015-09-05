@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>干掉浏览器中的自动填充 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过console.log(document.getElement">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="干掉浏览器中的自动填充 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/">
+  <meta property="og:site_name" content="干掉浏览器中的自动填充">
+  <meta property="og:description" content="当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过console.log(document.getElement">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">干掉浏览器中的自动填充</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2015-03-31 12:00:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/autocomplete/">autocomplete</a>, <a class="article-tag-link" href="/blog/tags/chrome/">chrome</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="autocomplete-in-browser"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <p>当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。</p>
+<p>这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"passwordInput"</span>).value)</span><br></pre></td></tr></table></figure>
+<p>就能拿到密码明文。虽加强了体验，但削弱了安全性，也让有「强迫症」的程序员感到颇为不爽。</p>
+<p>当页面加载的时候直接将表单域设置为空，貌似是不起作用的。原因是，浏览器在页面加载到一定程度时（我也不知道是什么时机）从自己的数据库中挖出曾经保存的表单域，填充进去。</p>
+<p>有人想到使用定时器，检测表单是否存在数据，这样的操作费时费力，不提倡。</p>
+<p>可以考虑这个方案：</p>
+<p>每个 <code>input</code> 都有 <code>defaultValue</code> 属性，这是 DOM 初始化的时候给它加上的，判断</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">input.defaultValue == input.value  </span><br><span class="line"><span class="comment">// 如果相等则不处理，如果不相等则将 value 置为空</span></span><br></pre></td></tr></table></figure>
+<p>感觉是，是靠谱的！</p>
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/">http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-03-31 12:00:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/autocomplete/">autocomplete</a>, <a class="article-tag-link" href="/blog/tags/chrome/">chrome</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/04/02/cb-bugs/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>前人挖坑，后人填坑</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/03/30/autojump-in-mac/" class="post-next">
+      <b>Mac下的效率工具autojump</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2015/04/02/cb-bugs/" class="prev" title="前人挖坑，后人填坑">
+    <i class="icon">&#xe600;</i>
+    
+    <b>前人挖坑，后人填坑</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/03/30/autojump-in-mac/" class="next" title="Mac下的效率工具autojump">
+    <i class="icon">&#x261e;</i>
+    <b>Mac下的效率工具autojump</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="autocomplete-in-browser" data-title="干掉浏览器中的自动填充" data-url="http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>个人网站架构设计(一) | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.网站地址：http://barretlee.com从大二开始，坚持每月3到8篇的技术分享，到现在差不多两年了。一直在分享之中跟着大家一起进步，从最开始的点点网，到github，再到现在的博客园。分享是一件有趣的事情，能够收到很多的反馈，渐渐地，已经把写博当成一种习">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="个人网站架构设计(一) | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/05/13/cb-personal-website-design-part-1/">
+  <meta property="og:site_name" content="个人网站架构设计(一)">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.网站地址：http://barretlee.com从大二开始，坚持每月3到8篇的技术分享，到现在差不多两年了。一直在分享之中跟着大家一起进步，从最开始的点点网，到github，再到现在的博客园。分享是一件有趣的事情，能够收到很多的反馈，渐渐地，已经把写博当成一种习">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">个人网站架构设计(一)</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-05-13 11:13:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-personal-website-design-part-1"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/05/13/personal-website-design-part-1.html" target="_blank">博客园</a>.</div>
+
+<p>网站地址：<a href="http://barretlee.com">http://barretlee.com</a></p><br><p>从大二开始，坚持每月3到8篇的技术分享，到现在差不多两年了。一直在分享之中跟着大家一起进步，从最开始的<a href="http://qianduan-notes.diandian.com/" target="_blank">点点网</a>，到<a href="https://github.com/barretlee/" target="_blank">github</a>，再到现在的博客园。分享是一件有趣的事情，能够收到很多的反馈，渐渐地，已经把写博当成一种习惯。</p><br><p>在不同的平台上写博客会有不同的感受，但是几乎没有哪个平台可以满足自己的所有需求，比如，期望没有广告、希望速度可以更快、自己可以更多的操作后端、找个地方放DEMO、有个NodeJS测试的环境、自定义样式和主题等等，对我这个喜欢折腾的人来说，这些需求真是太普通了，可惜，没有哪个平台可以提供这么多的服务。再如，我希望把更多的生活中元素或者情感的东西带到博客中来，这些平台貌似不太适合做这些事情。</p><br><p>无奈之下只好自己花点钱买个主机安置个人网站。搭建一个网站是一个系统学习前后端的最佳机会，之前考虑过使用别人的框架，快捷搞定一个博客平台，但是我希望这次的网站架设能够承受几十万甚至上百万的PV（哈哈，这个可能性几乎为零，主要为了提高标准），同时也支持一些诸如陌生人交流，网站爬虫归类等等附加的功能。用商业性网站的建站标准来规范化网站，也给自己一个实践的机会~</p><br><p>花了四五个小时整理了思路，考虑的东西有点多，所以通过文字将建站的整个过程记录下来。</p><br><h3>1、网站定位</h3><br><p>记录生活，分享交流。凸显交流。</p><br><h3>2、设计理念</h3><br><ul><br><li>重视体验</li><br><li>数据在前端</li><br><li>实时更新</li><br><li>快、稳定、安全</li><br><li>自动化</li><br><li>低消耗、低流量</li><br></ul><br><h3>3、基本架构</h3><br><br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">+------------------+     +------------------+</span><br><span class="line">|<span class="string"> Front-End        </span>|<span class="string">     </span>|<span class="string"> Browser          </span>|</span><br><span class="line">|<span class="string">                  </span>|<span class="string">     </span>|<span class="string">                  </span>|</span><br><span class="line">|<span class="string">     前端处理      </span>|<span class="string">     +--------------+   </span>|</span><br><span class="line">|<span class="string">                  </span>|<span class="string">←---→</span>|<span class="string"> LocalStorage </span>|<span class="string">   </span>|</span><br><span class="line">+--↑-----↑-----↑---+     +--------------+---+</span><br><span class="line">   |<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">+--↓-----↓-----↓---+</span><br><span class="line">|<span class="string"> NodeJS           </span>|<span class="string">     +-------------+</span><br><span class="line"></span>|<span class="string">     处理I/O      </span>|<span class="string">     </span>|<span class="string"> Database    </span>|</span><br><span class="line">|<span class="string">                  </span>|<span class="string">←-+-→</span>|<span class="string">             </span>|</span><br><span class="line">+-----|<span class="string">-----↑------+  </span>|<span class="string">  </span>|<span class="string">             </span>|</span><br><span class="line">      |<span class="string">     </span>|<span class="string">         </span>|<span class="string">  </span>|<span class="string">             </span>|</span><br><span class="line">+-----↓-----|<span class="string">------+  </span>|<span class="string">  +----------+  </span>|</span><br><span class="line">|<span class="string"> PHP              </span>|<span class="string">  </span>|<span class="string">  </span>|<span class="string">          </span>|<span class="string">  </span>|</span><br><span class="line">|<span class="string">     处理数据      </span>|<span class="string">←-+-→</span>|<span class="string">   cache  </span>|<span class="string">  </span>|</span><br><span class="line">|<span class="string">                  </span>|<span class="string">     </span>|<span class="string">          </span>|<span class="string">  </span>|</span><br><span class="line">+------------------+     +----------+--+</span><br></pre></td></tr></table></figure><br><br><p>三个重点：</p><br><ul><br><li>前端数据缓存。数据放在本地LocalStorage中，用户每次访问网站，都会从数据库拉去数据，同步到本地。低版本IE基本快死绝了，这个降级处理。</li><br><li>NodeJS 处理I/O，如果某个页面的单日访问量太大，不至于服务器扛不住。由于全站使用socket连接，利用NodeJS也便于后端编程。</li><br><li>数据库对针对访问频率进行cache。</li><br></ul><br><h3>4、基本模块</h3><br><ol><br><li>留言，多个位置使用，组件化处理</li><br><li>自动化分享，发布文章自动分享到 SNS 上</li><br><li>防盗链/盗链</li><br><li>数据自动备份</li><br><li>后台发文系统</li><br><li>提问交流平台</li><br><li>陌生人交流模块</li><br><li>最新资讯的爬虫</li><br><li>RSS聚合</li><br><li>QQ回复/邮件自动回复功能</li><br></ol><br><p>后续会针对每个功能模块，进行详细的记录。</p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/05/13/cb-personal-website-design-part-1/">http://barretlee.com/blog/2014/05/13/cb-personal-website-design-part-1/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-05-13 11:13:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/05/15/cb-personal-website-design-part-2/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>个人网站架构设计(二)</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/05/11/cb-etag-in-node/" class="post-next">
+      <b>Etag缓存在PHP和NodeJS中的实现</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/05/15/cb-personal-website-design-part-2/" class="prev" title="个人网站架构设计(二)">
+    <i class="icon">&#xe600;</i>
+    
+    <b>个人网站架构设计(二)</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/05/11/cb-etag-in-node/" class="next" title="Etag缓存在PHP和NodeJS中的实现">
+    <i class="icon">&#x261e;</i>
+    <b>Etag缓存在PHP和NodeJS中的实现</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-personal-website-design-part-1" data-title="个人网站架构设计(一)" data-url="http://barretlee.com/blog/2014/05/13/cb-personal-website-design-part-1/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

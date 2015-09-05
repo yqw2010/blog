@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>当正则匹配零个字符 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="&quot;something&quot;.match(/\s*(.*?)\s*/)&amp;gt; [&#39;&#39;, &#39;&#39;]&quot;something&quot;.match(/^\s*(.*?)\s*$/)&amp;gt; [&quot;something&quot;, &quot;something&quot;]为何前者匹配的结果为空？如果你不清楚正则的贪婪模式和非贪婪模式，请先移步这里.整">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="当正则匹配零个字符 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/04/28/reg-match-null/">
+  <meta property="og:site_name" content="当正则匹配零个字符">
+  <meta property="og:description" content="&quot;something&quot;.match(/\s*(.*?)\s*/)&amp;gt; [&#39;&#39;, &#39;&#39;]&quot;something&quot;.match(/^\s*(.*?)\s*$/)&amp;gt; [&quot;something&quot;, &quot;something&quot;]为何前者匹配的结果为空？如果你不清楚正则的贪婪模式和非贪婪模式，请先移步这里.整">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">当正则匹配零个字符</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-04-28 12:00:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/JavaScript/">JavaScript</a>, <a class="article-tag-link" href="/blog/tags/正则/">正则</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="reg-match-null"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <pre><code><span class="string">"something"</span>.<span class="function"><span class="title">match</span><span class="params">(/\s*(.*?)</span></span>\s*/)
+&gt; [<span class="string">''</span>, <span class="string">''</span>]
+
+<span class="string">"something"</span>.<span class="function"><span class="title">match</span><span class="params">(/^\s*(.*?)</span></span>\s*$/)
+&gt; [<span class="string">"something"</span>, <span class="string">"something"</span>]
+</code></pre><p>为何前者匹配的结果为空？</p>
+<p>如果你不清楚正则的贪婪模式和非贪婪模式，请先移步<a href="http://www.cnblogs.com/hustskyking/p/how-regular-expressions-work.html#p-2.2" target="_blank" rel="external">这里</a>.</p>
+<p>整个匹配分为三步：</p>
+<ol>
+<li>第一个 \s*, 贪婪模式把字符全部吞掉，然后回溯，直到第一个字符任然没找到</li>
+<li>第二步是 .*? 由于是非贪婪模式匹配了一个字符就结束了，继续第三步</li>
+<li>第三步匹配失败，回溯到第二步，那第二步会继续减少吞掉的字符，于是字符数缩减到零。</li>
+</ol>
+<p>可能这么说还是不太清晰，先看看这个对比：<br><img src="https://cloud.githubusercontent.com/assets/2698003/2816541/7e6c1076-cecb-11e3-823e-640e1b53ca00.jpg" alt="qq20140428195101"></p>
+<p>关于返回结果不是 null 而是 “”，你可以理解为匹配到了零个 a。</p>
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/04/28/reg-match-null/">http://barretlee.com/blog/2014/04/28/reg-match-null/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-04-28 12:00:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/JavaScript/">JavaScript</a>, <a class="article-tag-link" href="/blog/tags/正则/">正则</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/04/28/cb-spider-with-node/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>NodeJS写个爬虫，把文章放到kindle中阅读</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/04/28/git-roll-back/" class="post-next">
+      <b>git版本回退操作</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/04/28/cb-spider-with-node/" class="prev" title="NodeJS写个爬虫，把文章放到kindle中阅读">
+    <i class="icon">&#xe600;</i>
+    
+    <b>NodeJS写个爬虫，把文章放到kindle中阅读</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/04/28/git-roll-back/" class="next" title="git版本回退操作">
+    <i class="icon">&#x261e;</i>
+    <b>git版本回退操作</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="reg-match-null" data-title="当正则匹配零个字符" data-url="http://barretlee.com/blog/2014/04/28/reg-match-null/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

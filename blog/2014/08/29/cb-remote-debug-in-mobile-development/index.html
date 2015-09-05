@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>PC远程调试移动设备 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.我们在移动端进行前端开发时，会遇到一个让人头痛但不得不面对的问题&amp;mdash;&amp;mdash;调试。在 PC 机器上，我们有功能强大的 Chrome DevTools、Firebug，即便是老版本的 IE ，我们也可以安装微软提供的插件，对网页样式和请求信息轻松进行">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PC远程调试移动设备 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/08/29/cb-remote-debug-in-mobile-development/">
+  <meta property="og:site_name" content="PC远程调试移动设备">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.我们在移动端进行前端开发时，会遇到一个让人头痛但不得不面对的问题&amp;mdash;&amp;mdash;调试。在 PC 机器上，我们有功能强大的 Chrome DevTools、Firebug，即便是老版本的 IE ，我们也可以安装微软提供的插件，对网页样式和请求信息轻松进行">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">PC远程调试移动设备</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-08-29 12:15:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/网络交互/">网络交互</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-remote-debug-in-mobile-development"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/08/29/remote-debug-in-mobile-development.html" target="_blank">博客园</a>.</div>
+
+<p>我们在移动端进行前端开发时，会遇到一个让人头痛但不得不面对的问题&mdash;&mdash;调试。</p><br><p>在 PC 机器上，我们有功能强大的 Chrome DevTools、Firebug，即便是老版本的 IE ，我们也可以安装微软提供的插件，对网页样式和请求信息轻松进行调试。但在手机、平板上，很多人就无招可施了，一个劲的 alert 查看调试信息。如果你已经厌倦了可爱又可恨的 alert 弹窗，请继续往下阅读。</p><br><h3>一、先说说调试的原理</h3><br><p>设备浏览器中输入一个 URL，它会向 URL 所在的 server 请求资源：</p>
+
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="literal">+</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">+</span>         <span class="literal">+</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">+</span></span><br><span class="line"><span class="comment">|</span>    <span class="comment">client</span>   <span class="comment">|</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">→|</span>    <span class="comment">Internet</span>   <span class="comment">|</span></span><br><span class="line"><span class="literal">+</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">+</span>         <span class="literal">+</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">+</span></span><br></pre></td></tr></table></figure>
+<p>此时，数据是从 client 和 目标 server 之间的隐秘交互，除非 server 端的代码是由我们自己控制，否则很难了解他们之间都做了什么信息传递。如果 server 传过来的代码存在 bug，此时我们就相当纠结了。比较常见的情景是，该 server 就是我们的测试机器，我们在测试机器上开发，通过一个移动设备 client 来实施调试代码，常用的调试方式就是修改 server 代码，再实时查看 client 的响应。</p><br><p>但是，问题来了。某天，Barret 发现 client 端页面显示有 bug，由于 client 请求的目标 server 是线上，不像平时的测试机器，我们可以随意修改代码然后查看效果，并且线上的代码都是经过压缩和打包了的，很难阅读，怎么办？</p><br><p>于是，我想到了使用代理：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">+-------------+    \ /   +---------------+</span><br><span class="line">|<span class="string">    client   </span>|<span class="string">-----&amp;times;---→</span>|<span class="string">    Internet   </span>|</span><br><span class="line">+-------------+    / \   +---------------+</span><br><span class="line">       |<span class="string">                         ↑</span><br><span class="line">       </span>|<span class="string">                         </span>|</span><br><span class="line">       |<span class="string">     +-------------+     </span>|</span><br><span class="line">       +----→|<span class="string">    proxy    </span>|<span class="string">-----+</span><br><span class="line">             +-------------+</span></span><br></pre></td></tr></table></figure>
+<p>我们在 client 端做相应配置，让他的请求强制指向 proxy，然后 proxy 转发请求到目标 server，proxy 上的请求和响应都是透明的，通过篡改 client 到 proxy 的请求，或者篡改 server 到 proxy 的响应，就可以实时查看这些人为修改在 client 端的效果了。本文目的就是说明 proxy 是如何操作的。</p><br><h3>二、通过 Fiddler 代理</h3><br><p>windows 下著名的 http(s) 代理软件 fiddler 使用比较广泛，mac 下可以使用 charles 代理，由于使用人群相对偏少，本文就不细说，感兴趣的可以 PM 我。charles 是一个跨平台的软件，windows 下也可以使用，不过个人偏好 fiddler。OK，我们来看看 fiddler 是如何一步一步完成网络代理的。</p><br><p><strong>1. 配置客户端</strong></p><br><p>这里说的客户端包括手机、平板甚至电脑。一般的 android / IOS 设备都可以设置代理：</p><br><p>step 1. 当连接好网络之后（相信你在一个 wifi 环境下进行开发），点击右侧的箭头按钮，我使用的是 android 手机，IOS 也比较好找，在 设置&gt;Wi-Fi 中找到对应的网络，右侧有个圆圈包着的 i 图标，点击进入：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282333111579295.jpg" alt="" width="289" height="511"></p><br><p>step 2.&nbsp;一般代理方式有两种，手动和自动，将其设置为手动，然后填写，你电脑的 IP（为啥呢？因为 proxy 是你的电脑，client 的请求要全部转发到你的电脑上，然后使用 fiddler 软件去分析/替换请求），windows 下使用 ipconfig 可以看到本机 IP，linux/unix 下使用 ifconfig 查看：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282339113135798.jpg" alt="" width="452" height="296"></p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282333236261387.jpg" alt="" width="285" height="505"></p><br><p>step 3.&nbsp;设置端口，端口可以随意设置，但最好大于 3000，数值比较小的端口可能被系统占用了。</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282340576885734.jpg" alt=""></p><br><p>这里需要注意一点，由于 client 相对我们电脑的 fiddler 来说是一个远程设备，所以要在 Allow Remote Computers to Connert 选项上打上勾勾。</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282339362666508.jpg" alt=""></p><br><p>step 4.&nbsp;进入手机浏览器，输入网址：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282343301106735.jpg" alt="" width="258" height="458"></p><br><p>step 5.&nbsp;然后把你的眼睛挪到电脑屏幕上看看 fiddler：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282344162984759.jpg" alt=""></p><br><p>到这里，我相信你已经看明白了整个 proxy 的原理。至于 fiddler 如何替换包，如何修改包，如果调试，不是本文叙述的重点，下面演示一个简单的替换。</p><br><p><strong>2. 调试</strong></p><br><p>请求百度的页面，我们把百度的 logo 换成博客园的：</p><br><p>step 1. 在 AutoResponder 中添加一项：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282352193137126.jpg" alt="" width="776" height="405"></p><br><p>step 2. 进入你的浏览器（UC下清空缓存，如果缓存中有百度图片，他会使用缓存，并不发出这个请求），打开百度页面：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201408/282356507983855.jpg" alt="" width="284" height="506"></p><br><p>然后你就发现，貌似哪里有点不对~ 除此之外，你还可以将线上文件替换到本地，比如线上的 xyz-min.js 替换成本地的 xyz.js 然后修改 xyz.js 的内容，直接调试线上 bug，异常方便！</p><br><h3>三、其他工具</h3><br><p>有人会说，我没有实体机，那我建议你在电脑上安装虚拟机，android 和 IOS 的虚拟机都比较好安装。</p><br><p>有人会说，我电脑太卡，跑不动虚拟机，那我建议你就是用上述方式。</p><br><p>有人会说，…..，（如果没实体机也没虚拟机，那你开发个毛线呀）。</p><br><p>Fiddler 和 Charles 都是 HTTP(s) 层的抓包软件，如果你是 websocket 开发调试，建议使用 wireshark，网络七层协议，这个软件能抓除数据链路层之外的所有层信息，出于安全考虑，它抓到的包是不能篡改的。</p><br><p>还有一些比较好用的工具，如利用 pac 文件配置系统代理，weinre 调试等，这里简单介绍下 weinre：</p><br><div><br><h4>1. 安装</h4><br><br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">npm</span> install &amp;ndash;<span class="title">g</span> weinre</span><br></pre></td></tr></table></figure><br><br><h4>2. 打开</h4><br><br><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="keyword">weinre</span> -httpPort 7999 -boundHost -<span class="literal">all</span>-</span><br></pre></td></tr></table></figure><br><br><ul><br><li>httpPort 监听端口</li><br><li>boundHost &ndash;all- 绑定主机</li><br></ul><br><h4>3. 说明都写在图片里头，相信聪明的你可以悟到</h4><br></div><br><p><img src="http://images.cnitblog.com/blog/387325/201408/290011110635771.png" alt="" width="675" height="710"></p><br><h3>四、小结</h3><br><p>移动端开发不比 PC 轻松，调试只是需要注意的一个小点，还有很多很多未知的东西等着我们去探索，本文也算是抛砖引玉，如果您有更好的移动端调试方案，希望可以分享出来，一起交流。</p>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/08/29/cb-remote-debug-in-mobile-development/">http://barretlee.com/blog/2014/08/29/cb-remote-debug-in-mobile-development/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-08-29 12:15:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/网络交互/">网络交互</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/09/07/onclick-in-javascript/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>window.open被浏览器拦截</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/08/29/be-patient/" class="post-next">
+      <b>评《别太听上司的话》</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/09/07/onclick-in-javascript/" class="prev" title="window.open被浏览器拦截">
+    <i class="icon">&#xe600;</i>
+    
+    <b>window.open被浏览器拦截</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/08/29/be-patient/" class="next" title="评《别太听上司的话》">
+    <i class="icon">&#x261e;</i>
+    <b>评《别太听上司的话》</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-remote-debug-in-mobile-development" data-title="PC远程调试移动设备" data-url="http://barretlee.com/blog/2014/08/29/cb-remote-debug-in-mobile-development/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

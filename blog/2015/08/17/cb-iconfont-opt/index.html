@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>iconfont的蜕化操作 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.很多国外的网站，访问的时候可以看到，页面先是大面积白一下，然后恢复正常。原因是网页上用到了 webfont，这些页面很多情况都是直接引用 google 的 webfont 地址，中华大局域网下，由于网络原因，页面虽已经全部加载，引用的 webfont 资源却还未下">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="iconfont的蜕化操作 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/">
+  <meta property="og:site_name" content="iconfont的蜕化操作">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.很多国外的网站，访问的时候可以看到，页面先是大面积白一下，然后恢复正常。原因是网页上用到了 webfont，这些页面很多情况都是直接引用 google 的 webfont 地址，中华大局域网下，由于网络原因，页面虽已经全部加载，引用的 webfont 资源却还未下">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">iconfont的蜕化操作</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2015-08-17 09:54:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-iconfont-opt"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/17/iconfont-opt.html" target="_blank">博客园</a>.</div>
+
+<p>很多国外的网站，访问的时候可以看到，页面先是大面积白一下，然后恢复正常。原因是网页上用到了 webfont，这些页面很多情况都是直接引用 google 的 webfont 地址，中华大局域网下，由于网络原因，页面虽已经全部加载，引用的 webfont 资源却还未下载成功，这就导致了使用了 webfont 的内容呈现空白状态，没有被渲染出来。</p><br><p>如，访问该网站：<a href="http://zurb.com/playground/foundation-icon-fonts-3" target="_blank" rel="external">http://zurb.com/playground/foundation-icon-fonts-3</a></p><br><p>为啥国内很少有这种事儿发生？英文字符并不多，生成 webfont 所占用的 unicode range 很小，故英文字体的 webfont 体积是很小的。而中文字符却有好几千个，一个完整中文的 webfont 至少有 2-3M，没人会在自己的网站上使用如此庞大的 webfont 的字体。</p><br><p>但 webicon 就不一样了，根据页面的需要，只摘取几个 unicode 段位，体积自然也是很小了。为了不影响正常字符的展示，webicon 的制作一般会选用空白的 unicode 段位，这些 unicode 在浏览器下默认展示为 <span>“”</span>，一个乱码的符号。那么同样的问题就出现了，由于 CDN 的服务不太稳定或者用户网络原因，页面打开之后，部分 webicon 的资源还未加载成功，那么那些使用到 webicon 的位置便会出现乱码，如果图标较大，体验是十分不好的。</p><br><h3 id="iconfont_1"><a class="headeranchor-link" name="user-content-iconfont_1" href="#iconfont_1"></a>☞ iconfont 制作的基本原理</h3><br><p>Unicode&thinsp;码表是一个很大的表格，每个表格都对应一个 Unicode 字符，每个字符都有一个 Unicode 码值对应，如 “李” 对应 “\u674e”, “靖” 对应 “\u9756”。因为码表很大，有部分表格并没有对应的字符，但是它有自己的码值。iconfont 的制作，首先将绘制的图形（可以是一张图片、也可以是一个 svg 描述）通过工具或者程序生成文字icon，然后将文字icon对应到码表之中，为了不干预码表中已有的字符，我们通常会把文字icon对应到没有字符的表格中，最后导出我们额外对应的表格信息，生成iconfont。如下图所示：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">                            Unicode 码表</span><br><span class="line">                         +-----------------+</span><br><span class="line">         ...             |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">                         |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line"> 图形icon     文字icon    +-----------------+</span><br><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">|<span class="string">icon a +----&gt;   A  +-----------&gt; Ua </span>|<span class="string">     </span>|</span><br><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">                         +-----------------+</span><br><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">|<span class="string">icon b +----&gt;   B  +-----&gt; Ub +     </span>|<span class="string">     +------&gt; iconfont</span><br><span class="line">+-------+    +------+    </span>|<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">                         +-----------------+</span><br><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">|<span class="string">icon C +----&gt;   C  +-----&gt; Uc </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">                         +-----------------+</span><br><span class="line">         ...             |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">                         |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><br><span class="line">                         +-----------------+</span><br></pre></td></tr></table></figure>
+<p>图中，三个icon分别对应到 Unicode 码表中码值为 Ua Ub Uc 的三个表格，那么最后导出的 iconfont 也就只包含这三个字符信息，这个体积是很小的。</p><br><p>延伸阅读：<a href="http://www.cnblogs.com/hustskyking/p/manufacture-font-face-in-web.html" target="_blank" rel="external">再探@font-face及webIcon制作</a></p><br><h3 id="iconfont_2"><a class="headeranchor-link" name="user-content-iconfont_2" href="#iconfont_2"></a>☞ iconfont 的蜕化处理</h3><br><p>正常的情况下是一堆漂亮的 icon 图标，而当网络较慢或者 CDN 不稳定的时候，用户看到的是图示乱码的框框，优化之后，用户可以看到我们对 iconfont 的蜕化操作。效果预览：</p><br><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948437225461.png" alt=""></p>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="preprocessor"># 绑定 hosts</span></span><br><span class="line"><span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> at.alicdn.com</span><br><span class="line"><span class="preprocessor"># 然后访问淘宝首页，可以看到效果</span></span><br></pre></td></tr></table></figure>
+<p>了解了iconfont 的制作之后，理解上图就不难了。中间乱码的那张图里，每个图标对应的都是无字符的码表表格，页面默认的字体呈现这些字符的状态就是 “”。这里我们提到的蜕化处理，只需要在对应 Unicode 码表时，将每个图标对应到有字符的码表表格中，就会看到最上层那张图片的效果。</p><br><p>有人会问，那些蜕化的图标是从哪里来的？对应的键值又是多少？</p><br><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948513634127.png" alt=""></p><br><p>除了 emoji 外，我们输入法能够输出的所有文字在 web 上也都是能够正常显示的，所谓的正常显示就是不会出现 “”。平时常用的搜狗输入法/百度输入法都提供了很多的特殊字符，我们可以在这些特殊字符中找到最能表现icon的字符，当然，甚至可以使用文字、字母来替代。</p><br><p>比如音乐icon可以使用 “♫” 替代，计算字符码值的方式是：</p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> code</span> = <span class="string">"♫"</span>.charCodeAt(<span class="number">0</span>).toString(<span class="number">16</span>);</span><br><span class="line"><span class="comment">// htmlEncodedStr 便可以作为icon的内容</span></span><br><span class="line"><span class="variable"><span class="keyword">var</span> htmlEncodedStr</span> = <span class="string">"&lt;#x"</span> + code + <span class="string">";"</span>;</span><br></pre></td></tr></table></figure>
+<p>以国内目前做的最好的 <a href="http://iconfont.cn/" target="_blank" rel="external">iconfont 网站</a>为例，演示如何便捷的修改文字icon对应的默认码值:</p><br><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948589255051.gif" alt=""></p><br><p>修改完之后保存，此时这个 icon 对应的码值就已经变化了。</p>
+
+
+<p></p><h3 id="iconfont_2">☞&nbsp;小结</h3><p></p>
+<p>很多网站都承载着日均几百上千万的流量，用户的网络环境复杂，每个细节问题都会在部分用户面前暴露无遗，我们要做的就是去优化那些概率性看到的”小问题”，这些”小问题”在庞大的用户群体中会变成一个很大的问题，必须引起重视。</p>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/">http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-08-17 09:54:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/08/20/cb-fe-monitor/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>前端代码异常日志收集与监控</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/08/12/cb-data-uri/" class="post-next">
+      <b>细说 Data URI</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2015/08/20/cb-fe-monitor/" class="prev" title="前端代码异常日志收集与监控">
+    <i class="icon">&#xe600;</i>
+    
+    <b>前端代码异常日志收集与监控</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/08/12/cb-data-uri/" class="next" title="细说 Data URI">
+    <i class="icon">&#x261e;</i>
+    <b>细说 Data URI</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-iconfont-opt" data-title="iconfont的蜕化操作" data-url="http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

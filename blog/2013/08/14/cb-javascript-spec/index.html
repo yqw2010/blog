@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>前端编码规范之JavaScript | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.　　上次浅谈了下关于CSS的编码规范，大部分童鞋持赞同意见，仍存在一些童鞋不太理解这些规范的意义。　　如果是个人或者小作坊开发，其实这些所谓的编码规范也没啥意思，因为大家写好的代码直接就给扔到网上去了，很少有打包、压缩、校检等过程，别人来修改你代码的情况也比较少。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="前端编码规范之JavaScript | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/08/14/cb-javascript-spec/">
+  <meta property="og:site_name" content="前端编码规范之JavaScript">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.　　上次浅谈了下关于CSS的编码规范，大部分童鞋持赞同意见，仍存在一些童鞋不太理解这些规范的意义。　　如果是个人或者小作坊开发，其实这些所谓的编码规范也没啥意思，因为大家写好的代码直接就给扔到网上去了，很少有打包、压缩、校检等过程，别人来修改你代码的情况也比较少。">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">前端编码规范之JavaScript</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-08-14 11:55:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-javascript-spec"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/08/14/javascript-spec.html" target="_blank">博客园</a>.</div>
+
+<p>　　上次浅谈了下<a href="http://www.cnblogs.com/hustskyking/p/css-spec.html" target="_blank">关于CSS的编码规范</a>，大部分童鞋持赞同意见，仍存在一些童鞋不太理解这些规范的意义。</p><br><p>　　如果是个人或者小作坊开发，其实这些所谓的编码规范也没啥意思，因为大家写好的代码直接就给扔到网上去了，很少有打包、压缩、校检等过程，别人来修改你代码的情况也比较少。但是，对于一定规模的团队来说，这些东西还是挺有必要的！<strong><span>一个是保持代码的整洁美观，同时良好的代码编写格式和注释方式可以让后来者很快地了解你代码的大概思路，提高开发效率。</span></strong></p><br><p>　　那么这次，继续<span><strong>抛砖引玉</strong></span>，说说Javascript一些需要引起注意的地方（这些东西也是团队开发的时候大家集思广益总结出来的）。</p><br><h3>不规范写法举例</h3><br><p><strong>1.&nbsp;句尾<span>没有分号</span></strong></p>
+
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isHotel = json.<span class="keyword">type</span> == <span class="string">"hotel"</span> ? <span class="constant">true</span> : <span class="constant">false</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.<span>&nbsp;变量命名</span>各种各样</strong></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> is_hotel;</span><br><span class="line"><span class="keyword">var</span> isHotel;</span><br><span class="line"><span class="keyword">var</span> ishotel;</span><br></pre></td></tr></table></figure>
+<p><strong>3.&nbsp;<span>if</span> 缩写</strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="params">(isHotel)</span></span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(<span class="literal">true</span>)</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(<span class="literal">false</span>)</span></span><br></pre></td></tr></table></figure>
+<p><strong>4.&nbsp;使用<span> eval</span></strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> json = <span class="built_in">eval</span>(jsonText);</span><br></pre></td></tr></table></figure>
+<p><strong>5.&nbsp;<span>变量未定义</span>到处都是</strong></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isHotel = <span class="string">'true'</span>;</span><br><span class="line">    .......</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> html = isHotel ? <span class="string">'&lt;p&gt;hotel&lt;/p&gt;'</span> : <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>6.&nbsp;<span>超长函数</span></strong></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isHotel = <span class="string">'true'</span>;</span><br><span class="line">    <span class="comment">//....... 此处省略500行</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>7.&nbsp;……….</strong></p>
+
+
+<p><span>书写不规范的代码让我们难以维护，有时候也让我们头疼。</span></p>
+
+
+<p><span><strong><span>（禁止）、（必须）<span><span>等字眼，在这里</span><span>只是表示强调，未严格要求</span>。</span></span></strong></span></p><br><h3>前端规范之JavaScript</h3><br><p><strong>&nbsp;1.&nbsp;<span>tab</span>键用<span>（必须）<span>用</span></span><span>四个空格</span>代替</strong></p><br><p>这个原因已经在<a href="http://www.cnblogs.com/hustskyking/p/css-spec.html" target="_blank">前端编码规范之CSS</a>说过了，不再赘述。</p>
+
+
+<p><strong>2. 每句代码后<span>（必须）</span>加”<span>;</span>“</strong></p><br><p>&nbsp;这个是要引起注意的，比如：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">a = b        <span class="comment">// 赋值</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">&#125;)()         <span class="comment">// 自执行函数</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;未加分号，结果被解析成</p>
+
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">a = b(<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;//...&#125;)<span class="params">()</span>  //将<span class="title">b</span><span class="params">()</span><span class="params">()</span>返回的结果赋值给<span class="title">a</span></span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;这是截然不同的两个结果，所以对于这个问题必须引起重视！！！</p>
+
+
+<p><strong>3.&nbsp;变量、常量、类的<span>命名</span>按<span>（必须）</span>以下规则执行：</strong></p><br><p>　　<strong>1）<span>&nbsp;变量</span>：<code>必须</code>采用<span><code>骆驼峰</code></span>的命名且首字母小写</strong></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的命名</span></span><br><span class="line"> <span class="keyword">var</span> isHotel,</span><br><span class="line">     isHotelBeijing,</span><br><span class="line">     isHotelBeijingHandian;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 不推荐的命名</span></span><br><span class="line"> <span class="keyword">var</span> is_Hotel,</span><br><span class="line">     ishotelbeijing,</span><br><span class="line">     IsHotelBeiJing;</span><br></pre></td></tr></table></figure>
+<p>　　<strong>2）<span>&nbsp;常量</span>：<code>必须</code>采用<span>全大写的</span>命名，且单词以<code>_</code>分割</strong>，常量通常用于ajax请求url，和一些不会改变的数据</p>
+
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的命名</span></span><br><span class="line">  <span class="keyword">var</span> <span class="type">HOTEL_GET_URL</span> = <span class="symbol">'http</span>:<span class="comment">//map.baidu.com/detail',</span></span><br><span class="line">      <span class="type">PLACE_TYPE</span> = <span class="symbol">'hote</span>l';</span><br></pre></td></tr></table></figure>
+<p>　　<strong>3）<span>&nbsp;类</span>：<code>必须</code>采用<span><code>骆驼峰</code></span>的命名且<span>首字母大写</span></strong>，如：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的写法</span></span><br><span class="line"> <span class="keyword">var</span> FooAndToo = <span class="function"><span class="keyword">function</span><span class="params">(name)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.name = name;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4.&nbsp;<span>空格</span>的使用</strong></p><br><p><strong>　　1）<span><code>if</code></span><span>中的空格，先上例子</span></strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正确的写法</span></span><br><span class="line"> <span class="keyword">if</span> <span class="params">(isOk)</span> &#123;</span><br><span class="line">     console.<span class="built_in">log</span><span class="params">(<span class="string">"ok"</span>)</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//不推荐的写法</span></span><br><span class="line"> <span class="keyword">if</span><span class="params">(isOk)</span>&#123;</span><br><span class="line">     console.<span class="built_in">log</span><span class="params">(<span class="string">"ok"</span>)</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul><br><li><code>()</code>中的判断条件前后都<span>(<code>必须)</code></span>加空格</li><br><li><code>()</code>里的判断前后<span>(<code>禁止)</code></span>加空格，如：正确的写法:&nbsp;<code>if (isOk)</code>；不推荐的写法:&nbsp;<code>if ( isOk )</code></li><br></ul><br><p><strong>　　2）<span><code>switch</code></span><span>中的空格, 先上例子</span></strong></p><br><br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正确的写法</span></span><br><span class="line">  <span class="keyword">switch</span>(name) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">"hotel"</span>:</span><br><span class="line">          console.<span class="built_in">log</span>(name);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> <span class="string">"moive"</span>:</span><br><span class="line">          console.<span class="built_in">log</span>(name);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">          <span class="comment">// code</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//不推荐的写法</span></span><br><span class="line">  <span class="keyword">switch</span> (name) &#123;                     <span class="comment">// switch 后不应该有空格, 正确的写法: switch(name) &#123; // code</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">"hotel"</span>:</span><br><span class="line">          console.<span class="built_in">log</span>(name);</span><br><span class="line">      <span class="keyword">break</span>;                          <span class="comment">// break; 应该和console.log对齐</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">"movie"</span>:                   <span class="comment">// 每个case之前需要有换行</span></span><br><span class="line">          console.<span class="built_in">log</span>(name);</span><br><span class="line">      <span class="keyword">break</span>;                          <span class="comment">// break; 应该和console.log对齐</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">          <span class="comment">// code</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><br><br><p>&nbsp;　　<strong>3）<span><code>for</code></span>中的空格，先上例子</strong></p><br><br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的写法</span></span><br><span class="line"> <span class="keyword">var</span> names = [<span class="string">"hotel"</span>, <span class="string">"movie"</span>],</span><br><span class="line">     i, <span class="built_in">len</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (i=<span class="number">0</span>, <span class="built_in">len</span>=names.length; i &lt; <span class="built_in">len</span>; i++) &#123;</span><br><span class="line">     <span class="comment">// code</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 不推荐的写法</span></span><br><span class="line"> <span class="keyword">var</span> names = [<span class="string">"hotel"</span>, <span class="string">"movie"</span>],</span><br><span class="line">     i, <span class="built_in">len</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span>(i = <span class="number">0</span>, <span class="built_in">len</span> = names.length;i &lt; <span class="built_in">len</span>;i++) &#123;          <span class="comment">// for后应该有空格，每个`;`号后需要有空格，变量的赋值不应该有空格</span></span><br><span class="line">     <span class="comment">// code</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><br><br><ul><br><li><strong><span><code>for</code></span></strong>后<strong><span>（<code>必须）</code></span></strong>加空格</li><br><li>每个<span><code>;</code></span>后<strong><span>（<code>必须）</code></span></strong>加空格</li><br><li><strong><span><code>()</code></span></strong>中<code>禁止</code>用<strong><span><code>var</code></span></strong>声明变量; 且变量的赋值&nbsp;<strong><span><code>=&nbsp;</code></span></strong>前后<strong><span>（<code>禁止）</code></span></strong>加空格</li><br></ul><br><p><strong>　　4）<span><code>function</code>&nbsp;</span>中的空格, 先上例子</strong></p><br><br><figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的写法</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">call</span><span class="params">(name)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> cell = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 不推荐的写法</span></span><br><span class="line"> <span class="keyword">var</span> call = <span class="function"><span class="keyword">function</span><span class="params">(name)</span></span>&#123;</span><br><span class="line">     <span class="comment">// code</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><br><br><ul><br><li>参数的反括号后<span><strong>（<code>必须）</code></strong></span>加空格</li><br><li><strong><span><code>function</code>&nbsp;</span></strong>后<span><strong>（<code>必须）</code></strong></span>加空格</li><br></ul><br><p><strong>　　5）<span><code>var</code>&nbsp;</span>中空格及定义，先上例子</strong></p><br><br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个推荐的var写法组</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">     <span class="keyword">var</span> code = <span class="number">1</span> + <span class="number">1</span>,</span><br><span class="line">         json = <span class="built_in">JSON</span>.parse(res),</span><br><span class="line">         type, html;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// code</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><br><br><ul><br><li>声明变量<strong><span>&nbsp;</span></strong><code><strong><span>=</span></strong>&nbsp;</code>前后<strong><span>（<code>必须）</code></span></strong>添加空格</li><br><li>每个变量的赋值声明以<code>,</code>结束后<span><strong>（<code>必须）</code></strong></span>换行进行下一个变量赋值声明</li><br><li><span><strong><code>（推荐）</code></strong></span>将所有不需要进行赋值的变量声明放置最后一行，且变量之间不需要换行</li><br><li><strong><span><code>（推荐）</code></span></strong>当一组变量声明完成后，空一行后编写其余代码</li><br></ul>
+
+
+<p><strong>5.&nbsp;在同一个函数内部，<span>局部变量的声明</span><code>必须</code>置于顶端</strong></p><br><p>因为即使放到中间，js解析器也会提升至顶部<span>（hosting）</span></p>
+
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的书写</span></span><br><span class="line"><span class="built_in">var</span> clear = function(el) &#123;</span><br><span class="line">    <span class="built_in">var</span> id = el<span class="built_in">.</span>id,</span><br><span class="line">        name = el<span class="built_in">.</span>getAttribute(<span class="string">"data-name"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不推荐的书写</span></span><br><span class="line"><span class="built_in">var</span> clear = function(el) &#123;</span><br><span class="line">    <span class="built_in">var</span> id = el<span class="built_in">.</span>id;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">...</span><span class="attribute">...</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">var</span> name = el<span class="built_in">.</span>getAttribute(<span class="string">"data-name"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;推荐阅读：<a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank">JavaScript-Scoping-and-Hoisting</a></p>
+
+
+<p><strong>6.&nbsp;块内函数<code>必须</code>用局部变量声明</strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 错误的写法</span></span><br><span class="line"> var call = <span class="function"><span class="keyword">function</span><span class="params">(name)</span> &#123;</span></span><br><span class="line">     <span class="keyword">if</span> <span class="params">(name == <span class="string">"hotel"</span>)</span> &#123;</span><br><span class="line">         <span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> &#123;</span></span><br><span class="line">             console.<span class="built_in">log</span><span class="params">(<span class="string">"hotel foo"</span>)</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     foo &amp;&amp; foo<span class="params">()</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 推荐的写法</span></span><br><span class="line"> var call = <span class="function"><span class="keyword">function</span><span class="params">(name)</span> &#123;</span></span><br><span class="line">     var foo;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> <span class="params">(name == <span class="string">"hotel"</span>)</span> &#123;</span><br><span class="line">         foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">             console.<span class="built_in">log</span><span class="params">(<span class="string">"hotel foo"</span>)</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     foo &amp;&amp; foo<span class="params">()</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><span>引起的bug：第一种写法<code>foo</code>的声明被提前了; 调用<code>call</code>时：第一种写法会调用<code>foo</code>函数，第二种写法不会调用<code>foo</code>函数</span></p><br><p><em>注：不同浏览器解析不同，具体请移步汤姆大叔<a href="http://www.cnblogs.com/TomXu/archive/2012/01/30/2326372.html" target="_blank">深入解析Javascript函数篇</a></em></p>
+
+
+<p><strong>7. <span>（<code>禁止）</code></span><span>使用<span>eval</span>，采取</span><span><code>$.parseJSON</code></span></strong></p><br><p><strong>&nbsp;三个原因：</strong></p><br><ul><br><li>有<span><strong>注入</strong></span>风险，尤其是ajax返回数据</li><br><li>不方便<span><strong>debug</strong></span></li><br><li><span><strong>效率低</strong></span>，eval是一个执行效率很低的函数</li><br></ul><br><p><strong>建议：</strong></p><br><p>　　使用<span><strong>new Function</strong></span>来代替eval的使用，最好就别用。</p>
+
+
+<p><strong>8.&nbsp;除了<span>三目运算</span>，<span><code>if</code></span>,<span><code>else</code></span>等<span>（<code>禁止）</code></span>简写</strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正确的书写</span></span><br><span class="line"><span class="keyword">if</span> <span class="params">(<span class="literal">true</span>)</span> &#123;</span><br><span class="line">    alert<span class="params">(name)</span>;</span><br><span class="line">&#125;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(name)</span>;</span><br><span class="line"><span class="comment">// 不推荐的书写</span></span><br><span class="line"><span class="keyword">if</span> <span class="params">(<span class="literal">true</span>)</span></span><br><span class="line">    alert<span class="params">(name)</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(name)</span>;</span><br><span class="line"><span class="comment">// 不推荐的书写</span></span><br><span class="line"><span class="keyword">if</span> <span class="params">(<span class="literal">true</span>)</span></span><br><span class="line">alert<span class="params">(name)</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(name)</span></span><br></pre></td></tr></table></figure>
+<p><strong>9. <span>（<code>推荐）</code></span>在需要以<span><code>{}</code></span>闭合的代码段前增加换行，如：<span><code>for</code>&nbsp;<code>if</code></span></strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 没有换行，小的代码段无法区分</span></span><br><span class="line"><span class="keyword">if</span> <span class="params">(wl &amp;&amp; wl.length)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="params">(i = <span class="number">0</span>, l = wl.length; i &lt; l; ++i)</span> &#123;</span><br><span class="line">        p = wl[i];</span><br><span class="line">        type = Y.Lang.type<span class="params">(r[p])</span>;</span><br><span class="line">        <span class="keyword">if</span> <span class="params">(s.hasOwnProperty<span class="params">(p)</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="params">(merge &amp;&amp; type == 'object')</span> &#123;</span><br><span class="line">                Y.mix<span class="params">(r[p], s[p])</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(ov || !<span class="params">(p in r)</span>)</span> &#123;</span><br><span class="line">                r[p] = s[p];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 有了换行，逻辑清楚多了</span></span><br><span class="line"><span class="keyword">if</span> <span class="params">(wl &amp;&amp; wl.length)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> <span class="params">(i = <span class="number">0</span>, l = wl.length; i &lt; l; ++i)</span> &#123;</span><br><span class="line">        p = wl[i];</span><br><span class="line">        type = Y.Lang.type<span class="params">(r[p])</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="params">(s.hasOwnProperty<span class="params">(p)</span>)</span> &#123;</span><br><span class="line">            <span class="comment">// 处理merge逻辑</span></span><br><span class="line">            <span class="keyword">if</span> <span class="params">(merge &amp;&amp; type == 'object')</span> &#123;</span><br><span class="line">                Y.mix<span class="params">(r[p], s[p])</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(ov || !<span class="params">(p in r)</span>)</span> &#123;</span><br><span class="line">                r[p] = s[p];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span>换行可以是空行，也可以是注释</span></p>
+
+
+<p><strong>10. <span>（<code>推荐）</code></span>使用<span><code>Function</code></span>进行类的定义，<span>(<code>不推荐)</code></span>继承，如需继承采用成熟的类库实现继承</strong></p>
+
+<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">// 类的实现</span><br><span class="line"> function <span class="keyword">Person</span>(name) &#123;</span><br><span class="line">     this.name = name;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">Person</span>.prototype.sayName = function() &#123;</span><br><span class="line">     alert(this.name);</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> var me = new <span class="keyword">Person</span>(<span class="string">"Nicholas"</span>);</span><br><span class="line"></span><br><span class="line"> // 将this放到局部变量self</span><br><span class="line"> function Persion(name, sex) &#123;</span><br><span class="line">     var self = this;</span><br><span class="line"></span><br><span class="line">     self.name = name;</span><br><span class="line">     self.sex = sex;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;平时咱们写代码，基本都是小程序，真心用不上什么继承，而且继承并不是JS的擅长的语言特性，尽量少用。如果非要使用的话，注意一点：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A();</span><br><span class="line">B.prototype.constructor = B; <span class="comment">//原则上，记得把这句话加上</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;继承从原则上来讲，别改变他的构造函数，否则这个继承就显得很别扭了~&nbsp;</p>
+
+
+<p><strong>11. <span>(<code>推荐)</code></span>使用局部变量<span>缓存反复查找的对象</span>(包括但不限于全局变量、dom查询结果、作用域链较深的对象)</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 缓存对象</span></span><br><span class="line"><span class="keyword">var</span> getComment = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dom = $(<span class="string">"#common-container"</span>),               <span class="comment">// 缓存dom</span></span><br><span class="line">        appendTo = $.appendTo,                      <span class="comment">// 缓存全局变量</span></span><br><span class="line">        data = <span class="keyword">this</span>.json.data;                      <span class="comment">// 缓存作用域链较深的对象</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;</p><br><p><strong>12.&nbsp;当需要缓存<span><code>this</code></span>时必须使用<span><code>self</code></span>变量进行缓存</strong></p>
+
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 缓存this</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Row</span><span class="params">(name)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">var</span> <span class="keyword">self</span> = this;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">self</span>.name = name;</span><br><span class="line">     $(<span class="string">".row"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">self</span>.getName();</span><br><span class="line">     &#125;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;self是一个保留字，不过用它也没关系。在这里，看个人爱好吧，可以用<strong><span>_this</span></strong>, <span><strong>that</strong></span>, <span><strong>me</strong></span>等这些词，都行，但是团队开发的时候统一下比较好。</p>
+
+
+<p><strong>13. <span>（<code>不推荐）</code></span><span>超长函数, 当函数超过<span>100</span>行，就要想想是否能将函数拆为两个或多个函数</span></strong></p>
+
+
+<p><strong>14. <span>等你来填坑~</span></strong></p>
+
+
+<p></p><h3><span><strong>小结</strong></span></h3><p></p>
+<p><span>　　规范是死的，罗列这些东西，目的是为了让程序猿们对这些东西引起注意，平时写代码的时候注意格式，不仅仅方便了自己，也让其他阅读者看得舒服。</span></p><br><p><span>　　</span><span>可能还有一些点没有涉及到，</span><span><strong>如果你有好的建议，请提出来，我们一起打造一个良好的前端生态环境！</strong></span></p>
+
+
+<p><strong>相关阅读：</strong><a href="http://www.cnblogs.com/hustskyking/p/css-spec.html" target="_blank">前端编码规范之CSS</a></p><br><p>&nbsp;&nbsp;</p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/08/14/cb-javascript-spec/">http://barretlee.com/blog/2013/08/14/cb-javascript-spec/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-08-14 11:55:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/09/22/cb-javascript-attention/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>JavaScript中需要注意的几个问题</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/08/13/cb-license/" class="post-next">
+      <b>五种开源协议的比较(BSD,Apache,GPL,LGPL,MIT) – 整理</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/09/22/cb-javascript-attention/" class="prev" title="JavaScript中需要注意的几个问题">
+    <i class="icon">&#xe600;</i>
+    
+    <b>JavaScript中需要注意的几个问题</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/08/13/cb-license/" class="next" title="五种开源协议的比较(BSD,Apache,GPL,LGPL,MIT) – 整理">
+    <i class="icon">&#x261e;</i>
+    <b>五种开源协议的比较(BSD,Apache,GPL,LGPL,MIT) – 整理</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-javascript-spec" data-title="前端编码规范之JavaScript" data-url="http://barretlee.com/blog/2013/08/14/cb-javascript-spec/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

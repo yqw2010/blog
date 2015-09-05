@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>让你的页面瞬间全屏 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.@update 文章下方有更新，提到了更多全屏的知识以及错误的矫正。页面全屏是一个体验非常棒的功能，他可以让你的视觉焦点聚集在你想关注的元素块上。很多浏览器都支持全屏，按下 F11，哦了！ 页面全屏了~&amp;nbsp;但是本文要说的并不是这种全屏。当页面中有个小 DE">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="让你的页面瞬间全屏 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/03/01/cb-javascript-fullscreen/">
+  <meta property="og:site_name" content="让你的页面瞬间全屏">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.@update 文章下方有更新，提到了更多全屏的知识以及错误的矫正。页面全屏是一个体验非常棒的功能，他可以让你的视觉焦点聚集在你想关注的元素块上。很多浏览器都支持全屏，按下 F11，哦了！ 页面全屏了~&amp;nbsp;但是本文要说的并不是这种全屏。当页面中有个小 DE">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">让你的页面瞬间全屏</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-03-01 03:11:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-javascript-fullscreen"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/03/01/javascript-fullscreen.html" target="_blank">博客园</a>.</div>
+
+<p><span>@update 文章下方有更新，提到了更多全屏的知识以及错误的矫正。</span></p><br><p><span>页面全屏是一个体验非常棒的功能，他可以让你的视觉焦点聚集在你想关注的元素块上。很多浏览器都支持全屏，按下 F11，哦了！ 页面全屏了~&nbsp;但是本文要说的并不是这种全屏。当页面中有个小 DEMO 或者小游戏要展示的时候，用户期望，这个 DEMO 或者游戏可以在全屏下展示，本文就教你如何来展示。</span></p><br><p>如果你是非 IE 浏览器进入的该页面，你可能已经看到了页面上发生了一点小变化，多个东西：</p><br><p><img src="http://images.cnitblog.com/i/387325/201403/010309260367360.png" alt=""></p><br><p>没错，多了个\进入全屏”的按钮，这就是本文要介绍的内容！</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/javascript-fullscreen.html" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/javascript-fullscreen.html</a>，转载请注明源地址。</p><br><h3>一、全屏策略</h3><br><h4>1. 原理</h4><br><p>一些浏览器提供了元素全屏的接口，这些接口的调用特别简单：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 进入全屏</span></span><br><span class="line">element.requestFullScreen<span class="params">()</span>;</span><br><span class="line"><span class="comment">// 退出全屏</span></span><br><span class="line">document.exitFullscreen<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<p>这是 w3c 规范统一的接口，但是浏览器总是那么调皮，内部实现的时候会加上自己厂商的前缀，如：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 小狐</span></span><br><span class="line">element.mozRequestFullScreen<span class="params">()</span>;</span><br><span class="line"><span class="comment">// Chrome</span></span><br><span class="line">document.webkitCancelFullScreen<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<p>这里有两点需要引起注意，W3C 中的退出全屏是 <code>exitFullscreen</code>，而小狐跟 Chrome 使用的是 <code>cancelFullScreen</code>，这里在作判断的时候不要弄错了；再一点就是当我们退出全屏的时候，并不是使用 element 作为退出的对象了，而是使用 document。</p><br><h4>2. 兼容处理</h4><br><p>原理是很简单，但是针对浏览器的兼容性写起来还是挺麻烦的，幸好 Chrome 换用 blink内核 之后没有继续加上一个 <code>-blink-</code>，否则开发者心里会有无数个草泥马奔腾的！</p><br><p>对于进入全屏：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">launchFullScreen</span><span class="params">(element)</span> &#123;</span></span><br><span class="line">   <span class="keyword">if</span> <span class="params">(element.requestFullscreen)</span> &#123;</span><br><span class="line">      element.requestFullscreen<span class="params">()</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(element.msRequestFullscreen)</span> &#123;</span><br><span class="line">      element.msRequestFullscreen<span class="params">()</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(element.mozRequestFullScreen)</span> &#123;</span><br><span class="line">      element.mozRequestFullScreen<span class="params">()</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(element.webkitRequestFullscreen)</span> &#123;</span><br><span class="line">      element.webkitRequestFullscreen<span class="params">(Element.ALLOW_KEYBOARD_INPUT)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于退出全屏：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cancelFullScreen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="built_in">document</span>.exitFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.exitFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.msExitFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.msExitFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.mozCancelFullScreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.mozCancelFullScreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.webkitExitFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.webkitExitFullscreen();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p></p><h4>3. 浏览器兼容性</h4><p></p>
+<p><span>IE 用户就甭看了，刚测试，IE11 不兼容</span>（需要加前缀 ms）。对于浏览器的兼容情况，请戳<a href="https://developer.mozilla.org/en/DOM/Using_full-screen_mode#AutoCompatibilityTable" target="_blank">这里</a>。目前 Firefox 兼容，不过有点离谱。他会弹出一个让你全屏的提示，此时确实是全屏的，但当你点击提示中的\允许”时，屏幕又退出了全屏，真是让人匪夷所思。我测试的版本（27.0.1）有这个问题，当然，这是浏览器本身的问题，不用纠结。</p><br><p><img src="http://images.cnitblog.com/i/387325/201403/010319363967428.png" alt="" width="553" height="195"></p><br><p>Chrome 对于新特性的支持永远是站在前排，不得不佩服 google 开发工程师的牛掰！</p><br><h3>二、3 个 bug</h3><br><h4>1. window 失去焦点</h4><br><p>当全屏一个元素块的时候，原始状态该元素块可能没有 padding 或者 margin 值，为了让他显示的稍微养眼一些，我们可能会给他主动加上 padding 值，然后在退出全屏的时候在拿到设置的值。但此时，一个 bug 出现鸟，当我们点击全屏页面中的 a 标签，或者触发了某个 <code>window.open</code> 之后，浏览器会失去焦点，跳到新开的页面中，而全屏的页面会退出全屏，搞笑的是我们开始设置的 padding 值他不给我们去掉，这个是令人十分神伤的，<span>不过没关系，有 bug 咱们就打补丁！</span></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">window.onblur = <span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">    cancelFullsreen<span class="params">()</span>;</span><br><span class="line">    changeThePadding<span class="params">()</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>有人会想到，我们在点击 a 链接的时候先 changeThePadding()，再让 a 标签跳走，这种方式是不合理的，因为除了 a 链接会让页面失去焦点之外还有其他的可能（如 window.open）。</p><br><p><span>@update</span> 因为 bug 3 的存在，这里不能这样改，需要利用浏览器的全屏探测：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).on(<span class="string">'webkitfullscreenchange mozfullscreenchange msfullscreenchange fullscreenchange'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.fullscreenElement &amp;&amp;    <span class="comment">// alternative standard method</span></span><br><span class="line">    !<span class="built_in">document</span>.mozFullScreenElement &amp;&amp;</span><br><span class="line">    !<span class="built_in">document</span>.webkitFullscreenElement &amp;&amp;</span><br><span class="line">    !<span class="built_in">document</span>.msFullscreenElement ) &#123;</span><br><span class="line">        <span class="comment">// 在这里处理 bug        changeThePadding();</span></span><br><span class="line">&#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p></p><h4>2. 一个貌似可以重现的 bug</h4><p></p>
+<p>所谓的可以重现就是，把代码逻辑抽离出来，写个 demo 还能看到 bug。反正我试过好几次，这个 bug 都出现了，懒得写一个 DEMO 重现他。他出现的位置是：我的滚动条是自己设置的样式，当全屏之后，滚动条本应该在页面的最右侧，但是我测试的时候他偶尔会离最右侧有十几个像素，我也不知道为什么。但是当我打开 DevTools 的时候，这十几个像素又奇妙的被缝合了~</p><br><p><img src="http://images.cnitblog.com/i/387325/201403/010322023845093.png" alt=""></p><br><p>后来一想，管你呢，这肯定是 google 的工程师没有留意到的位置！既然开打 DevTools 可以修复，那就说明触发 window.resize 也能解决这个问题，好吧，那就这样试试吧：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">newCancelFullscreen = <span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">    cancelFullscreen<span class="params">()</span>;</span><br><span class="line">    window.onresize<span class="params">()</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>果然有效，bug 搞定！</p><br><h4>3. 全屏之后，部分浏览器会在该页面失去焦点</h4><br><p>这就相当于，全屏之后，触发了 window.blur();</p><br><h3>三、小结</h3><br><p>除了上面提到的两个 bug，还有一个值得注意的是，如果你全屏的那个元素块很高但却没有设置</p>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="tag">element</span> <span class="rules">&#123; <span class="rule"><span class="attribute">overflow</span>:<span class="value">auto</span></span>; &#125;</span></span><br></pre></td></tr></table></figure>
+<p>之类的东西，你会发现滚烂你的鼠标也滚不出那块区域。</p><br><p>本文介绍了如何使用 javascript 将页面中的某个元素调至全屏，并指出了再使用过程中的两个 bug，希望引起注意！</p><br><h3>四、参考资料</h3><br><ul><br><li><a href="http://baidufe.com/" target="_blank">http://baidufe.com/</a> Alien的笔记</li><br></ul><br><br><br><h4><span>@update 2014/03/01 12:00</span></h4><br><p>1. Trident 内核的 IE 浏览器是支持的，可以用&nbsp;element.msRequestFullscreen()，退出用&nbsp;<span>msExitFullscreen()</span></p><br><p>2. 对于全屏的元素可以使用伪元素给他加样式：</p>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="pseudo">:-webkit-full-screen</span> <span class="id">#myvideo</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>3. 浏览器提供的两个方便开发的东西：</p><br><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/document.mozFullScreenElement" target="_blank">fullscreenElement</a>：如果这个属性为空，则浏览器处于非全屏状态，否则就是处于全屏。</p><br><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/document.mozFullScreenEnabled" target="_blank">fullscreenEnabled</a>：这个属性告诉你浏览器 document 是否可以全屏。</p><br><p>4. 也可以使用 keydown 来控制全屏，如：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">"keydown"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (e.keyCode == <span class="number">13</span>) &#123;</span><br><span class="line">    toggleFullScreen();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>对于 toggleFullScreen 函数：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toggleFullScreen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.fullscreenElement &amp;&amp;    <span class="comment">// alternative standard method</span></span><br><span class="line">      !<span class="built_in">document</span>.mozFullScreenElement &amp;&amp; !<span class="built_in">document</span>.webkitFullscreenElement &amp;&amp; !<span class="built_in">document</span>.msFullscreenElement ) &#123;  <span class="comment">// current working methods</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.documentElement.requestFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.documentElement.requestFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.documentElement.msRequestFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.documentElement.msRequestFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.documentElement.mozRequestFullScreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.documentElement.mozRequestFullScreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.documentElement.webkitRequestFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.exitFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.exitFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.msExitFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.msExitFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.mozCancelFullScreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.mozCancelFullScreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.webkitExitFullscreen) &#123;</span><br><span class="line">      <span class="built_in">document</span>.webkitExitFullscreen();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Toggle FullScreen</span><br></pre></td></tr></table></figure>
+<p>5. 全屏事件</p><br><p>看到这句代码你可能就懂了：</p>
+
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).<span class="literal">on</span>(<span class="string">'webkitfullscreenchange mozfullscreenchange fullscreenchange'</span>,fn);</span><br></pre></td></tr></table></figure>
+<p>当全屏状态改变时会触发上面的 fullscreenchange 事件，所以 <a href="#2885642"><span><span>#15</span> p2227</span></a> 给我提出的问题就可以得到解决了。</p>
+
+
+<p><span>文章可能还存在错误的地方，还请多多斧正！</span></p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/03/01/cb-javascript-fullscreen/">http://barretlee.com/blog/2014/03/01/cb-javascript-fullscreen/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-03-01 03:11:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/03/03/cb-javascript-array/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>你所不知道的JavaScript数组</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/02/28/cb-webAudio-filter/" class="post-next">
+      <b>声音的滤波</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/03/03/cb-javascript-array/" class="prev" title="你所不知道的JavaScript数组">
+    <i class="icon">&#xe600;</i>
+    
+    <b>你所不知道的JavaScript数组</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/02/28/cb-webAudio-filter/" class="next" title="声音的滤波">
+    <i class="icon">&#x261e;</i>
+    <b>声音的滤波</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-javascript-fullscreen" data-title="让你的页面瞬间全屏" data-url="http://barretlee.com/blog/2014/03/01/cb-javascript-fullscreen/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

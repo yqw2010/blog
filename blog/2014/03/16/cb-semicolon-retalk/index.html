@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Javascript分号，加还是不加？ | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.关于这个问题，网上已经有很多人讨论过了，我先说说自己对这个问题的回答：加！（但非必须）有些人写代码，懒得加分号，除非是迫不得已才勉强放一个分号上去。如果你可以保证你写的代码不出现任何 bug，那当然是没有问题，但是很多 JSer 新人，对一些隐含的问题并不是特别清">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Javascript分号，加还是不加？ | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/03/16/cb-semicolon-retalk/">
+  <meta property="og:site_name" content="Javascript分号，加还是不加？">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.关于这个问题，网上已经有很多人讨论过了，我先说说自己对这个问题的回答：加！（但非必须）有些人写代码，懒得加分号，除非是迫不得已才勉强放一个分号上去。如果你可以保证你写的代码不出现任何 bug，那当然是没有问题，但是很多 JSer 新人，对一些隐含的问题并不是特别清">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">Javascript分号，加还是不加？</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-03-16 03:51:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-semicolon-retalk"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/03/16/semicolon-retalk.html" target="_blank">博客园</a>.</div>
+
+<p>关于这个问题，网上已经有很多人讨论过了，我先说说自己对这个问题的回答：加！（但非必须）</p><br><p>有些人写代码，懒得加分号，除非是迫不得已才勉强放一个分号上去。如果你可以保证你写的代码不出现任何 bug，那当然是没有问题，但是很多 JSer 新人，对一些隐含的问题并不是特别清楚，很容易在不知不觉中写出一堆 bug，我们先来了解下 JS 词法语法解析的时候，哪些情况下会自动插入分号。</p><br><h3>一、自动插入分号的规则</h3><br><p><span><strong>注：鼠标滑过文字可以看到翻译原文</strong></span></p><br><p>1. <span class="translator" title="When, as the program is parsed from left to right, a token (called the offending token) is encountered that is not allowed by any production of the grammar, then a semicolon is automatically inserted before the offending token if one or more of the following conditions is true:">程序从左到右解析，当纳入下一个 token 无法匹配任何语法：</span></p><br><ul><br><li><span class="translator" title="The offending token is separated from the previous token by at least one LineTerminator.">如该 token 跟之前的 token 之间有至少一个 LineTerminal 行终结符违反分割</span></li><br><li><span class="translator" title="The offending token is }.">该 token 为 <code>}</code> 符号时</span></li><br></ul><br><p>2. <span class="translator" title="When, as the program is parsed from left to right, the end of the input stream of tokens is encountered and the parser is unable to parse the input token stream as a single complete ECMAScript Program, then a semicolon is automatically inserted at the end of the input stream.">程序从左到右解析，当纳入下一个（或几个） token 不能产生一条合法的语句的时候，会在这个地方插入一个分号。</span></p><br><p>3. &lt;span class=”translator” title=”When, as the program is parsed from left to right, a token is encountered that is allowed by some production of the grammar, but the production is a restricted production and the token would be the first token for a terminal or nonterminal immediately following the annotation [no LineTerminator here]” within the restricted production (and therefore such a token is called a restricted token), and the restricted token is separated from the previous token by at least one LineTerminator, then a semicolon is automatically inserted before the restricted token.”&gt;程序从左到右解析，当纳入的 token 能够产生一条合法语句，但是这条语句是受限产生式时，在该受限 token 前面自动插入分号。</p><br><p>上面提到的一些内容来自 ECMAScript5.1 第七章第九节，可以戳<a href="http://barretlee.com/ST/ES5.1/#sec-7.9.1" target="_blank">这里</a>，翻译的不太通顺，实在是太难翻译了= =</p><br><h3>二、一些不加分号会出问题的场景</h3><br><p><strong>场景一：</strong></p>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">s = <span class="tag">a</span> + <span class="tag">b</span></span><br><span class="line">(x + y).<span class="function"><span class="title">doSomething</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>我们期望这是这是两条语句，结果会被解析成：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">s = a + b<span class="params">(x + y)</span>.doSomething<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<p>b 在这里成了一个函数了。</p><br><p><strong>场景二：</strong></p>
+
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="header">x</span><br><span class="line">++</span></span><br><span class="line">y</span><br></pre></td></tr></table></figure>
+<p>这个 ++ 符号会给谁？答案是：</p>
+
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">x;</span> <span class="literal">+</span><span class="literal">+</span><span class="comment">y;</span></span><br></pre></td></tr></table></figure>
+<p>这样的代码当然是很少遇到，但是遇到这种情况：</p><br><p><strong>场景三：</strong></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span></span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>我们期望返回 true，结果：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span>;</span><br><span class="line"><span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<p>给我们返回了 undefined。</p><br><p><strong>场景四：</strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">s = <span class="function"><span class="keyword">function</span><span class="params">(x)</span>&#123;</span>return x&#125;</span><br><span class="line"><span class="params">(<span class="number">1</span> + <span class="number">2</span>)</span>.toString<span class="params">()</span></span><br></pre></td></tr></table></figure>
+<p>他被解析成了</p>
+
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">s = <span class="function"><span class="keyword">function</span><span class="params">(x)</span>&#123;<span class="title">return</span> <span class="title">x</span>&#125;<span class="params">(1 + 2)</span>.<span class="title">toString</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p><code>function(x){return x}(1 + 2)</code> 这个作为一个整体，1+2 作为参数送入函数，该函数的返回值为 3，然后执行 3.toString()，这样的问题藏的比较深，不容易被发现。</p><br><h3>三、规避问题</h3><br><p>有些语句是以 <code>[</code> 或者 <code>(</code> 开头，就像上面提到的场景一和场景四，这些 token 很容易和上一条没有加分号的语句合并到一起，如果你不太喜欢加分号，可以这样来处理：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">s = <span class="function"><span class="keyword">function</span><span class="params">(x)</span>&#123;</span>return x&#125;</span><br><span class="line">;<span class="params">(<span class="number">1</span> + <span class="number">2</span>)</span>.toString<span class="params">()</span></span><br></pre></td></tr></table></figure>
+<p>这也是为什么我们会经常看到别人的代码中写出这样的函数：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>在 function 的前面加了一个分号，目的就是为了防止整个函数的返回值作为参数送入上一条语句之中。</p><br><p>对于场景三，要特别说明一下，除了 return 之外，还有 break 和 continue 语句，break 和 continue 类似 C 语言中的 goto ，他是可以在后面添加 tag 的，如果 tag 和 这些关键词之间存在 <a href="http://barretlee.com/ST/ES5.1/#sec-7.3" target="_blank">LineTerminal </a>，这些 tag 就会被忽略，如：</p>
+
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">break</span></span><br><span class="line"><span class="keyword">tag</span></span><br></pre></td></tr></table></figure>
+<p>我们期望程序会调到 tag 所指向的程序段，但结果被解析成</p>
+
+<figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">break<span class="comment">;</span></span><br><span class="line">tag<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p></p><h3>四、小结</h3><p></p>
+<p>看到上面的一些列问题，相信大家心里还是有自己的答案了，如果你有信心代码里头不出现因为不写分号而导致的错误，那分号的取舍其实是无所谓的。</p>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/03/16/cb-semicolon-retalk/">http://barretlee.com/blog/2014/03/16/cb-semicolon-retalk/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-03-16 03:51:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/03/17/cb-two-yeas/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>感想以及一些文章索引</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/03/14/cb-open-source/" class="post-next">
+      <b>软件（代码）开源，协议声明</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/03/17/cb-two-yeas/" class="prev" title="感想以及一些文章索引">
+    <i class="icon">&#xe600;</i>
+    
+    <b>感想以及一些文章索引</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/03/14/cb-open-source/" class="next" title="软件（代码）开源，协议声明">
+    <i class="icon">&#x261e;</i>
+    <b>软件（代码）开源，协议声明</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-semicolon-retalk" data-title="Javascript分号，加还是不加？" data-url="http://barretlee.com/blog/2014/03/16/cb-semicolon-retalk/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

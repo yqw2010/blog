@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>打开窗口，关闭窗口 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.关键词：window.open() window.close() showModalDialog() 兼容性 测试等。　　　　本文默认你对以上函数参数有基本了解。window.open　　window.open如果没有加第三个参数，则浏览器一般都会在新的标签页打开">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="打开窗口，关闭窗口 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/04/10/cb-window-open-and-close/">
+  <meta property="og:site_name" content="打开窗口，关闭窗口">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.关键词：window.open() window.close() showModalDialog() 兼容性 测试等。　　　　本文默认你对以上函数参数有基本了解。window.open　　window.open如果没有加第三个参数，则浏览器一般都会在新的标签页打开">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">打开窗口，关闭窗口</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-04-10 04:06:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-window-open-and-close"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/04/10/window-open-and-close.html" target="_blank">博客园</a>.</div>
+
+<p><strong>关键词</strong><span>：window.open() window.close() showModalDialog() 兼容性 测试等。</span></p><br><p>　　　　本文默认你对以上函数参数有基本了解。</p><br><h3>window.open</h3><br><p>　　window.open如果没有加第三个参数，则浏览器一般都会在新的标签页打开（除非你设置了新建窗口打开）</p><br><p>　　而有的时候，我们需要他弹出来。就想这个一样：</p><br><p>　　<img src="http://images.cnitblog.com/blog/387325/201304/10152902-23e3b118ba574a799ec021740f524b44.png" alt="" width="369" height="416"></p><br><p>　　上述方式是：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">window.open(/<span class="keyword">*</span>URL<span class="keyword">*</span>/<span class="string">""</span>,/<span class="keyword">*</span>Name<span class="keyword">*</span>/<span class="string">""</span>,/<span class="keyword">*</span>args<span class="keyword">*</span>/<span class="string">"width=300,height=400"</span>);</span><br></pre></td></tr></table></figure>
+<p>　　但是搜狗是不会挺你的话的，他不会新建一个你设定的窗口打开，而是在一个新的标签页打开。</p><br><p><img src="http://images.cnitblog.com/blog/387325/201304/10153253-8b065b78f11e4696a8e1bac972f17892.png" alt=""></p><br><p>　　这个，你就认了吧！如果不服气，你可以用下面的函数来解决。</p>
+
+
+<p></p><h3>showModalDialog</h3><p></p>
+<p>　　试了下，chrome、FF、IE下都能跳出一个模态框口出来。</p>
+
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.showModalDialog(<span class="string">""</span>,<span class="string">""</span>,<span class="string">"dialogHeight=200,dialogWidth=300"</span>);</span><br></pre></td></tr></table></figure>
+<p>　　<em>注意:这里的第三个参数有一些不同，加了个前缀dialog。</em></p><br><p>　　不过搜狗又有点变态了，</p><br><p>　　1.&nbsp;如果你的第一个参数不写，即为空时，弹不出来。</p><br><p>　　2. 如果第一个参数的URL地址和window.location不是同一个域内（<a title="同域 跨域" href="http://www.cnblogs.com/hustskyking/archive/2013/03/31/CDS-introduce.html" target="_blank">什么是同域</a>），则会这样：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201304/10154058-49b2fbb3642249068a966f24e85ec794.png" alt=""></p><br><p>　　会弹出一个存在安全隐患的提示，这个也是个烦人的东西，修改IE的安全项应该可以解决问题。这里不多说。</p>
+
+
+<p></p><h3>window.close</h3><p></p>
+<p>　　这个不用说，大家问题遇到最多的就是这个东西的bug。</p>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">window.<span class="function"><span class="title">close</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>　　如果单单是这一句话，IE（搜狗等）会弹出这么一个提示：</p><br><p>　　<img src="http://images.cnitblog.com/blog/387325/201304/10154422-fc71b242e25a4b8c8c750d3abf6094fb.png" alt=""></p><br><p>　　FF和chrome无反应。如果加点东西：</p>
+
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="comment">//第一步，如果该窗口是被他爸爸打开的，先断绝父子关系</span></span><br><span class="line"><span class="keyword">window</span>.opener = null;</span><br><span class="line"><span class="comment">//window.close()只允许关系自己打开的窗口</span></span><br><span class="line"><span class="comment">//用一个空页面替换掉现在的页面</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">window</span>.<span class="keyword">open</span>(<span class="string">""</span>, <span class="string">"_self"</span>);</span><br><span class="line"><span class="comment">//然后关闭自己打开的页面</span></span><br><span class="line">a.<span class="keyword">close</span>();</span><br></pre></td></tr></table></figure>
+<p>　　效果还行，把chrome的页面给关闭了，IE的弹出框也没了，不过可恶的FF依然没有反应！！！抓狂！！！！</p>
+
+
+<p></p><h3>干掉FireFox</h3><p></p>
+<p>　　我们退而求其次，既然关不掉你，我就把你换成一个空页面算了！</p>
+
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"about:blank"</span>;</span><br></pre></td></tr></table></figure>
+<p>　　之所以window.close在firefox不能使用，是因为firefox默认不能关闭用户打开的网页。知道原因有个毛用，还是没办法把他kill掉。。。</p>
+
+
+<p>　　有人说：</p><br><blockquote><br><p>我们可以这样设置firefox：　　打开firefox,在地址栏输入about:config　　找到dom.allow_scripts_to_close_windows这项并改为true。</p>
+
+<p></p></blockquote><p></p>
+<p>　　这样就可以解决Firefox的问题了，但是，难道你打算让用户这么去干?</p>
+
+
+<p>不过还是恳请大神们找一个完美解决window.close的方案，坐等！！！</p><br><p><strong>提供测试代码，省得你再打一次~</strong></p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>测试<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="comment">//&lt;![[</span></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="comment">//window.opener = null</span></span><br><span class="line">            <span class="keyword">var</span> b = <span class="built_in">window</span>.open(<span class="string">""</span>,<span class="string">"asdfs"</span>,<span class="string">"width=300,height=400"</span>);</span><br><span class="line">            <span class="comment">//window.showModalDialog("http://www.baidu.com","","dialogHeight=200,dialogWidth=300");</span></span><br><span class="line">            b.location.href = <span class="string">"./jQueryDemo.html"</span>;</span><br><span class="line">            <span class="comment">//alert(a.name)</span></span><br><span class="line">            b.opener.getElmentById(<span class="string">"i"</span>).focus();</span><br><span class="line">            <span class="comment">//window.close();</span></span><br><span class="line">            <span class="comment">//第一步，如果该窗口是被他爸爸打开的，先断绝父子关系</span></span><br><span class="line">            <span class="comment">//window.opener = null; </span></span><br><span class="line">            <span class="comment">//window.close()只允许关系自己打开的窗口</span></span><br><span class="line">            <span class="comment">//用一个空页面替换掉现在的页面</span></span><br><span class="line">            <span class="comment">//var a = window.open("", "_self");</span></span><br><span class="line">            <span class="comment">//然后关闭自己打开的页面</span></span><br><span class="line">            <span class="comment">//a.close();</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//]]&gt;</span></span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">onclick</span>=<span class="value">"a()"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>11111<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>22222<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>33333<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>44444<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"i"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/04/10/cb-window-open-and-close/">http://barretlee.com/blog/2013/04/10/cb-window-open-and-close/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-04-10 04:06:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/04/11/cb-options_add_and_remove/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>摸透select和他的儿子们options</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/04/09/cb-uncurrying/" class="post-next">
+      <b>javascript中有趣的反柯里化</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/04/11/cb-options_add_and_remove/" class="prev" title="摸透select和他的儿子们options">
+    <i class="icon">&#xe600;</i>
+    
+    <b>摸透select和他的儿子们options</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/04/09/cb-uncurrying/" class="next" title="javascript中有趣的反柯里化">
+    <i class="icon">&#x261e;</i>
+    <b>javascript中有趣的反柯里化</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-window-open-and-close" data-title="打开窗口，关闭窗口" data-url="http://barretlee.com/blog/2013/04/10/cb-window-open-and-close/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

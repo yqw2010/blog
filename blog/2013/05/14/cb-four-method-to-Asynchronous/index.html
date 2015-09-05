@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>实现Javascript异步编程的4种方法 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.你可能知道，Javascript语言的执行环境是“单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。这种模式的好处是实现起来比较简单，执行环境相对单纯；坏">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="实现Javascript异步编程的4种方法 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/">
+  <meta property="og:site_name" content="实现Javascript异步编程的4种方法">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.你可能知道，Javascript语言的执行环境是“单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。这种模式的好处是实现起来比较简单，执行环境相对单纯；坏">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">实现Javascript异步编程的4种方法</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-05-14 02:52:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/剪贴板/">剪贴板</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-four-method-to-Asynchronous"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/05/14/four-method-to-Asynchronous.html" target="_blank">博客园</a>.</div>
+
+<p><span>你可能知道，Javascript语言的执行环境是<span>“单线程”</span>（single thread）。</span></p><br><blockquote><br><p>所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。</p><br></blockquote><br><p><span>这种模式的<strong><span>好处</span></strong>是实现起来比较简单，执行环境相对单纯；<strong><span>坏处</span></strong>是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。</span></p>
+
+
+<p><span>为了解决这个问题，<span>Javascript语言将任务的执行模式分成两种：同步（Synchronous）和异步（Asynchronous）</span>。</span></p><br><ul><br><li><span>“同步模式”就是上一段的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；”异步模式”则完全不同，每一个任务有一个或多个回调函数（callback），前一个任务结束后，不是执行后一个任务，而是执行回调函数，后一个任务则是不等前一个任务结束就执行，所以程序的执行顺序与任务的排列顺序是不一致的、异步的。</span></li><br><li><span>“异步模式”非常重要。在浏览器端，耗时很长的操作都应该异步执行，避免浏览器失去响应，最好的例子就是Ajax操作。在服务器端，”异步模式”甚至是唯一的模式，因为执行环境是单线程的，如果允许同步执行所有http请求，服务器性能会急剧下降，很快就会失去响应。</span></li><br></ul><br><p><span>本文总结了”异步模式”编程的4种方法，理解它们可以让你写出结构更合理、性能更出色、维护更方便的Javascript程序。</span></p>
+
+
+<p><strong><span>一、回调函数</span></strong></p><br><p><span>这是异步编程最基本的方法。</span></p><br><p><span>假定有两个函数f1和f2，后者等待前者的执行结果。</span></p>
+
+<figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">f1()<span class="comment">;</span></span><br><span class="line">f2()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><span>如果f1是一个很耗时的任务，可以考虑改写f1，把f2写成f1的回调函数。</span></p>
+
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">(callback)</span></span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// f1的任务代码</span></span><br><span class="line">        <span class="keyword">callback</span>();</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span>执行代码就变成下面这样：</span></p>
+
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">f<span class="number">1</span><span class="comment">(f2)</span>; <span class="comment">//回调</span></span><br></pre></td></tr></table></figure>
+<p><span>采用这种方式，我们把同步操作变成了异步操作，f1不会堵塞程序运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。</span></p><br><p><span>回调函数的优点是简单、容易理解和部署，缺点是不利于代码的阅读和维护，各个部分之间高度耦合（Coupling），流程会很混乱，而且每个任务只能指定一个回调函数。</span></p>
+
+
+<p><strong><span>二、事件监听</span></strong></p><br><p><span>另一种思路是采用事件驱动模式。任务的执行不取决于代码的顺序，而取决于某个事件是否发生。</span></p><br><p><span>还是以f1和f2为例。首先，为f1绑定一个事件（这里采用的jQuery的写法）。</span></p>
+
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">f1.<span class="literal">on</span>(<span class="string">'done'</span>, f2);</span><br></pre></td></tr></table></figure>
+<p><span>上面这行代码的意思是，当f1发生done事件，就执行f2。然后，对f1进行改写：</span></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// f1的任务代码</span></span><br><span class="line">        f1.trigger(<span class="string">'done'</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span>f1.trigger(‘done’)表示，执行完成后，立即触发done事件，从而开始执行f2。</span></p><br><p><span>这种方法的优点是比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以”去耦合”（Decoupling），有利于实现模块化。缺点是整个程序都要变成事件驱动型，运行流程会变得很不清晰。</span></p>
+
+
+<p><strong><span>三、发布/订阅</span></strong></p><br><p><span>我们假定，存在一个”信号中心”，某个任务执行完成，就向信号中心”发布”（publish）一个信号，其他任务可以向信号中心”订阅”（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做”发布/订阅模式”（publish-subscribe pattern），又称”观察者模式”（observer pattern）。</span></p><br><p><span>这个模式有多种实现，下面采用的是Ben Alman的Tiny Pub/Sub，这是jQuery的一个插件。</span></p><br><p><span>首先，f2向”信号中心”jQuery订阅”done”信号。</span></p>
+
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="label">jQuery.subscribe</span>(<span class="string">"done"</span>, <span class="literal">f2</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><span>然后，f1进行如下改写：</span></p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// f1的任务代码</span></span><br><span class="line">        jQuery.publish(<span class="string">"done"</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span>jQuery.publish(“done”)的意思是，f1执行完成后，向”信号中心”jQuery发布”done”信号，从而引发f2的执行。</span></p><br><p><span>此外，f2完成执行后，也可以取消订阅（unsubscribe）。</span></p>
+
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="label">jQuery.unsubscribe</span>(<span class="string">"done"</span>, <span class="literal">f2</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><span>这种方法的性质与”事件监听”类似，但是明显优于后者。因为我们可以通过查看”消息中心”，了解存在多少信号、每个信号有多少订阅者，从而监控程序的运行。</span></p>
+
+
+<p><strong><span>四、Promises对象</span></strong></p><br><p>Promises对象是<a title="commonJS" href="http://en.wikipedia.org/wiki/CommonJS" target="_blank">CommonJS</a>工作组提出的一种规范，目的是为异步编程提供统一接口。</p><br><p><span>简单说，它的思想是，每一个异步任务返回一个Promise对象，该对象有一个then方法，允许指定回调函数。比如，f1的回调函数f2,可以写成：</span></p>
+
+<figure class="highlight ocaml"><table><tr><td class="code"><pre><span class="line">f1<span class="literal">()</span>.<span class="keyword">then</span>(f2);</span><br></pre></td></tr></table></figure>
+<p><span>f1要进行如下改写（这里使用的是jQuery的实现）：</span></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dfd = $.Deferred();</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// f1的任务代码</span></span><br><span class="line">        dfd.resolve();</span><br><span class="line">    &#125;, <span class="number">500</span>);</span><br><span class="line">    <span class="keyword">return</span> dfd.promise;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span>这样写的优点在于，回调函数变成了链式写法，程序的流程可以看得很清楚，而且有一整套的配套方法，可以实现许多强大的功能。</span></p><br><p><span>比如，指定多个回调函数：</span></p>
+
+<figure class="highlight ocaml"><table><tr><td class="code"><pre><span class="line">f1<span class="literal">()</span>.<span class="keyword">then</span>(f2).<span class="keyword">then</span>(f3);</span><br></pre></td></tr></table></figure>
+<p><span>再比如，指定发生错误时的回调函数：</span></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">f1<span class="params">()</span>.then<span class="params">(f2)</span>.fail<span class="params">(f3)</span>;</span><br></pre></td></tr></table></figure>
+<p><span>而且，它还有一个前面三种方法都没有的好处：<span>如果一个任务已经完成，再添加回调函数，该回调函数会立即执行。</span>所以，你不用担心是否错过了某个事件或信号。<span>这种方法的缺点就是编写和理解，都相对比较难。</span></span></p>
+
+
+<p><strong><span>五、参考链接</span></strong></p><br><p><span><span><em>&nbsp;<a href="http://sporto.github.com/blog/2012/12/09/callbacks-listeners-promises/" rel="external" target="_blank">Asynchronous JS: Callbacks, Listeners, Control Flow Libs and Promises</a></em></span></span></p><br><p><span><span><span>&nbsp;</span><a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2012/12/asynchronous＿javascript.html</a></span></span></p>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/">http://barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-05-14 02:52:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/剪贴板/">剪贴板</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/05/16/cb-jQuery-object-to-DOM-object/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>jQuery对象与dom对象相互转换</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/05/05/cb-getKeywords-2/" class="post-next">
+      <b>Javascript综合应用小案例（续）</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/05/16/cb-jQuery-object-to-DOM-object/" class="prev" title="jQuery对象与dom对象相互转换">
+    <i class="icon">&#xe600;</i>
+    
+    <b>jQuery对象与dom对象相互转换</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/05/05/cb-getKeywords-2/" class="next" title="Javascript综合应用小案例（续）">
+    <i class="icon">&#x261e;</i>
+    <b>Javascript综合应用小案例（续）</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-four-method-to-Asynchronous" data-title="实现Javascript异步编程的4种方法" data-url="http://barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

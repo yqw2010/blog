@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>换个标签写前端模板 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。&amp;lt;script type=&quot;text/x-template&quot; id=&quot;tpl&quot;&amp;gt;    &amp;lt;h1&amp;">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="换个标签写前端模板 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/04/13/cb-javascript-template-tag/">
+  <meta property="og:site_name" content="换个标签写前端模板">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。&amp;lt;script type=&quot;text/x-template&quot; id=&quot;tpl&quot;&amp;gt;    &amp;lt;h1&amp;">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">换个标签写前端模板</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-04-13 02:21:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-javascript-template-tag"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/04/13/javascript-template-tag.html" target="_blank">博客园</a>.</div>
+
+<p>前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-template"</span> <span class="attribute">id</span>=<span class="value">"tpl"</span>&gt;</span><span class="handlebars"><span class="xml"></span><br><span class="line">    <span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">%=data.title%</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">%=data.content%</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"></span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> htmlTpl = <span class="built_in">document</span>.getElementById(<span class="string">"tpl"</span>).innerHTML;</span><br><span class="line">    tplEngine(htmlTpl, &#123;</span><br><span class="line">        title: <span class="string">"This is title"</span>,</span><br><span class="line">        content: <span class="string">"This is content"</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于 tplEngine 这个 Javascript 模板引擎，之前也写了篇 <a href="http://www.cnblogs.com/hustskyking/p/principle-of-javascript-template.html" target="_blank">文章</a> 介绍过，这里就不赘述了。除了使用 script 标签，textarea 也可以达到同样的效果，但是本文叙述的重点并不是如何去解析一个 JavaScript 模板。</p><br><p>W3C工作组在 HTML 中加入了一个新的标签 &mdash;&mdash;TEMPLATE。他提供了一个可以定义 HTML 代码片段的机制，下面就来详细说说这个 TEMPLATE 标签。</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/javascript-template-tag.html，转载请注明源地址。" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/javascript-template-tag.html，转载请注明源地址。</a></p><br><h3>一、先看 DEMO</h3><br><p>运行下面的 demo，或许你已经知道了一些东西了。</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"list"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- TEMPLATE 模板 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">template</span> <span class="attribute">id</span>=<span class="value">"tpl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span> - <span class="tag">&lt;<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"btn"</span>&gt;</span>见证奇迹的时刻→<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="actionscript"></span><br><span class="line">    <span class="keyword">var</span> datas = [</span><br><span class="line">        &#123;name:<span class="string">"李靖"</span>, age:<span class="string">"21"</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">"Barret Lee"</span>, age:<span class="string">"21"</span>&#125;</span><br><span class="line">    ];</span><br><span class="line">    btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = datas.length; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> data = datas[i];</span><br><span class="line">            <span class="comment">// 获取模板代码</span></span><br><span class="line">            <span class="keyword">var</span> htmlTpl = tpl.content.cloneNode(<span class="literal">true</span>);</span><br><span class="line">            <span class="comment">// 插入数据</span></span><br><span class="line">            <span class="keyword">var</span> spans = htmlTpl.querySelectorAll(<span class="string">"span"</span>);</span><br><span class="line">            spans[<span class="number">0</span>].textContent = data.name;</span><br><span class="line">            spans[<span class="number">1</span>].textContent = data.age;</span><br><span class="line">            <span class="comment">// 插入到 DOM 中</span></span><br><span class="line">            list.appendChild(htmlTpl);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里使用的 template 标签，标签的内容没有被解析，我们并没有也使用 innerHTML 这种暴力手段获取模板内容。</p><br><h3>二、template 标签特性</h3><br><ol><br><li>这个标签可以被定义在任何位置：head 中、body中、甚至是一个 frame 中。</li><br><li>标签内容不会显示出来</li><br><li>Template 标签不被当做 document 的一部分，你可以去试试弹出 <code>document.getElementById(“tpl”).length</code>, 或者看看他其他的属性，得到的结果都是 undefined。</li><br><li>标签内容在被应用之前，都是 inactive 状态，也就是说模板中的 img、audio、script 标签都不会执行（加载）</li><br></ol><br><h3>三、浏览器对 template 标签的解析</h3><br><p>每一个 template 元素都会和一个 DocumentFragment 对象关联，当一个 template 元素被创建时，浏览器会运行如下操作：</p><br><ol><br><li><span class="translator" title="Let doc be the template element's ownerDocument's appropriate template contents owner document.">让文档（doc）是模板元素的ownerDocument的相应的模板内容拥有者文档（owerDocument）。</span></li><br><li><span class="translator" title="Create a DocumentFragment object whose ownerDocument is doc.">创建一个 DocumentFragment 对象，这个对象的拥有者文档（owerDocument）为 doc</span></li><br><li><span class="translator" title="Set the template element's template contents to the newly created DocumentFragment object.">将模板文档的 content 内容放到上述新创建的 DocumentFragment 中</span></li><br></ol><br><p>上面的过程我是翻译 w3c 的规范文档，读起来相当晦涩，如果你了解 <a href="http://www.zhihu.com/question/22326250/answer/21686102" target="_blank">shadowDOM</a>,那理解起来就轻松了，template 在解析是，其内容被解析成一个 shadowDOM，我们只能使用 content 属性来获取到这个 shadowDOM 的内容。</p><br><h3>四、兼容性与需要注意的地方</h3><br><p>很可惜，这玩意儿虽然好用，但 IE 目前还不支持，当然 Chrome 32+ | Firefox 25+ 都提供了支持。</p><br><h4>1. 克隆节点而不是直接使用</h4><br><p>从上面的 demo 中，可以发现，获取 template 标签的内容，其方式是：</p>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">document.<span class="function"><span class="title">getElementById</span><span class="params">(<span class="string">"tpl"</span>)</span></span>.<span class="attribute">content</span></span><br></pre></td></tr></table></figure>
+<p>但是我并不是直接将 content 赋值给 htmlTpl，而是：</p>
+
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="setting">htmlTpl = <span class="value">tpl.content.cloneNode(<span class="keyword">true</span>);</span></span></span><br></pre></td></tr></table></figure>
+<p>为什么要这么做呢？如果你不是用 cloneNode，而是直接将内容 appendChild 到 DOM 树中，documentFragment 内的内容就会被清空，上面我们说了 template 标签内容就是一个 documentFragment 的 shadowDOM，所以应该使用 cloneNode 或者 importNode 方法将内容复制到 DOM 中，这样才能保证这个 shadowDOM 内容不被清空，从而可以复用（你可以把上面 demo 的 cloneNode 函数去掉，看看结果如何）。</p><br><h4>2. 不支持 template 标签的降级处理</h4><br><p>其实也没有比较好的降级处理方案，如果你在 template 中放了 script 或者 img 节点，这些内容都会被解析出来，你阻止不了，所以如果你的程序要兼容所有的浏览器，暂时就不要用了。当然，你可以做这样的判断：</p>
+
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="string">"content"</span> <span class="keyword">in</span> <span class="built_in">document</span>.createElement(<span class="string">"template"</span>))&#123;</span><br><span class="line">    <span class="comment">// code here..</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p></p><h4>3. 模板中嵌入模板</h4><p></p>
+<p>在 script 标签中嵌入一个 script 标签，这个几乎是不可能的事情吧，但是 template 可以：</p>
+
+<figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">&lt;<span class="keyword">template</span> id=<span class="string">"ulList"</span>&gt;</span><br><span class="line">    &lt;li&gt;</span><br><span class="line">        &lt;strong&gt;&lt;%=content%&gt;&lt;/%=content%&gt;&lt;/strong&gt;</span><br><span class="line">        &lt;<span class="keyword">template</span>&gt;</span><br><span class="line">            &lt;<span class="keyword">div</span>&gt;</span><br><span class="line">                &lt;p&gt;&lt;%=detail%&gt;&lt;/%=detail%&gt;&lt;/p&gt;</span><br><span class="line">            &lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">        &lt;/<span class="keyword">template</span>&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">&lt;/<span class="keyword">template</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>至于插入之后是个什么效果，读者可以自己去浏览器中查看。这种插入方式是有使用场景的，很多时候我们都是给需要应用模板的元素设置一个 id 或者 class ，方便找到他们，而这种直接插入的方式，我们可以利用模板代码直接找到需要应用模板的元素，如：</p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> tpl</span> = ulList.getElementsByTagName(<span class="string">"template"</span>)[<span class="number">0</span>]; <span class="comment">// 获取模板</span></span><br><span class="line"><span class="variable"><span class="keyword">var</span> toBox</span> = tpl.parentNode; <span class="comment">// 直接定位要插入的位置</span></span><br><span class="line">toBox.appendChild(tpl.content.cloneNode(<span class="literal">true</span>)); <span class="comment">// 插入</span></span><br></pre></td></tr></table></figure>
+<p></p><h3>五、拓展 web components</h3><p></p>
+<p></p><p>Web Components 是一些规范，旨在以浏览器原生的方式向外提供组件，它的规范如下:</p><p></p>
+<ul><br><li>模板（Templates）可以将不必立即渲染的元素，不必立即执行的脚本放入这里。</li><br><li>装饰器（Decorators）</li><br><li>Shadow DOM</li><br><li>自定义元素（Custom Elements），实现自定义html标签，及属性。拥有同原生组件一样的生命周期</li><br><li>Imports, 指定引入的组件文档及类型</li><br></ul><br><p>其实本文提到的内容就是 web components 的冰山一角，感兴趣的童鞋可以去读一读相关的内容。</p><br><ul><br><li><a href="http://www.html5rocks.com/zh/tutorials/webcomponents/imports/" target="_blank">http://www.html5rocks.com/zh/tutorials/webcomponents/imports/</a> HTML Imports</li><br><li><a href="http://www.w3.org/TR/components-intro/" target="_blank">http://www.w3.org/TR/components-intro/</a> w3c components</li><br><li><a href="http://www.html5rocks.com/zh/search?q=web+components" target="_blank">http://www.html5rocks.com/zh/search?q=web+components</a> search</li><br></ul><br><h3>六、小结</h3><br><p>本文稀里哗啦说了一大串，主要是简单介绍 web components 中的 template 标签，用以替换模板代码容器 script/textarea，web components 肯定是 web 发展的一个大头，尤其是移动开发上，很有必要深入研究。</p><br><h3>七、参考资料</h3><br><ul><br><li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage//scripting-1.html#the-template-element" target="_blank">http://www.whatwg.org/specs/web-apps/current-work/multipage//scripting-1.html#the-template-element</a> W3C</li><br><li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template</a> MDN</li><br><li><a href="http://www.c-sharpcorner.com/UploadFile/370e35/template-tag-in-html5/" target="_blank">http://www.c-sharpcorner.com/UploadFile/370e35/template-tag-in-html5/</a> Sunny Kumar</li><br></ul>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/04/13/cb-javascript-template-tag/">http://barretlee.com/blog/2014/04/13/cb-javascript-template-tag/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-04-13 02:21:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/04/20/valueof-and-tostring/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>array 不等于 array</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/03/31/tap-highlight-in-webview/" class="post-next">
+      <b>webview中的点击高亮问题</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/04/20/valueof-and-tostring/" class="prev" title="array 不等于 array">
+    <i class="icon">&#xe600;</i>
+    
+    <b>array 不等于 array</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/03/31/tap-highlight-in-webview/" class="next" title="webview中的点击高亮问题">
+    <i class="icon">&#x261e;</i>
+    <b>webview中的点击高亮问题</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-javascript-template-tag" data-title="换个标签写前端模板" data-url="http://barretlee.com/blog/2014/04/13/cb-javascript-template-tag/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

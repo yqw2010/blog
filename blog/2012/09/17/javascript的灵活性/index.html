@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>javascript的灵活性 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.如果你偏爱过程式编程，你可以这样：/*Start and stop animations using functions.*/function startAnination() &amp;#123;    ....&amp;#125;function stopAnination(">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="javascript的灵活性 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2012/09/17/javascript的灵活性/">
+  <meta property="og:site_name" content="javascript的灵活性">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.如果你偏爱过程式编程，你可以这样：/*Start and stop animations using functions.*/function startAnination() &amp;#123;    ....&amp;#125;function stopAnination(">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">javascript的灵活性</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2012-09-17 09:32:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="javascript的灵活性"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2012/09/17/3049803.html" target="_blank">博客园</a>.</div>
+
+
+<p>如果你偏爱过程式编程，你可以这样：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*Start and stop animations using functions.*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startAnination</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stopAnination</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种做法很简单，但是你无法创建可以保存状态并且具有一些仅对其内部状态进行操作的方法的动画对象。</p><br><p>下面的代码定义了一个类，你可以用它创建这种对象：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*Anim class.*/</span></span><br><span class="line"> <span class="keyword">var</span> Anim = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ....</span><br><span class="line"> &#125;;</span><br><span class="line"> Anim.prototype.start = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ....</span><br><span class="line"> &#125;;</span><br><span class="line"> Anim.prototype.stop = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ....</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/*Usage.*/</span></span><br><span class="line"> <span class="keyword">var</span> myAnim = <span class="keyword">new</span> Anim();</span><br><span class="line"> myAnim.start();</span><br><span class="line"> ....</span><br><span class="line"> myAnim.stop();</span><br></pre></td></tr></table></figure>
+<p>上述代码定义了一个名为Anim的类，并把两个方法赋给该类的prototype的属性。</p><br><p>如果你更喜欢把类的定义封装在一条声明中，则可以改用下面的代码：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*Anim class, with a slightly different syntax for declaring methods*/</span></span><br><span class="line"><span class="keyword">var</span> Anim = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ....</span><br><span class="line"> &#125;;</span><br><span class="line"> Anim.prototype = &#123;</span><br><span class="line">    start : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ....</span><br><span class="line">    &#125;;</span><br><span class="line">    stop : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ....</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这在传统的面向对象程序员看来肯呢过更眼熟一点，他们习惯于看到类的方法声明内嵌在类的</p><br><p>声明之中。要是你以前用过这样的编程风格，可能想尝试下下面的是里。</p>
+
+<figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">/*<span class="type">Add</span> <span class="keyword">method</span> to the <span class="type">Function</span> <span class="keyword">object</span> that can be used to declare methods*/</span><br><span class="line"><span class="type">Function</span>.prototype.methed = function(name, fn)&#123;</span><br><span class="line">    this.prototype[name] = fn;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/*<span class="type">Anim</span> class, <span class="keyword">with</span> ,methods created <span class="keyword">using</span> a conbenience ,<span class="keyword">method</span>.*/</span><br><span class="line"><span class="keyword">var</span> <span class="type">Anim</span> = function()&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">Anim</span>.<span class="keyword">method</span>('start', function()&#123;</span><br><span class="line">    .....</span><br><span class="line">&#125;);</span><br><span class="line"><span class="type">Anim</span>.<span class="keyword">method</span>('stop', function()&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Function.protytype.method用于为类添加新方法。他有两个参数，第一个是字符串，表示新方法</p><br><p>的名称；第二个是用作新方法的函数。</p>
+
+
+<p>你可以进一步修改Function.prototype.method, 使其可被链式调用。这只需要在他返回this</p><br><p>值即可：</p>
+
+<figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">/*<span class="type">This</span> version alllows the calls to be chained.*/</span><br><span class="line"><span class="type">Function</span>.prototype.<span class="keyword">method</span> = function(name, fn)&#123;</span><br><span class="line">    this.prototype[name] = fn;</span><br><span class="line">    <span class="keyword">return</span> this;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/*<span class="type">Anim</span> class, <span class="keyword">with</span> methods created <span class="keyword">using</span> a convenience <span class="keyword">and</span> chaining.*/</span><br><span class="line"><span class="keyword">var</span> <span class="type">Anim</span> = function()&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">Anim</span>.</span><br><span class="line">    <span class="keyword">method</span>('start', function()&#123;</span><br><span class="line">        ....</span><br><span class="line">    &#125;).</span><br><span class="line">    <span class="keyword">method</span>('stop', function()&#123;</span><br><span class="line">        ....</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p><br>              </p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2012/09/17/javascript的灵活性/">http://barretlee.com/blog/2012/09/17/javascript的灵活性/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2012-09-17 09:32:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2012/09/18/javascript链式调用的实现方式/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>javascript链式调用的实现方式</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2012/09/16/平时积累的一点东西/" class="post-next">
+      <b>平时积累的一点东西</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2012/09/18/javascript链式调用的实现方式/" class="prev" title="javascript链式调用的实现方式">
+    <i class="icon">&#xe600;</i>
+    
+    <b>javascript链式调用的实现方式</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2012/09/16/平时积累的一点东西/" class="next" title="平时积累的一点东西">
+    <i class="icon">&#x261e;</i>
+    <b>平时积累的一点东西</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="javascript的灵活性" data-title="javascript的灵活性" data-url="http://barretlee.com/blog/2012/09/17/javascript的灵活性/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

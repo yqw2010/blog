@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Javascript综合应用小案例 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.按需求弄了一个 取词 以及 标红 的小应用。先上demo ：http://qianduannotes.sinaapp.com/getKeyword/很多平时常用的东西，都用上了，所以拿出来说说。一、代码var GetKeywords = {  str: “”,  ">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Javascript综合应用小案例 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/05/04/cb-getkeywords/">
+  <meta property="og:site_name" content="Javascript综合应用小案例">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.按需求弄了一个 取词 以及 标红 的小应用。先上demo ：http://qianduannotes.sinaapp.com/getKeyword/很多平时常用的东西，都用上了，所以拿出来说说。一、代码var GetKeywords = {  str: “”,  ">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">Javascript综合应用小案例</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-05-04 02:38:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-getkeywords"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/05/04/getkeywords.html" target="_blank">博客园</a>.</div>
+
+<p>按需求弄了一个 <strong>取词</strong> 以及 <strong>标红</strong> 的小应用。</p><br><p><a href="http://qianduannotes.sinaapp.com/getKeyword/" target="_blank"><img src="http://images.cnblogs.com/cnblogs_com/hustskyking/477032/o_%e8%a7%86%e5%9b%be.png" alt="" width="716" height="388"></a></p><br><p>先上demo ：<a title="取词&&标红 demo" href="http://qianduannotes.sinaapp.com/getKeyword/" target="_blank">http://qianduannotes.sinaapp.com/getKeyword/</a></p><br><p>很多平时常用的东西，都用上了，所以拿出来说说。</p>
+
+
+<p><strong>一、代码</strong></p><br><div class="cnblogs_Highlighter"><br><pre class="brush:javascript;collapse:true;;gutter:false;">var GetKeywords = {<br>  str: “”,<br>  limit: 11,<br>  keywords:[],<br><br>  init : function(){<br>    var box = this._(“article”),<br>      _this = this;<br><br>    //获取已经存在的关键词<br>    this.getAllKeyWord();<br><br>    //让rmKeyWord函数全局化<br>    window.rmkeyWord = this.rmkeyWord;<br><br>    //取词事件<br>    box.onmouseup = function(evt){<br>      var evt = evt || window.event,<br>        target = evt.target || evt.srcElement;<br><br>      //如果鼠标是在button上弹起，则忽略<br>      if(target.id == “btn”) return;<br>      GetKeywords.str = _this.getSelectionText();<br><br>      if(_this.str.length == 0) return;<br>      if(<em>this.</em>(“btn”)) {<br>        _this.removeBtn();<br>        if(GetKeywords.str == “”) return;<br>        _this.createBtn(evt);<br>        return;<br>      }<br>      <em>this.createBtn(evt);<br>    }<br>  },<br><br>  //工具函数
+  </em>: function(obj){<br>    return document.getElementById(obj);<br>  },<br><br>  //获取选中文本<br>  getSelectionText: function(){<br>    if(window.getSelection) {<br>      return window.getSelection().toString();<br>    } else if(document.selection &amp;&amp; document.selection.createRange) {<br>      return document.selection.createRange().text;<br>    }<br>    return ‘’;<br>  },<br><br>  //创建按钮<br>  createBtn: function(evt){<br>    var button = document.createElement(“div”),<br>      evt = evt || window.event,<br>      x = evt.pageX || evt.x,<br>      y = evt.pageY || evt.y,<br>      i, j, len,<br>      cssList = “”,<br>      <em>this = this,<br>      csses = {<br>        “height” : “30px”,<br>        “line-height” : “30px”,<br>        “position”: “absolute”,<br>        “top”: y + 10 + “px”,<br>        “left”: x + 10 + “px”,<br>        “cursor”: “pointer”,<br>        “border”: “1px solid #000”,<br>        “background”: “#EEE”,<br>        “padding”: “2px 8px”,<br>        “border-radius”: “3px”<br>      };<br>    for(i in csses){<br>      if(csses.hasOwnProperty(i)){<br>        cssList += i + “:” + csses[i] + “;”;<br>      }<br>    }<br>    button.style.cssText = cssList;<br>    button.innerHTML = “添加到关键词列表”;<br>    button.setAttribute(“id”, “btn”);<br><br>    this.</em>(“article”).appendChild(button);<br><br>    button.onclick = function(){<br>      if(_this.str.length &gt; _this.limit){<br>        alert(“关键词长度最长为11，可以通过设置GetKeywords.limit来控制长度。”);<br>        _this.removeBtn();<br>        return;<br>      }<br><br>      for(j = 0, len = GetKeywords.keywords.length; j &lt; len; j++){<br>        if(GetKeywords.keywords[j] == _this.str){<br>          alert(“已经存在该关键词了~”);<br>          _this.removeBtn();<br>          return;<br>        }<br>        continue;<br>      }<br>      _this.keywords.push(_this.str);<br>      _this.setRed(_this.str);<br>      _this.addTo();<br>      <em>this.removeBtn();<br>    };<br>  },<br><br>  //删除按钮<br>  removeBtn: function(){<br>    var btn = this.</em>(“btn”);<br>    btn.parentNode.removeChild(btn);<br>  },<br><br>  //加入到关键词里列表<br>  addTo: function(){<br>    var word = this.<em>(“wordList”);<br>    word.innerHTML += “&lt;span&gt;&lt;font&gt;” + this.str + “&lt;/font&gt;&lt;a href=’#’ onclick=’rmkeyWord(this);’&gt;&lt;/a&gt;&lt;/span&gt;”;<br>  },<br><br>  //关键词标红<br>  setRed: function(str){<br>    var content = this.</em>(“article”),<br>      temp = ‘(‘ + str + ‘)’;<br>      reg = new RegExp(temp,’g’);<br><br>    content.innerHTML = content.innerHTML.replace(reg, “&lt;span style=’color:red;’&gt;$1&lt;/span&gt;”);<br>  },<br><br>  //删除标红<br>  rmRed: function(str){<br>    var content = this.<em>(“article”),<br>      temp = “(&lt;span[^&lt;]*” + str + “&lt;/span&gt;)”;<br>      reg = new RegExp(temp,’gi’);<br>    content.innerHTML = content.innerHTML.replace(reg, str);<br>  },<br><br>  //获取已经存在的关键词（也可以用来获取所有关键词）<br>  getAllKeyWord: function (){<br>    var spans = this.</em>(“wordList”).getElementsByTagName(“span”),<br>      key = [], i = 0, len;<br>    for(len = spans.length; i &lt; len; i++){<br>      var font = spans[i].getElementsByTagName(“font”)[0];<br>      var temp = font.innerText || font.textContent;<br>      this.setRed(temp);<br>      key.push(temp);<br>    }<br>    this.keywords = key;<br>  },<br><br>  //删除关键词<br>  rmkeyWord: function (obj){<br>    var target = obj.parentNode,<br>      word = obj.previousSibling.innerHTML,<br>      i = 0, len;<br>    GetKeywords.rmRed(word);<br>    for(len = GetKeywords.keywords.length; i &lt; len; i++){<br>      if(GetKeywords.keywords[i] == word){<br>        GetKeywords.keywords.splice(i,i);<br>      }<br>      continue;<br>    }<br>    target.parentNode.removeChild(target);<br>    return;<br>  }<br>}<br><br>GetKeywords.init();</pre><br></div><br><br><br><p><span>以上是所有js代码，比较长，下面将列举一些比较突出的点（望高人多多指点）。</span></p>
+
+
+<p><strong>二、代码分析</strong></p><br><p><strong>1.获取文本</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">getSelectionText: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.getSelection) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">window</span>.getSelection().toString();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.selection &amp;&amp; <span class="built_in">document</span>.selection.createRange) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.selection.createRange().text;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个在以前（<a class="titlelink" href="http://www.cnblogs.com/hustskyking/archive/2013/04/11/set_and_get_cursor_position.html" target="_blank">JavaScript操控光标，你会么？</a>）的文章里也说过，就不赘述了。</p>
+
+
+<p><strong>2.创建控制框</strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">createBtn: <span class="function"><span class="keyword">function</span><span class="params">(evt)</span>&#123;</span></span><br><span class="line">    var button = document.createElement<span class="params">(<span class="string">"div"</span>)</span>,</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        csses = &#123;</span><br><span class="line">            <span class="string">"height"</span> : <span class="string">"30px"</span>,</span><br><span class="line">            <span class="string">"line-height"</span> : <span class="string">"30px"</span>,</span><br><span class="line">            <span class="string">"position"</span>: <span class="string">"absolute"</span>,</span><br><span class="line">            <span class="string">"top"</span>: y + <span class="number">10</span> + <span class="string">"px"</span>,</span><br><span class="line">            <span class="string">"left"</span>: x + <span class="number">10</span> + <span class="string">"px"</span>,</span><br><span class="line">            <span class="string">"cursor"</span>: <span class="string">"pointer"</span>,</span><br><span class="line">            <span class="string">"border"</span>: <span class="string">"1px solid #000"</span>,</span><br><span class="line">            <span class="string">"background"</span>: <span class="string">"#EEE"</span>,</span><br><span class="line">            <span class="string">"padding"</span>: <span class="string">"2px 8px"</span>,</span><br><span class="line">            <span class="string">"border-radius"</span>: <span class="string">"3px"</span></span><br><span class="line">        &#125;;</span><br><span class="line">    <span class="keyword">for</span><span class="params">(i in csses)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span><span class="params">(csses.hasOwnProperty<span class="params">(i)</span>)</span>&#123;</span><br><span class="line">            cssList += i + <span class="string">":"</span> + csses[i] + <span class="string">";"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    button.style.cssText = cssList;</span><br><span class="line">    button.innerHTML = <span class="string">"添加到关键词列表"</span>;</span><br><span class="line">    button.setAttribute<span class="params">(<span class="string">"id"</span>, <span class="string">"btn"</span>)</span>;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有一点我想说说，在写js的时候，会经常涉及到对DOM对象style的处理，如果不想额外加入一个plugins.css之类的文件，可以像上面一样，将样式放置在一个对象中，然后利用for in将其写入，本来开始我用的是</p>
+
+<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">obj.style<span class="comment">[i]</span> = csses<span class="comment">[i]</span>;</span><br></pre></td></tr></table></figure>
+<p>不知道为什么，在IE下报错了，后来便用cssText代替。</p><br><p>效果：</p><br><p><a href="http://qianduannotes.sinaapp.com/getKeyword/" target="_blank"><img src="http://images.cnblogs.com/cnblogs_com/hustskyking/477032/o_%e6%b7%bb%e5%8a%a0%e5%88%b0%e5%88%97%e8%a1%a8.png" alt="添加到列表" width="610" height="312"></a></p>
+
+
+<p><strong>3.标红</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//关键词标红</span></span><br><span class="line">setRed: <span class="function"><span class="keyword">function</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="keyword">this</span>._(<span class="string">"article"</span>),</span><br><span class="line">        temp = <span class="string">'('</span> + str + <span class="string">')'</span>;</span><br><span class="line">        reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(temp,<span class="string">'g'</span>);</span><br><span class="line"></span><br><span class="line">    content.innerHTML = content.innerHTML.replace(reg, <span class="string">"&lt;span&gt;$1&lt;/span&gt;"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里主要就是正则表达式的事情了，正则的话，推荐两篇文章</p><br><ul><br><li>一篇是司徒正美的，讲的比较全面，比较系统。<a href="http://www.cnblogs.com/rubylouvre/archive/2009/11/02/1594731.html" target="_blank">点我链接过去→</a></li><br><li>一篇是30分钟搞定正则，这个讲说是对所有语言，JS的话正则这一块还不是特别完善和强大。<a href="http://manual.phpv.net/regular_expression.html" target="_blank">点我链接过去→</a></li><br></ul><br><p>哈哈，相信用过正则的人不需要我来解释这个<span>$1</span>了吧，他的意思就是匹配到的第一个。</p><br><p>当然，删除标红和这个原理是差不多的。</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//删除标红</span></span><br><span class="line">rmRed: <span class="function"><span class="keyword">function</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="keyword">this</span>._(<span class="string">"article"</span>),</span><br><span class="line">        temp = <span class="string">"(&lt;span[^&lt;]*"</span> +=<span class="string">""</span> str=<span class="string">""</span> <span class="string">"&lt;="</span><span class="string">" span="</span><span class="string">"&gt;)"</span>;</span><br><span class="line">        reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(temp,<span class="string">'gi'</span>);</span><br><span class="line"></span><br><span class="line">    content.innerHTML = content.innerHTML.replace(reg, str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&lt;/span[^&lt;]*”&gt;</p>
+<p>这里是写完这篇blog才发现的一个bug， IE下如果rmRed中的正则是’g’,貌似该函数会无效，在IE8控制台下查看，NND，输出innerHTML中的标签全部变成大写了，无奈，只好改成’gi’。</p>
+
+
+<p><strong>4.获取所有关键词和删除关键词</strong></p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取已经存在的关键词（也可以用来获取所有关键词）</span></span><br><span class="line">getAllKeyWord: <span class="function"><span class="keyword">function</span> <span class="params">()</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除关键词</span></span><br><span class="line">rmkeyWord: <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    GetKeywords.rmRed<span class="params">(word)</span>;</span><br><span class="line">    <span class="keyword">for</span><span class="params">(len = GetKeywords.keywords.length; i &lt; len; i++)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span><span class="params">(GetKeywords.keywords[i] == word)</span>&#123;</span><br><span class="line">            GetKeywords.keywords.splice<span class="params">(i,i)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        continue;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个地方，有一个疑问，在调用的时候，使用this.keywords没反应，但是改成GetKeywords就行了，还没研究具体原因是什么~</p>
+
+
+<p><strong>5.初始化</strong></p>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="tag">GetKeywords</span><span class="class">.init</span>();</span><br></pre></td></tr></table></figure>
+<p>init()为总入口，进去之后，先获取已经存在的关键词，然后标红，接着绑定onmouseup事件。</p>
+
+
+<p><strong>三、然后</strong></p><br><p>当然咯，这个案例的ajax部分还没写，弄完之后还得给后台送过去。。好吧，明天接着弄吧。</p><br><p>写这玩意儿还是花了点功夫，不过鄙人写代码的水平还在初级阶段，望大神们不要吐槽，多提宝贵意见，谢谢！</p><br><p>然后，还是那个demo，<a title="取词&&标红 demo" href="http://qianduannotes.sinaapp.com/getKeyword/" target="_blank">http://qianduannotes.sinaapp.com/getKeyword/</a></p><br><p>顺便，推广下，团队做的一个网站，主要技术是爬虫，高峰期PV稳定在120W以上，找工作的童鞋可以多去踩踩~</p><br><p><strong><a title="海投网" href="http://xjh.haitou.cc/" target="_blank">宣讲会查询系统&mdash;&mdash;海投网</a>&nbsp;</strong></p>
+
+
+<p>P.S：刚让队友测试，还是发现了不少bug，果然考虑问题还是不全面啊~还要继续加油。。。</p>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/05/04/cb-getkeywords/">http://barretlee.com/blog/2013/05/04/cb-getkeywords/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-05-04 02:38:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/05/05/cb-get-and-post/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>浅谈HTTP中Get与Post的区别</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/04/27/cb-mianshi/" class="post-next">
+      <b>腾讯的三轮面试（web前端）</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/05/05/cb-get-and-post/" class="prev" title="浅谈HTTP中Get与Post的区别">
+    <i class="icon">&#xe600;</i>
+    
+    <b>浅谈HTTP中Get与Post的区别</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/04/27/cb-mianshi/" class="next" title="腾讯的三轮面试（web前端）">
+    <i class="icon">&#x261e;</i>
+    <b>腾讯的三轮面试（web前端）</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-getkeywords" data-title="Javascript综合应用小案例" data-url="http://barretlee.com/blog/2013/05/04/cb-getkeywords/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

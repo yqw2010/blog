@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>NodeJS写个爬虫，把文章放到kindle中阅读 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.这两天看了好几篇不错的文章，有的时候想把好的文章 down 下来放到 kindle 上看，便写了个爬虫脚本，因为最近都在搞 node，所以就很自然的选择 node 来爬咯～本文地址：http://www.cnblogs.com/hustskyking/p/spid">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="NodeJS写个爬虫，把文章放到kindle中阅读 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2014/04/28/cb-spider-with-node/">
+  <meta property="og:site_name" content="NodeJS写个爬虫，把文章放到kindle中阅读">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.这两天看了好几篇不错的文章，有的时候想把好的文章 down 下来放到 kindle 上看，便写了个爬虫脚本，因为最近都在搞 node，所以就很自然的选择 node 来爬咯～本文地址：http://www.cnblogs.com/hustskyking/p/spid">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">NodeJS写个爬虫，把文章放到kindle中阅读</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2014-04-28 01:41:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/网络交互/">网络交互</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/NodeJS/">NodeJS</a>, <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-spider-with-node"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/04/28/spider-with-node.html" target="_blank">博客园</a>.</div>
+
+<p>这两天看了好几篇不错的文章，有的时候想把好的文章 down 下来放到 kindle 上看，便写了个爬虫脚本，因为最近都在搞 node，所以就很自然的选择 node 来爬咯～</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/spider-with-node.html" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/spider-with-node.html</a>，转载请注明源地址。</p><br><p>所谓爬虫，可以简单理解为利用程序操作文件，只是这些文件不在本地，需要我们拉取过来。</p><br><h3>一. 爬虫代码解析</h3><br><h4>1. 拿到目标页码源码</h4><br><p>Node 提供了很多接口来获取远程地址代码，就拿 AlloyTeam 的页面举例吧，把他首页几篇文章的信息爬取过来。因为 AlloyTeam 使用的协议是 http:// ，本文就不介绍 Node 中 https:// 的使用了。</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> url = <span class="string">"http://www.alloyteam.com/"</span>;</span><br><span class="line"><span class="keyword">var</span> data = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个请求</span></span><br><span class="line"><span class="keyword">var</span> req = http.request(url, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 设置显示编码</span></span><br><span class="line">    res.setEncoding(<span class="string">"utf8"</span>);</span><br><span class="line">    <span class="comment">// 数据是 chunked 发送，意思就是一段一段发送过来的</span></span><br><span class="line">    <span class="comment">// 我们使用 data 给他们串接起来</span></span><br><span class="line">    res.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>)</span>&#123;</span><br><span class="line">        data += chunk;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 响应完毕时间出发，输出 data</span></span><br><span class="line">    res.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// dealData(data);</span></span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure>
+<p>上面短短七八行代码，就拿到了 AlloyTeam 首页的代码，真的十分简单，如果是 https:// 就得引用 https 模块咯，都是差不多的。</p><br><h4>2. 正则提取目标内容</h4><br><p>先看下我们要抓取的内容：&nbsp;</p><br><p><img src="http://images.cnitblog.com/i/387325/201404/280127061279284.png" alt=""></p><br><p>由于没有使用其他库，我们没办法像操作 DOM 一样获取目标内容，不过写正则也挺简单的，比如我们要 获取标题/文章链接/摘要 这些内容，正则表达式为：</p>
+
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="comment">// function dealData</span></span><br><span class="line"><span class="keyword">var</span> reg = /&lt;ul\s+<span class="class"><span class="keyword">class</span>=</span><span class="string">"articlemenu"</span>&gt;\s+&lt;li&gt;\s+&lt;a[^&gt;]*&gt;.*?&lt;\ a=<span class="string">""</span>&gt;\s+&lt;a href=<span class="string">"(.*?)"</span> [^=<span class="string">""</span>&gt;]*&gt;(.*?)&lt;\ a=<span class="string">""</span>&gt;[\s\<span class="type">S</span>]*?&lt;div\s+<span class="class"><span class="keyword">class</span>=</span><span class="string">"text"</span>&gt;([\s\<span class="type">S</span>]*?)&lt;\ div=<span class="string">""</span>&gt;/g;</span><br><span class="line"><span class="keyword">var</span> res = [];</span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">match</span> = reg.exec(data)) &#123;</span><br><span class="line">    res.push(&#123;</span><br><span class="line">        <span class="string">"url"</span>: <span class="keyword">match</span>[<span class="number">1</span>],</span><br><span class="line">        <span class="string">"title"</span>: <span class="keyword">match</span>[<span class="number">2</span>],</span><br><span class="line">        <span class="string">"excerpt"</span>: <span class="keyword">match</span>[<span class="number">3</span>]</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&lt;/>&lt;/>&lt;/></p>
+<p>这里的正则看起来有点晦涩，不过呢，正则在编程中十分基础的东西，如果没有太多的了解，建议先去搞清楚，这里就不细说啦。这里要强调的一点是：</p>
+
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">reg</span>.exec(<span class="typedef"><span class="keyword">data</span>);</span></span><br></pre></td></tr></table></figure>
+<p>如果只写上面这句话，只会拿到第一个匹配结果，所以需要使用 while 循环来处理，没处理一次，正则匹配的位置就会往后推一下。其实上面这条语句执行后返回的是一个对象，其中包含一个 index 属性，具体可以查阅 JavaScript 正则的内容。</p><br><p>这里返回（res）的数据格式是：</p>
+
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    <span class="string">"url: url,</span></span><br><span class="line">    <span class="string">"title"</span>: title,</span><br><span class="line">    <span class="string">"excerpt"</span> excerpt</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p></p><h4>3. 数据的过滤</h4><p></p>
+<p>上面虽然拿到了内容，不过我们需要的是纯文本，其他标签什么的得过滤掉，excerpt 中包含了一些标签：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">var excerpt = excerpt.replace<span class="params">(/<span class="params">(&lt;.*?&gt;)</span><span class="params">(<span class="params">(.*?)</span><span class="params">(&lt;.*?&gt;)</span>)</span>?/g, <span class="string">"$3"</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>&lt;/.<em>?&gt;&lt;/.</em>?&gt;</p>
+<p>虽说文章中有很多代码，有些标签是不应该删除的，不过这里是摘要内容，这些内容的标签都删除掉，方便我们储存。然后把长度处理下：</p>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">excerpt = excerpt.slice(<span class="number">0</span>, <span class="number">120</span>);</span><br></pre></td></tr></table></figure>
+<p></p><h4>4. 存到数据库（或者文件）</h4><p></p>
+<p>我这里是把文件储存到文件之中，存放格式为：</p>
+
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[<span class="link_label">title</span>](<span class="link_url">url</span>)</span><br><span class="line"><span class="blockquote">&gt; excerpt</span></span><br></pre></td></tr></table></figure>
+<p>哈哈，很熟熟悉吧，markdown 语法，看起来也比较清晰。</p>
+
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="label">var</span> <span class="keyword">str </span>= <span class="string">""</span><span class="comment">;</span></span><br><span class="line"><span class="label">for</span>(var i = <span class="number">0</span>, len = <span class="preprocessor">data</span>.length<span class="comment">; i &lt; len; i++)&#123;</span></span><br><span class="line">    <span class="keyword">str </span>+= <span class="string">"["</span> + <span class="preprocessor">data</span>[i].title + <span class="string">"]("</span> + <span class="preprocessor">data</span>[i].url + <span class="string">")\n"</span> + <span class="preprocessor">data</span>[i].excerpt.replace(<span class="string">"\n\s*\n?"</span>, <span class="string">"&gt;\n"</span>) + <span class="string">"\n\n"</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先拼接数据，然后写入到文件：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">fs.writeFile(<span class="string">'index.md'</span>, str, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'数据已保存～'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>大功告成，过程其实是很简单的。拿到的内容（Linux 下，字体真丑！）：</p><br><p><img src="http://images.cnitblog.com/i/387325/201404/280128134707391.png" alt=""></p><br><h3>二. 源码与小结</h3><br><p>如果对正则不太熟悉，上面的工作是不太好完成的，很多开发者为 Node 提供了工具库，使用 npm 可以安装，如果不习惯正则，使用一些工具包辅助处理，可以把拿到的数据当作 DOM 来解析。</p><br><p>我了解到的有一个叫做 node-jquery 的库貌似还不错，具体请读者自己去网上搜吧，应该挺多的。</p><br><p>上面的代码都是随手写的，没有做什么容错的机制，也只爬取了首页的内容，不过思路都是一样的，拿到 URL 之后再写个循环，其他页面的内容也就到手了。</p><br><p>源码没几行：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var http = require<span class="params">(<span class="string">"http"</span>)</span>;</span><br><span class="line">var fs = require<span class="params">(<span class="string">"fs"</span>)</span>;</span><br><span class="line"></span><br><span class="line">var url = <span class="string">"http://www.alloyteam.com/"</span>;</span><br><span class="line">var data = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">var req = http.request<span class="params">(url, function<span class="params">(res)</span>&#123;</span><br><span class="line">    res.setEncoding<span class="params">(<span class="string">"utf8"</span>)</span>;</span><br><span class="line">    res.on<span class="params">('data', function<span class="params">(chunk)</span>&#123;</span><br><span class="line">        data += chunk;</span><br><span class="line">    &#125;)</span>;</span><br><span class="line">    res.on<span class="params">('end', function<span class="params">()</span>&#123;</span><br><span class="line">        dealData<span class="params">(data)</span>;</span><br><span class="line">    &#125;)</span>;</span><br><span class="line">&#125;)</span>;</span><br><span class="line"></span><br><span class="line">req.on<span class="params">('error', function<span class="params">(e)</span>&#123;</span><br><span class="line">    throw e;</span><br><span class="line">&#125;)</span>;</span><br><span class="line"></span><br><span class="line">req.end<span class="params">()</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(<span class="string">"数据下载中..."</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dealData</span><span class="params">(data)</span>&#123;</span></span><br><span class="line">    var reg = /&lt;ul\s+class=<span class="string">"articlemenu"</span>&gt;\s+&lt;li&gt;\s+&lt;a[^&gt;]<span class="built_in">*</span>&gt;.<span class="built_in">*</span>?&lt;\ a=<span class="string">""</span>&gt;\s+&lt;a href=<span class="string">"(.*?)"</span> [^=<span class="string">""</span>&gt;]<span class="built_in">*</span>&gt;<span class="params">(.*?)</span>&lt;\ a=<span class="string">""</span>&gt;[\s\S]<span class="built_in">*</span>?&lt;div\s+class=<span class="string">"text"</span>&gt;<span class="params">([\s\S]*?)</span>&lt;\ div=<span class="string">""</span>&gt;/g;</span><br><span class="line">    var res = [];</span><br><span class="line">    while<span class="params">(match = reg.exec<span class="params">(data)</span>)</span> &#123;</span><br><span class="line">        res.push<span class="params">(&#123;</span><br><span class="line">            <span class="string">"url"</span>: match[<span class="number">1</span>],</span><br><span class="line">            <span class="string">"title"</span>: match[<span class="number">2</span>],</span><br><span class="line">            <span class="string">"excerpt"</span>: match[<span class="number">3</span>].replace<span class="params">(/<span class="params">(&lt;.*?&gt;)</span><span class="params">(<span class="params">(.*?)</span><span class="params">(&lt;.*?&gt;)</span>)</span>?/g, <span class="string">"$3"</span>)</span>.slice<span class="params">(<span class="number">0</span>,<span class="number">120</span>)</span></span><br><span class="line">        &#125;)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    writeFile<span class="params">(res)</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeFile</span><span class="params">(data)</span>&#123;</span></span><br><span class="line">    var <span class="built_in">str</span> = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span><span class="params">(var i = <span class="number">0</span>, len = data.length; i &lt; len; i++)</span>&#123;</span><br><span class="line">        <span class="built_in">str</span> += <span class="string">"["</span> + data[i].title + <span class="string">"]("</span> + data[i].url + <span class="string">")\n&gt;"</span> + data[i].excerpt.replace<span class="params">(/\n\s*\n?/g, <span class="string">"\n&gt;"</span>)</span> + <span class="string">"\n\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    fs.writeFile<span class="params">('index.md', str, function <span class="params">(err)</span> &#123;</span><br><span class="line">       if <span class="params">(err)</span> throw err;</span><br><span class="line">       console.log<span class="params">('数据已保存～')</span>;</span><br><span class="line">    &#125;)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 node 环境中：</p>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="tag">node</span> <span class="tag">spider</span><span class="class">.js</span></span><br></pre></td></tr></table></figure>
+<p></p><p>就可以在同级目录下看到 index.md 文件了。至于如何放到 kindle 中，先了解下 <a href="http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm" target="_blank">OPF</a> 格式，然后使用 Amazon 的 <a href="http://www.amazon.com/gp/feature.html?ie=UTF8<docId=1000765211" target="_blank">KindleGen</a> 工具打包就行啦。</p><p></p>
+<p></p><h3>三. 参考资料</h3><p></p>
+<ul><br><li><a href="http://nodejs.org/api/fs.html" target="_blank" rel="external">http://nodejs.org/api/fs.html</a></li><br><li><a href="http://nodejs.org/api/http.html" target="_blank" rel="external">http://nodejs.org/api/http.html</a></li><br></ul>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2014/04/28/cb-spider-with-node/">http://barretlee.com/blog/2014/04/28/cb-spider-with-node/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-04-28 01:41:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/网络交互/">网络交互</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/NodeJS/">NodeJS</a>, <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/04/29/reverse-string-to-object/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>解析URL到对应的Object</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/04/28/reg-match-null/" class="post-next">
+      <b>当正则匹配零个字符</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2014/04/29/reverse-string-to-object/" class="prev" title="解析URL到对应的Object">
+    <i class="icon">&#xe600;</i>
+    
+    <b>解析URL到对应的Object</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/04/28/reg-match-null/" class="next" title="当正则匹配零个字符">
+    <i class="icon">&#x261e;</i>
+    <b>当正则匹配零个字符</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-spider-with-node" data-title="NodeJS写个爬虫，把文章放到kindle中阅读" data-url="http://barretlee.com/blog/2014/04/28/cb-spider-with-node/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

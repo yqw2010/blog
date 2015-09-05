@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>OAuth认证原理及HTTP下的密码安全传输 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.很多人都会问这样一个问题，我们在登录的时候，密码会不会泄露？随便进一个网站，登录时抓包分析，可以看到自己的密码都是明文传输的，在如此复杂的web环境下，我们没有百分的把握保证信息在传输过程中不被截获，那不使用明文如何告诉服务器自己的身份呢？在一些高度通信安全的网络">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OAuth认证原理及HTTP下的密码安全传输 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2013/11/26/cb-authentication-in-web/">
+  <meta property="og:site_name" content="OAuth认证原理及HTTP下的密码安全传输">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.很多人都会问这样一个问题，我们在登录的时候，密码会不会泄露？随便进一个网站，登录时抓包分析，可以看到自己的密码都是明文传输的，在如此复杂的web环境下，我们没有百分的把握保证信息在传输过程中不被截获，那不使用明文如何告诉服务器自己的身份呢？在一些高度通信安全的网络">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">OAuth认证原理及HTTP下的密码安全传输</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2013-11-26 02:58:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/前端杂烩/网络安全/">网络安全</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="cb-authentication-in-web"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/11/26/authentication-in-web.html" target="_blank">博客园</a>.</div>
+
+<p>很多人都会问这样一个问题，我们在登录的时候，密码会不会泄露？随便进一个网站，登录时抓包分析，可以看到自己的密码都是明文传输的，在如此复杂的web环境下，我们没有百分的把握保证信息在传输过程中不被截获，那不使用明文如何告诉服务器自己的身份呢？</p><br><p>在一些高度通信安全的网络中，数据传输会使用HTTPS作为传输协议，但是通常情况下我们没必要使用HTTPS传输，虽说安全，但传输数据都需要加密解密，很费时。我们可以使用一些加密方式（如md5）对密码进行加密，如果仅仅只对密码加密那肯定是没有任何作用，所以可以在密码中加入一些其他的字符，合并之后使这个密码成为一个临时密码~</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">label</span>&gt;</span>username:<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"uid"</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span>&gt;</span>password:<span class="tag">&lt;/<span class="title">label</span>&gt;</span><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"pwd"</span> <span class="attribute">type</span>=<span class="value">"password"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="built_in">Date</span>*<span class="number">1</span>,</span><br><span class="line">        uid = $(<span class="string">"#uid"</span>).val(),</span><br><span class="line">        pwd = $(<span class="string">"#pwd"</span>).val(),</span><br><span class="line">        delta = encrypt($(<span class="string">"#pwd"</span>).val() + t);</span><br><span class="line"></span><br><span class="line">    $.post(<span class="string">"./login.php"</span>,&#123;</span><br><span class="line">        uid: $(<span class="string">"#uid"</span>).val(),</span><br><span class="line">        pwd: delta,</span><br><span class="line">        tid: t</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//do something.</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上面，提交表单的时候，pwd并不是真实的密码，他是pwd与t混合再加密的字符串。这样的字符串即便是被人截获也是一个无效的数据，即便是截获并知道了破解方式，我们还可以在后台给他设定一个时效限制。</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line">    define(<span class="string">"uid"</span>, <span class="string">"user-A"</span>);</span><br><span class="line">    define(<span class="string">"pwd"</span>, <span class="string">"user-A-pwd"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(time() - <span class="variable">$_POST</span>[<span class="string">'tid'</span>] &gt; <span class="number">60</span>*<span class="number">2</span> ||</span><br><span class="line">    <span class="variable">$_POST</span>[<span class="string">'uid'</span>] !== uid ||</span><br><span class="line">    decrypt(pwd . <span class="variable">$_POST</span>[<span class="string">'tid'</span>]) !== <span class="variable">$_POST</span>[<span class="string">'pwd'</span>])&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"error"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>如果下面三个条件有一个不满足就报错</p><br><ul><br><li>时间超过2分钟</li><br><li>uid不匹配</li><br><li>pwd与t的组合密码不匹配</li><br></ul><br><p>当然，上面提到的encrypt和decrypt都是约定好的加密和解密方式，通常会使用md5加密。</p><br><p>这样的加密传输方式，需要客户端和服务器端的时间比较准确。如果要考虑时间不准确问题以及hacker动作迅速的问题，那就得用token来验证了。</p><br><p>所谓的token，其实就是在登录之前向服务器发送一个请求，获取准入的一个临时密码，这个临时密码是由服务器给出，所以不存在上面所说的时间不准确问题，同时这个token也是一个随机的字符串，只能单次使用，hacker很难获取，即便获取也无法使用，因为下一步登录所需的信息他没有。</p><br><p>很多童鞋都用过人人、QQ、微博的开发平台，其中OAuth认证也就是这个原理。就拿人人开发平台的认证来说，他的认证流程是这样的：&nbsp;</p><br><p><img src="http://images.cnitblog.com/blog/387325/201311/26144042-63a32b86b7574f06adb31c99a39b4316.png" alt="renren"></p><br><p>通过你在平台申请的API KEY向<a href="https://graph.renren.com/oauth/authorize请求一个临时密码，也就是token" target="_blank" rel="external">https://graph.renren.com/oauth/authorize请求一个临时密码，也就是token</a> code，然后利用token code向<a href="https://graph.renren.com/oauth/token请求用户数据。整个流程十分简单。" target="_blank" rel="external">https://graph.renren.com/oauth/token请求用户数据。整个流程十分简单。</a></p><br><p>这是一个简单的demo，获取你的头像和姓名。<a href="http://qianduannotes.duapp.com/renren/enter.html" target="_blank">人人OAuth认证demo</a></p><br><p>使用token的弊端是需要额外发送一次请求，过程稍微复杂。有些公司VPN通道就是利用token做密码，为了保证高安全性，他们使用的是一个信息与服务器同步硬件设备，和银行发的动态口令一样，每次登陆都需要输入这个口令，那这个口令也就是token，不过他不是网络传输获取，所以安全性更高。</p>
+
+
+        <p>本文链接：<a href="http://barretlee.com/blog/2013/11/26/cb-authentication-in-web/">http://barretlee.com/blog/2013/11/26/cb-authentication-in-web/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-11-26 02:58:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/前端杂烩/网络安全/">网络安全</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/11/26/cb-ES6-introduce/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>ECMAScript 6 简介</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/11/04/cb-white-screen-in-chrome/" class="post-next">
+      <b>chrome浏览器渲染白屏问题剖析</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2013/11/26/cb-ES6-introduce/" class="prev" title="ECMAScript 6 简介">
+    <i class="icon">&#xe600;</i>
+    
+    <b>ECMAScript 6 简介</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/11/04/cb-white-screen-in-chrome/" class="next" title="chrome浏览器渲染白屏问题剖析">
+    <i class="icon">&#x261e;</i>
+    <b>chrome浏览器渲染白屏问题剖析</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="cb-authentication-in-web" data-title="OAuth认证原理及HTTP下的密码安全传输" data-url="http://barretlee.com/blog/2013/11/26/cb-authentication-in-web/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

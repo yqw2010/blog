@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/css" href="/public/css/rss.css" ?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title><![CDATA[小胡子哥的个人网站]]></title>
+    <link>http://barretlee.com/</link>
+    <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
+    <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
+    <pubDate>Sat, 05 Sep 2015 13:46:52 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[网站的SEO以及它和站长工具的之间秘密]]></title>
+      <link>http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</link>
+      <guid>http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</guid>
+      <pubDate>Wed, 02 Sep 2015 07:50:55 GMT</pubDate>
+      <description>
+      <![CDATA[博客迁移没有注意 URL 地址的变化，引起百度和 google 这两只爬虫引擎找不到路。近段时间研究了下国内最大搜索引擎百度和国际最大搜索引擎google的站长工具，说下感受。]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>博客迁移没有注意 URL 地址的变化，导致百度和 google 这两只爬虫引擎短时间内找不到路。近段时间研究了下国内最大搜索引擎百度和国际最大搜索引擎google的站长工具，说下感受。</p>
+<ul>
+<li>百度的站长工具地址：<a href="http://zhanzhang.baidu.com/dashboard/index" target="_blank" rel="external">http://zhanzhang.baidu.com/dashboard/index</a></li>
+<li>google 的站长工具地址: <a href="https://www.google.com/webmasters/tools/home" target="_blank" rel="external">https://www.google.com/webmasters/tools/home</a></li>
+</ul>
+<p>最近墙的比较厉害，google 不一定能访问进去（我平时用的 <a href="http://gjsq.link/" target="_blank" rel="external">GreenVPN</a>，还挺不错的，速度快，支持的国家也多）。</p>
+<p>站长工具的作用是为了辅助开发者，针对自己的网站做出更加合理的网页布局和代码优化，以便让 spider 更好地理解网页，从而将最准确的信息送达到用户的荧屏上。它对搜索引擎和开发者是双赢的。</p>
+<p>Web 发展极快，由于客户端厂商纷纭加之开发者没把重点放在 web 标准上，直到 2014 年的 10 月底才有了<a href="http://www.w3.org/TR/2014/REC-html5-20141028/" target="_blank" rel="external">统一的标准</a>。用户输入关键词，搜索引擎要在 0.1s 内将网络上的资源汇聚起来，这个过程中计算的开销、数据整合的开销是极大的，如果我们开发的网页不能让 spider 准确理解，最后的结果就是，写的东西很难出现在用户面前。</p>
+<h3 id="搜索引擎对网页的理解">搜索引擎对网页的理解</h3><p>摸索两个站长工具，感触最深的是结构化数据(Structured Data)，结构化数据不是把文章段落分清楚、标题写清楚，实际上你文章段落分的再清晰，爬虫机器也不知道你在表达什么，所以数据结构化是给爬虫看而不是给人看的。HTML 标签的数量很有限，有限的几个标签没办法表达网页上每一个元素的含义，比如一个小的图标、一个广告位、一个蒙层等，于是网页上出现了很多 class 名、id 名来标记一个元素。这些内容的统一让爬虫理解的略微透彻了一些，比如:</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="class">.banner</span>: 一张banner广告位</span><span class="line"><span class="class">.sidebar</span>: 侧边导航栏</span><span class="line"><span class="class">.nav</span>: 主导航</span><span class="line"><span class="class">.icon</span>: 页面小图标</span><span class="line"><span class="class">.post</span>: 一篇文章</span><span class="line"><span class="class">.post-title</span>: 文章标题</span></pre></td></tr></table></figure>
+<p>然而搜索引擎聚合的网页太多，当这些五花八门的 class 出来之后，它又开始迷茫了，难以较好的聚合分类。所以出现一个叫做 Schema 的东西，它用来表示一个结构化数据结构，可以看下面一个 schema 示例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">itemscope</span> <span class="attribute">itemtype</span>=<span class="value">"http://schema.org/Person"</span>&gt;</span>   </span><span class="line">  <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"name"</span>&gt;</span>李靖<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><span class="line">  <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://barretlee.com/avatar.png"</span> <span class="attribute">itemprop</span>=<span class="value">"image"</span> /&gt;</span>    </span><span class="line">  <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"jobTitle"</span>&gt;</span>攻城师<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">itemprop</span>=<span class="value">"address"</span> <span class="attribute">itemscope</span> <span class="attribute">itemtype</span>=<span class="value">"http://schema.org/PostalAddress"</span>&gt;</span>     </span><span class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"streetAddress"</span>&gt;</span>文一西路969号<span class="tag">&lt;/<span class="title">span</span>&gt;</span>     </span><span class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"addressLocality"</span>&gt;</span>浙江杭州<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><span class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"postalCode"</span>&gt;</span>310000<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>   </span><span class="line">  <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"telephone"</span>&gt;</span>(0571) 123-4567<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><span class="line">  <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"mailto:barret.china@gmail.com"</span> <span class="attribute">itemprop</span>=<span class="value">"email"</span>&gt;</span>barret.china@gmail.com<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><span class="line">  李靖的主页:  <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://barretlee.com"</span> <span class="attribute">itemprop</span>=<span class="value">"url"</span>&gt;</span>barretlee.com<span class="tag">&lt;/<span class="title">a</span>&gt;</span>    </span><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>在一个需要表达的块上加上 <code>itemscope</code> 属性和一个 <code>itemtype</code> 属性，itemtype 是有固定值的，具体可以参阅 <a href="http://schema.org/" target="_blank" rel="external">schema.org</a> 的说明。然后在块内添加详细的说明，使用 <code>itemprop</code> 标注。整个操作十分简单，略微麻烦的是需要对照 schema 的官方网站填写规定的 <code>itemprop</code> 字段。</p>
+<p>结构化数据，通常也可以称之为元数据，这些数据附着在网页文本信息内，厘清了页面上每个部件的功能、属性和意义。当机器进入网页的时候，能够像人一样，一眼瞄出要表达的内容。关于 schema ，以前翻译过一篇文章 <a href="http://www.barretlee.com/blog/2013/11/01/cb-let-your-page-understood-by-search-engine/" target="_blank" rel="external">SEO：让搜索引擎对你的网站更有亲和力</a>。</p>
+<h3 id="SEO和站长工具的之间秘密">SEO和站长工具的之间秘密</h3><p>除非搜索引擎能够猜到你要搜索的具体的 URL 地址，一般地，它都会从自己的数据索引库中扒拉数据。对于权重高、更新频率高、原创内容多的网站，搜索引擎会十分勤快的爬最新内容。那么，如何让搜索引擎知道网站上有多少网页便成了一件重要的事情。</p>
+<p>我们经常会听到一个叫做”网站地图”的东西。有些网站会在自己的站点中添加一个页面，这个页面包括了整站的重要入口，那么这个页面就是该页面的网站地图。这些地图是给人看的，如果只想给爬虫引擎看，可以将所有的链接按照一定的格式放到 <code>sitemap.xml</code> 文件中，然后把这个文件放到网站的根目录下，如 <a href="http://www.barretlee.com/sitemap.xml" target="_blank" rel="external">http://www.barretlee.com/sitemap.xml</a>。</p>
+<p>而最重要的还是 <code>robots.txt</code> 这个文件，它是所有引擎约定俗成的一个文件，比如我的网站中用到的 <a href="http://www.barretlee.com/robots.txt" target="_blank" rel="external">http://www.barretlee.com/robots.txt</a> ，其内容为：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Sitemap: http://www.barretlee.com/sitemap.xml&#10;User-agent: *&#10;Allow: /</span></pre></td></tr></table></figure>
+<p>它告诉搜索引擎，网站地址的位置、允许蜘蛛爬取的内容等，它是一个协议。最近，貌似还多了一个 <code>humans.txt</code>，也是一个比较有意思的文件，可以在这里了解它：<a href="http://www.humanstxt.org.cn/" target="_blank" rel="external">http://www.humanstxt.org.cn/</a>，它可以描述一些站点和团队的故事。</p>
+<p>SEO上，站长工具主要分为两个方面，一个是对网页的抓取，一个是对网页的分析。</p>
+<p>网页的抓取在百度站长工具中体现的比较多，而网页的分析，诸如数据标注、结构化数据等，百度做的还比较搓，目前还在内测阶段，需要发送邮件才能申请权限。看到百度站长工具页面上的几个数据标注示意图，揣测应该比 google 弱一百倍，所以我还是重点说说 google 的吧。</p>
+<h4 id="网页的抓取">网页的抓取</h4><p>这块上，两个站长工具都是强调让开发者把网站地图显式的暴露给搜索引擎，提供了各种分析网站地图准确性合理性的工具，搜索引擎如果发现你的网站上一个地址时有时无，就会觉得你不可信有点飘渺。所以一旦网页因为改造或迁移导致页面链接丢失，可以在站长工具中填写这些死链。</p>
+<p>不要贪婪的让搜索引擎不停的爬取你的网站，如果它多次过来发现内容是一样的，它也会很伤心的离开。而如果它发现每次过来爬你的内容都能找到很有意思的、从来没发现过的东西，它会对你越来越感兴趣，甚至日久天长它会给你定型、定位，然后权重会越来越高。在站长工具上都是可以设置的。</p>
+<h4 id="网页的分析">网页的分析</h4><p>google 的数据化标记做的实在是太赞了！输入网址，它会打开你的网页，设置你要标记的类型，比如文章。选中页面上的元素然后标记。比如选中文章的标题，选中之后有一个菜单，在菜单上选择 title，选中作者名字，然后菜单上选择 author，一个页面标记完了之后，他会分析整站的所有页面，如果结构相似，也会自动标记其他页面。</p>
+<p>整个标记完成之后，google 就知道你整个网站的信息架构了，下次要做的就是对这些信息内容做匹配和分类。所以我们可以看到，个人博客在 google 中的搜索是极其靠前的，因为页面的信息结构简单，即便你不去标记，它爬取多次之后也能自己理解。</p>
+<p>对比百度和 google ，两者如同屌丝和高富帅。不过高富帅总是要越墙才能看到，所以我平时使用的依然是百度分析。百度分析和百度站长工具还是不一样的。百度对网页流量的分析和搜索词汇的分析还是挺精准，也很有参考价值。</p>
+<h3 id="小结">小结</h3><p>本文对 SEO 相关的东西做了一个简要的概述，同时也概括了搜索引擎做的一些工作，知识量有限，难以面面俱到，如有错误还请斧正。</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[按照这样的流程玩博客，最后都到了这里]]></title>
+      <link>http://barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</link>
+      <guid>http://barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</guid>
+      <pubDate>Mon, 31 Aug 2015 13:06:02 GMT</pubDate>
+      <description>
+      <![CDATA[前几天看到 Nicholas C.Zakas 大师把自己的博客从 wordpress 迁移到了 jekyll，很巧的是我这几天也在干这件事情。不过我是迁移到 hexo，刚开始托管在 github，后来改到 gitcafe。]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>前几天看到 <a href="http://www.nczonline.net/blog/2015/08/wordpress-jekyll-my-new-blog-setup/" target="_blank" rel="external">Nicholas C.Zakas</a> 大师把自己的博客从 wordpress 迁移到了 jekyll，很巧的是我这几天也在干这件事情。不过我是迁移到 hexo，刚开始托管在 github，后来改到 <a href="http://gitcafe.com/signup?invited_by=barretlee" target="_blank" rel="external">gitcafe</a>。</p>
+<p>之前我捯饬过很多博客系统，也喜欢了解各个博客系统的实现方式，并且自己写插件、写主题。由于最开始接触的一门 web 后端语言是 php，所以先折腾小而美的 wordpress，后来发现它并不小，一堆插件、一堆漏洞让这个系统变得臃肿，而翻开这些插件的源码，实在是不怎么样，系统的性能很大程度是被这些插件搞糟糕的。不过，让我放下 wordpress 的主要原因不是它的臃肿…我玩它的时候还是个学生，不想花钱购买空间和数据库，当时百度云还没有出来，<a href="http://www.sinnapp.com" target="_blank" rel="external">SAE</a> 的体验也比较差。</p>
+<h3 id="☞_到”这里”之前">☞ 到”这里”之前</h3><p>后来学会了使用 git，刚开始对 git 命令并不熟悉，记得在 github 上弄一个 <code>ssh key</code> 折腾了良久，最后不得不安装一个 windows 版本的 github 客户端，让客户端解决我 push 代码的难题。按照阮一峰写的一篇 <a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="external">关于如何使用 github pages</a> 的文章，部署了一个<a href="http://barretlee.github.io" target="_blank" rel="external">博客</a>。</p>
+<p>当我把 jekyll 的文档看完了之后（刚搜到有<a href="http://jekyll.bootcss.com/" target="_blank" rel="external">中文版</a>的了，这年代啥玩意儿都有中文版…），又搞了一个清爽版本的<a href="http://hi.barretlee.com" target="_blank" rel="external">博客</a>，这个博客上我做了一个很方便连接，在页面中按下 <code>Ctrl + Shift + Enter</code> 或者在网址后面加上 <code>?edit</code> 可以看到，每篇文章都有一个对应到这篇文章的 github 编辑地址，这样就可以完全放下本地工具，直接云端操作了。</p>
+<p>Github Pages 玩熟之后，下一步要做的就是，抛弃它——程序员爱折腾。当然我并没有完全抛弃，<a href="http://hi.barretlee.com" target="_blank" rel="external">http://hi.barretlee.com</a> 这个网站也时有上去更新。不过现在它的内容已经被合并到本网站下了，后续便不会再光顾。Github Pages 上每次都要维护点、修改点内容，从本地到 github 再到我的网页上，整个流程显得有点长，太麻烦。</p>
+<p>后来索性就入驻了博客平台，<a href="http://hustskyking.cnblogs.com" target="_blank" rel="external">博客园</a>，这一入就是两年多。博客园团队把写作体验和分享内容做到了极致，百度上随便搜一个技术性相关的知识点，都能看到博客园的身影。虽然 SEO 会把年老页面的权重提升，但是没有创新内容网站是活不下去的，我也在博客园平台上写了不少的文章，没想到的是也引来了一千多的粉丝。</p>
+<h3 id="☞_还是买主机吧">☞ 还是买主机吧</h3><p>一直想有一个个人网站，所有的内容都是自己支配，增加一个个性页面、博客后台换个语言、用用 websocket 等等，于是毕业之后自己买了一个主机，肆意倒腾。在主机上，重新回顾了 Linux 的操作（大学使用 windows/Linux），学习了 Nginx 的配置、Apache 的配置、负载均衡等等，也使用 NodeJS 搞了一个 websocket 的聊天室，当然，也少不了搭建一个博客系统。使用的是 <a href="http://www.ghostchina.com/" target="_blank" rel="external">Ghost</a>，一个相当不错的博客平台，我非常喜欢它后台编辑博客的系统，支持 Markdown 并且很好的处理了图片的上传，体验很赞！同时也部署了一个 hexo 写写生活琐事，用的是官方一个比较简约的主题。感觉也一直挺好的。</p>
+<p>可以一年下来，又到了续费的时间了。可是回头想想，我用这些资源都干了什么事情呢？除了刚买主机那会儿兴奋了一阵子，后边大半年都没上过那台机器。着实太浪费了！每年上千块（我买的是很低的配置），就是放几个很少更新的博客文章，所以再也没啥续费的动力了。</p>
+<p>期间也用了 SAE 和 BAE，SAE 使用的云豆，买点云豆如果网站没啥流量，十块钱够用一两年。而 BAE 略坑一点，它计算的是你占用的服务器资源，根据一定的算法每个月将账单发到你的手机和邮箱，让你交钱，如果流量不大，每个月也就几十块，可以设置自动续费。不过，想想，其实 BAE 也挺坑的，一年下来收我几百块，虽然不多，但想着还是觉得没多大劲。</p>
+<h3 id="☞_我又放弃了">☞ 我又放弃了</h3><p>于是我又开始了下一波的折腾。趁着阿里云主机到期之前的半个月，把散布在各处的博客整合下。也就是您现在看到的这个博客内容。简约、明了，风格上学习了简书的布局、设计上参考了阮一峰同学的博客。包括整合各处博客，格式化博客内容，编写主题，调试页面等，花了整整三天时间，够呛的！不过，按照之前玩转博客的时间情况，可以确定，这个设计和博客的部署至少会伴随我五到十年。</p>
+<p>刚开始我把这个基于 <a href="http://hexo.io" target="_blank" rel="external">hexo</a> 构建的博客部署在 <a href="https://github.com/barretlee/blog" target="_blank" rel="external">github</a> 上，我在家里打开速度还过得去，2-3s，但是放到群里，让朋友们测试了下，有的喊出了 20s 的加载时间，这着实让我大吃一惊，果然 github 这种外国货还是不适合我们，于是在 <a href="http://annn.me/" target="_blank" rel="external">阿安</a> 的建议下，又将部署地址换到了 <a href="https://help.gitcafe.com/manuals/help/pages-services" target="_blank" rel="external">gitcafe</a>。为了方便让 github 的用户顺利迁移到 gitcafe，gitcafe 的几乎就是一个 github 的复制品，包括创建 gitcafe pages，在仓库中弄一个 <code>gitcafe-pages</code> 的分支就行了。不过，说句良心话，gitcafe 的体验略好；）</p>
+<h3 id="☞_静态博客，找地方托管">☞ 静态博客，找地方托管</h3><p>我想，找个地方托管静态博客，这将是我们博客最终的归属。阮一峰说写博客的人会经历三个阶段：</p>
+<ul>
+<li>第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。</li>
+<li>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</li>
+<li>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</li>
+</ul>
+<p>其实 <a href="http://www.cnblogs.com" target="_blank" rel="external">博客园</a> 就是第三阶段的实践平台，博客园中我看到了很多不错的博客版式设计，让人吃惊的是，这些版式的设计几乎没有任何限制，你完全可以天花乱坠的按照自己的风格搞设计，但前提你要懂点设计和 css。</p>
+<p>不过我更希望有一个自己可以放开瞎捣鼓的地方。所以我选择 hexo/jekyll/wp，但是也希望别人来管理我的博客，所以选择了 github/gitcafe。如果你想拥有一个个人网站，你可以这么做：</p>
+<ol>
+<li>注册一个 github 账户 abc</li>
+<li>新建一个仓库 xxx</li>
+<li>写一行代码 <code>This is my blog.</code> 到 <code>index.html</code>， 提交到 <code>gh-pages</code> 分支</li>
+<li>预览 <code>http://abc.github.io/xxx</code>，你会发现，你的个人网站已经搞好了</li>
+</ol>
+<p>对于这种高效快捷的流程，加上 github 默认对 <code>jekyll</code> 的支持，让谁不想去尝试尝试呢？</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[在线调试方案的思考与实践]]></title>
+      <link>http://barretlee.com/blog/2015/08/24/cb-debug-suggest/</link>
+      <guid>http://barretlee.com/blog/2015/08/24/cb-debug-suggest/</guid>
+      <pubDate>Mon, 24 Aug 2015 02:29:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/24/debug-suggest.html" target="_blank]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/24/debug-suggest.html" target="_blank">博客园</a>.</div>
+
+<p>本文的要点不在移动端调试上，移动端调试无非就是调试页面和调试工具之间存在分离，消除这种分离并创建连结就能解决移动端的调试问题。重点阐述的是所见即所得的调试模式下会遇到的阻碍。</p><p>当我们打开网页，发现一个模块没有正确地渲染或者空白时，如果控制台有报错，会直接根据报错定位到源码位置开始 debug；如果控制台没有报错，则会根据模块名或者模块特征的一个值，通过全局搜索找到这个模块的位置，然后在调试工具中断点，单步调试，找到问题所在，此时我们可能会这样做：</p><p><strong>情形一：</strong></p><p>小A同学打开控制台，发现断点调试不好写代码，于是将压缩的源码复制一份保存到本地，格式化，然后将线上资源通过代理工具代理到本地文件。</p><p><strong>情形二：</strong></p><p>小B同学早早的为自己配了一份本地开发环境，于是他遇到问题之后，直接去源码中定位错误位置，由于使用的是预处理语言，所以需要先打包编译之后再在本地预览效果。</p><p><strong>情形三：</strong></p><p>小C同学的调试方式是小A和小B的综合版本，将线上的资源代理到本地 build 目录文件，在 src 目录下修改之后编译打包到 build，然后预览。</p><h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>☞ 代理调试的烦恼</h3><p>而对于比较复杂的线上环境，代理也会遇到很多障碍，比如：</p><p><strong>线上资源 combo</strong></p><p>出现错误的脚本地址为 <code><a href="http://example.com/path/??a.js,b.js,c.js" target="_blank" rel="external">http://example.com/path/??a.js,b.js,c.js</a></code>，它对应着 <code>a.js</code>,<code>b.js</code>,<code>c.js</code> 三个脚本文件，如果我们使用 Fiddler/Charles 这样的经典代理工具调试代码，就必须给这些工具编写插件，或者在替换配置里头加一堆判断或者正则，成本高，门槛高。</p><p><strong>线上代码压缩</strong></p><p>打包压缩，这是上线之前的必经流程。由于我们在打包的环节中并没有考虑为代码添加 sourceMap，而线上之前对应 <code>index-min.js</code> 的 <code>index.js</code> 也因为安全方面的原因给干掉了，这给我们调试代码造成了极大的不便利。</p><p><strong>代码依赖较多，拉取代码问题</strong></p><p>很多时候，我们的页面依赖了多个 asserts 资源，而这些资源各自分布在多个仓库之中，甚至分布在不同的发布平台上，为了能够在源码上清晰的调试代码，我们不得不将所有的资源下载到本地，期间一旦存在下载代码的权限问题，整个调试进度就慢下来，这是十分不能忍受的事情。比如某系统构建的页面，页面上的模块都是以仓库为维度区分的，一个页面可能对应了5-50个仓库，下载代码实为麻烦。</p><p>最可怕的调试是，本地没有对应的测试环境、代理工具又不满足我们的需求，然后就只能，<code>编辑代码-&gt;打包压缩-&gt;提交代码-&gt;查看效果-&gt;编辑代码-&gt;…</code>，如果你的项目开发是这种模式，请停下来，思考调试优化方案，正所谓磨刀不误砍柴工。</p><h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>☞ 开启懒人调试模式</h3><p>当看到线上出现问题（可能是其他同学负责页面的问题），脑中浮出这样的场景：</p>
+
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">  我：<span class="string">"嘿，线上有问题啦！我要调试代码！"</span></span><span class="line">电脑：<span class="string">"好的，主人。请问是哪个页面？"</span>（弹出浮层）</span><span class="line">  我：浮层中输入URL。</span><span class="line">电脑：<span class="string">"请问是哪个地方出问题了？"</span></span><span class="line">  我：（指着电脑）<span class="string">"模块A和模块B。"</span></span><span class="line">电脑：正在下载<span class="literal">A</span>、B资源...正在将上线<span class="literal">A</span>、B映射到本地...自动打开<span class="literal">A</span>、B对应文件夹</span><span class="line">  我：编辑代码，然后实时预览效果。</span></pre></td></tr></table></figure>
+<p>在这里我们需要解决这样几个问题</p><ul><li>将页面对应的所有仓库/资源罗列在用户面前</li><li>下载资源的权限提示和权限处理</li><li>线上资源解 combo，然后映射到本地</li></ul><p>当然调试之后，可以还有一个操作：</p>
+
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"> 我：<span class="string">"哈，已经修复了，帮我提交代码~"</span></span><span class="line">电脑：正在diff代码<span class="attribute">...</span>收到确认提交信号，提交到预发环境<span class="attribute">...</span>收到已经预览信号<span class="attribute">...</span>正在发布代码<span class="attribute">...</span>收到线上回归信号<span class="attribute">...</span>流程结束</span></pre></td></tr></table></figure>
+<p>除了 debug 代码，我们需要做的就只是用眼睛看效果是否 ok，整个流程优化下来，体验是很赞的！</p><h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>☞ 解决代理遇到的问题</h3><p>上面我们提到了三个问题，平时开发遇到最头疼的一个是 combo，曾经我们页面上的代码加一个 <code>?_xxx</code> 参数就能够直接开始调试模式，那是因为程序的入口只有一个，而且所有脚本的依赖也打包到一个叫做 <code>deps.js</code> 文件中，加上调试参数之后，可以将原来 combo 加载的文件: <code><a href="http://example.com/path/??a-min.js,b-min.js,c-min.js" target="_blank" rel="external">http://example.com/path/??a-min.js,b-min.js,c-min.js</a></code>，按照非 combo 的方式加载：</p>
+
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//example.com/path/a.js</span></span><span class="line"><span class="string">http:</span><span class="comment">//example.com/path/b.js</span></span><span class="line"><span class="string">http:</span><span class="comment">//example.com/path/c.js</span></span></pre></td></tr></table></figure>
+<p>上面的代码可以轻松地代理到本地，但是有的系统生成的代码并没有 <code>deps.js</code> 文件，它是将脚本直接输出到页面上：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://example.com/path/??a-min.js,b-min.js,c-min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></pre></td></tr></table></figure>
+<p><strong>☞ 解决 combo 问题</strong></p><p>此时通过 Fiddler/Charles 工具比较难满足需求，对于这个问题有两个处理方案：</p><p><strong>1). 浏览器请求全部代理到本地的一个服务</strong></p><p>首先写一个本地服务：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><span class="line"><span class="comment">// npm i http-proxy --save</span></span><span class="line"><span class="keyword">var</span> httpProxy = <span class="built_in">require</span>(<span class="string">'http-proxy'</span>);</span><span class="line"><span class="keyword">var</span> proxy = httpProxy.createProxyServer(&#123;&#125;);</span><span class="line"></span><span class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><span class="line">  <span class="built_in">console</span>.log(req.url);</span><span class="line">  <span class="keyword">if</span>(req.url.indexOf(<span class="string">"??"</span>) &gt; -<span class="number">1</span>)&#123;</span><span class="line">    <span class="comment">// combo资源让 3400 端口的服务处理</span></span><span class="line">    proxy.web(req, res, &#123; target: <span class="string">'http://127.0.0.1:3400'</span> &#125;);</span><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><span class="line">    <span class="comment">// 直接返回</span></span><span class="line">    proxy.web(req, res, &#123; target: req.url &#125;);</span><span class="line">  &#125;</span><span class="line">&#125;).listen(<span class="number">3399</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><span class="line">    <span class="built_in">console</span>.log(<span class="string">"在端口 3399 监听浏览器请求"</span>);</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>代码的意思是，利用 http-proxy 这个 npm 包，代理浏览器的请求，浏览器上使用 switchSharp 设置本地代理为 <code><a href="http://127.0.0.1:3399" target="_blank" rel="external">http://127.0.0.1:3399</a></code>，当请求过来，先判断 url，如果 url 中包含了 <code>??</code> 则将其作为 combo 资源处理，代理给本地的另一个服务 <code><a href="http://127.0.0.1:3400" target="_blank" rel="external">http://127.0.0.1:3400</a></code>，这个服务收到请求后会将 combo 内容分解成多个，全部请求完之后再吐出来。</p><p><strong>2). 使用本地服务请求 html 代码，替换 html 代码内容</strong></p><p>使用强制手段（源码替换）将代码解 combo，比如源码页面为：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- html code --&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://example.com/path/??a-min.js,b-min.js,c-min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><span class="line"><span class="comment">&lt;!-- html code --&gt;</span></span></pre></td></tr></table></figure>
+<p>使用本地服务请求这个url，然后转换成：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- html code --&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://example.com/path/a.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://example.com/path/b.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://example.com/path/c.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><span class="line"><span class="comment">&lt;!-- html code --&gt;</span></span></pre></td></tr></table></figure>
+<p>实现这个操作的代码：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><span class="line"><span class="comment">// npm i request --save;</span></span><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>);</span><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><span class="line">    <span class="keyword">var</span> path = req.url.slice(req.url.indexOf(<span class="string">"path="</span>) + <span class="number">5</span>);</span><span class="line">    <span class="built_in">console</span>.log(path);</span><span class="line">    <span class="keyword">if</span>(!path) &#123;</span><span class="line">        res.write(<span class="string">"path is empty"</span>);</span><span class="line">        res.end();</span><span class="line">        <span class="keyword">return</span>;</span><span class="line">    &#125;</span><span class="line">    request(path, <span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><span class="line">        <span class="keyword">if</span> (!error &amp;&amp; response.statusCode == <span class="number">200</span>) &#123;</span><span class="line">            <span class="built_in">console</span>.log(body);</span><span class="line">            <span class="comment">// 代码替换</span></span><span class="line">            body = body.replace(<span class="string">'&lt;script src="http://example.com/path/??a-min.js,b-min.js,c-min.js"&gt;&lt;/script&gt;'</span>,</span><span class="line">                <span class="string">'&lt;script src="http://example.com/path/a.js"&gt;&lt;/script&gt;\</span><span class="line">                &lt;script src="http://example.com/path/b.js"&gt;&lt;/script&gt;\</span><span class="line">                &lt;script src="http://example.com/path/c.js"&gt;&lt;/script&gt;'</span></span><span class="line">            );</span><span class="line">            res.write(body);</span><span class="line">            res.end();</span><span class="line">        &#125;</span><span class="line">    &#125;);</span><span class="line">&#125;).listen(<span class="number">3399</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><span class="line">    <span class="built_in">console</span>.log(<span class="string">"listening on port 3399"</span>);</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>比如请求 <code><a href="http://127.0.0.1:3399/?path=http://www.taobao.com" target="_blank" rel="external">http://127.0.0.1:3399/?path=http://www.taobao.com</a></code>，即可拿到淘宝首页的源码，然后对拿到的代码做替换。</p><p><strong>☞ 解决代码压缩问题</strong></p><p>对于这个问题，建议在线上放两份源码，一份是压缩源码，一份是未压缩源码，当页面 <code>url</code> 存在 <code>debug</code> 参数的时候，返回未压缩版本，正常返回压缩版本。当然，也可以采用上述方式处理问题。</p><p>不过，更合理的方式应该是 <code>sourceMap</code>，前端没有秘密，压缩代码只是增加了 hacker 的攻击成本，并不妨碍有能力的 hacker 借系统漏洞入侵。所以可以为源码提供一份 <a href="http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html" target="_blank" rel="external">sourceMap 文件</a>。</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><span class="line"><span class="keyword">var</span> sourcemaps = <span class="built_in">require</span>(<span class="string">'gulp-sourcemaps'</span>);</span><span class="line"></span><span class="line">gulp.task(<span class="string">'javascript'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><span class="line">  gulp.src(<span class="string">'src/**/*.js'</span>)</span><span class="line">    .pipe(sourcemaps.init())</span><span class="line">      <span class="comment">//.pipe(xx())</span></span><span class="line">    .pipe(sourcemaps.write())</span><span class="line">    .pipe(gulp.dest(<span class="string">'dist'</span>));</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>关于 sourceMap 的 gulp 插件配置，详情可以<a href="https://www.npmjs.com/package/gulp-sourcemaps" target="_blank" rel="external">戳这里</a>。不仅仅是 JavaScript，CSS 也有 source maps，这个信息可以在 Chrome 控制台的设置选项中看到：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/242227387805954.png" alt=""></p><p><strong>☞ 代码的拉取</strong></p><p>如果一个项目只有你知道如何修改，那这个项目的技术设计就有点糟糕了，为了让众人都能处理你项目中的问题，一定要需要一个简洁的模式为开发者快速搭建测试环境，文档是一方面，如果有个一键操作的命令，那就更棒了！</p>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动脚本</span></span><span class="line">start: createFile getMod getPage</span><span class="line"></span><span class="line"><span class="comment"># 创建目录</span></span><span class="line">createFile:</span><span class="line">  @[ <span class="operator">-d</span> module ] || mkdir module</span><span class="line">  @[ <span class="operator">-d</span> page ] || mkdir page</span><span class="line"></span><span class="line"><span class="comment"># 拉取模块仓库，这里有几十个，比较费时，请耐心等待...</span></span><span class="line">getMod:</span><span class="line">  <span class="built_in">cd</span> module; \</span><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> $(MODS); <span class="keyword">do</span> \</span><span class="line">    [ <span class="operator">-d</span> $(MODPATH)$<span class="variable">$i</span> ] || git <span class="built_in">clone</span> $(MODPATH)$<span class="variable">$i</span>; \</span><span class="line">    git co -b master;\</span><span class="line">    git co -b $(MODSV);</span><span class="line">  <span class="keyword">done</span></span><span class="line"></span><span class="line"><span class="comment"># 拉取页面仓库，tbindex</span></span><span class="line">getPage:</span><span class="line">  <span class="built_in">cd</span> page; \</span><span class="line">  @[ <span class="operator">-d</span> tbindex ] || git <span class="built_in">clone</span> $(PAGEPATH)<span class="variable">$PAGE</span>;</span></pre></td></tr></table></figure>
+<p>上面是一个 <code>MakeFile</code> 的部分代码，作用是创建开发目录，拉取分支信息，然后开始服务器，打开浏览器，使用 IDE 打开目录，万事就绪，只等主人敲代码。</p><p>整个流程就一两分钟，完成开发之前所有的准备工作。这个脚本不仅仅是给自己使用，如果其他人也需要参与开发，一个命令就能让参与者进入开发模式，加上文档说明，省却了很多沟通成本。</p><h3 id="_5"><a class="headeranchor-link" name="user-content-_5" href="#_5"></a>☞ 在线调试实践(一个系统的调试工具)</h3><p>输入需要调试的页面URL（如 <a href="http://www.taobao.com" target="_blank" rel="external">http://www.taobao.com</a>）：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/242227502024677.png" alt=""></p><p>插件会分析 DOM，遍历拿到页面所有被引用到的仓库：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/242227584832841.png" alt=""></p><p>选择需要调试的模块（颗粒度细分到了html/js/css），点击调试按钮，可以看到调试页面的资源都会引用本地下载的文件。</p><h3 id="_6"><a class="headeranchor-link" name="user-content-_6" href="#_6"></a>☞ 小结</h3><p>优化流程、优化架构是我们矢志不渝坚持的方向，本文主要阐述，编辑代码到调试线上效果的过程，提出了解决 combo 和代码压缩等问题的方案和建议。希望可以给不擅长代理调试的同学一点启示。</p>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/08/24/cb-debug-suggest/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[让浏览器不再显示 https 页面中的 http 请求警报]]></title>
+      <link>http://barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</link>
+      <guid>http://barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</guid>
+      <pubDate>Fri, 21 Aug 2015 03:08:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/21/upgrade-insecure-requests.html" ta]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/21/upgrade-insecure-requests.html" target="_blank">博客园</a>.</div>
+
+<p>HTTPS 是 HTTP over Secure Socket Layer，以安全为目标的 HTTP 通道，所以在 HTTPS 承载的页面上不允许出现 http 请求，一旦出现就是提示或报错：</p><blockquote><p>Mixed Content: The page at &lsquo;<a href="https://www.taobao.com/" target="_blank" rel="external">https://www.taobao.com/</a>&lsquo; was loaded over HTTPS, but requested an insecure image &lsquo;<a href="http://g.alicdn.com/s.gif" target="_blank" rel="external">http://g.alicdn.com/s.gif</a>&rsquo;. This content should also be served over HTTPS.</p></blockquote><p>HTTPS改造之后，我们可以在很多页面中看到如下警报：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/211107536449320.png" alt=""></p><p>很多运营对 https 没有技术概念，在填入的数据中不免出现 http 的资源，体系庞大，出现疏忽和漏洞也是不可避免的。</p><h3 id="cspupgrade-insecure-requests"><a class="headeranchor-link" name="user-content-cspupgrade-insecure-requests" href="#cspupgrade-insecure-requests"></a>CSP设置upgrade-insecure-requests</h3><p>好在 W3C 工作组考虑到了我们升级 HTTPS 的艰难，在 2015 年 4 月份就出了一个 <code>Upgrade Insecure Requests</code> 的<a href="http://www.w3.org/TR/mixed-content/" target="_blank" rel="external">草案</a>，他的作用就是让浏览器自动升级请求。</p><p>在我们服务器的响应头中加入：</p>
+
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="keyword"><span class="common">header</span></span>(<span class="string">"Content-Security-Policy: upgrade-insecure-requests"</span>);</span></pre></td></tr></table></figure>
+<p>我们的页面是 https 的，而这个页面中包含了大量的 http 资源（图片、iframe等），页面一旦发现存在上述响应头，会在加载 http 资源时自动替换成 https 请求。可以查看 google 提供的一个 <a href="https://googlechrome.github.io/samples/csp-upgrade-insecure-requests/index.html" target="_blank" rel="external">demo</a>：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/211108018005511.png" alt=""></p><p>不过让人不解的是，这个资源发出了两次请求，猜测是浏览器实现的 bug：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/211108089252988.png" alt=""></p><p>当然，如果我们不方便在服务器/Nginx 上操作，也可以在页面中加入 <code>meta</code> 头：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Security-Policy"</span> <span class="attribute">content</span>=<span class="value">"upgrade-insecure-requests"</span>&gt;</span></span></pre></td></tr></table></figure>
+<p></p><p>目前支持这个设置的还只有 chrome 43.0，不过我相信，CSP 将成为未来 web 前端安全大力关注和使用的内容。而 <code>upgrade-insecure-requests</code> 草案也会很快进入 RFC 模式。</p><p></p>
+<p></p><p>从 W3C 工作组给出的 <a href="http://www.w3.org/TR/upgrade-insecure-requests/#examples" target="_blank" rel="external">example</a>，可以看出，这个设置不会对外域的 a 链接做处理，所以可以放心使用。</p><p></p>
+<p></p><h3 id="_1"><a class="headeranchor-link" name="user-content-_1" href="#_1"></a>相关阅读</h3><p></p>
+<ul><li><a href="http://www.w3.org/TR/mixed-content/" target="_blank" rel="external">http://www.w3.org/TR/mixed-content/</a></li><li><a href="https://www.chromestatus.com/feature/6534575509471232" target="_blank" rel="external">https://www.chromestatus.com/feature/6534575509471232</a></li></ul>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[前端代码异常日志收集与监控]]></title>
+      <link>http://barretlee.com/blog/2015/08/20/cb-fe-monitor/</link>
+      <guid>http://barretlee.com/blog/2015/08/20/cb-fe-monitor/</guid>
+      <pubDate>Thu, 20 Aug 2015 04:20:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/20/fe-monitor.html" target="_blank">博]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/20/fe-monitor.html" target="_blank">博客园</a>.</div>
+
+<p>在复杂的网络环境和浏览器环境下，自测、QA测试以及 Code Review 都是不够的，如果对页面稳定性和准确性要求较高，就必须有一套完善的代码异常监控体系，本文从前端代码异常监控的方法和问题着手，尽量全面地阐述错误日志收集各个阶段中可能遇到的阻碍和处理方案。</p><h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>☞ 收集日志的方法</h3><p>平时收集日志的手段，可以归类为两个方面，一个是逻辑中的错误判断，为主动判断；一个是利用语言给我们提供的捷径，暴力式获取错误信息，如 <code>try..catch</code> 和 <code>window.onerror</code>。</p><p><strong>1. 主动判断</strong></p><p>我们在一些运算之后，得到一个期望的结果，然而结果不是我们想要的</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// test.js</span></span><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calc</span><span class="params">()</span>&#123;</span></span><span class="line">  <span class="comment">// code...</span></span><span class="line">  return val;</span><span class="line">&#125;</span><span class="line"><span class="keyword">if</span><span class="params">(calc<span class="params">()</span> !== <span class="string">"someVal"</span>)</span>&#123;</span><span class="line">  Reporter.send<span class="params">(&#123;</span><span class="line">    position: <span class="string">"test.js::&lt;function&gt;calc"</span></span><span class="line">    msg: <span class="string">"calc error"</span></span><span class="line">  &#125;)</span>;</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p></p>
+<p>这种属于逻辑错误/状态错误的反馈，在接口 <code>status</code> 判断中用的比较多。</p><p><strong>2. <code>try..catch</code> 捕获</strong></p><p>判断一个代码段中存在的错误：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">try &#123;</span><span class="line">  init<span class="params">()</span>;</span><span class="line">  <span class="comment">// code...</span></span><span class="line">&#125; catch<span class="params">(e)</span>&#123;</span><span class="line">  Reporter.send<span class="params">(format<span class="params">(e)</span>)</span>;</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>以 <code>init</code> 为程序的入口，代码中所有同步执行出现的错误都会被捕获，这种方式也可以很好的避免程序刚跑起来就挂。</p><p><strong>3. <code>window.onerror</code></strong></p><p>捕获全局错误：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><span class="line">  <span class="keyword">var</span> errInfo = format(<span class="built_in">arguments</span>);</span><span class="line">  Reporter.send(errInfo);</span><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><span class="line">&#125;;</span></pre></td></tr></table></figure>
+<p>在上面的函数中返回 <code>return true</code>，错误便不会暴露到控制台中。下面是它的参数信息：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><span class="line"> <span class="keyword">*</span> <span class="comment">@param &#123;String&#125;  errorMessage   错误信息</span></span><span class="line"> <span class="keyword">*</span> <span class="comment">@param &#123;String&#125;  scriptURI      出错的文件</span></span><span class="line"> <span class="keyword">*</span> <span class="comment">@param &#123;Long&#125;    lineNumber     出错代码的行号</span></span><span class="line"> <span class="keyword">*</span> <span class="comment">@param &#123;Long&#125;    columnNumber   出错代码的列号</span></span><span class="line"> <span class="keyword">*</span> <span class="comment">@param &#123;Object&#125;  errorObj       错误的详细信息，Anything</span></span><span class="line"> <span class="keyword">*</span>/</span><span class="line">window.onerror = function(errorMessage, scriptURI, lineNumber,columnNumber,errorObj) &#123;</span><span class="line">    // code..</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p><code>window.onerror</code> 算是一种特别暴力的容错手段，<code>try..catch</code> 也是如此，他们底层的实现就是利用 C/C++ 中的 <code>goto</code> 语句实现，一旦发现错误，不管目前的堆栈有多深，不管代码运行到了何处，直接跑到顶层或者 <code>try..catch</code> 捕获的那一层，这种一脚踢开错误的处理方式并不是很好。</p><h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>☞ 收集日志存在的问题</h3><p>收集日志的目的是为了及时发现问题，最好日志能够告诉我们，错误在哪里，更优秀的做法是，不仅告诉错误在哪里，还告诉我们，如何处理这个错误。终极目标是，发现错误，自动容错，这一步是最难的。</p><h4 id="1-script-error"><a class="headeranchor-link" name="user-content-1-script-error" href="#1-script-error"></a>1. 无具体报错信息，Script error.</h4><p>先看下面的例子，test.html</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- http://barret/test.html --&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><span class="line">  <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><span class="line">  &#125;;</span><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://barret/test.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>test.js</p>
+
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line"><span class="comment">// http://barret/test.js</span></span><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span><span class="comment">&#123;</span><span class="line">  ver a = 1;</span><span class="line">  return a+1;</span><span class="line">&#125;</span></span><span class="line"><span class="title">test</span><span class="params">()</span>;</span></span></pre></td></tr></table></figure>
+<p>我们期望收集到的日志是下面这样具体的信息：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200018292699298.png" alt=""></p><p>为了对资源进行更好的配置和管理，我们通常将静态资源放到异域上</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- http://barret/test.html --&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><span class="line">  <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><span class="line">  &#125;;</span><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://localhost/test.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>而拿到的结果却是：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200018372534203.png" alt=""></p><p>翻开 Chromium 的 WebCore <a href="http://trac.webkit.org/browser/branches/chromium/1453/Source/WebCore/dom/ScriptExecutionContext.cpp#L293" target="_blank" rel="external">源码</a>，可以看到：</p><p><a href="http://trac.webkit.org/browser/branches/chromium/1453/Source/WebCore/dom/ScriptExecutionContext.cpp#L293" target="_blank"><img src="http://images0.cnblogs.com/blog2015/387325/201508/200018447228952.png" alt=""></a></p><p>跨域情况下，返回的结果是 <code>Script error.</code>。</p>
+
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">/<span class="regexp">/ http:/</span><span class="regexp">/trac.webkit.org/browser</span><span class="regexp">/branches/chromium</span><span class="regexp">/1453/</span><span class="constant">Source</span>/<span class="constant">WebCore</span>/dom/<span class="constant">ScriptExecutionContext</span>.cpp<span class="comment">#L333</span></span><span class="line"><span class="constant">String</span> message = errorMessage;</span><span class="line">int line = lineNumber;</span><span class="line"><span class="constant">String</span> sourceName = sourceURL;</span><span class="line"><span class="regexp">//</span> 已经拿到了所有的错误信息，但如果发现是非同源情况，<span class="string">`sanitizeScriptError`</span> 中复写错误信息</span><span class="line">sanitizeScriptError(message, line, sourceName, cachedScript);</span></pre></td></tr></table></figure>
+<p><a href="http://trac.webkit.org/browser/branches/chromium/648/Source/WebCore/dom/ScriptExecutionContext.cpp?rev=77122#L301" target="_blank" rel="external">旧版</a> 的 WebCore 中只判断了 <code>securityOrigin()-&gt;canRequest(targetURL)</code>，新版中还多了一个 <code>cachedScript</code> 的判断，可以看出浏览器对这方面的限制越来越严格。</p><p>在本地测试了下：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200018530976144.png" alt=""></p><p>可见在 <code>file://</code> 协议下，<code>securityOrigin()-&gt;canRequest(targetURL)</code> 也是 <code>false</code>。</p><p><strong>☞ 为何<code>Script error.</code>?</strong></p><p>简单报错： <code>Script error</code>，目的是避免数据泄露到不安全的域中，一个简单的例子：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bank.com/login.html"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>上面我们并没有引入一个 js 文件，而是一个 html，这个 html 是银行的登录页面，如果你已经登录了 <code>bank.com</code>，那 login 页面就会自动跳转到 <code>Welcome xxx…</code>，如果未登录则跳转到 <code>Please Login…</code>，那么 JS 报错也会是 <code>Welcome xxx… is not defined</code>，<code>Please Login… is not defined</code>，通过这些信息可以判断一个用户是否登录他的银行帐号，给 hacker 提供了十分便利的判断渠道，这是相当不安全的。</p><p><strong>☞ <code>crossOrigin</code>参数跳过跨域限制</strong></p><p>image 和 script 标签都有 crossorigin 参数，它的作用就是告诉浏览器，我要加载一个外域的资源，并且我信任这个资源。</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://localhost/test.js"</span> <span class="attribute">crossorigin</span>=<span class="value">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>然而，却报错了：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200019005666192.png" alt=""></p><p>这是意料之中的错误，跨域资源共享策略要求，服务器也设置 <code>Access-Control-Allow-Origin</code> 的响应头：</p>
+
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="attribute">header('Access-Control-Allow-Origin</span>: <span class="string">*');</span></span></pre></td></tr></table></figure>
+<p>回头看看我们 CDN 的资源，</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200019081911756.png" alt=""></p><p>Javascript/CSS/Image/Font/SWF 等这些静态资源其实都已经早早地加上了 CORS 响应头。</p><h4 id="2"><a class="headeranchor-link" name="user-content-2" href="#2"></a>2. 压缩代码无法定位到错误的具体位置</h4><p>线上的代码几乎都是经过打包压缩的，几十上百的文件压缩后打包成一个，而且只有一行。当我们收到 <code>a is not defined</code> 的时候，如果只在特定场景下才报错，我们根本无法定位到这个被压缩的 <code>a</code> 是个什么东西，那么此时的错误日志就是无效的。</p><p>第一个想到的办法是利用 sourceMap，利用它可以定位到压缩代码某一点在未压缩代码的具体位置。下面是 sourceMap 引入的格式，在代码的最后一行加入：</p>
+
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">//# sourceMappingURL=<span class="built_in">index</span>.js.<span class="built_in">map</span></span></pre></td></tr></table></figure>
+<p>以前使用的是 &lsquo;//@&rsquo; 作为开头，现在使用 &lsquo;//#&rsquo;，然而对于错误上报，这玩意儿没啥用。JS 不能拿到他真实的行数，只能通过 Chrome DevTools 这样的工具辅助定位，而且并不是每个线上资源都会添加 sourceMap 文件。sourceMap 的用途目前还只能体现在开发阶段。</p><p>当然，如果理解了 sourceMap 的 VLQ编码和位置对应关系，也可以将拿到的日志进行二次解析，映射到真实路径位置，这个成本比较高，貌似暂时也没人尝试过。</p><p>那么，有什么办法，可以定位错误的具体位置，或者说有什么办法可以缩小我们定位问题的难度呢？</p><p>可以这样考虑：打包的时候，在每两个合并的文件之间加上 1000 个空行，最后上线的文件就会变成</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;<span class="keyword">var</span> longCode.....&#125;)(); <span class="comment">// file 1</span></span><span class="line"></span><span class="line"><span class="comment">// 1000 个空行</span></span><span class="line"></span><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;<span class="keyword">var</span> longCode.....&#125;)(); <span class="comment">// file 2</span></span><span class="line"></span><span class="line"><span class="comment">// 1000 个空行</span></span><span class="line"></span><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;<span class="keyword">var</span> longCode.....&#125;)(); <span class="comment">// file 3</span></span><span class="line"></span><span class="line"><span class="comment">// 1000 个空行</span></span><span class="line"></span><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;<span class="keyword">var</span> longCode.....&#125;)(); <span class="comment">// file 4</span></span><span class="line"></span><span class="line"><span class="keyword">var</span> _fileConfig = [<span class="string">'file 1'</span>, <span class="string">'file 2'</span>, <span class="string">'file 3'</span>, <span class="string">'file 4'</span>]</span></pre></td></tr></table></figure>
+<p>如果报错在第 3001 行，</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">msg, url, line, col, error</span>)</span>&#123;</span><span class="line">  <span class="comment">// line = 3001</span></span><span class="line">  <span class="keyword">var</span> lineNum = line;</span><span class="line">  <span class="built_in">console</span>.log(<span class="string">"错误位置："</span> + _fileConfig[<span class="built_in">parseInt</span>(lineNum / <span class="number">1000</span>) - <span class="number">1</span>]);</span><span class="line">  <span class="comment">// -&gt; "错误位置：file 3"</span></span><span class="line">&#125;;</span></pre></td></tr></table></figure>
+<p>可以计算出，错误出现在第三个文件中，范围就缩小了很多。</p><h4 id="3-error"><a class="headeranchor-link" name="user-content-3-error" href="#3-error"></a>3. error 事件的注册</h4><p>多次注册 error 事件，不会重复执行多个回调：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><span class="line">&#125;;</span><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"error"</span>, fn);</span><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"error"</span>, fn);</span></pre></td></tr></table></figure>
+<p>触发错误之后，上面代码的结果为：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200019171131048.png" alt=""></p><p><code>window.onerror</code> 和 <code>addEventListener</code> 都执行了，并只执行了一次。</p><h4 id="4"><a class="headeranchor-link" name="user-content-4" href="#4"></a>4. 收集日志的量</h4><p>没有必要将所有的错误信息全部送到 Log 中，这个量太大了。如果网页 PV 有 1kw，那么一个必现错误发送的 log 信息将有 1kw 条，大约一个 G 的日志。我们可以给 <code>Reporter</code> 函数添加一个采样率：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">needReport</span> (<span class="params">sampling</span>)</span>&#123;</span><span class="line">  <span class="comment">// sampling: 0 - 1</span></span><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.random() </span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>这个采样率可以按需求来处理，可以同上，使用一个随机数，也可以使用 cookie 中的某个字段（如 nickname）的最后一个字母/数字来判定，也可以将用户的 nickname 进行 hash 计算，再通过最后一位的字母/数字来判断，总之，方法是很多的。</p><h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>☞ 收集日志布点位置</h3><p>为了更加精准的拿到错误信息，有效地统计错误日志，我们应该更多地采用主动式埋点，比如在一个接口的请求中：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Module A Get Shops Data</span></span><span class="line">$.ajax(&#123;</span><span class="line">  url: URL,</span><span class="line">  dataType: <span class="string">"jsonp"</span>,</span><span class="line">  success: <span class="function"><span class="keyword">function</span>(<span class="params">ret</span>) </span>&#123;</span><span class="line">    <span class="keyword">if</span>(ret.status === <span class="string">"failed"</span>) &#123;</span><span class="line">      <span class="comment">// 埋点 1</span></span><span class="line">      <span class="keyword">return</span> Reporter.send(&#123;</span><span class="line">        category: <span class="string">"WARN"</span>,</span><span class="line">        msg: <span class="string">"Module_A_GET_SHOPS_DATA_FAILED"</span></span><span class="line">      &#125;);</span><span class="line">    &#125;</span><span class="line">    <span class="keyword">if</span>(!ret.data || !ret.data.length) &#123;</span><span class="line">      <span class="comment">// 埋点 2</span></span><span class="line">      <span class="keyword">return</span> Reporter.send(&#123;</span><span class="line">        category: <span class="string">"WARN"</span>,</span><span class="line">        msg: <span class="string">"Module_A_GET_SHOPS_DATA_EMPTY"</span></span><span class="line">      &#125;);</span><span class="line">    &#125;</span><span class="line">  &#125;,</span><span class="line">  error: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><span class="line">    <span class="comment">// 埋点 3</span></span><span class="line">    Reporter.send(&#123;</span><span class="line">      category: <span class="string">"ERROR"</span>,</span><span class="line">      msg: <span class="string">"Module_A_GET_SHOPS_DATA_ERROR"</span></span><span class="line">    &#125;);</span><span class="line">  &#125;</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>上面我们精准地布下了三个点，描述十分清晰，这三个点会对我们后续排查线上问题提供十分有利的信息。</p><p><strong>☞ 关于 <code>try..catch</code> 的使用</strong></p><p>对于 <code>try..catch</code> 的使用，我的建议是：能不用，尽量不要用。JS代码都是自己写出来的，哪里会出现问题，会出现什么问题，心中应该都有个谱，平时用到 <code>try..catch</code> 的一般只有两个地方：</p>
+
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// JSON 格式不对</span></span><span class="line"><span class="keyword">try</span>&#123;</span><span class="line">  <span class="built_in">JSON</span>.parse(JSONString);</span><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><span class="line"></span><span class="line"><span class="comment">// 存在不可 decode 的字符</span></span><span class="line"><span class="keyword">try</span>&#123;</span><span class="line">  decodeComponentURI(<span class="built_in">string</span>);</span><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span></pre></td></tr></table></figure>
+<p>类似这样的错误都是不太可控的。可以在使用到 <code>try..catch</code> 的地方思考是否可以使用其他方式做兼容。感谢 EtherDream 的<a href="http://www.cnblogs.com/hustskyking/p/fe-monitor.html#3253158" target="_blank" rel="external">补充</a>。</p><p><strong>☞ 关于 <code>window.onerror</code> 的使用</strong></p><p>可以尝试如下代码：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// test.js</span></span><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"SHOW ME"</span>);</span><span class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><span class="line">  <span class="comment">// 阻止在控制台中打印错误信息</span></span><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><span class="line">&#125;;</span></pre></td></tr></table></figure>
+<p><span>上面的代码直接报错了，没有继续往下执行。页面中可能有好几个 script 标签，但是 </span><code>window.onerror</code><span> 这个错误监听一定要放到最前头！</span></p>
+<p></p><h3 id="_5"><a class="headeranchor-link" name="user-content-_5" href="#_5"></a>☞ 错误的警报与提示</h3><p></p>
+<p>什么时候该警报？不能有错就报。上面也说了，因为网络环境和浏览器环境因素，复杂页面我们允许千分之一的错误率。日志处理后的数据图：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/200019264726641.png" alt=""></p><p>图中有两根线，橙色线是今日的数据，浅蓝色线是往日平均数据，每隔 10 分钟产生一条记录，横坐标是 0-24 点的时间轴，纵坐标是错误量。可以很明显的看出，在凌晨一两点左右，服务出现了异常，错误信息是平均值的十几倍，那么这个时候就改报警了。</p><p>报警的条件可以设置得严苛一点，因为误报是件很烦人的事情，短信、邮件、软件等信息轰炸，有的时候还是大半夜。那么，一般满足如下条件可以报警：</p><ul><li>错误超过阈值，比如 10分钟最多允许 100 个错误，结果超过了 100</li><li>错误超过平均值的 10 倍，超过平均值就报警，这个逻辑显然不正确，但是超过了平均值的 10 倍，基本可以认定服务出问题了</li><li>在纳入对比之前，要过滤同 IP 出现的错误，比如一个错误出现在 for 循环或者 while 循环中，再比如一个用户在蹲点抢购，不停的刷新</li></ul><p><strong>☞ 友好的错误提示</strong></p><p>对比下面两条日志，catch 的错误日志：</p><blockquote><p>Uncaught ReferenceError: vd is not defined</p></blockquote><p>自定义的错误日志：</p><blockquote><p>\生日模块中获取后端接口信息时，eval 解析出错，错误内容为：vd is not defined.”该错误在最近 10 分钟内出现 1000 次，这个错误往日的平均出错量是 50 次 / 10 分钟</p>
+
+<p></p></blockquote><p></p>
+<p></p><h3 id="_6"><a class="headeranchor-link" name="user-content-_6" href="#_6"></a>☞ 网络错误日志工作草案</h3><p></p>
+<p></p><p>W3C Web Performance工作组发布了网络错误日志工作草案。该文档定义了一个机制，允许Web站点声明一个网络错误汇报策略，浏览器等用户代理可以利用这一机制，汇报影响资源正确加载的网络错误。该文档还定义了一个错误报告的标准格式及其在浏览器和Web服务器之间的传输机制。</p><p></p>
+<p></p><p>详细草案：<a href="http://www.w3.org/TR/2015/WD-network-error-logging-20150305/" target="_blank" rel="external">http://www.w3.org/TR/2015/WD-network-error-logging-20150305/</a></p><p></p>
+<p></p><h3 id="_7"><a class="headeranchor-link" name="user-content-_7" href="#_7"></a>☞ 小结</h3><p></p>
+<p></p><p>功能、测试和监控是程序开发的三板斧，很多工程师可以将功能做的尽善尽美，也了解一些测试方面的知识，可是在监控这个方向上基本处于大脑空白。错误日志的收集、整理算是监控的一个小部分，但是它对我们了解网站稳定性至关重要。文中有忽略的地方希望读者可以补充，错误的地方还望斧正。</p><p></p>
+<p></p><h3 id="_8"><a class="headeranchor-link" name="user-content-_8" href="#_8"></a>☞ 拓展阅读</h3><p></p>
+<ul><li><a href="http://xbingoz.com/328.html" target="_blank" rel="external">基于window.onerror事件 建立前端错误日志</a> by Dx. Yang</li><li><a href="http://www.aliued.cn/2012/10/27/%E6%9E%84%E5%BB%BAweb%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F-fdsafe.html" target="_blank" rel="external">构建web前端异常监控系统&ndash;FdSafe</a> by 石破</li><li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html" target="_blank" rel="external">JavaScript Source Map 详解</a> by 阮一峰</li><li><a href="http://www.w3.org/TR/2010/WD-html5-20100624/webappapis.html#handler-window-onerror" target="_blank" rel="external">HTML5标准-window.onerror</a></li><li><a href="http://msdn.microsoft.com/en-us/library/cc197053%28VS.85%29.aspx" target="_blank" rel="external">MSDN-window.onerror</a></li><li><a href="https://developer.mozilla.org/en/DOM/window.onerror" target="_blank" rel="external">MDN-window.onerror</a></li><li><a href="http://www.w3.org/TR/2015/WD-network-error-logging-20150305/" target="_blank" rel="external">网络错误日志</a></li></ul>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/08/20/cb-fe-monitor/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[iconfont的蜕化操作]]></title>
+      <link>http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/</link>
+      <guid>http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/</guid>
+      <pubDate>Mon, 17 Aug 2015 01:54:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/17/iconfont-opt.html" target="_blank"]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/17/iconfont-opt.html" target="_blank">博客园</a>.</div>
+
+<p>很多国外的网站，访问的时候可以看到，页面先是大面积白一下，然后恢复正常。原因是网页上用到了 webfont，这些页面很多情况都是直接引用 google 的 webfont 地址，中华大局域网下，由于网络原因，页面虽已经全部加载，引用的 webfont 资源却还未下载成功，这就导致了使用了 webfont 的内容呈现空白状态，没有被渲染出来。</p><p>如，访问该网站：<a href="http://zurb.com/playground/foundation-icon-fonts-3" target="_blank" rel="external">http://zurb.com/playground/foundation-icon-fonts-3</a></p><p>为啥国内很少有这种事儿发生？英文字符并不多，生成 webfont 所占用的 unicode range 很小，故英文字体的 webfont 体积是很小的。而中文字符却有好几千个，一个完整中文的 webfont 至少有 2-3M，没人会在自己的网站上使用如此庞大的 webfont 的字体。</p><p>但 webicon 就不一样了，根据页面的需要，只摘取几个 unicode 段位，体积自然也是很小了。为了不影响正常字符的展示，webicon 的制作一般会选用空白的 unicode 段位，这些 unicode 在浏览器下默认展示为 <span>“”</span>，一个乱码的符号。那么同样的问题就出现了，由于 CDN 的服务不太稳定或者用户网络原因，页面打开之后，部分 webicon 的资源还未加载成功，那么那些使用到 webicon 的位置便会出现乱码，如果图标较大，体验是十分不好的。</p><h3 id="iconfont_1"><a class="headeranchor-link" name="user-content-iconfont_1" href="#iconfont_1"></a>☞ iconfont 制作的基本原理</h3><p>Unicode&thinsp;码表是一个很大的表格，每个表格都对应一个 Unicode 字符，每个字符都有一个 Unicode 码值对应，如 “李” 对应 “\u674e”, “靖” 对应 “\u9756”。因为码表很大，有部分表格并没有对应的字符，但是它有自己的码值。iconfont 的制作，首先将绘制的图形（可以是一张图片、也可以是一个 svg 描述）通过工具或者程序生成文字icon，然后将文字icon对应到码表之中，为了不干预码表中已有的字符，我们通常会把文字icon对应到没有字符的表格中，最后导出我们额外对应的表格信息，生成iconfont。如下图所示：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">                            Unicode 码表</span><span class="line">                         +-----------------+</span><span class="line">         ...             |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">                         |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line"> 图形icon     文字icon    +-----------------+</span><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">|<span class="string">icon a +----&gt;   A  +-----------&gt; Ua </span>|<span class="string">     </span>|</span><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">                         +-----------------+</span><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">|<span class="string">icon b +----&gt;   B  +-----&gt; Ub +     </span>|<span class="string">     +------&gt; iconfont</span><span class="line">+-------+    +------+    </span>|<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">                         +-----------------+</span><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">|<span class="string">icon C +----&gt;   C  +-----&gt; Uc </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">+-------+    +------+    |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">                         +-----------------+</span><span class="line">         ...             |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">                         |<span class="string">     </span>|<span class="string">     </span>|<span class="string">     </span>|</span><span class="line">                         +-----------------+</span></pre></td></tr></table></figure>
+<p>图中，三个icon分别对应到 Unicode 码表中码值为 Ua Ub Uc 的三个表格，那么最后导出的 iconfont 也就只包含这三个字符信息，这个体积是很小的。</p><p>延伸阅读：<a href="http://www.cnblogs.com/hustskyking/p/manufacture-font-face-in-web.html" target="_blank" rel="external">再探@font-face及webIcon制作</a></p><h3 id="iconfont_2"><a class="headeranchor-link" name="user-content-iconfont_2" href="#iconfont_2"></a>☞ iconfont 的蜕化处理</h3><p>正常的情况下是一堆漂亮的 icon 图标，而当网络较慢或者 CDN 不稳定的时候，用户看到的是图示乱码的框框，优化之后，用户可以看到我们对 iconfont 的蜕化操作。效果预览：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948437225461.png" alt=""></p>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="preprocessor"># 绑定 hosts</span></span><span class="line"><span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> at.alicdn.com</span><span class="line"><span class="preprocessor"># 然后访问淘宝首页，可以看到效果</span></span></pre></td></tr></table></figure>
+<p>了解了iconfont 的制作之后，理解上图就不难了。中间乱码的那张图里，每个图标对应的都是无字符的码表表格，页面默认的字体呈现这些字符的状态就是 “”。这里我们提到的蜕化处理，只需要在对应 Unicode 码表时，将每个图标对应到有字符的码表表格中，就会看到最上层那张图片的效果。</p><p>有人会问，那些蜕化的图标是从哪里来的？对应的键值又是多少？</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948513634127.png" alt=""></p><p>除了 emoji 外，我们输入法能够输出的所有文字在 web 上也都是能够正常显示的，所谓的正常显示就是不会出现 “”。平时常用的搜狗输入法/百度输入法都提供了很多的特殊字符，我们可以在这些特殊字符中找到最能表现icon的字符，当然，甚至可以使用文字、字母来替代。</p><p>比如音乐icon可以使用 “♫” 替代，计算字符码值的方式是：</p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> code</span> = <span class="string">"♫"</span>.charCodeAt(<span class="number">0</span>).toString(<span class="number">16</span>);</span><span class="line"><span class="comment">// htmlEncodedStr 便可以作为icon的内容</span></span><span class="line"><span class="variable"><span class="keyword">var</span> htmlEncodedStr</span> = <span class="string">"&lt;#x"</span> + code + <span class="string">";"</span>;</span></pre></td></tr></table></figure>
+<p>以国内目前做的最好的 <a href="http://iconfont.cn/" target="_blank" rel="external">iconfont 网站</a>为例，演示如何便捷的修改文字icon对应的默认码值:</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948589255051.gif" alt=""></p><p>修改完之后保存，此时这个 icon 对应的码值就已经变化了。</p>
+
+
+<p></p><h3 id="iconfont_2">☞&nbsp;小结</h3><p></p>
+<p>很多网站都承载着日均几百上千万的流量，用户的网络环境复杂，每个细节问题都会在部分用户面前暴露无遗，我们要做的就是去优化那些概率性看到的”小问题”，这些”小问题”在庞大的用户群体中会变成一个很大的问题，必须引起重视。</p>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/08/17/cb-iconfont-opt/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[细说 Data URI]]></title>
+      <link>http://barretlee.com/blog/2015/08/12/cb-data-uri/</link>
+      <guid>http://barretlee.com/blog/2015/08/12/cb-data-uri/</guid>
+      <pubDate>Wed, 12 Aug 2015 01:38:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/12/data-uri.html" target="_blank">博客园]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/12/data-uri.html" target="_blank">博客园</a>.</div>
+
+<p><span>Data URL 早在 1995 年就被提出，那个时候有很多个版本的 Data URL Schema 定义陆续出现在 </span><a href="https://zh.wikipedia.org/zh-cn/VRML" target="_blank" rel="external">VRML</a><span> 之中，随后不久，其中的一个版本被提上了议案&mdash;&mdash;将它做个一个嵌入式的资源放置在 HTML 语言之中。从 </span><a href="http://www.ietf.org/rfc/rfc2397.txt" target="_blank" rel="external">RFC</a><span> 文档定稿的时间来看（1998年），它是一个很受欢迎的发明。</span></p><p>Data URIs 定义的内容可以作为小文件被插入到其他文档之中。URI 是 <code>uniform resource identifier</code> 的缩写，它定义了接受内容的协议以及附带的相关内容，如果附带的相关内容是一个地址，那么此时的 URI 也是一个 URL (<code>uniform resource locator</code>)，如：</p>
+
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="string">ftp:</span><span class="comment">//10.1.1.10/path/to/filename.ext</span></span><span class="line"><span class="string">http:</span><span class="comment">//example.com/source/id</span></span></pre></td></tr></table></figure>
+<p>协议后面的内容，可以告诉客户端一个准确下载资源的地址，而 URI 并不一定包含一个地址信息，如(<a href="data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7" target="_blank">demo</a>)：</p>
+
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="symbol">data:</span>image/gif;base64,<span class="constant">R0lGODlhEAAOALMAAOazToeHh0tLS/</span><span class="number">7</span>LZv/0jvb29t/f3/<span class="regexp">/Ub/</span><span class="regexp">/ge8WSLf/rhf</span><span class="regexp">/3kdbW1mxsbP/</span><span class="regexp">/mf/</span><span class="regexp">//y</span>H5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7</span></pre></td></tr></table></figure>
+<p>其协议为 data，并告诉客户端将这个内容作为 <code>image/gif</code> 格式来解析，需要解析的内容使用的是 base64 编码。它直接包含了内容但并没有一个确定的资源地址。</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/120937188795030.png" alt=""></p><h3 id="_1"><a class="headeranchor-link" name="user-content-_1" href="#_1"></a>☞ 格式</h3><p>Data URI 的格式十分简单，如下所示：</p>
+
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">data:[<span class="link_label">&lt;mime type=""&gt;</span>][<span class="link_reference">;charset=&lt;charset&gt;</span>][<span class="link_label">;base64</span>],<span class="xml"><span class="tag">&lt;<span class="title">encoded</span> <span class="attribute">data</span>=<span class="value">""</span>&gt;</span></span></span></pre></td></tr></table></figure>
+<p></p>
+<ul><li><p>第一部分是 <code>data:</code> 协议头，它标识这个内容为一个 data URI 资源。</p></li><li><p>第二部分是 MIME 类型，表示这串内容的展现方式，比如：<code>text/plain</code>，则以文本类型展示，<code>image/jpeg</code>，以 jpeg 图片形式展示，同样，客户端也会以这个 MIME 类型来解析数据。</p></li><li><p>第三部分是编码设置，默认编码是 <code>charset=US-ASCII</code>, 即数据部分的每个字符都会自动编码为 <code>%xx</code>，关于编码的测试，可以在浏览器地址框输入分别输入下面两串内容，查看效果：</p><figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">// output: &amp;auml;&amp;frac12; &amp;aring;&amp;yen;&amp;frac12; -&gt; 使用默认的编码展示，故乱码</span><span class="line"><span class="typedef"><span class="keyword">data</span>:text/html,你好</span></span><span class="line">// output: 你好 -&gt; 使用 <span class="type">UTF</span>-<span class="number">8</span> 展示</span><span class="line"><span class="typedef"><span class="keyword">data</span>:text/html;charset=<span class="type">UTF</span>-8,你好</span></span><span class="line">// output: 浣犲ソ -&gt; 使用 gbk 展示（浏览器默认编码 <span class="type">UTF</span>-<span class="number">8</span>，故乱码）</span><span class="line"><span class="typedef"><span class="keyword">data</span>:text/html;charset=gbk,你好</span></span><span class="line">// output: 你好 -&gt; <span class="type">UTF</span>-<span class="number">8</span> 编码，内容先使用 base64 解码，然后展示</span><span class="line"><span class="typedef"><span class="keyword">data</span>:text/html;charset=<span class="type">UTF</span>-8;base64,5L2g5aW9</span></span></pre></td></tr></table></figure></li><li><p>第四部分是 <a href="http://en.wikipedia.org/wiki/Base64" target="_blank" rel="external">base64</a> 编码设定，这是一个可选项，base64 编码中仅包含 0-9,a-z,A-Z,+,/,=，其中 = 是用来编码补白的。</p></li><li><p>最后一部分为这个 Data URI 承载的内容，它可以是纯文本编写的内容，也可以是经过 base64编码 的内容。</p></li></ul><p>很多时候我们使用 data URI 来呈现一些较长的内容，如一串二进制数据编码、图片等，采用 base64 编码可以让内容变得更加简短。而对图片来说，在 gzip 压缩之后，base64 图片实际上比原图 gzip 压缩要大，体积增加大约为三分之一，所以使用的时候需要权衡。</p><h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>☞ 兼容性</h3><p>由于出现时间较早，目前主流的浏览器基本都支持 data URI：</p><ul><li>Firefox 2+</li><li>Opera 7.2+</li><li>Chrome (所有版本)</li><li>Safari (所有版本)</li><li>Internet Explorer 8+</li></ul><p>但是部分浏览器对 data URI 的使用存在限制：</p><ul><li><p>长度限制，长度超长，在一些应用下会导致内存溢出，程序崩溃</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Opera 下限制为 <span class="number">4100</span> 个字符，目前已经去掉了这个限制</span><span class="line">IE <span class="number">8</span>+ 下限制为 <span class="number">32</span>,<span class="number">768</span> 个字符（<span class="number">32</span>kb），IE9 之后移除了这个限制</span></pre></td></tr></table></figure></li><li><p>在 IE 下，data URI 只允许被用到如下地方：</p><ul><li>object (images only)</li><li>img、input type=image、link</li><li>CSS 中允许使用 URL 声明的地方,如 background</li></ul></li><li>在 IE 下，Data URI 的内容必须是经过编码转换的，如 “#”、”%”、非 US-ASCII 字符、多字节字符等，必须经过编码转换</li></ul><p><strong>☞ 低版本IE的解决之道 - MHTML</strong></p><p>MHTML 就是 MIME HTML，是 “Multipurpose Internet Mail Extensions HyperText Markup Language” 的简称，它就像一个带着附件的邮件一般，如下所示：</p><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span> FilePath: http://example.com/test.css <span class="keyword">*</span>/</span><span class="line">/<span class="keyword">*</span>!<span class="comment">@ignore</span></span><span class="line">Content-Type: multipart/related; boundary=<span class="string">"_ANY_SEPARATOR"</span></span><span class="line"></span><span class="line">--_ANY_SEPARATOR</span><span class="line">Content-Location:myidBackground</span><span class="line">Content-Transfer-Encoding:base64</span><span class="line"></span><span class="line">iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==</span><span class="line">--_ANY_SEPARATOR--</span><span class="line"><span class="keyword">*</span>/</span><span class="line"></span><span class="line">.myid &#123;</span><span class="line">  background-image: url(<span class="string">"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="</span>);</span><span class="line">  <span class="keyword">*</span>background-image: url(mhtml:http://example.com/test.css!myidBackground);</span><span class="line">&#125;</span></pre></td></tr></table></figure><pre><span>上方的一串注释就像是一个附件，这个附件内容是一个名叫 </span><code>myidBackground</code><span> 的 </span><code>base64</code><span> 编码图片，在一个 class 叫做 </span><code>myid</code><span> 的 css 中用到了它。这里有几点需要注意：</span></pre><ul><li><code>_ANY_SEPARATOR</code> 可以是任意内容</li><li>在”附件”结束位置需要加上结束符 <code>_ANY_SEPARATOR</code>，否则在 Vista 和 Win7 的 IE7 中会<a href="http://www.phpied.com/the-proper-mhtml-syntax/" target="_blank" rel="external">出错</a>。</li><li>附件代码注意不要被压缩工具给干掉了</li></ul><p><strong>这里存在一个坑：部分系统兼容模式下的 IE8 也认识 css 中的 hack 符号 <code>*</code>，但是不支持 <code>mhtml</code>，所以上面的内容不会生效。处理方案估计就只有使用 IE 的条件注释了。</strong></p><h3 id="https"><a class="headeranchor-link" name="user-content-https" href="#https"></a>☞ HTTPS 下的安全提示</h3><p>HTTPS 打开页面，当在 IE6、7 下使用 data URIs 时，会看到如下提醒：</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/120937285514109.png" alt=""></p><p>MS 的解释是：</p><blockquote><p>您正在查看的网站是个安全网站。它使用了 SSL （安全套接字层）或 PCT（保密通讯技术）这样的安全协议来确保您所收发信息的安全性。当站点使用安全协议时，您提供的信息例如姓名或信用卡号码等都经过加密，其他人无法读取。然而，这个网页同时包含<strong>未使用该安全协议的项目</strong>。 </p></blockquote><p>很明显，IE 嗅到了”未使用安全协议的项目”。</p><p>浏览器在解析到一个 URI 的时候，会首先判断协议头，如果是以 <code>http(s)</code> 开头，它便会建立一个网络链接下载资源，如果它发现协议头为 <code>data:</code>，便会将其作为一个 Data URI 资源进行解析。</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/120937376765288.png" alt=""></p><p>但是从 chrome 的瀑布流，我们可以做这样的猜测：</p><p>图中每个 Data URI 都发起了请求，不过状态都是 <code>data(from cache)</code>，禁用缓存之后，依然如此。所以可以断定，浏览器在下载源码解析成 DOM 的时候，会将 Data URI 的资源解析出来，并缓存在本地，最后 Data URI 每个对应位置都会发起一次请求，只是这个请求还未建立链接，就被发现存在缓存的浏览器给拍死了。</p><h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>☞ 安全阀门</h3><p>Data URI 在 IE 下有诸多安全限制，事实上，很多 xss 注入也可以将 data URI 的源头作为入口，使用 data URI 绕过浏览器的过滤。</p><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">// 绕过浏览器过滤</span><span class="line"><span class="keyword">http</span>://example.com/<span class="keyword">text</span>.php?t=<span class="string">"&gt;&lt;script src="</span>data:<span class="keyword">text</span>/html,&lt;script&gt;alert(<span class="string">" xss"</span>)&lt;=<span class="string">""</span> script=<span class="string">""</span>&gt;&lt;!<span class="comment">--</span></span></pre></td></tr></table></figure><p>这里可以很大程度的发散，很有意思，值得读者去深究。</p><h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>☞ 扩展阅读</h3><ul><li><a href="http://www.ietf.org/rfc/rfc2397.txt" target="_blank" rel="external">RFC 2397</a> RFC文档</li><li><a href="https://developer.mozilla.org/zh-CN/docs/data_URIs" target="_blank" rel="external">MDN - data_URIs</a> MDN文档</li><li><a href="https://msdn.microsoft.com/en-us/library/cc848897(VS.85).aspx" target="_blank" rel="external">MSDN - data Protocal</a> MSDN文档</li><li><a href="http://www.nczonline.net/blog/2009/10/27/data-uris-explained/" target="_blank" rel="external">NC - data_uris_explained</a></li><li><a href="http://www.phpied.com/mhtml-when-you-need-data-uris-in-ie7-and-under/" target="_blank" rel="external">phpied - MHTML</a></li></ul>]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/08/12/cb-data-uri/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[如何快速定位不小心暴露到全局的变量]]></title>
+      <link>http://barretlee.com/blog/2015/07/09/cb-window-var/</link>
+      <guid>http://barretlee.com/blog/2015/07/09/cb-window-var/</guid>
+      <pubDate>Thu, 09 Jul 2015 03:40:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/07/09/window-var.html" target="_blank">博]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/07/09/window-var.html" target="_blank">博客园</a>.</div>
+
+<p>今天在查看页面控制台的时候，无意中看到了一个暴露到全局的变量 i，全局变量是不会被压缩工具压缩成简写的字母，这个被频繁使用的变量名暴露到全局也是个相当大的隐患，可能一个不小心就覆盖了第二次暴露到全局的同名变量。</p><p>刚开始我就怀疑是自己出现了这样愚蠢的错误：</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span> &#123;</span></span><span class="line">    <span class="comment">// 在一个函数中多次用到了 for 循环，为了节省变量，都是用了变量 i</span></span><span class="line">    <span class="keyword">for</span><span class="params">(var i = <span class="number">0</span>; ...)</span> &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">    <span class="keyword">for</span><span class="params">(i = <span class="number">0</span>; ...)</span> &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">    <span class="keyword">for</span><span class="params">(i = <span class="number">0</span>; ...)</span> &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>结果在某次拆分函数的时候，忘记定义:</p>
+
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span>&#123;</span></span><span class="line">    <span class="keyword">for</span><span class="params">(var i = <span class="number">0</span>; ...)</span> &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">    <span class="keyword">for</span><span class="params">(i = <span class="number">0</span>; ...)</span> &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">&#125;</span><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span>&#123;</span></span><span class="line">    <span class="keyword">for</span><span class="params">(i = <span class="number">0</span>; ...)</span> &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>这个时候，变量 i 在 B 函数执行的时候就暴露到了全局。抱着这样的怀疑，我搜索了 50 多个模块的代码，一无所获…此时，我依然十分怀疑是自己的程序哪里疏忽了，全局搜索 <code class="highlight">i =</code> 和 <code class="highlight">i++</code>，五分钟过去了，未果…</p><h3 id="">找到这个变量</h3><p>如果这个变量名叫做 <code class="highlight">fuckIE</code>，分分钟全局搜索就出来了，类似这种简短的常用的变量，着实让人头疼了好一会儿。后来想到了这个方案：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(<span class="built_in">window</span>, <span class="string">"i"</span>, &#123;</span><span class="line">    get : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">return</span> <span class="built_in">window</span>.i; &#125;,</span><span class="line">    set : <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>)</span>&#123; <span class="keyword">debugger</span>;<span class="built_in">window</span>.i = newValue; &#125;,</span><span class="line">    enumerable : <span class="literal">true</span>,</span><span class="line">    configurable : <span class="literal">true</span></span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>在全局定义变量 i 的时刻，打一个断点，然后 F10 往前走一步，果然，在控制台右侧的 Call Stack 中找到了端倪！</p><p><img src="http://images0.cnblogs.com/blog2015/387325/201507/091139059868960.png" alt="" width="728" height="297"></p><p>这个变量是从第三方组件中（offline组件，使用相当频繁的一个组件）暴露出来的，估计出错的方式同我上面的描述差不多，拆分函数的时候忘记重新定义变量 i。</p><p>当然还有更快的方式：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.__defineSetter__(<span class="string">'i'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">debugger</span> &#125;)</span></pre></td></tr></table></figure>
+<p></p><h3 id="">不挖坑才是最好的解决方案</h3><p></p>
+<p><strong>1. 使用 <code class="highlight">use strict;</code></strong></p><p>在严格模式下，这种问题暴露无遗，每个函数内都加上 <code class="highlight">use strict;</code>，虽然在语言上有所限制，但是低级错误一定不会出现，因为严格模式会给你报错！</p><p><strong>2. 使用 jslint/jshint 等 js 分析工具</strong></p><p>这些东西除了配置上较为繁琐，用起来还是很顺手的，做过配置的错误都会直接在 IDE 上标红显示出来，很容易发现问题，但是不建议一个项目中途使用，因为代码习惯的问题，很多地方被 js 分析工具作为错误抛出来，改动量是相当大的。</p><p>我有次也犯了个比较隐晦的错误：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">window</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><span class="line">    <span class="keyword">var</span> target = event.target.nodeName.toLowerCase();</span><span class="line">    <span class="keyword">if</span>(target !== <span class="string">'ul'</span>)&#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>在 IE 和 Chrome 下，代码跑得好好的，但是到了测试较少的 FF 下，问题出来了，<code class="highlight">event is not defined.</code>，IE 和 Chrome 是支持 <code class="highlight">window.event</code> 抓取当前事件对象的，而 FF 不支持，所以每次点击页面上都会报错。。。</p><p>诸如此类的问题，在我们的平时编码之中不胜枚举，所以有一个编码规范作为强约束是十分有必要的！</p>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/07/09/cb-window-var/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[无题]]></title>
+      <link>http://barretlee.com/blog/2015/05/30/%E6%97%A0%E9%A2%98/</link>
+      <guid>http://barretlee.com/blog/2015/05/30/%E6%97%A0%E9%A2%98/</guid>
+      <pubDate>Sat, 30 May 2015 15:05:37 GMT</pubDate>
+      <description>
+      <![CDATA[<p>再过几天，又一波高三的学生就要走进人生的考场了，这一战一定程度决定了未来的发展，祝好！</p>
+<p>五年前，我也像你们一样，忐忑地等待着这一战的到来，十年磨一剑，期盼有一个好看的分数，也能对得起自己付出的努力。但是现实是残酷的，我记得一个数字，中国的大学有 9000 多所]]>
+      </description>
+      <content:encoded><![CDATA[<p>再过几天，又一波高三的学生就要走进人生的考场了，这一战一定程度决定了未来的发展，祝好！</p>
+<p>五年前，我也像你们一样，忐忑地等待着这一战的到来，十年磨一剑，期盼有一个好看的分数，也能对得起自己付出的努力。但是现实是残酷的，我记得一个数字，中国的大学有 9000 多所，“好大学”有 200 多所，所以到最后 45 个人中只能有一个人“脱颖而出”，剩下的人被分配到的教学资源相对较少。</p>
+<p>高考，就是一个若隐若现的台阶，看见了，你就往上踏了一步，路需要接着走；看不见，脚步依旧不会停息。高考给我的烙印是一个好看的数字：632，仅此而已，因为这个数字，我多了一些更好的选择。对其他人也是一样的，不同的数字通往不同的路，在路上看到不同的风景。而四年之后，似乎也并不是路的终点，它又成了一个让人倍感不安的起点。</p>
+<p>大学出来，已经快一年了。我好像比较喜欢用“出来”这个词来形容毕业，生活有的时候就像一个一个的笼子，从高中被放出来之后，又被装进了大学，大学毕业之后，就被装进了社会，似乎只有童年的无知是美好的。</p>
+<p>人活着需要一个长远的目标。</p>
+<p>一些组织、团体在动员组员做事之前，都会放出一个口号，树立一个标杆。活着也是一样，没有一个方向，就会瞎窜，走在路上，发现自己偏离了轨道，然后伫足反思，接着继续瞎窜。好多人都是这样。</p>
+<hr>
+<p>（未完，P.S. 今天骑电驴摔了，好惨…）</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/05/30/%E6%97%A0%E9%A2%98/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[修改Hosts为何不生效，是DNS缓存？]]></title>
+      <link>http://barretlee.com/blog/2015/05/11/cb-hosts-modify/</link>
+      <guid>http://barretlee.com/blog/2015/05/11/cb-hosts-modify/</guid>
+      <pubDate>Mon, 11 May 2015 02:47:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/05/11/hosts-modify.html" target="_blank"]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/05/11/hosts-modify.html" target="_blank">博客园</a>.</div>
+
+<p><strong>Update:</strong></p><ul><li>如果浏览器使用了代理工具，修改 Hosts 也不会生效。这里是因为，浏览器会优先考虑代理工具（如添加 pac 文件、SwitchySharp等）的代理，建议调试的时候先关闭这些代理。</li><li>使用 pac 文件代理有的时候部分文件的代理不生效，应该是 pac 对应的代理服务器上，做了部分处理。</li><li>部分浏览器也有 DNS 缓存，如 chrome(chrome://dns)，这是为什么重启浏览器也不生效的原因，一般设定时间为 60s (如 Firefox)。</li><li>浏览器有DNS缓存，系统也会存在 DNS 缓存，有的时候即便在 chrome://dns 清空了浏览器 DNS 缓存，依然不生效，是因为系统 DNS 缓存还未刷新，刷新方式可以看<a href="http://cnzhx.net/blog/how-to-flush-dns-cache-in-linux-windows-mac/" target="_blank" rel="external">这篇文章</a>。</li></ul><hr><p>&nbsp;相信很多同学都在使用 SwitchHosts/<a href="http://ihosts.alibaba.net/" target="_blank">iHosts</a>/Gas Mask 等 Hosts 管理工具，当然也有人直接修改 <code>/etc/hosts</code> 或者 <code>system32/drivers/etc/hosts</code> 文件，而经常遇到的疑问是：咿，刚才不是修改并且保存了么，为何 Chrome 浏览器还不生效呢？</p><ul><li>有人说重启下浏览器就好了，</li><li>有人说清空下缓存 DNS（chrome://net-internals/#DNS）就好了，</li><li>有人说隐私模式下打开就好了，</li><li>有人说等一分钟吧…</li></ul><p>结果就是，进入隐私模式的都好了，重启、清空缓存DNS和等一分钟的同学还在继续纠结中。。。</p><p>上面提到的三个工具，SwitchHosts/iHosts/Gas Mask，其实也只有 iHosts 生效了(Mac下)。</p><p>开发过程中我们会无数次的切换 Hosts，如果不知道原理，我们在测试的时候还是很心惊胆战的=_=||</p><h3 id="0">修改Hosts不生效的根本原因</h3><p><strong>因为服务器设置了 <code>keep-alive</code> ！次要原因是存在浏览器 DNS 缓存和系统 DNS 缓存。</strong></p><p>&gt; Keep-alive <a href="http://zh.wikipedia.org/wiki/HTTP%E6%8C%81%E4%B9%85%E8%BF%9E%E6%8E%A5" target="_blank">相关文档</a></p><p>服务器在响应头设置了 <code>Connection: keep-alive</code> （一般的网页都会设置 keep-alive，保持长连接，避免多次连接产生网络消耗）之后，客户端会跟服务器保持长连接，只要长连接不断开，页面在请求的时候就不会重新解析域名！</p><p>我们可以这样来测试：</p><ol><li>打开一个你至少两分钟没有打开的浏览器（你也可以关闭掉你的浏览器，然后重新打开，记得把所有的 tab 都关了，除了当前 tab ^_^）</li><li>在 hosts 添加 <code>127.0.0.1 www.taobao.com</code></li><li>新开 tab，打开 <a href="http://www.taobao.com" target="_blank" rel="external">www.taobao.com</a>，是不是进不去了 &lt;这里说明 hosts 修改生效了&gt;</li><li>注释掉刚才hosts修改，<code># 127.0.0.1 www.taobao.com</code> ，再打开 <a href="http://www.taobao.com" target="_blank" rel="external">www.taobao.com</a>，很好，正常打开了 &lt;这里说明 hosts 修改也生效了&gt;</li><li>去掉注释符，<code>127.0.0.1 www.taobao.com</code> ，再打开 <a href="http://www.taobao.com" target="_blank" rel="external">www.taobao.com</a>，依然可以访问！！！</li><li>Chrome 中进入 chrome://net-internals/#sockets，<img src="http://images.cnitblog.com/blog2015/387325/201505/111045527042806.png" alt="">，可以看到淘宝首页中很多域名都是与服务器保持着长连接，点击上方的 <code>close idle sockets</code> 按钮，可以关闭所有的长连接</li><li>此时，再去访问 <a href="http://www.taobao.com" target="_blank" rel="external">www.taobao.com</a>，是不是进不去了！</li></ol><h3 id="1">为何一些修改可以让 “Hosts 生效”</h3><h4 id="2">1. 重启浏览器</h4><p>重启浏览器之后，所有的连接（包括长连接）都会断开，自然就生效了</p><h4 id="3">2. 隐私模式打开</h4><p>因为隐私模式下不会复用 TCP 连接，新开连接的时候，会重新解析 DNS 域名，自然也生效了</p><h4 id="4">3. iHosts 管理器在 Mac 下生效</h4><p>因为我在 Windows 下测试过，貌似没有立即生效。问了 iHosts 的作者@必隆，他告诉我，在修改 hosts 文件的时候，会重启网络服务，这个时候必然会断开所有的 TCP 连接（重启网络服务，差不多相当于先断网再联网…)</p><h4 id="5">4. 修改之后，等一会儿…</h4><p>“等一会儿”，要稍微等久一点，<code>keep-alive</code> 的默认设置是 120s，开发者也有可能增大或者减小这个配置，所以”等一会儿”也是很伤神的=。 =</p><p>看到这里，你对其中的原理是否有所了解了呢？</p>]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/05/11/cb-hosts-modify/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[前端工程架构探讨]]></title>
+      <link>http://barretlee.com/blog/2015/05/03/cb-fe-project/</link>
+      <guid>http://barretlee.com/blog/2015/05/03/cb-fe-project/</guid>
+      <pubDate>Sun, 03 May 2015 04:56:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/05/03/fe-project.html" target="_blank">博]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/05/03/fe-project.html" target="_blank">博客园</a>.</div>
+
+
+<p>回忆一下我们在工程开发中对目录结构的定义，一般分为两种，单页面多模块，多页面多模块。在单页面多模块的工程结构里，我们会考虑模块的复用性，比如：如何将公共的东西（样式、函数等）提取出来方便其他模块复用。在多页面多模块的场景中，也是一样，不过除了把全局共用的样式和方法提取到公共目录外，我们还会将多个地方都会用到的模块作为通用模块处理。</p>
+<h3 id="一、通常开发模式的问题探讨">一、通常开发模式的问题探讨</h3><p>下图是一个单页面多模块的工程目录结构图：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><span class="line">├── Gruntfile.js</span><span class="line">├── package.json</span><span class="line">├── build</span><span class="line">└── src</span><span class="line">    ├── base</span><span class="line">    │   ├── base.sass</span><span class="line">    │   └── global.js</span><span class="line">    ├── mods</span><span class="line">    │   ├── preference</span><span class="line">    │   │   ├── index.js</span><span class="line">    │   │   ├── index.sass</span><span class="line">    │   │   └── index.xtpl.html</span><span class="line">    │   ├── promo</span><span class="line">    │   ├── qr</span><span class="line">    │   └── response</span><span class="line">    └── index.js</span></pre></td></tr></table></figure>
+<p>我们把源码放在 src 文件夹里面，公共的文件（iconfont 、sprite 图片、CSS 和 JS 等）放到 base 目录下，页面中的每个模块都会在 mods 下新建一个文件夹，使用 <code>index.js</code> 来管理模块的渲染。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</span><span class="line">    <span class="keyword">var</span> Lazyload = <span class="built_in">require</span>(<span class="string">'lazyload'</span>);</span><span class="line">    <span class="keyword">var</span> Preference = <span class="built_in">require</span>(<span class="string">'./mods/preference/index'</span>);</span><span class="line">    <span class="keyword">var</span> Qr = <span class="built_in">require</span>(<span class="string">'./mods/qr/index'</span>);</span><span class="line">    <span class="keyword">var</span> Promo = <span class="built_in">require</span>(<span class="string">'./mods/promo/index'</span>);</span><span class="line">    <span class="keyword">var</span> Response = <span class="built_in">require</span>(<span class="string">'./mods/response/index'</span>);</span><span class="line"></span><span class="line">    <span class="keyword">new</span> Response();</span><span class="line">    <span class="keyword">if</span>(xxx)&#123;</span><span class="line">        <span class="keyword">new</span> Promo();</span><span class="line">    &#125;</span><span class="line">    Lazyload(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><span class="line">        <span class="keyword">new</span> Qr();</span><span class="line">        <span class="keyword">new</span> Preference();</span><span class="line">    &#125;);</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>这样的工程结构是十分通用，结构也比较清晰的，不过在模块的管理上，这里会存在两个问题：</p>
+<ul>
+<li>AB模块存在较多的共用代码，我们有两种方式处理，一是将公共部分提取出来放到 base 目录下，二是 B 模块直接根据相对路径引用 A 模块。一旦业务上有需求，说 A 模块要下线，那下线之后，第一种方案放置在 base 目录下的代码就不合理了，第二种方案中 B 模块就不能用了，需要将 A 模块的东西部分迁移到 B 模块。</li>
+<li>问题 1 的逆过程：线上目前存在 A 模块，业务上需求需要添加跟 A 模块相似的 B 模块，如果想直接复用 A 模块的代码，一种方式是更小颗粒地分拆 A 模块，然后 B 使用相对路径引用 A，另一种方式是将 A 的共用代码提取出来放到 base 下。两种处理方式都有一定的工作量，而且还会出现问题 1 提到的问题。</li>
+</ul>
+<p>其实说到底还是模块的耦合度过高，只要模块之间存在交集，一个模块的改动就可能会影响到其他模块。多人开发中，这里还存在其他方面的问题：</p>
+<ul>
+<li>并不是每个开发者对接手的项目都有一个全局的把控，下线一个模块时，会不太敢删除 base 目录下跟该模块相关的东西，甚至都不太敢删除这个模块，只是在 <code>index.js</code> 中注释了这个模块的初始化。日积月累，冗余代码便会渗入到项目的各个地方…</li>
+<li>修改一个模块需要编译打包所有的代码，这样的调试效率十分低下，而且这个模块出错，就可能造成整个程序的崩溃。</li>
+<li>代码历史版本管理的颗粒度不够，比如我修改了 A、B、C 三个模块，依次上线了三次，现在要回滚修改 A 的操作，如何处理？如果 ABC 三个模块都能够利用代码管理工具管理代码，那回滚就方便多了。</li>
+</ul>
+<h3 id="二、模块化处理">二、模块化处理</h3><p>去耦合的方式就是让模块之间共用的东西减少，当模块之间不存在共用内容时，耦合度基本就是零了。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><span class="line">├── init.js</span><span class="line">├── build</span><span class="line">└── src</span><span class="line">    ├── preference &lt;git&gt;</span><span class="line">    │   ├── index.js</span><span class="line">    │   ├── index.sass</span><span class="line">    │   └── index.xtpl.html</span><span class="line">    ├── promo &lt;git&gt;</span><span class="line">    ├── qr &lt;git&gt;</span><span class="line">    └── response &lt;git&gt;</span></pre></td></tr></table></figure>
+<p>如上图所示，与之前的结构相比，已经少了很多东西：</p>
+<ul>
+<li><code>index.js</code> 初始化模块的东西不见了，多了一个 <code>init.js</code></li>
+<li><code>base</code> 目录不见了</li>
+<li>每个模块都变成了一个 git 仓库</li>
+</ul>
+<h4 id="1-_脚本的初始化">1. 脚本的初始化</h4><p>先看看 <code>init.js</code> 在干啥：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// init.js</span></span><span class="line"><span class="keyword">var</span> $mods = $(<span class="string">"[tb-mods]"</span>);</span><span class="line">$mods.each(functon($mod)&#123;</span><span class="line">    <span class="keyword">if</span>($mod.attr(<span class="string">"finish"</span>) !== FINISH_TAG) &#123;</span><span class="line">        $mod.attr(<span class="string">"finish"</span>, FINISH_TAG);</span><span class="line">        <span class="comment">// 需要懒加载便懒加载</span></span><span class="line">        <span class="keyword">if</span>($mod.attr(<span class="string">"lazyload"</span>))&#123;</span><span class="line">            Lazyload($mod);</span><span class="line">            <span class="keyword">return</span>;</span><span class="line">        &#125;</span><span class="line">        <span class="comment">// 否则直接初始化</span></span><span class="line">        S.use($mod.attr(<span class="string">"path"</span>), <span class="function"><span class="keyword">function</span>(<span class="params">S, Mod</span>)</span>&#123;</span><span class="line">            <span class="keyword">new</span> Mod($mod);</span><span class="line">        &#125;);</span><span class="line">    &#125;</span><span class="line">&#125;);</span><span class="line"></span><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Lazyload</span>(<span class="params"></span>)</span>&#123;</span><span class="line">    <span class="comment">// code here..</span></span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p><code>init.js</code> 不再对模块进行精确初始化，文档从上往下遍历，找到模块便直接初始化，如果需要懒加载就加入到懒加载队列，开发者不用理会页面上有多少模块，更不用理会各个模块叫做什么名字。</p>
+<p><code>index.js</code> 中 require 很多很多模块，每次添加一个模块或者删除模块都要改动这个文件，而是用 <code>init.js</code> 不会存在这个问题。</p>
+<h4 id="2-_模块的版本控制">2. 模块的版本控制</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.xtpl.html --&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/promo/1.0.0"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/qr/2.0.0"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/preference/2.2.1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/response/3.0.2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>页面上的 DOM 就是标识，存在 DOM 属性标识就执行这个标识对应的脚本，执行顺序就是 DOM 的摆放顺序。</p>
+<p>每个模块代码都使用单个 git 仓库管理，这样能够更好地追踪单个模块的修改记录和版本，也可以解决上面提出的问题（依次修改 ABC 模块，并上线了三次，如果需要回滚 A 模块，则 BC 模块的修改也要跟着滚回去）。</p>
+<h4 id="3-_ABTest_需求">3. ABTest 需求</h4><p>修改一个模块后，只需要修改他在 DOM 的版本号即可上线。如果遇到 ABTest 的需求，那也十分好办了：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.xtpl.html --&gt;</span></span><span class="line">&#123;&#123;#if condition&#125;&#125;</span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/promo/1.0.0"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line">&#123;&#123;else&#125;&#125;</span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/promo/2.0.0"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line">&#123;&#123;/if&#125;&#125;</span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/qr/2.0.0"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/response/3.0.2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
+<p><code>tb/promo</code> 目前有两个版本，1.0.0 和 2.0.0，需求是两个版本以 50% 的概率出现，直接在 <code>index.xtpl.html</code> 做如上修改，程序是十分清晰的。</p>
+<h4 id="4-_公共文件的处理">4. 公共文件的处理</h4><p>那么，公共的代码跑哪里去了？其实我们并不希望有公共的代码产生，上一节中已经提出了耦合给我们带来的维护问题，但是一个项目中必然会有大量可复用的东西，尤其是当页面出现很多相似模块的时候。</p>
+<p><strong>1）模块的复用</strong></p>
+<p>一个模块的渲染，需要两样东西，<code>渲染壳子（模板） + 数据</code>，渲染的壳子可能是一样的，只是数据源不一样，很多情况下我们可以复用一套 CSS 和 JS 代码，通过下面的方式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.xtpl.html --&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/promo/1.0.0"</span> <span class="attribute">source</span>=<span class="value">"data/st/json/v2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">tb-mods</span>=<span class="value">""</span> <span class="attribute">lazyload</span>=<span class="value">""</span> <span class="attribute">path</span>=<span class="value">"tb/promo/1.0.0"</span> <span class="attribute">source</span>=<span class="value">"data/wt/json/v1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>在两个相似模块中，我们使用的是同一套 js - <code>tb/promo/1.0.0</code>，但是使用了两个不同的数据源 <code>data/st/json/v2</code>, <code>data/wt/json/v1</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// init.js</span></span><span class="line">$mods.each(functon($mod)&#123;</span><span class="line">    <span class="keyword">if</span>($mod.attr(<span class="string">"finish"</span>) !== FINISH_TAG) &#123;</span><span class="line">        <span class="comment">//...</span></span><span class="line">        S.use($mod.attr(<span class="string">"path"</span>), <span class="function"><span class="keyword">function</span>(<span class="params">S, Mod</span>)</span>&#123;</span><span class="line">            <span class="comment">// 将数据源传入</span></span><span class="line">            <span class="keyword">new</span> Mod($mod, $mod.attr(<span class="string">"source"</span>));</span><span class="line">        &#125;);</span><span class="line">        <span class="comment">//...</span></span><span class="line">    &#125;</span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<p>在初始化脚本中，我们将模块需要用到的数据源传入到模块初始化程序中，这样页面就成功的复用了 <code>tb/promo/1.0.0</code> 的资源。</p>
+<p><strong>2）CSS 的复用问题使用 less 的 mixin 处理</strong></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">a:</span> red</span>;</span><span class="line"><span class="at_rule">@<span class="keyword">b:</span> white</span>;</span><span class="line"><span class="class">.s1</span>()<span class="rules">&#123;</span><span class="line">    <span class="rule"><span class="attribute">color</span>:<span class="value"> @a</span></span>;</span><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> @b</span></span>;</span><span class="line">&#125;</span></span><span class="line"><span class="class">.s2</span> <span class="rules">&#123;</span><span class="line">    <span class="rule"><span class="attribute">color</span>:<span class="value"> @a</span></span>;</span><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> @b</span></span>;</span><span class="line">&#125;</span></span></pre></td></tr></table></figure>
+<p>LESS 是 CSS 的预处理语言，上面的代码打包之后，<code>.s1</code> 是不存在的，只有 <code>.s2</code> 会被打包出来，但是两者都可以 mixin 到其他类中：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.s &#123;</span><span class="line">    .s1;</span><span class="line">    .s2;</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>利用这个特点，我们可以把共用的 css 都包装成类似 <code>.s1</code> 的 less 代码，模块中需要的时候就 mixin，不需要的话，放在那里也没关系，不会造成代码冗余。</p>
+<p><strong>3）JavaScript 的代码复用问题</strong></p>
+<p>页面级别的 JS 代码其实并不多，比如我们平时用的比较频繁的有 Slide、Lazyload、Tab、Storage 等，但这些东西都是以组件的形式引入到页面中。仔细想一想，JS 中哪些代码是需要页面共用的？相对整个项目的文件大小，共用的部分又有多少？</p>
+<p>我们使用的基础库方法并不全面，比如：没有对 URL 解析的 <code>unparam</code> 方法，而这个方法用的也比较多，希望放到公共部分中去。回头想想，这样的小函数实现起来有啥难度么，三四行代码就能写出来的东西，建议放到组件内部搞定。这会造成一定的代码冗余，但是带来的解耦收益与费力写几行代码的成本相比，这完全是可以接受的。</p>
+<p>页面共用的统计代码、错误收集代码、数据缓存方案、组件通讯代码等，这些量比较大、使用颇为频繁的内容，可以封装成组件，以组件形式引入进来。</p>
+<p>这里还需要很多思考…</p>
+<h4 id="5-_模块之间的通讯">5. 模块之间的通讯</h4><p>模块之间的通讯最让人纠结的是，A 模块想跟 B 模块说话，但是 B 模块还没有初始化出来。所以我们需要引入一个中间人 S，每个模块初始化成功之后都去问一问 S，有没有人给我留言。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// B 给 A 留言，如果 A 存在，则直接将 msg 发给 A</span></span><span class="line"><span class="comment">// 如果不存在则送入 S 的消息队列</span></span><span class="line">S.tell(<span class="string">"A"</span>, &#123;</span><span class="line">    from : <span class="string">"B"</span>,</span><span class="line">    msg: &#123;&#125;</span><span class="line">&#125;);</span><span class="line"></span><span class="line"><span class="comment">// A 模块初始化的时候，获取其他模块的留言</span></span><span class="line">S.getMessage(<span class="string">"A"</span>， <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><span class="line">    <span class="comment">// dosomething...</span></span><span class="line">&#125;);</span></pre></td></tr></table></figure>
+<h3 id="三、小结">三、小结</h3><p>还有很多东西不在主题的讨论范围内，就不一一列举出来了。</p>
+<p>项目开发参与的人越多，代码就越难维护，约束只是一时的，编程方式、编码格式等的约束并不能从根本上解决问题，一旦约束的点未覆盖，结构就会开始散乱，最后必然又会迎来一次整体的重构。</p>
+<p>方法和结果不能改变习惯，所以我们应该从模式出发。</p>
+<p></p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/05/03/cb-fe-project/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[对前端质量保障的思考]]></title>
+      <link>http://barretlee.com/blog/2015/04/24/cb-Thinking-in-FE-Quality/</link>
+      <guid>http://barretlee.com/blog/2015/04/24/cb-Thinking-in-FE-Quality/</guid>
+      <pubDate>Fri, 24 Apr 2015 04:24:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/04/24/Thinking-in-FE-Quality.html" targe]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/04/24/Thinking-in-FE-Quality.html" target="_blank">博客园</a>.</div>
+
+<p>我们时时在踩坑，有时也忍不住埋怨前人给我们留下了无数的坑，可回头想想，自己是不是也在挖坑等别人踩…</p><p>上次听 赵海平 的讲座，他提到 Facebook 没有测试人员，以前和现在都没有，以后也不打算有。还提到上线之后就开发者坐在系统前等着，只要有bug，系统能够在五分钟之内检测到，并提供快捷方式修复。我惊叹的是他们能够在五分钟之内监控到所有的问题，实时回馈并及时修复。</p><p>当然在探讨质量保障这个话题前，我们需要明确几个关键点：编码前、提交代码、测试、上线、回滚、上线后。针对这几个点，下面我谈一谈我的看法。</p><h3>一、编码前</h3><p>上家公司实习期间印象最深的交流是参与编码规范讨论，当时我还呼呼的整理了两份文档：<a href="http://www.cnblogs.com/hustskyking/p/javascript-spec.html" target="_blank" rel="external">前端编码规范之JavaScript</a>,<a href="http://www.cnblogs.com/hustskyking/p/css-spec.html" target="_blank" rel="external">前端编码规范之CSS</a>。后来也看到团队在各种工具上添加控制和提示，如 Sublime Text 添加 jslint 配置，项目目录下添加 .jslint 配置，打包工具提示代码的不规范，强制修复等等。</p><p>上面提到的代码规范主要是代码展现层面的规范，他可以让团队写出来的代码就跟一个模子刻出来似的，结构、命名、函数体大小等等很接近，看着很舒服。举几个例子说明他的重要性。</p><p><strong>1. 统一使用 UTF8 编码</strong></p><p>我平时开发都是使用的 UTF8 编码。有次从仓库拉下来发现很多文件都是 GBK 编码，修改时一个文件忘记转换编码，提交发现 锟斤拷 出来了。</p><p><strong>2. TAB 缩进</strong></p><p>我比较喜欢使用四个空格作为 TAB 缩进。一次多人开发的时，发现同事的代码是两个空格的缩进，结果，我改成了四个空格提交之后，又被改回来两个空格，然后我接着改回去…</p><p><strong>3. 加不加分号</strong></p><p>以前写过一篇文章，谈了下自己对分号的看法：<a href="http://www.cnblogs.com/hustskyking/p/semicolon-retalk.html" target="_blank" rel="external">Javascript分号，加还是不加？</a>，我的回答是加但非必须。</p><p>代码的规范，对程序本身的意义并不是很大，他不会作用在程序的逻辑上，作用点在于团队合作。一个项目可能是多人开发，也可能是今天我开发，明天托付给你。如果两个人在编码习惯上的差异很大，就会偏头痛…有一点需要特别提出来，就是写注释！某次排查一个线上问题，找到了问题所在的文件，但是文件中的逻辑实在是太过复杂，四五百行代码仅三行注释，眼睛都看花了。其实只要在大段的代码前加几句注释，说明本段代码的大意，在排查定位问题的时候就可以忽略一部分代码块，可以为修复线上bug争取不少时间。</p><h3>二、提交代码</h3><p>这部分特指工具。可以说过了工具这一道关卡，代码基本就获得自由，bug 也就开始横飞了。目前工具可以为我们做的事情：</p><p><strong>1. 检测</strong></p><ul class="task-list"><li>现在并没有做 jslint 之类的配置，所以代码的展示是没怎么规范的。</li><li>编码应该统一为 UTF-8 格式，如果不是这种格式，工具应该有所提示。</li><li>代码块过长提示，一个函数不应该写到几百上千行，拆分代码刚开始是辛苦，一旦后续复用的时候，就会很爽很爽了（当然，刚开始编码的时候就应该考虑一个函数的颗粒度控制）。</li></ul><p>更重要的是对语法的检测，我们可能把 <code>document</code> 拼写成了 <code>doucment</code>，甚至使用 <code>for in</code> 来遍历一个数组，这种问题时而出现，工具是否考虑帮助我们处理掉一些简单的愚蠢的错误。</p><p><strong>2. 压缩</strong></p><p>压缩代码的时候，我踩过坑：<a href="http://hi.barretlee.com/2015/03/26/attention-in-gulp-minify-css/" target="_blank" rel="external">gulp打包压缩css遇到的坑</a>，我相信很多人都认识 grunt 和 gulp，但是一定鲜有人自己配置过这些东西，并投入到项目中。</p><p>代码的压缩，一方面可以减少线上流量，一方面也是出于安全的考虑。压缩后的代码线上报错很难定位到准确的位置，有些问题只能在用户的电脑上复现，”代理到本地这个法子”远程操作的时候是不靠谱的。压缩不仅仅应该把代码缩短，还要考虑线上排查问题的难度。</p><p>在压缩的时候可以考虑添加空行，将网页错误定位范围缩减到单个文件。也可以使用 sourceMap 之类的辅助方式。在<a href="http://www.cnblogs.com/cathsfz/p/how-to-capture-and-analyze-javascript-error.html" target="_blank" rel="external">这篇文章</a>中有过一些讨论。</p><p><strong>3. 合并</strong></p><p>很多事情，别人不考虑，工具就得考虑。</p><p>这里有一个思考，HTTP2.0 支持多路复用，一个连接可以进行多次 HTTP 的传输，那以后的 sprite 图、文件的合并等是不是也应该重新考虑了。文件的全部合并真的是最省资源的方式么？是否可以考虑更多的合并方案？</p><h3>三、测试</h3><p>赵海平 说，技术实践中的三件套：功能 + 测试 + 监控。很多大公司的工程师，深谙功能开发之道，测试方面也能达到 60 分的水平，但是程序的监控上，做的很差，包括 Facebook 的程序员。三件套，对一个优秀的工程师来说，缺一不可。</p><p>这里要说的是程序开发三板斧的第二板，测试。</p><p>我们很自然地联想到了QA，阿里有一大波的测试人员。写完代码提测，好像剩下的就只是测试同学找BUG，我们等着修BUG。前端的测试跟后端还不太一样，逻辑可以测，但是 UI 效果、交互效果不好测，只能靠几双眼睛盯着看，几个鼠标不停地点点点。。。</p><p>虽说逻辑可以通过写测试用例进行测试，会去写测试用例的人却不多。我记得当时学习 AOP 编程的时候，给 ajax 添加了一些 mock 功能，可以在页面上模拟请求测试效果(如<a href="https://github.com/jakerella/jquery-mockjax" target="_blank" rel="external">jquery-mockjax</a>)。编写测试用例确实可以解决很多的问题，但是如何培养编写测试用例的习惯，如何更加便利的测试我们的测试用例，这又是一个值得思考的话题。</p><p>自动化工具一大缺点是很难捕获到特定环境下的错误。据统计，不管你的代码写得多健壮，在一千个用户下，总有那么一个用户，因为浏览器安装了插件、网络问题等导致代码报错，再比如我们在做灰度测试的时候，让用户名首字母为 a-m 的用户命中灰度时出现的错误等等，这些错误自动化测试工具是无法发现的。</p><p>所以我们要把 错误日志统计 灵活地使用起来，他能够使你深入用户，拿到最原始的错误信息。</p><h3>四、上线</h3><p>现在涉及到前端上线的，有多个地方（公司有很多发布系统）：</p><ul class="task-list"><li>TMS发布</li><li>aone2发布</li><li>gitlab发布</li><li>awp发布</li><li>etc.</li></ul><p>gitlab发布通过域名严格区分测试、预发和线上环境，操作界限明确，出错的概率还是很低的（这要求开发者对 git 命令的操作十分熟练），如果几次 reset revert stash 之后便开始犯蒙，那出问题的概率就增大了。每次打下 tag 之前，我都会很仔细地 diff 下代码，看看本次发布和上次发布之间做了哪些修改，确认这些修改点再 push tag。</p><p>aone2的发布，并不是每个人都用过，它的靠谱在于有三种发布方式：</p><ul class="task-list"><li>全网发布，半小时完成</li><li>小淘宝环境灰度发布，两小时完成</li><li>分三次发布，小流量上线，一天完成</li></ul><p>同时也提供了十分方便的回滚机制，只要拥有应用的权限，可以随时回滚代码，效率极高。</p><p>TMS 的发布，我觉得是问题最多的。首先，前端和运营都会拥有发布权限，运营喜欢”瞎搞”，部分页面（如JSON输出）并没有提供页面预览，运营填完之后也不会跑到页面查看效果，于是就出问题了。。TMS发布每次修改只发布一个文件，CDN 发布一个文件的速度是很快的，当你点击发布的那个瞬间，整个同步就基本完成了。可是，当某个节点同步出错，TMS 并没有给出提示，这是第二个隐患。第三个点，TMS坑爹的没有灰度，对一些重要的发布，没有灰度就需要十分十分的谨慎，虽说出错可以及时回滚，但万一没有看到隐性的错误，那就悲惨了。</p><h3>五、回滚</h3><p>没人可以保证自己写的东西绝对不出问题，因为有太多的环境因素是我们想也想不到的，比如最近某类控件在小淘宝环境下全挂了，试问，前端怎么会想到这是Nginx 的灰度系统出问题了，在灰度发布的时候文件没有同步成功，导致整个灰度环境出错。</p><p>所以，一定要给你的程序想一套快速回滚方案。尤其是在做 ABTest 的时候，新版的效果不好需要回滚到之前的状态，这种事情经常有。</p><p>回滚需要注意两点：</p><ol class="task-list"><li>要快。</li><li>上一个状态要保证无错误。</li></ol><p>只要我们能够保证发到线上的每一个版本都是稳定版，那回滚就是 0 风险的事情。</p><h3>六、监控</h3><p>程序开发三板斧的第三板，监控。前端对测试就不太重视，更不用提监控了。没有监控就只能提心吊胆的过日子。</p><p>其实我们使用自动化工具测试、每天用肉眼顶着自己的页面看，这些都属于监控，但是深入到用户的监控，我们做的太少！</p><h3>七、小结</h3><p>看到老大在群里发了几条研发相关的红线：</p><blockquote><p>1、禁止代码未经测试发布;2、禁止代码发布后不进行线上验证;3、禁止核心应用发布没有对应的回滚方案。</p>
+
+<p></p></blockquote><p></p>
+<p>毫无疑问，这些都是必须严格遵守的。规范会先把坏习惯压住，进而被理解，最后被消化吸收。</p><p>前端质量保障之路，任重而道远！</p>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/24/cb-Thinking-in-FE-Quality/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[sublime text 3 没有node的build-system]]></title>
+      <link>http://barretlee.com/blog/2015/04/15/st3-node-build-system/</link>
+      <guid>http://barretlee.com/blog/2015/04/15/st3-node-build-system/</guid>
+      <pubDate>Tue, 14 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>郁闷了好多次了，Mac 系统 Sublime Text 3，具体版本是 Stable Channel，Build 3083，没有 node 的 build-system，为了方便调试，每次都得把巨型的 webstrom 打开，今天摸索了下，找到了方案~</p>
+<p>首先安]]>
+      </description>
+      <content:encoded><![CDATA[<p>郁闷了好多次了，Mac 系统 Sublime Text 3，具体版本是 Stable Channel，Build 3083，没有 node 的 build-system，为了方便调试，每次都得把巨型的 webstrom 打开，今天摸索了下，找到了方案~</p>
+<p>首先安装下 <code>Javascript &amp; Coffee Build System</code> 的插件，这个时候 ST 会多出三个 Build-System，分别是</p>
+<ol>
+<li>xjs</li>
+<li>xjs - Compile</li>
+<li>xjs - Harmony</li>
+</ol>
+<p>使用 xjs 就可以运行 js 脚本，直接 Ctrl + B 可能会报错，说 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">not found file or fold `node`</span></pre></td></tr></table></figure>
+<p>云云的错误。我们的 node 一般安装在 <code>/usr/local/bin/node</code> 这个地方。而环境变量，如果没有修改的话应该是这些：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/bin:/usr/sbin/:/bin:/sbin</span></pre></td></tr></table></figure>
+<p>你可以将 <code>/usr/local/bin/node</code> 加入到环境变量，也可以这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/bin/node /usr/bin/node</span></pre></td></tr></table></figure>
+<p>OK，就这么愉快的搞定了，如果想以 harmony 方式运行，可以按下 <code>Ctrl+Shift+B</code>，选择 <code>xjs - Harmony</code> 就行了。</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/15/st3-node-build-system/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[this的指向]]></title>
+      <link>http://barretlee.com/blog/2015/04/13/this-reference/</link>
+      <guid>http://barretlee.com/blog/2015/04/13/this-reference/</guid>
+      <pubDate>Sun, 12 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>网友问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name ]]>
+      </description>
+      <content:encoded><![CDATA[<p>网友问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;   </span><span class="line">　　<span class="keyword">var</span> object = &#123;  </span><span class="line">　　　　name : <span class="string">"My Object"</span>,  </span><span class="line">　　　　getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><span class="line">　　　　　　　　<span class="keyword">return</span> <span class="keyword">this</span>.name;  </span><span class="line">　　　　&#125;   </span><span class="line">&#125;;  </span><span class="line"><span class="keyword">var</span> a = object.getNameFunc;</span><span class="line">alert(a());</span><span class="line">alert(object.getNameFunc());</span></pre></td></tr></table></figure>
+<p>原因：</p>
+<p><code>object.getNameFunc()</code> ，此时的 <code>object.getNameFunc</code> 为引用类型，其 base 为 <code>object</code>，this 指向的是 base，所以返回 <code>object.name</code> 的值</p>
+<p><code>name = object.getNameFunc</code>, <code>test</code> 作为标识符，生成了其他引用类型的值，此时 base 已经从 <code>object</code> 重置为 <code>null</code>，也就是会指向 global（window），所以返回的是 window.name 的值。</p>
+<p>问题的关键在于「引用类型（type Reference）的中间值发生改变」</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/13/this-reference/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Xcode-select Error]]></title>
+      <link>http://barretlee.com/blog/2015/04/13/xcode-select-error/</link>
+      <guid>http://barretlee.com/blog/2015/04/13/xcode-select-error/</guid>
+      <pubDate>Sun, 12 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>错误信息：</p>
+<blockquote>
+<p>xcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/Comma]]>
+      </description>
+      <content:encoded><![CDATA[<p>错误信息：</p>
+<blockquote>
+<p>xcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/CommandLineTools’ is a command line tools instance</p>
+</blockquote>
+<p>解决方案：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span></pre></td></tr></table></figure>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/13/xcode-select-error/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[从Facebook跑来阿里的赵海平大叔，你要干啥？]]></title>
+      <link>http://barretlee.com/blog/2015/04/07/zhaohaiping-in-my-eye/</link>
+      <guid>http://barretlee.com/blog/2015/04/07/zhaohaiping-in-my-eye/</guid>
+      <pubDate>Mon, 06 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>赵海平在今年三月份来到阿里，听毕玄（他现任主管）说去年五六月份就跟赵海平聊上了。有人问：为啥 BAT 三大巨头，你看中了阿里巴巴？在今天现场达一千多人的分享中赵海平给出了回复：“因为百度和腾讯没找我呗~”，他笑道，“百度以搜索为核心，优化了很多年了，估计也没啥可以优化的了；]]>
+      </description>
+      <content:encoded><![CDATA[<p>赵海平在今年三月份来到阿里，听毕玄（他现任主管）说去年五六月份就跟赵海平聊上了。有人问：为啥 BAT 三大巨头，你看中了阿里巴巴？在今天现场达一千多人的分享中赵海平给出了回复：“因为百度和腾讯没找我呗~”，他笑道，“百度以搜索为核心，优化了很多年了，估计也没啥可以优化的了；而腾讯除了 QQ 和微信，也没什么大型应用（别跟人家说哦）”。这不是原话哈，赵海平还是相当谦虚并且能言的，思维很开阔，两个小时的分享内容丰富，时不时还插两个故事，起初进场的手机和电脑都很自觉的收起来了~旁边的同事侃道：“高 P 也都是能搞 PPT 的。”</p>
+<p>他分享的主题是《我眼中的Facebook的技术演进》，从 2006 年到 2014 年，Facebook 在技术上遇到的各种瓶颈和解决方案，演说过程灌输了不少自己的思考和经验，还是很有体会的，尤其是：</p>
+<ol>
+<li>技术实践中的三件套：功能 + 测试 + 监控。很多大公司的工程师，深谙功能开发之道，测试方面也能达到 60 分的水平，但是程序的监控上，做的很差，包括 Facebook 的程序员。三件套，对一个优秀的工程师来说，缺一不可。</li>
+<li>Facebook 以前没有 QA(测试人员)，现在也没有。没有 QA ，效率会高一些，但是一定要写测试用例…这方面他说的比较多，我也比较有感触的，现在在负责淘宝首页开发，也没有测试人员…但结果就是开发效率高了不少，胆子吓大了不少，自己也谨慎了不少。</li>
+</ol>
+<p>估摸算算，赵海平应该也快半百了，这样大叔级别的人物，不好好在国外呆着呼吸清新的空气，跑到杭州吸啥 PM2.5。A同学道：大叔级别的人物也是有追求的好么~（不过他的颜貌就像三十出头的年轻人，帅气！）</p>
+<p>Facebook 网站刚刚搭建起来的时候，数据库就只有 <code>info</code> 一张表，这么笼统的描述，可见当时的工程师根本不会想到 FB 会发展到今天如此的壮大。随着 FB 的会员不断增长，一台服务器的数据库装不下去了，于是后来就多了很多个数据库，很多台服务器，数据容量一庞大，查询速度就慢了，接着在 07 年开始使用了 memcache，一段时间过后，CPU 不够用了，他们继续优化底层代码，用 C++ 重新实现 webServer 等等。这些事情都是大公司技术架构的演进过程中必然会经历的，根据自己的需要，把别人开发好的东西搬过来，优化and重构，在优化的过程中，甚至也会弄出一套全新的东西，比如 HipHop、HHVM 等等。</p>
+<p>有人问，现在的高 P 都是不写代码的，你会写么？赵海平盹了一下，说：过来演讲前刚仓促的 push 了一些代码。他会把房子的基层建设做好，不让后来添砖加瓦的人走偏路，代码还是会写的。</p>
+<p>我看到的是一个年轻有活力有底蕴的大叔，希望阿里巴巴因为这位技术大牛的加入而更加丰满！</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/07/zhaohaiping-in-my-eye/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Safari不认识type为search的input]]></title>
+      <link>http://barretlee.com/blog/2015/04/03/input-bug-in-safari/</link>
+      <guid>http://barretlee.com/blog/2015/04/03/input-bug-in-safari/</guid>
+      <pubDate>Thu, 02 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
+<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
+<figure class="highligh]]>
+      </description>
+      <content:encoded><![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
+<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><span class="line">  <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"search"</span> <span class="attribute">name</span>=<span class="value">"q"</span> <span class="attribute">id</span>=<span class="value">"J_Query"</span> /&gt;</span></span><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>给 <code>J_Query</code> 写了一些样式，可是…Safari很任性的不认，左改右改搞了五六分钟没反应，火了！</p>
+<p>把 type 改成 text 就好了。</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/03/input-bug-in-safari/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[根据访问属性进行差异化数据加载]]></title>
+      <link>http://barretlee.com/blog/2015/04/03/detect-first-visit-usr/</link>
+      <guid>http://barretlee.com/blog/2015/04/03/detect-first-visit-usr/</guid>
+      <pubDate>Thu, 02 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>判断用户是否第一次访问页面，先不说怎么做，想想什么场景下会用到？</p>
+<p>如果我们页面的体积过大，用户第一次访问，会消耗大量的时间(2-5s)去下载页面所需要的资源，给用户带来的体验是很不好的，尤其是移动端的用户。如果我们可以在用户第一次访问的时候只加载主要内容，在这]]>
+      </description>
+      <content:encoded><![CDATA[<p>判断用户是否第一次访问页面，先不说怎么做，想想什么场景下会用到？</p>
+<p>如果我们页面的体积过大，用户第一次访问，会消耗大量的时间(2-5s)去下载页面所需要的资源，给用户带来的体验是很不好的，尤其是移动端的用户。如果我们可以在用户第一次访问的时候只加载主要内容，在这个主要内容中引导用户做更多的加载资源的操作，一方面可以让用户熟悉系统，一方面也给页面加载资源争取了巨量的时间，何乐而不为？！</p>
+<p>我们能最快想到的方案是，使用 cookie ，服务器根据 cookie 的属性（如某个 Tag 的值为 1 或者 0）来判断要给用户呈现什么样的内容，这样做有几点不好：</p>
+<ol>
+<li>需要服务器协助，而很多时候前端对服务器的控制为 0</li>
+<li>cookie在每次网页请求的时候都会附带，浪费 （当然，可以在用户访问一次之后清理这个 cookie，比如服务器端设置 session 值，不过又增加了后端的逻辑负担，而且不靠谱）</li>
+<li>如果用户禁用了 cookie 呢？</li>
+</ol>
+<p>问题有很多，解决问题的方案也不少，针对这个问题，HTML5规范也提供了相应的事件和属性支持。</p>
+<h3 id="如何判断用户是否为第一次访问页面">如何判断用户是否为第一次访问页面</h3><p>当页面加载的时候会触发 onload 事件，完了之后触发 pageShow 事件，pageShow 事件是页面每次加载都会触发的，而 onload 不然。默认情况下，浏览器会缓存当前访问的页面（隐私模式除外，特殊处理，也会缓存，退出隐私模式时，缓存的所有内容全部删除），当用户点击前进或者后退按钮时，浏览器会从缓存中获取内容，这个时候 onload 事件是不会触发的。</p>
+<p>可以这么说：</p>
+<ul>
+<li>如果待加载的页面不存在于缓存中，会触发 onload ，再触发 pageShow</li>
+<li>如果待加载的页面存在于缓存中，不触发 onload，只触发 pageShow</li>
+</ul>
+<p>pageShow 事件对象 event 中有一个属性值，叫做 persisted，如果这个值为 true，则为缓存数据，false，则为第一次加载。</p>
+<h3 id="差异化加载">差异化加载</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.body;</span><span class="line">body.onpageshow = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><span class="line">  <span class="keyword">if</span>(evt.persisted)&#123;</span><span class="line">    <span class="comment">// 如果从缓存加载，该干啥干啥</span></span><span class="line">    doSomething();</span><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><span class="line">    <span class="comment">// 如果用户第一次访问（没有缓存），只加载主体框架</span></span><span class="line">    loadMainContent();</span><span class="line">  &#125;</span><span class="line">&#125;;</span></pre></td></tr></table></figure>
+<p>在 <code>loadMainContent()</code> 我们可以这样干：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">funtion loadMainContent()&#123;</span><span class="line">  <span class="comment">// 引导用户执行操作，操作一次加载点东西</span></span><span class="line">  leadUserDoSomething();</span><span class="line">  <span class="comment">// 或者悄悄地缓慢的加载需要的数据</span></span><span class="line">  loadDataInQuickMode();</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>当然，通过 cookie 或者 pageshow 事件属性判断用户浏览器是否有缓存数据不是最终的解决方案，但这是一种思考模式，可以发散思维~</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/03/detect-first-visit-usr/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[前人挖坑，后人填坑]]></title>
+      <link>http://barretlee.com/blog/2015/04/02/cb-bugs/</link>
+      <guid>http://barretlee.com/blog/2015/04/02/cb-bugs/</guid>
+      <pubDate>Thu, 02 Apr 2015 02:16:00 GMT</pubDate>
+      <description>
+      <![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/04/02/bugs.html" target="_blank">博客园</a>]]>
+      </description>
+      <content:encoded><![CDATA[<div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/04/02/bugs.html" target="_blank">博客园</a>.</div>
+
+<p>写代码不免出点 bug，没有人可以保证自己写的代码不出问题，而那些没有被挖掘出来的 bug，便成了后来者哭笑不得的坑…</p><p>这段时间公司全面 https 改造，涉及到域名的迁移，域名的迁移不是 nginx 做个映射就完事儿了，还有各种代码的去 schema，各种组件的搬迁，算是一个大手术！我看最近百度主站也升级到了 https，期间应该出过一次问题吧，貌似回滚了一次，他们遇到的坑应该还不算多，只是 www 域升级，而不是全网。公司最近出了不少的问题，大小问题都有，表面看是前人挖的坑，实际是整体架构思考的有欠缺。</p><p>当我们放下一个项目转投下一个时，手头的东西就要转交给他人处理，或者..不再有人处理，可代码还在那里，搞不好你就引用了别人的东西，保不准哪天别人的代码里就爆出了个大 bug，当然这里的”别人”也可能是 你！我们既不希望自己是受害者，更不希望自己是施害者。</p><h4><span><strong><a id="user-content-1-如何挖坑" class="anchor"></a><span>1. 如何挖坑</span></strong></span></h4><p>挖坑可不是一件简单的事情，你写出来的插件、组件、代码，很可能被很多人用到了，各种业务场景下狂奔你的代码，一堆测试人员检测你的bug，所以在项目中埋坑可不是一件容易的事情。</p><p>那么如何埋坑呢？可以参考以下方案：</p><ul class="task-list"><li>在一个文件中放一坨很长很长的代码，不加注释，不解耦程序</li><li>把判断都放在一层嵌一层深深的逻辑里头</li><li>程序中临时加入几个全局的标记变量，在很多地方改变变量的值，在很多地方使用变量的值</li><li>不考虑多变的场景，不实时容错，让他按照你脑子的轨迹跑</li><li>到处散播不同版本的代码，不整理统一的文档</li></ul><p>如果这些方案还不够你挖坑，我想你团队同学的技术水平也真真是太高了。</p><p>很多时候，我们都是不经意间留下了隐患。当自己写的东西被其他人使用后，程序需要兼顾的场景就会增多，出现的问题也会变多，这个时候我们不得不完善自己的代码逻辑。结果就是，逻辑耦合度高了不少，代码层次深了不少，出错的概率也就增加了不少。</p><p>所以在设计一个功能或者组件的时候，该考虑什么，不该考虑什么，一定要理清楚。并不是所有东西都适合往代码里加，我们不是在做 ExtJS 这个整体方案，也不是编织一个底层的操作库，只是用少量的逻辑整合离散化、个性化的业务，这些逻辑越少越好，与核心逻辑无关的内容就必须抽离出来！</p><h4><span><strong><a id="user-content-2-使劲踩坑" class="anchor"></a><span>2. 使劲踩坑</span></strong></span></h4><p>如果说挖坑是一件很有难度的活儿，那踩坑就更难了。其实可以说难的不是踩坑，而是发现自己踩坑了。</p><p>在一堆巨量的文件中找出「因把等于号写成恒等号」造成的 bug，这不是轻松的事情，可能你在 debugger 的时候进入了别人的代码领域，对着别人巨长而又没什么注释的代码，估计当场就晕了，更晕的是，自己却还在怀疑这到底是不是这堆代码里头的问题。团队合作中，我们心里默认相信队友，队友产出的代码是没有问题可以直接拿过来使用的，所以一旦出现问题，我们怀疑更多的是自己，质疑别人需要很大的勇气，尤其是质疑那些成熟的框架，用了很多年的代码。</p><p>那么如何踩坑呢？我们可不喜欢踩坑，有的坑踩进去就跳不出来了，最后只能选择其他方案处理。很少有前端同学写程序的测试用例，可能还有一部分同学根本就没听说过什么测试用例。而在后端中（比如nodejs）没有测试用例的代码就是一堆废代码，除了自己可以拿着用用，别人根本就不敢用的。那么测试用例会考虑做那些事情呢？简单点说：</p><ul class="task-list"><li>写出有问题的代码，让程序按照期望的出错方式出错，如果没有，程序就有bug</li><li>写出没问题的代码，让程序按照正常的流程返回正确的结果，如果没有，程序就有bug</li></ul><p>测试用例要覆盖到程序中所有的逻辑判断，比如 if elseif else 等判断的逻辑都要覆盖进去。当我们的测试代码覆盖了100%的逻辑，那坑位就展露无遗了。</p><p>埋坑人的致命弱点就是很少对程序作出异常情况判断，只要找出程序中的异常点，试图以另类的方式触发这个异常，你就顺利踩坑了！</p><h4><span><strong><a id="user-content-3-用力填坑" class="anchor"></a><span>3. 用力填坑</span></strong></span></h4><p>首先，填坑是一种责任。</p><p>发现问题是最难的，解决问题只是时间的问题。当我们确认了一个坑之后，第一件事情就是告诉别人这里有坑，你不要踩了。但是最好再多补一句话：你先别踩，等我填好了坑你再来。我这觉得这句话真的很暖人心，程序猿之间的关怀就应该这么赤裸裸的。尽管，有的时候，这个坑不是你挖的..</p><p>当我们挖好坑，踩完坑，再埋好坑之后，回头想想自己在团队中扮演什么样的角色，挖坑者还是埋坑者？这必然是有益于成长的。</p>
+
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/04/02/cb-bugs/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[干掉浏览器中的自动填充]]></title>
+      <link>http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/</link>
+      <guid>http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/</guid>
+      <pubDate>Mon, 30 Mar 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。</p>
+<p>这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过</p>
+<figu]]>
+      </description>
+      <content:encoded><![CDATA[<p>当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。</p>
+<p>这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"passwordInput"</span>).value)</span></pre></td></tr></table></figure>
+<p>就能拿到密码明文。虽加强了体验，但削弱了安全性，也让有「强迫症」的程序员感到颇为不爽。</p>
+<p>当页面加载的时候直接将表单域设置为空，貌似是不起作用的。原因是，浏览器在页面加载到一定程度时（我也不知道是什么时机）从自己的数据库中挖出曾经保存的表单域，填充进去。</p>
+<p>有人想到使用定时器，检测表单是否存在数据，这样的操作费时费力，不提倡。</p>
+<p>可以考虑这个方案：</p>
+<p>每个 <code>input</code> 都有 <code>defaultValue</code> 属性，这是 DOM 初始化的时候给它加上的，判断</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">input.defaultValue == input.value  </span><span class="line"><span class="comment">// 如果相等则不处理，如果不相等则将 value 置为空</span></span></pre></td></tr></table></figure>
+<p>感觉是，是靠谱的！</p>
+]]></content:encoded>
+      <comments>http://barretlee.com/blog/2015/03/31/autocomplete-in-browser/#disqus_thread</comments>
+    </item>
+    
+  </channel>
+</rss>

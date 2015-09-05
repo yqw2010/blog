@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>javascript链式调用的实现方式 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.本文从ITeye导入&amp;nbsp;在我们所用到的库中，可以看到很多诸如$(window).addEvent(&#39;load&#39;, function()&amp;#123;    $(&#39;test&#39;).show().setStyle(&#39;color&#39;, &#39;red&#39;).addEvent(">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="javascript链式调用的实现方式 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://barretlee.com/blog/2012/09/18/javascript链式调用的实现方式/">
+  <meta property="og:site_name" content="javascript链式调用的实现方式">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.本文从ITeye导入&amp;nbsp;在我们所用到的库中，可以看到很多诸如$(window).addEvent(&#39;load&#39;, function()&amp;#123;    $(&#39;test&#39;).show().setStyle(&#39;color&#39;, &#39;red&#39;).addEvent(">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">javascript链式调用的实现方式</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2012-09-18 08:58:00</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="javascript链式调用的实现方式"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2012/09/18/3049802.html" target="_blank">博客园</a>.</div>
+
+<p><strong>本文从ITeye导入</strong>&nbsp;</p>
+
+
+<p>在我们所用到的库中，可以看到很多诸如</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">window</span>).addEvent(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">'test'</span>).show().setStyle(<span class="string">'color'</span>, <span class="string">'red'</span>).addEvent(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        $(<span class="keyword">this</span>).setStyle(<span class="string">'color'</span>, <span class="string">'yellow'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>&nbsp;的链式调用，那么这样的链式结构是怎么实现的呢，下面我们利用代码来探讨一番：</p>
+
+
+<p>&nbsp;先分解下，我们队$函数已经很熟悉了，他通常返回一个HTML元素或者HTML元素的集合，如下所示：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> elements = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = <span class="built_in">arguments</span>.length; i &lt; len; i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> element = els[i];</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> element === <span class="string">'string'</span>)&#123;</span><br><span class="line">            element = <span class="built_in">document</span>.getElementById(element);</span><br><span class="line">        &#125;</span><br><span class="line">        elements.push(element);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> elements;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;但是，如果把这个函数改造为一个构造器，把那些元素作为数组保存在一个实例属性中，并让所有定义在构造器函数的prototype属性所指对象中的方法都返回用以调用放方法的那个实例的引用，那么他就具有了进行链式调用的能力。</p>
+
+
+<p>先别说的太远，我们首先需要把这个$函数改为一个工厂函数，他负责创建支持链式调用的对象。</p>
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">function</span><span class="list">()</span><span class="collection">&#123;</span><br><span class="line"></span><br><span class="line">    function _$<span class="list">(<span class="keyword">els</span>)</span><span class="collection">&#123;</span><br><span class="line">        this.element = <span class="collection">[]</span><span class="comment">;</span></span><br><span class="line">        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i = <span class="number">0</span>, len = els.length; i &lt; len; i++)</span><span class="collection">&#123;</span><br><span class="line">            var element = els<span class="collection">[i]</span><span class="comment">;</span></span><br><span class="line">            if<span class="list">(<span class="keyword">typeof</span> element === 'string')</span><span class="collection">&#123;</span><br><span class="line">                element = document.getElementById<span class="list">(<span class="keyword">element</span>)</span><span class="comment">;</span></span><br><span class="line">            &#125;</span></span><br><span class="line">            this.element.push<span class="list">(<span class="keyword">element</span>)</span><span class="comment">;</span></span><br><span class="line">        &#125;</span></span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span></span><br><span class="line">    window.$ = function<span class="list">()</span><span class="collection">&#123;</span><br><span class="line">        return new _$<span class="list">(<span class="keyword">arguments</span>)</span><span class="comment">;</span></span><br><span class="line">    &#125;</span></span><br><span class="line">&#125;</span>)</span><span class="list">()</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>由于所有对象都会继承其原型对象的属性和方法，所以我们可以让定义原型对象中的那几个方法都返回用以调用方法的实例对象的引用，这样既可以对那些方法进行链式调用，想好这一点，我们现在就动手在_$这个私用构造函数的prototype对象那个中添加方法，以便实现链式调用。</p>
+
+
+
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">function</span><span class="list">()</span><span class="collection">&#123;</span><br><span class="line"></span><br><span class="line">    function _$<span class="list">(<span class="keyword">els</span>)</span><span class="collection">&#123;</span><br><span class="line">        this.element = <span class="collection">[]</span><span class="comment">;</span></span><br><span class="line">        for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i = <span class="number">0</span>, len = els.length; i &lt; len; i++)</span><span class="collection">&#123;</span><br><span class="line">            var element = els<span class="collection">[i]</span><span class="comment">;</span></span><br><span class="line">            if<span class="list">(<span class="keyword">typeof</span> element === 'string')</span><span class="collection">&#123;</span><br><span class="line">                element = document.getElementById<span class="list">(<span class="keyword">element</span>)</span><span class="comment">;</span></span><br><span class="line">            &#125;</span></span><br><span class="line">            this.element.push<span class="list">(<span class="keyword">element</span>)</span><span class="comment">;</span></span><br><span class="line">        &#125;</span></span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line">    _$.prototype = <span class="collection">&#123;</span><br><span class="line">        each: function<span class="list">(<span class="keyword"><span class="built_in">fn</span></span>)</span><span class="collection">&#123;</span><br><span class="line">            for<span class="list">(<span class="keyword"><span class="built_in">var</span></span> i = <span class="number">0</span>, len = this.element.length; i &lt; len; i++)</span><span class="collection">&#123;</span><br><span class="line">                fn.call<span class="list">(<span class="keyword">this</span>, this.element<span class="collection">[i]</span>)</span><span class="comment">;</span></span><br><span class="line">            &#125;</span></span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span>,</span><br><span class="line"></span><br><span class="line">        setStyle: function<span class="list">(<span class="keyword">prop</span>, val)</span><span class="collection">&#123;</span><br><span class="line">            this.each<span class="list">(<span class="keyword">function</span><span class="list">(<span class="keyword">el</span>)</span><span class="collection">&#123;</span><br><span class="line">                el.style<span class="collection">[prop]</span> = val;</span><br><span class="line">            &#125;</span>)</span><span class="comment">;</span></span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span>,</span><br><span class="line"></span><br><span class="line">        show: function<span class="list">()</span><span class="collection">&#123;</span><br><span class="line">            var that = this;</span><br><span class="line">            this.each<span class="list">(<span class="keyword">function</span><span class="list">(<span class="keyword">el</span>)</span><span class="collection">&#123;</span><br><span class="line">                that.setStyle<span class="list">(<span class="keyword">'display'</span>, 'none')</span><span class="comment">;</span></span><br><span class="line">            &#125;</span>)</span><span class="comment">;</span></span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span>,</span><br><span class="line"></span><br><span class="line">        addEvent: function<span class="list">(<span class="keyword"><span class="built_in">type</span></span>, fn)</span><span class="collection">&#123;</span><br><span class="line">            var add = function<span class="list">(<span class="keyword">el</span>)</span><span class="collection">&#123;</span><br><span class="line">                if<span class="list">(<span class="keyword">window.addEventListener</span>)</span><span class="collection">&#123;</span><br><span class="line">                    el.addEventListener<span class="list">(<span class="keyword"><span class="built_in">type</span></span>, fn, <span class="literal">false</span>)</span><span class="comment">;</span></span><br><span class="line">                &#125;</span>else if<span class="list">(<span class="keyword">window.attachEvent</span>)</span><span class="collection">&#123;</span><br><span class="line">                    el.attachEvent<span class="list">(<span class="keyword">'on'</span> + type, fn)</span><span class="comment">;</span></span><br><span class="line">                &#125;</span></span><br><span class="line">            &#125;</span><span class="comment">;</span></span><br><span class="line">            this.each<span class="list">(<span class="keyword">function</span><span class="list">(<span class="keyword">el</span>)</span><span class="collection">&#123;</span><br><span class="line">                add<span class="list">(<span class="keyword">el</span>)</span><span class="comment">;</span></span><br><span class="line">            &#125;</span>)</span><span class="comment">;</span></span><br><span class="line">        &#125;</span></span><br><span class="line">    &#125;</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    window.$ = function<span class="list">()</span><span class="collection">&#123;</span><br><span class="line">        return new _$<span class="list">(<span class="keyword">arguments</span>)</span><span class="comment">;</span></span><br><span class="line">    &#125;</span></span><br><span class="line">&#125;</span>)</span><span class="list">()</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;看看该类每个方法的最后一行，你会发现他们都是以”return this;”结束，这样将用以调用方法的对象传给调用链上的下一个方法。</p><br><p><br>              </p>
+        <p>本文链接：<a href="http://barretlee.com/blog/2012/09/18/javascript链式调用的实现方式/">http://barretlee.com/blog/2012/09/18/javascript链式调用的实现方式/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2012-09-18 08:58:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2012/09/18/如何设计一个支持方法链式调用的JavaScript库/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>如何设计一个支持方法链式调用的JavaScript库</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2012/09/17/javascript的灵活性/" class="post-next">
+      <b>javascript的灵活性</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  <a href="/blog/2012/09/18/如何设计一个支持方法链式调用的JavaScript库/" class="prev" title="如何设计一个支持方法链式调用的JavaScript库">
+    <i class="icon">&#xe600;</i>
+    
+    <b>如何设计一个支持方法链式调用的JavaScript库</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2012/09/17/javascript的灵活性/" class="next" title="javascript的灵活性">
+    <i class="icon">&#x261e;</i>
+    <b>javascript的灵活性</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="javascript链式调用的实现方式" data-title="javascript链式调用的实现方式" data-url="http://barretlee.com/blog/2012/09/18/javascript链式调用的实现方式/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>
