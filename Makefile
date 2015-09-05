@@ -8,12 +8,12 @@ BACKUPDRAFTS = ${ROOT}blogsources/backup/drafts/
 BACKUPPOSTS_BAC = ${ROOT}databackup/posts/
 BACKUPDRAFTS_BAC = ${ROOT}databackup/drafts/
 
-TMP = ${ROOT}blog/src/_tmp/
 BUILD = ${ROOT}blog/src/build/
 DEPLOY_GIT = ${ROOT}blog/src/.deploy*/
 
 LOCAL = http://0.0.0.0:4000/entry/
 WEB = http://www.barretlee.com/entry/
+WRITER = http://0.0.0.0:4001
 
 
 i: goroot init
@@ -46,24 +46,16 @@ clear:
 
 # 打开 hexo 本地服务
 run:
-ifneq (${R},)
-	- cp -f ${BACKUPPOSTS_BAC}* ${POSTS};
-	- cp -f ${BACKUPDRAFTS_BAC}* ${DRAFTS};
-endif
 	cd blog; \
-	rm -rf ${TMP}; \
 	hexo g; \
 	open ${LOCAL}; \
 	hexo s;
 
 # 备份文件,部署到 gitcafe 和 github
 deploy:
-	- cp -f ${BACKUPPOSTS_BAC}* ${POSTS};
-	- cp -f ${BACKUPDRAFTS_BAC}* ${DRAFTS};
 	cd blog; \
 	rm -rf ${BUILD}; \
 	rm -rf ${DEPLOY_GIT}; \
-	rm -rf ${TMP}; \
 	hexo g; \
 	hexo d; \
 	open ${WEB};
@@ -90,18 +82,15 @@ new:
 ifneq (${P},)
 	cd blog; \
 	rm src/_post/*-${N}.md; \
-	cp -f ${DRAFTS}* ${BACKUPDRAFTS}; \
 	hexo publish ${N};
 ifeq (${P}, run)
 	make run;
 endif
 else
 ifneq (${N},)
-	@[ -d ${TMP} ] || mkdir ${TMP};
-	- mv -f ${POSTS}* ${TMP}; \
 	touch ${DRAFTS}${N}.md; \
-	open http://0.0.0.0:4001; \
-	node bin/startblog.js;
+	open ${WRITER}; \
+	node bin/startblog.js ${N};
 endif
 endif
 
