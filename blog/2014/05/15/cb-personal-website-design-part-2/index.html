@@ -8,7 +8,7 @@
   <meta name="description" content="本文为归档内容,原始地址在 博客园.网站地址：http://barretlee.com昨天对网站的架构做了一个简要的分析，有些人不太理解，有了 NodeJS 还要 php 干啥？我推荐了几篇文章给这位童鞋看了：也谈基于NodeJS的全栈式开发（基于NodeJS的前后端分离）基于前后端分离的模版探索M">
   <meta property="og:type" content="article">
   <meta property="og:title" content="个人网站架构设计(二) | 小胡子哥的个人网站">
-  <meta property="og:url" content="http://barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/">
   <meta property="og:site_name" content="个人网站架构设计(二)">
   <meta property="og:description" content="本文为归档内容,原始地址在 博客园.网站地址：http://barretlee.com昨天对网站的架构做了一个简要的分析，有些人不太理解，有了 NodeJS 还要 php 干啥？我推荐了几篇文章给这位童鞋看了：也谈基于NodeJS的全栈式开发（基于NodeJS的前后端分离）基于前后端分离的模版探索M">
   <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
@@ -45,7 +45,7 @@
       <div class="post-content" itemprop="articleBody">
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/05/15/personal-website-design-part-2.html" target="_blank">博客园</a>.</div>
 
-<p>网站地址：<a href="http://barretlee.com">http://barretlee.com</a></p><br><p>昨天对网站的架构做了一个简要的分析，有些人不太理解，有了 NodeJS 还要 php 干啥？我推荐了几篇文章给这位童鞋看了：</p><br><ul><br><li><a href="http://ued.taobao.org/blog/2014/04/full-stack-development-with-nodejs/" target="_blank">也谈基于NodeJS的全栈式开发（基于NodeJS的前后端分离）</a></li><br><li><a href="http://ued.taobao.org/blog/2014/04/xtpl/" target="_blank">基于前后端分离的模版探索</a></li><br><li><a href="http://ued.taobao.org/blog/2014/04/modelproxy/" target="_blank">Midway-ModelProxy &mdash; 轻量级的接口配置建模框架</a></li><br><li><a href="http://ued.taobao.org/blog/2014/05/midway-security/" target="_blank">前后端分离模式下的安全解决方案</a></li><br><li><a href="https://github.com/lifesinger/lifesinger.github.com/issues/184" target="_blank">Web 研发模式演变</a></li><br></ul><br><p>如果是一个很小的网站，是用那么多层来处理请求和响应，确实是冗余的，不过我打算将这个网站设计成一个实时平台，这个平台中包含了很多很多的通信模块，所有后端选用 NodeJS 作为 I/O 处理器，这是可以理解的。php 用于通信，连接消耗大，而且不方便并行处理，效率很低。在网络通信和I/O处理上，NodeJS是很优秀的工具。</p><br><h3>1. 小小网站，为啥我要如此看重后端</h3><br><p>其实最主要的原因是，我买的主机配置很低。呵呵，是的，昨天很多朋友在留言里都提到了购买云主机/VPS相关的东西。今天我也是花了不少时间在各个群里请教，并且也访问、对比了一些云主机供应商的网站。之前在 V2ex 上看到了不少相关的帖子，今天进去翻，没翻到之前点过赞的贴。过程就不多说了，开始打算买个国外的主机，不用备案~ 后来嫌麻烦，买了个阿里云服务器：</p>
+<p>网站地址：<a href="http://barretlee.com" target="_blank" rel="external">http://barretlee.com</a></p><br><p>昨天对网站的架构做了一个简要的分析，有些人不太理解，有了 NodeJS 还要 php 干啥？我推荐了几篇文章给这位童鞋看了：</p><br><ul><br><li><a href="http://ued.taobao.org/blog/2014/04/full-stack-development-with-nodejs/" target="_blank">也谈基于NodeJS的全栈式开发（基于NodeJS的前后端分离）</a></li><br><li><a href="http://ued.taobao.org/blog/2014/04/xtpl/" target="_blank">基于前后端分离的模版探索</a></li><br><li><a href="http://ued.taobao.org/blog/2014/04/modelproxy/" target="_blank">Midway-ModelProxy &mdash; 轻量级的接口配置建模框架</a></li><br><li><a href="http://ued.taobao.org/blog/2014/05/midway-security/" target="_blank">前后端分离模式下的安全解决方案</a></li><br><li><a href="https://github.com/lifesinger/lifesinger.github.com/issues/184" target="_blank">Web 研发模式演变</a></li><br></ul><br><p>如果是一个很小的网站，是用那么多层来处理请求和响应，确实是冗余的，不过我打算将这个网站设计成一个实时平台，这个平台中包含了很多很多的通信模块，所有后端选用 NodeJS 作为 I/O 处理器，这是可以理解的。php 用于通信，连接消耗大，而且不方便并行处理，效率很低。在网络通信和I/O处理上，NodeJS是很优秀的工具。</p><br><h3>1. 小小网站，为啥我要如此看重后端</h3><br><p>其实最主要的原因是，我买的主机配置很低。呵呵，是的，昨天很多朋友在留言里都提到了购买云主机/VPS相关的东西。今天我也是花了不少时间在各个群里请教，并且也访问、对比了一些云主机供应商的网站。之前在 V2ex 上看到了不少相关的帖子，今天进去翻，没翻到之前点过赞的贴。过程就不多说了，开始打算买个国外的主机，不用备案~ 后来嫌麻烦，买了个阿里云服务器：</p>
 
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">CPU： <span class="number">1</span>核</span><br><span class="line">内存： <span class="number">512</span>MB</span><br><span class="line">数据盘： <span class="number">40</span>G</span><br><span class="line">带宽： <span class="number">1</span>Mbps</span><br></pre></td></tr></table></figure>
 <p>买一年省俩月的钱，总共是七百多。选用的 Ubuntu 12.04, 64位系统。不过呢，我并没有一次性买一年的，先花几十块钱买了一个月，试用，反正以后续费还是原价（不像域名那样坑爹，续费就涨价）。域名我是一次性买的十年的，55/年，这东西不贵，多买几年，省事儿。然后进入阿里云的流程，正在备案中…</p><br><p>回到重点，为啥看重后端，看到上面的配置，相比大家也知道了，搞一个实时通信的网站，每个连接后端都需要内存来处理，而且这个内存在链接断开之前是不会释放的（socket连接），目测同时在线超过30个人，系统就要卡住了。内存是一个很大的瓶颈，然后就是带宽了，1M真的很低。其实买个配置高点的主机，一年也就一两千，这次故意买个最低配置是为了让自己培养珍惜流量意识，希望编程可以考虑到每个 byte 的消耗，等这种意识（或者技术）养成了，再提高主机的配置。</p><br><p>第二个原因就是熟悉后端，数据库方面的处理一直是自己的弱项，如果不试着提高下，以后工作中遇到坎就会很难受了。这段时间在阿里实习，经常会感觉有些知识不够用了，希望返校继续加强学习。</p><br><h3>2. 前端也是重点</h3><br><p>前端有一个很大胆的尝试，\数据在前端”。</p><br><p>打开一个网页，浏览器发送请求到服务器，服务器从数据库里获取数据，经过后台脚本的拼装处理，然后输出到前端，这是最常见的方式。这种方式的缺点就是，频繁的读取数据库，然后还有一大堆经过HTML标签包装过的数据传到前端，期间的冗余消耗是特别大的。于是有人就想到了，后端的数据全部使用JSON方式输出，到了前端再渲染数据，这种方式获得了一定的优化效果，前端端的分离似乎也很明显，但是前端负担就太重了，数据的处理和渲染都是前台，也就是承担了Controller和Views的角色，前台很累，他累了也会发脾气，比如：数据到了，要半天之后才解析完毕，再花半天将其渲染出来。同时这种处理方式也不利于SEO。</p><br><p>现在的尝试是，前端就是一个数据库，每个用户都有数据库数据的一个备份。</p>
@@ -57,7 +57,7 @@
 <p>东西越多，维护成本越高，不过我竟然觉得添加一层会有更多的乐趣…</p><br><p>后续会继续记录建站过程。</p>
 
 
-        <p>本文链接：<a href="http://barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/">http://barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/</a></p>
+        <p>本文链接：<a href="http://www.barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/">http://www.barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/</a></p>
         <p class="article-footer">--EOF--</p>
       </div>
     </div>
@@ -180,7 +180,7 @@
 <div class="nav-detail">
 	<div style="display:block;">
 		
-<div class="ds-thread" data-thread-key="cb-personal-website-design-part-2" data-title="个人网站架构设计(二)" data-url="http://barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/" data-name="barretlee">
+<div class="ds-thread" data-thread-key="cb-personal-website-design-part-2" data-title="个人网站架构设计(二)" data-url="http://www.barretlee.com/blog/2014/05/15/cb-personal-website-design-part-2/" data-name="barretlee">
 	<div class="ds-loading">
 		<img src="" alt="loading"/>
 		<p>这网速真是弱爆了...客官稍等,还在加载~</p>

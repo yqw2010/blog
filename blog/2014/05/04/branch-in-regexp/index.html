@@ -8,7 +8,7 @@
   <meta name="description" content="问题：&quot;baddad&quot;.match(/([bd]ad?)*/)为什么匹配的是dad而不是bad。回答：不是不匹配bad，而是已经匹配过了，* 号为贪婪模式，所以第一次匹配到 bad 之后会继续往后吞并字符，最后发现后面还有一个 dad 也适合，于是便把 baddad 全部匹配了，第二次匹配是分支匹配">
   <meta property="og:type" content="article">
   <meta property="og:title" content="正则中分支示例 | 小胡子哥的个人网站">
-  <meta property="og:url" content="http://barretlee.com/blog/2014/05/04/branch-in-regexp/">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2014/05/04/branch-in-regexp/">
   <meta property="og:site_name" content="正则中分支示例">
   <meta property="og:description" content="问题：&quot;baddad&quot;.match(/([bd]ad?)*/)为什么匹配的是dad而不是bad。回答：不是不匹配bad，而是已经匹配过了，* 号为贪婪模式，所以第一次匹配到 bad 之后会继续往后吞并字符，最后发现后面还有一个 dad 也适合，于是便把 baddad 全部匹配了，第二次匹配是分支匹配">
   <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
@@ -49,7 +49,7 @@
 <p><strong>回答：</strong></p>
 <p>不是不匹配bad，而是已经匹配过了，* 号为贪婪模式，所以第一次匹配到 bad 之后会继续往后吞并字符，最后发现后面还有一个 dad 也适合，于是便把 baddad 全部匹配了，第二次匹配是分支匹配，前面的 [bd] 是两个分支，刚才第一个分支已经匹配完了，进入第二个分支<br>，也就是匹配 dad，所以第二个结果是dad就显而易见了。</p>
 
-        <p>本文链接：<a href="http://barretlee.com/blog/2014/05/04/branch-in-regexp/">http://barretlee.com/blog/2014/05/04/branch-in-regexp/</a></p>
+        <p>本文链接：<a href="http://www.barretlee.com/blog/2014/05/04/branch-in-regexp/">http://www.barretlee.com/blog/2014/05/04/branch-in-regexp/</a></p>
         <p class="article-footer">--EOF--</p>
       </div>
     </div>
@@ -172,7 +172,7 @@
 <div class="nav-detail">
 	<div style="display:block;">
 		
-<div class="ds-thread" data-thread-key="branch-in-regexp" data-title="正则中分支示例" data-url="http://barretlee.com/blog/2014/05/04/branch-in-regexp/" data-name="barretlee">
+<div class="ds-thread" data-thread-key="branch-in-regexp" data-title="正则中分支示例" data-url="http://www.barretlee.com/blog/2014/05/04/branch-in-regexp/" data-name="barretlee">
 	<div class="ds-loading">
 		<img src="" alt="loading"/>
 		<p>这网速真是弱爆了...客官稍等,还在加载~</p>

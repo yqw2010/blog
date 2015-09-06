@@ -8,7 +8,7 @@
   <meta name="description" content="博客迁移没有注意 URL 地址的变化，引起百度和 google 这两只爬虫引擎找不到路。近段时间研究了下国内最大搜索引擎百度和国际最大搜索引擎google的站长工具，说下感受。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="网站的SEO以及它和站长工具的之间秘密 | 小胡子哥的个人网站">
-  <meta property="og:url" content="http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/">
   <meta property="og:site_name" content="网站的SEO以及它和站长工具的之间秘密">
   <meta property="og:description" content="博客迁移没有注意 URL 地址的变化，引起百度和 google 这两只爬虫引擎找不到路。近段时间研究了下国内最大搜索引擎百度和国际最大搜索引擎google的站长工具，说下感受。">
   <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
@@ -56,10 +56,10 @@
 <p>然而搜索引擎聚合的网页太多，当这些五花八门的 class 出来之后，它又开始迷茫了，难以较好的聚合分类。所以出现一个叫做 Schema 的东西，它用来表示一个结构化数据结构，可以看下面一个 schema 示例：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">itemscope</span> <span class="attribute">itemtype</span>=<span class="value">"http://schema.org/Person"</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"name"</span>&gt;</span>李靖<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://barretlee.com/avatar.png"</span> <span class="attribute">itemprop</span>=<span class="value">"image"</span> /&gt;</span>    </span><br><span class="line">  <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"jobTitle"</span>&gt;</span>攻城师<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">itemprop</span>=<span class="value">"address"</span> <span class="attribute">itemscope</span> <span class="attribute">itemtype</span>=<span class="value">"http://schema.org/PostalAddress"</span>&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"streetAddress"</span>&gt;</span>文一西路969号<span class="tag">&lt;/<span class="title">span</span>&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"addressLocality"</span>&gt;</span>浙江杭州<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"postalCode"</span>&gt;</span>310000<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="title">span</span> <span class="attribute">itemprop</span>=<span class="value">"telephone"</span>&gt;</span>(0571) 123-4567<span class="tag">&lt;/<span class="title">span</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"mailto:barret.china@gmail.com"</span> <span class="attribute">itemprop</span>=<span class="value">"email"</span>&gt;</span>barret.china@gmail.com<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">  李靖的主页:  <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://barretlee.com"</span> <span class="attribute">itemprop</span>=<span class="value">"url"</span>&gt;</span>barretlee.com<span class="tag">&lt;/<span class="title">a</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>在一个需要表达的块上加上 <code>itemscope</code> 属性和一个 <code>itemtype</code> 属性，itemtype 是有固定值的，具体可以参阅 <a href="http://schema.org/" target="_blank" rel="external">schema.org</a> 的说明。然后在块内添加详细的说明，使用 <code>itemprop</code> 标注。整个操作十分简单，略微麻烦的是需要对照 schema 的官方网站填写规定的 <code>itemprop</code> 字段。</p>
-<p>结构化数据，通常也可以称之为元数据，这些数据附着在网页文本信息内，厘清了页面上每个部件的功能、属性和意义。当机器进入网页的时候，能够像人一样，一眼瞄出要表达的内容。关于 schema ，以前翻译过一篇文章 <a href="http://www.barretlee.com/blog/2013/11/01/cb-let-your-page-understood-by-search-engine/" target="_blank" rel="external">SEO：让搜索引擎对你的网站更有亲和力</a>。</p>
+<p>结构化数据，通常也可以称之为元数据，这些数据附着在网页文本信息内，厘清了页面上每个部件的功能、属性和意义。当机器进入网页的时候，能够像人一样，一眼瞄出要表达的内容。关于 schema ，以前翻译过一篇文章 <a href="http://www.barretlee.com/blog/2013/11/01/cb-let-your-page-understood-by-search-engine/">SEO：让搜索引擎对你的网站更有亲和力</a>。</p>
 <h3 id="SEO和站长工具的之间秘密">SEO和站长工具的之间秘密</h3><p>除非搜索引擎能够猜到你要搜索的具体的 URL 地址，一般地，它都会从自己的数据索引库中扒拉数据。对于权重高、更新频率高、原创内容多的网站，搜索引擎会十分勤快的爬最新内容。那么，如何让搜索引擎知道网站上有多少网页便成了一件重要的事情。</p>
-<p>我们经常会听到一个叫做”网站地图”的东西。有些网站会在自己的站点中添加一个页面，这个页面包括了整站的重要入口，那么这个页面就是该页面的网站地图。这些地图是给人看的，如果只想给爬虫引擎看，可以将所有的链接按照一定的格式放到 <code>sitemap.xml</code> 文件中，然后把这个文件放到网站的根目录下，如 <a href="http://www.barretlee.com/sitemap.xml" target="_blank" rel="external">http://www.barretlee.com/sitemap.xml</a>。</p>
-<p>而最重要的还是 <code>robots.txt</code> 这个文件，它是所有引擎约定俗成的一个文件，比如我的网站中用到的 <a href="http://www.barretlee.com/robots.txt" target="_blank" rel="external">http://www.barretlee.com/robots.txt</a> ，其内容为：</p>
+<p>我们经常会听到一个叫做”网站地图”的东西。有些网站会在自己的站点中添加一个页面，这个页面包括了整站的重要入口，那么这个页面就是该页面的网站地图。这些地图是给人看的，如果只想给爬虫引擎看，可以将所有的链接按照一定的格式放到 <code>sitemap.xml</code> 文件中，然后把这个文件放到网站的根目录下，如 <a href="http://www.barretlee.com/sitemap.xml">http://www.barretlee.com/sitemap.xml</a>。</p>
+<p>而最重要的还是 <code>robots.txt</code> 这个文件，它是所有引擎约定俗成的一个文件，比如我的网站中用到的 <a href="http://www.barretlee.com/robots.txt">http://www.barretlee.com/robots.txt</a> ，其内容为：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">Sitemap: http://www.barretlee.com/sitemap.xml&#10;User-agent: *&#10;Allow: /</span><br></pre></td></tr></table></figure>
 <p>它告诉搜索引擎，网站地址的位置、允许蜘蛛爬取的内容等，它是一个协议。最近，貌似还多了一个 <code>humans.txt</code>，也是一个比较有意思的文件，可以在这里了解它：<a href="http://www.humanstxt.org.cn/" target="_blank" rel="external">http://www.humanstxt.org.cn/</a>，它可以描述一些站点和团队的故事。</p>
 <p>SEO上，站长工具主要分为两个方面，一个是对网页的抓取，一个是对网页的分析。</p>
@@ -71,7 +71,7 @@
 <p>对比百度和 google ，两者如同屌丝和高富帅。不过高富帅总是要越墙才能看到，所以我平时使用的依然是百度分析。百度分析和百度站长工具还是不一样的。百度对网页流量的分析和搜索词汇的分析还是挺精准，也很有参考价值。</p>
 <h3 id="小结">小结</h3><p>本文对 SEO 相关的东西做了一个简要的概述，同时也概括了搜索引擎做的一些工作，知识量有限，难以面面俱到，如有错误还请斧正。</p>
 
-        <p>本文链接：<a href="http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/">http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</a></p>
+        <p>本文链接：<a href="http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/">http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</a></p>
         <p class="article-footer">--EOF--</p>
       </div>
     </div>
@@ -180,7 +180,7 @@
 <div class="nav-detail">
 	<div style="display:block;">
 		
-<div class="ds-thread" data-thread-key="webmaster-in-baidu-and-google" data-title="网站的SEO以及它和站长工具的之间秘密" data-url="http://barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/" data-name="barretlee">
+<div class="ds-thread" data-thread-key="webmaster-in-baidu-and-google" data-title="网站的SEO以及它和站长工具的之间秘密" data-url="http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/" data-name="barretlee">
 	<div class="ds-loading">
 		<img src="" alt="loading"/>
 		<p>这网速真是弱爆了...客官稍等,还在加载~</p>

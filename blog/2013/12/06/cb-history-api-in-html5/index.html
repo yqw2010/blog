@@ -8,7 +8,7 @@
   <meta name="description" content="本文为归档内容,原始地址在 博客园.一、前言web发展经历了一个漫长的周期，最开始很多人认为Javascript这们语言是前端开发的累赘，是个鸡肋，那个时候人们还享受着从一个a链接蹦到另一个页面的web神奇魔术。后来随着JavaScript的不断更新换代，他的功能不仅仅是为网页添加一点特效了，语言本">
   <meta property="og:type" content="article">
   <meta property="og:title" content="PJAX的实现与应用 | 小胡子哥的个人网站">
-  <meta property="og:url" content="http://barretlee.com/blog/2013/12/06/cb-history-api-in-html5/">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2013/12/06/cb-history-api-in-html5/">
   <meta property="og:site_name" content="PJAX的实现与应用">
   <meta property="og:description" content="本文为归档内容,原始地址在 博客园.一、前言web发展经历了一个漫长的周期，最开始很多人认为Javascript这们语言是前端开发的累赘，是个鸡肋，那个时候人们还享受着从一个a链接蹦到另一个页面的web神奇魔术。后来随着JavaScript的不断更新换代，他的功能不仅仅是为网页添加一点特效了，语言本">
   <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
@@ -61,7 +61,7 @@
 <p>&nbsp;并不是一定要求在header头部中加入X_PJAX的信息，你也可以在url中加入相关的参数，比如:<a href="http://example.com?pjax=1，或者其他方式，只要前后端达到一个共识就行。" target="_blank" rel="external">http://example.com?pjax=1，或者其他方式，只要前后端达到一个共识就行。</a></p><br><h3>三、开源的PJAX库</h3><br><p>已经有人对这个东西做了封装，我就不重复造轮子了。</p><br><ul><br><li>welefen封装的库，对jquery、qwrap和kissy都做了封装，<a href="https://github.com/welefen/pjax" target="_blank">github地址</a></li><br><li>Yahoo团队 <a href="http://yuilibrary.com/yui/docs/pjax/" target="_blank">PJAX地址</a></li><br></ul><br><p>并不是页面中所有的链接都需要使用PJAX加载，所有在需要这个东西的a标签上加一个属性，如<code>data-pjax=true</code>，然后统一添加事件。</p><br><h3>四、注意事项</h3><br><ol><br><li>如果浏览器不支持pushState接口函数，那就只能退化为ajax或者使用hash bang了~</li><br><li>本地环境下使用的话，浏览器会报错：`Uncaught SecurityError: A history state object with URL file:///E:/baidu_app/demo/PJAX/pic-2’ cannot be created in a document with origin ‘null’. ，所以如果你要测试的话，请把代码丢到服务器上！</li><br><li>为了得到更好的体验，PJAX经常配合localStorage来使用，把请求到的内容缓存到本地，再一次请求的时候先从本地查看。如果你的内容是动态变化的，缓存的时候加一个缓存时间，方便更新缓存。</li><br><li>还有一个容易忽略的东西是统计，使用PJAX只会局部刷新页面，如果忽略了对统计函数的更新，那就会让你失去很多数据。</li><br></ol><br><h3>五、参考资料</h3><br><ul><br><li><a href="http://www.welefen.com/pjax-for-ajax-and-pushstate.html" target="_blank">http://www.welefen.com/pjax-for-ajax-and-pushstate.html</a> welefen</li><br><li><a href="http://ntotten.com/2012/04/09/building-super-fast-web-apps-with-pjax/" target="_blank">http://ntotten.com/2012/04/09/building-super-fast-web-apps-with-pjax/</a> Nathan Totten</li><br><li><a href="http://yuilibrary.com/yui/docs/pjax/" target="_blank">http://yuilibrary.com/yui/docs/pjax/</a> YUI Pjax</li><br></ul><br><br><br><p>本文同步自我的<a href="http://barretlee.com" target="_blank">github pages</a></p>
 
 
-        <p>本文链接：<a href="http://barretlee.com/blog/2013/12/06/cb-history-api-in-html5/">http://barretlee.com/blog/2013/12/06/cb-history-api-in-html5/</a></p>
+        <p>本文链接：<a href="http://www.barretlee.com/blog/2013/12/06/cb-history-api-in-html5/">http://www.barretlee.com/blog/2013/12/06/cb-history-api-in-html5/</a></p>
         <p class="article-footer">--EOF--</p>
       </div>
     </div>
@@ -184,7 +184,7 @@
 <div class="nav-detail">
 	<div style="display:block;">
 		
-<div class="ds-thread" data-thread-key="cb-history-api-in-html5" data-title="PJAX的实现与应用" data-url="http://barretlee.com/blog/2013/12/06/cb-history-api-in-html5/" data-name="barretlee">
+<div class="ds-thread" data-thread-key="cb-history-api-in-html5" data-title="PJAX的实现与应用" data-url="http://www.barretlee.com/blog/2013/12/06/cb-history-api-in-html5/" data-name="barretlee">
 	<div class="ds-loading">
 		<img src="" alt="loading"/>
 		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
