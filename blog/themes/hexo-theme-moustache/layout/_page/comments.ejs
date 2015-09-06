@@ -1,0 +1,11 @@
+<div class="container message">
+	<div class="cate-wraper post">
+		<h2>
+      <%- partial("../_partial/post/rss.ejs") %>
+			<a href="/"><%- config.author %></a> » 最新评论
+		</h2>
+		<div class="ds-recent-comments" data-num-items="20" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+		<%- partial("page_footer") %>
+	</div>
+</div>
+<%- partial("../_partial/sidebar") %>
