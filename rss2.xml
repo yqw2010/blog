@@ -8,8 +8,56 @@
     <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
-    <pubDate>Sat, 05 Sep 2015 13:46:52 GMT</pubDate>
+    <pubDate>Sun, 06 Sep 2015 06:08:43 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[用对 gitignore]]></title>
+      <link>http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/</link>
+      <guid>http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/</guid>
+      <pubDate>Sun, 06 Sep 2015 03:33:54 GMT</pubDate>
+      <description>
+      <![CDATA[使用 git 做代码管理工具时，设置 gitignore 是必不可少的流程，一些系统或者 IDE 会在目录下生成与项目不相关的文件，而这些文件我们不期望被提交到仓库之中。理解 gitignore 的 parrern 规则十分重要。]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>使用 git 做代码管理工具时，设置 gitignore 是必不可少的流程，一些系统或者 IDE 会在目录下生成与项目不相关的文件，而这些文件我们不期望被提交到仓库之中。理解 gitignore 的 pattern 规则十分重要。</p>
+<a id="more"></a>
+<h3 id="Pattern_规则">Pattern 规则</h3><p>关于 Pattern 规则，可以查看 git 的相关文档：<a href="http://git-scm.com/docs/gitignore" target="_blank" rel="external">http://git-scm.com/docs/gitignore</a>，大致有以下几点：</p>
+<ol>
+<li>空行不匹配任何内容，所以可以作为块分隔符；</li>
+<li><code>#</code> 开头表示注释，如果相匹配 <code>#</code>，可以在前面加一个反斜杠，即 <code>\#</code>；</li>
+<li>除非加了反斜杠，否则一连串的空格会被忽略；</li>
+<li>如果在匹配的内容前面加上 <code>!</code>，则这些匹配过的部分将被移出，如果要匹配以 <code>!</code> 开头的内容，需要加上反斜杠，如 <code>\!important.txt</code>；</li>
+<li>如果一个匹配 pattern 后面有一个斜杠，如 <code>foo/</code>，则默认会匹配所有（包含父子文件夹）中的 foo 文件夹内容，并且它不会匹配单个的文件；</li>
+<li>如果一个匹配 pattern 不包含斜杠，如 <code>foo</code>，Git 会将其作为一个 shell 的查找命令匹配内容。</li>
+</ol>
+<p>需要注意的 <code>**</code>：</p>
+<ul>
+<li>如果一个 pattern 以 <code>**</code> 开头，如 <code>**/foo</code>，最后会匹配所有文件夹下的 foo 文件(夹)；</li>
+<li>如果一个 pattern 以 <code>/**</code> 开头，如 <code>abc/**</code>，则表示匹配 abc 目录下的所有内容；</li>
+<li>如果一个 pattern 中间包含 <code>**</code>，如 <code>a/**/b</code>，则会匹配 <code>a/b</code>、<code>a/x/b</code>、<code>a/x/y/b</code> 以及所有类似的内容。</li>
+</ul>
+<h3 id="gitignore_相关的问题">gitignore 相关的问题</h3><h4 id="匹配示例">匹配示例</h4><p>如果我们要匹配 ‘foo’ 目录下除去 ‘foo/bar/‘ 的内容，可以这样做：</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">foo/</span><span class="line">!foo<span class="regexp">/bar/</span></span></pre></td></tr></table></figure>
+<p>如果要匹配所有目录下的 node_modules 文件夹，只需要这样做：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">node_modules/</span></pre></td></tr></table></figure>
+<p>如果要匹配所有的 json 文件，可以这样做：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">*<span class="class">.json</span></span></pre></td></tr></table></figure>
+<h4 id="git_操作中，add_之后再加入_gitignore">git 操作中，add 之后再加入 gitignore</h4><p>Git 操作中经常会出现这样的问题，当我们 <code>git add</code> 之后，突然想起来要添加一个 gitignore 文件，但是一些诸如 node_modules/, cache/ 等文件已经被 add 进去了，这些文件不会被 ignore 掉，怎么办？</p>
+<p>最直接的方式是：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这一步的操作相当于回到 git add 上一步</span></span><span class="line">git rm -r --cached .</span><span class="line"><span class="comment"># 然后重新 add</span></span><span class="line">git add --all .</span></pre></td></tr></table></figure>
+<h4 id="git_添加空文件夹">git 添加空文件夹</h4><p>Git 默认是不添加空文件夹的，如果一定要加入这个文件夹，有以下方案：</p>
+<p>1）在文件夹添加文件，然后删除</p>
+<p>2）在文件夹中添加一个 <code>.gitkeep</code> 文件</p>
+<h4 id="让_git_不要添加_gitignore_文件">让 git 不要添加 gitignore 文件</h4><p>如果在 .gitignore 文件中添加</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="title">.gitignore</span></span></pre></td></tr></table></figure>
+<p>你会发现，并没有起作用， .gitignore 文件依然被加到了 git 中，为什么会有这个需求呢？有些人在本地开发的时候有一些其他的文件夹名不愿意让别人看到，虽然在 gitignore 中被忽略了，但是 .gitignore 文件中依然可以看到这些文件夹名字。</p>
+<p>其实没有什么好的办法处理这个问题，.gitignore 做多人协作开发的时候可以直接根据同一份 gitignore 过滤文件，如果一定要做，可以从 add 中在 remove 掉：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git rm <span class="comment">--cached .gitignore</span></span></pre></td></tr></table></figure>
+<p>Git 操作涉及的命令巨多，但是日常开发中用到的就那么几个，把原理搞清楚，用起来得心应手。</p>
+]]></content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[网站的SEO以及它和站长工具的之间秘密]]></title>
@@ -485,25 +533,6 @@
     </item>
     
     <item>
-      <title><![CDATA[this的指向]]></title>
-      <link>http://www.barretlee.com/blog/2015/04/13/this-reference/</link>
-      <guid>http://www.barretlee.com/blog/2015/04/13/this-reference/</guid>
-      <pubDate>Sun, 12 Apr 2015 16:00:00 GMT</pubDate>
-      <description>
-      <![CDATA[<p>网友问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name ]]>
-      </description>
-      <content:encoded><![CDATA[<p>网友问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;   </span><span class="line">　　<span class="keyword">var</span> object = &#123;  </span><span class="line">　　　　name : <span class="string">"My Object"</span>,  </span><span class="line">　　　　getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><span class="line">　　　　　　　　<span class="keyword">return</span> <span class="keyword">this</span>.name;  </span><span class="line">　　　　&#125;   </span><span class="line">&#125;;  </span><span class="line"><span class="keyword">var</span> a = object.getNameFunc;</span><span class="line">alert(a());</span><span class="line">alert(object.getNameFunc());</span></pre></td></tr></table></figure>
-<p>原因：</p>
-<p><code>object.getNameFunc()</code> ，此时的 <code>object.getNameFunc</code> 为引用类型，其 base 为 <code>object</code>，this 指向的是 base，所以返回 <code>object.name</code> 的值</p>
-<p><code>name = object.getNameFunc</code>, <code>test</code> 作为标识符，生成了其他引用类型的值，此时 base 已经从 <code>object</code> 重置为 <code>null</code>，也就是会指向 global（window），所以返回的是 window.name 的值。</p>
-<p>问题的关键在于「引用类型（type Reference）的中间值发生改变」</p>
-]]></content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/04/13/this-reference/#disqus_thread</comments>
-    </item>
-    
-    <item>
       <title><![CDATA[Xcode-select Error]]></title>
       <link>http://www.barretlee.com/blog/2015/04/13/xcode-select-error/</link>
       <guid>http://www.barretlee.com/blog/2015/04/13/xcode-select-error/</guid>
@@ -521,6 +550,25 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span></pre></td></tr></table></figure>
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/04/13/xcode-select-error/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[this的指向]]></title>
+      <link>http://www.barretlee.com/blog/2015/04/13/this-reference/</link>
+      <guid>http://www.barretlee.com/blog/2015/04/13/this-reference/</guid>
+      <pubDate>Sun, 12 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>网友问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name ]]>
+      </description>
+      <content:encoded><![CDATA[<p>网友问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;   </span><span class="line">　　<span class="keyword">var</span> object = &#123;  </span><span class="line">　　　　name : <span class="string">"My Object"</span>,  </span><span class="line">　　　　getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><span class="line">　　　　　　　　<span class="keyword">return</span> <span class="keyword">this</span>.name;  </span><span class="line">　　　　&#125;   </span><span class="line">&#125;;  </span><span class="line"><span class="keyword">var</span> a = object.getNameFunc;</span><span class="line">alert(a());</span><span class="line">alert(object.getNameFunc());</span></pre></td></tr></table></figure>
+<p>原因：</p>
+<p><code>object.getNameFunc()</code> ，此时的 <code>object.getNameFunc</code> 为引用类型，其 base 为 <code>object</code>，this 指向的是 base，所以返回 <code>object.name</code> 的值</p>
+<p><code>name = object.getNameFunc</code>, <code>test</code> 作为标识符，生成了其他引用类型的值，此时 base 已经从 <code>object</code> 重置为 <code>null</code>，也就是会指向 global（window），所以返回的是 window.name 的值。</p>
+<p>问题的关键在于「引用类型（type Reference）的中间值发生改变」</p>
+]]></content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/04/13/this-reference/#disqus_thread</comments>
     </item>
     
     <item>
@@ -543,25 +591,6 @@
 <p>我看到的是一个年轻有活力有底蕴的大叔，希望阿里巴巴因为这位技术大牛的加入而更加丰满！</p>
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/04/07/zhaohaiping-in-my-eye/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[Safari不认识type为search的input]]></title>
-      <link>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/</link>
-      <guid>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/</guid>
-      <pubDate>Thu, 02 Apr 2015 16:00:00 GMT</pubDate>
-      <description>
-      <![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
-<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
-<figure class="highligh]]>
-      </description>
-      <content:encoded><![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
-<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><span class="line">  <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"search"</span> <span class="attribute">name</span>=<span class="value">"q"</span> <span class="attribute">id</span>=<span class="value">"J_Query"</span> /&gt;</span></span><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
-<p>给 <code>J_Query</code> 写了一些样式，可是…Safari很任性的不认，左改右改搞了五六分钟没反应，火了！</p>
-<p>把 type 改成 text 就好了。</p>
-]]></content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/#disqus_thread</comments>
     </item>
     
     <item>
@@ -598,6 +627,25 @@
     </item>
     
     <item>
+      <title><![CDATA[Safari不认识type为search的input]]></title>
+      <link>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/</link>
+      <guid>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/</guid>
+      <pubDate>Thu, 02 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
+<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
+<figure class="highligh]]>
+      </description>
+      <content:encoded><![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
+<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><span class="line">  <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"search"</span> <span class="attribute">name</span>=<span class="value">"q"</span> <span class="attribute">id</span>=<span class="value">"J_Query"</span> /&gt;</span></span><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>给 <code>J_Query</code> 写了一些样式，可是…Safari很任性的不认，左改右改搞了五六分钟没反应，火了！</p>
+<p>把 type 改成 text 就好了。</p>
+]]></content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/#disqus_thread</comments>
+    </item>
+    
+    <item>
       <title><![CDATA[前人挖坑，后人填坑]]></title>
       <link>http://www.barretlee.com/blog/2015/04/02/cb-bugs/</link>
       <guid>http://www.barretlee.com/blog/2015/04/02/cb-bugs/</guid>
@@ -611,30 +659,6 @@
 
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/04/02/cb-bugs/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[干掉浏览器中的自动填充]]></title>
-      <link>http://www.barretlee.com/blog/2015/03/31/autocomplete-in-browser/</link>
-      <guid>http://www.barretlee.com/blog/2015/03/31/autocomplete-in-browser/</guid>
-      <pubDate>Mon, 30 Mar 2015 16:00:00 GMT</pubDate>
-      <description>
-      <![CDATA[<p>当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。</p>
-<p>这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过</p>
-<figu]]>
-      </description>
-      <content:encoded><![CDATA[<p>当我们在 chrome 浏览器中填写表单之后，如果表单中包含密码域，浏览器将会提示用户是否记住密码。一旦记住密码，即便这次填写的是错误的，下次登录时浏览器也会任性的给你自动填充信息。</p>
-<p>这是开发者不喜欢看到的，对用户来说，也是不太安全的，通过</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"passwordInput"</span>).value)</span></pre></td></tr></table></figure>
-<p>就能拿到密码明文。虽加强了体验，但削弱了安全性，也让有「强迫症」的程序员感到颇为不爽。</p>
-<p>当页面加载的时候直接将表单域设置为空，貌似是不起作用的。原因是，浏览器在页面加载到一定程度时（我也不知道是什么时机）从自己的数据库中挖出曾经保存的表单域，填充进去。</p>
-<p>有人想到使用定时器，检测表单是否存在数据，这样的操作费时费力，不提倡。</p>
-<p>可以考虑这个方案：</p>
-<p>每个 <code>input</code> 都有 <code>defaultValue</code> 属性，这是 DOM 初始化的时候给它加上的，判断</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">input.defaultValue == input.value  </span><span class="line"><span class="comment">// 如果相等则不处理，如果不相等则将 value 置为空</span></span></pre></td></tr></table></figure>
-<p>感觉是，是靠谱的！</p>
-]]></content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/03/31/autocomplete-in-browser/#disqus_thread</comments>
     </item>
     
   </channel>

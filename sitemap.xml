@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/</loc>
+    <lastmod>2015-09-06T06:08:43.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/404.html</loc>
     <lastmod>2015-09-05T15:15:50.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/02/27/cb-webAudio-cross-fading/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -492,12 +497,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
+    <loc>http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
+    <loc>http://www.barretlee.com/blog/2014/02/27/cb-webAudio-cross-fading/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -892,7 +897,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</loc>
+    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   

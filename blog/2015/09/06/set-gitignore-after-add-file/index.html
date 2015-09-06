@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>用对 gitignore | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="使用 git 做代码管理工具时，设置 gitignore 是必不可少的流程，一些系统或者 IDE 会在目录下生成与项目不相关的文件，而这些文件我们不期望被提交到仓库之中。理解 gitignore 的 parrern 规则十分重要。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="用对 gitignore | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/">
+  <meta property="og:site_name" content="用对 gitignore">
+  <meta property="og:description" content="使用 git 做代码管理工具时，设置 gitignore 是必不可少的流程，一些系统或者 IDE 会在目录下生成与项目不相关的文件，而这些文件我们不期望被提交到仓库之中。理解 gitignore 的 parrern 规则十分重要。">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">用对 gitignore</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2015-09-06 11:33:54</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/git/">git</a>, <a class="article-tag-link" href="/blog/tags/gitignore/">gitignore</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="set-gitignore-after-add-file"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <p>使用 git 做代码管理工具时，设置 gitignore 是必不可少的流程，一些系统或者 IDE 会在目录下生成与项目不相关的文件，而这些文件我们不期望被提交到仓库之中。理解 gitignore 的 pattern 规则十分重要。</p>
+<a id="more"></a>
+<h3 id="Pattern_规则">Pattern 规则</h3><p>关于 Pattern 规则，可以查看 git 的相关文档：<a href="http://git-scm.com/docs/gitignore" target="_blank" rel="external">http://git-scm.com/docs/gitignore</a>，大致有以下几点：</p>
+<ol>
+<li>空行不匹配任何内容，所以可以作为块分隔符；</li>
+<li><code>#</code> 开头表示注释，如果相匹配 <code>#</code>，可以在前面加一个反斜杠，即 <code>\#</code>；</li>
+<li>除非加了反斜杠，否则一连串的空格会被忽略；</li>
+<li>如果在匹配的内容前面加上 <code>!</code>，则这些匹配过的部分将被移出，如果要匹配以 <code>!</code> 开头的内容，需要加上反斜杠，如 <code>\!important.txt</code>；</li>
+<li>如果一个匹配 pattern 后面有一个斜杠，如 <code>foo/</code>，则默认会匹配所有（包含父子文件夹）中的 foo 文件夹内容，并且它不会匹配单个的文件；</li>
+<li>如果一个匹配 pattern 不包含斜杠，如 <code>foo</code>，Git 会将其作为一个 shell 的查找命令匹配内容。</li>
+</ol>
+<p>需要注意的 <code>**</code>：</p>
+<ul>
+<li>如果一个 pattern 以 <code>**</code> 开头，如 <code>**/foo</code>，最后会匹配所有文件夹下的 foo 文件(夹)；</li>
+<li>如果一个 pattern 以 <code>/**</code> 开头，如 <code>abc/**</code>，则表示匹配 abc 目录下的所有内容；</li>
+<li>如果一个 pattern 中间包含 <code>**</code>，如 <code>a/**/b</code>，则会匹配 <code>a/b</code>、<code>a/x/b</code>、<code>a/x/y/b</code> 以及所有类似的内容。</li>
+</ul>
+<h3 id="gitignore_相关的问题">gitignore 相关的问题</h3><h4 id="匹配示例">匹配示例</h4><p>如果我们要匹配 ‘foo’ 目录下除去 ‘foo/bar/‘ 的内容，可以这样做：</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">foo/</span><br><span class="line">!foo<span class="regexp">/bar/</span></span><br></pre></td></tr></table></figure>
+<p>如果要匹配所有目录下的 node_modules 文件夹，只需要这样做：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">node_modules/</span><br></pre></td></tr></table></figure>
+<p>如果要匹配所有的 json 文件，可以这样做：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">*<span class="class">.json</span></span><br></pre></td></tr></table></figure>
+<h4 id="git_操作中，add_之后再加入_gitignore">git 操作中，add 之后再加入 gitignore</h4><p>Git 操作中经常会出现这样的问题，当我们 <code>git add</code> 之后，突然想起来要添加一个 gitignore 文件，但是一些诸如 node_modules/, cache/ 等文件已经被 add 进去了，这些文件不会被 ignore 掉，怎么办？</p>
+<p>最直接的方式是：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这一步的操作相当于回到 git add 上一步</span></span><br><span class="line">git rm -r --cached .</span><br><span class="line"><span class="comment"># 然后重新 add</span></span><br><span class="line">git add --all .</span><br></pre></td></tr></table></figure>
+<h4 id="git_添加空文件夹">git 添加空文件夹</h4><p>Git 默认是不添加空文件夹的，如果一定要加入这个文件夹，有以下方案：</p>
+<p>1）在文件夹添加文件，然后删除</p>
+<p>2）在文件夹中添加一个 <code>.gitkeep</code> 文件</p>
+<h4 id="让_git_不要添加_gitignore_文件">让 git 不要添加 gitignore 文件</h4><p>如果在 .gitignore 文件中添加</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="title">.gitignore</span></span><br></pre></td></tr></table></figure>
+<p>你会发现，并没有起作用， .gitignore 文件依然被加到了 git 中，为什么会有这个需求呢？有些人在本地开发的时候有一些其他的文件夹名不愿意让别人看到，虽然在 gitignore 中被忽略了，但是 .gitignore 文件中依然可以看到这些文件夹名字。</p>
+<p>其实没有什么好的办法处理这个问题，.gitignore 做多人协作开发的时候可以直接根据同一份 gitignore 过滤文件，如果一定要做，可以从 add 中在 remove 掉：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">git rm <span class="comment">--cached .gitignore</span></span><br></pre></td></tr></table></figure>
+<p>Git 操作涉及的命令巨多，但是日常开发中用到的就那么几个，把原理搞清楚，用起来得心应手。</p>
+
+        <p>本文链接：<a href="http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/">http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/</a></p>
+        <p class="article-footer">--EOF--</p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-06 11:33:54</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/git/">git</a>, <a class="article-tag-link" href="/blog/tags/gitignore/">gitignore</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-06 02:08:43</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <i class="icon" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+  
+    <a href="/blog/2015/09/02/webmaster-in-baidu-and-google/" class="post-next">
+      <b>网站的SEO以及它和站长工具的之间秘密</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  
+  <a href="/blog/2015/09/02/webmaster-in-baidu-and-google/" class="next" title="网站的SEO以及它和站长工具的之间秘密">
+    <i class="icon">&#x261e;</i>
+    <b>网站的SEO以及它和站长工具的之间秘密</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="set-gitignore-after-add-file" data-title="用对 gitignore" data-url="http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="" alt="loading"/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

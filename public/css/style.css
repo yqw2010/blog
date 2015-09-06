@@ -971,6 +971,7 @@ div.recent-pic {
 .post-content h3,
 .post-content h4 {
   text-shadow: 1px 1px 1px #ccc;
+  margin-bottom: 15px;
 }
 .post-content img {
   max-width: 96%;
