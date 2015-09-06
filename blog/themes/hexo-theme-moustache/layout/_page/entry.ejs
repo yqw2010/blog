@@ -14,10 +14,12 @@
 		<div class="entry-cates">
 			<h2>文章分类</h2>
 			<ul>
-				<% var _cates = {},cates = [];
+				<% var _cates = {}; var cates = [];
 				for(var key in site.categories.data) {
 					var name = site.categories.data[key].name;
-					if(!_cates[name]) {_cates[name] = 1;}
+					if(!_cates[name]) {
+						_cates[name] = 1;
+					}
 				}
 			  cates = Object.keys(_cates);
 				%>
