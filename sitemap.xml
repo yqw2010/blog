@@ -2,6 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
+    <lastmod>2015-09-06T06:42:59.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/08/24/cb-debug-suggest/</loc>
+    <lastmod>2015-09-06T06:42:59.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/08/20/cb-fe-monitor/</loc>
+    <lastmod>2015-09-06T06:42:59.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/08/17/cb-iconfont-opt/</loc>
+    <lastmod>2015-09-06T06:42:59.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/08/12/cb-data-uri/</loc>
+    <lastmod>2015-09-06T06:42:59.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2015/09/06/set-gitignore-after-add-file/</loc>
     <lastmod>2015-09-06T06:08:43.000Z</lastmod>
   </url>
@@ -12,32 +37,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/08/24/cb-debug-suggest/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/08/20/cb-fe-monitor/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/08/17/cb-iconfont-opt/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/08/12/cb-data-uri/</loc>
+    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -897,7 +897,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
