@@ -54,7 +54,7 @@
 <p>上面对 hashStr（输出的内容） 进行了简单的处理，并将其作为 Etag 放在 head 中输出，上面的代码一目了然，我就不解释了。</p><br><h3>三、小结</h3><br><p>Etag 在缓存处理中用的比较广泛，使用它可以减少一些不必要请求的带宽的占用。服务器输出的内容不变，浏览器就应该使用缓存，没必要每次都向服务器端索要数据，造成不必要的浪费。</p><br><p>从上面我们可以看到，如果想拿到 Etag，就必须先拿到要输出的数据，所以 Etag 只能减少带宽的占用，并不能降低服务器的消耗。如果是静态页面，可以判断文件最近一次的修改时间（Last-Modified），获取文件上次修改时间的消耗比拿到整个数据的消耗要小的多。所以很多时候 Etag 都是配合这 Last-Modified 一起使用的。</p><br><p>上面的 php 和 node 代码演示，很明显的差异就是，node 更加细致，或者说他更加底层，我们可以获取的几乎都是未加修饰的原始数据，从数据量的交互和可操控性来看，我更偏向于 node 的使用。</p>
 
 
-        <p>本文链接：<a href="http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/">http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/</a></p>
+        <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/">http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/</a></p>
         <p class="article-footer">--EOF--</p>
       </div>
     </div>

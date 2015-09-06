@@ -1157,6 +1157,12 @@ table th {
   overflow-x: auto;
   margin-bottom: 0;
 }
+.this-page-link {
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .cate-wraper {
   padding: 70px 40px 30px;
   font-size: 14px;

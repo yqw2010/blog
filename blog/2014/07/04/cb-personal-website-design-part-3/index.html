@@ -90,7 +90,7 @@
 <p>重定向的内容就行了。</p><br><p>第二种方式会存在一个问题，如果你的资源请求在 /barretlee 的上一层或者上几层，那么这里的正则就会匹配不到了，所以建议使用 Vhost 来配置自己的 Apache。</p><br><h3>五、后期优化和改进</h3><br><p>上面说了这么多，都是这七天来建站的总结，目前的状态是，博客系统已经搭建完毕，但是没有写博客和管理博客的后台，这又是件头疼的事情，不过还好，后台之后自己看得见，就随意一些。也没有归档页面、分类页等页面，这些页面的设计也是伤脑细胞的。</p><br><p>整个网站，博客系统只是一个部分，还有其他的问答平台、好文的爬虫抓取、每月期刊、每周好文推送、邮件系统等等，工程量还蛮大，这对我来说也是一个挑战，可以尽情发挥自己的技能，也是个深度学习的好机会！</p><br><p>页面的加载，首屏时间不能忍受，如果文章篇幅比较大，大约需要1.5到3s才渲染完毕，这个值有点不能忍受。优化方向有：</p><br><ul><br><li>PJAX，页面采用 pushState + AJAX，减少请求，不支持 pushState 的页面采用 hash bang 兼容处理。</li><br><li>bigPipe，如果文章内容比较多，或者其他的模块有所增加，会采用 bigPipe 分拨往前端扔数据。</li><br><li>前后端统一模板，之前也提到了这个问题，后端渲染的时候使用的后端模板，如果前端要异步加载，则需要重新写一套模板来解析合并数据，这两个模板的相似度是很高的，如果可以复用将减少很多工作量。</li><br><li>静态数据的缓存问题</li><br><li>ETag等对页面的标记缓存问题</li><br></ul><br><h3>六、小结</h3><br><p>我最怕的是事情没有一个开始，现在既然已经开始了，我想，离结束也就不远了。</p>
 
 
-        <p>本文链接：<a href="http://www.barretlee.com/blog/2014/07/04/cb-personal-website-design-part-3/">http://www.barretlee.com/blog/2014/07/04/cb-personal-website-design-part-3/</a></p>
+        <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2014/07/04/cb-personal-website-design-part-3/">http://www.barretlee.com/blog/2014/07/04/cb-personal-website-design-part-3/</a></p>
         <p class="article-footer">--EOF--</p>
       </div>
     </div>
