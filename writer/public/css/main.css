@@ -10,6 +10,8 @@
 .post {
   border: 1px solid #CCC;
   padding: 40px 20px;
+  box-shadow: 1px 1px 10px #ccc inset, -1px -1px 10px #ccc inset;
+  border-radius: 2px;
 }
 .post-content img {
   margin-bottom: 15px;
@@ -82,6 +84,7 @@
   border-radius: 2px;
   cursor: pointer;
   margin-left: 10px;
+  transition: all 0.3s;
 }
 .post-content h1, .post-content h2 {
   text-shadow: 1px 1px 1px #ccc;
