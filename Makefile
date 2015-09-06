@@ -84,6 +84,8 @@ new:
 ifneq (${P},)
 	cd blog; \
 	rm src/_post/*-${N}.md; \
+	cp -f ${DRAFTS}* ${BACKUPDRAFTS_BAC}; \
+	rm src/_dratfs/{N}.md; \
 	hexo publish ${N};
 ifeq (${P}, run)
 	make run;
