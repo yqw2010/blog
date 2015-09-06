@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2014/09/29/cb-promise/</loc>
+    <lastmod>2015-09-06T13:04:05.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/comments/index.html</loc>
     <lastmod>2015-09-06T07:58:11.000Z</lastmod>
   </url>
@@ -44,11 +49,6 @@
   <url>
     <loc>http://www.barretlee.com/404.html</loc>
     <lastmod>2015-09-05T15:15:50.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/05/30/%E6%97%A0%E9%A2%98/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
@@ -217,7 +217,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/09/29/cb-promise/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -897,17 +897,17 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2014/02/27/cb-webAudio-cross-fading/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://www.barretlee.com/blog/2015/07/09/cb-window-var/</loc>
+    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/05/30/%E6%97%A0%E9%A2%98/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
