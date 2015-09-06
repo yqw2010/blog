@@ -14,7 +14,7 @@ date: 2015-08-17 09:54:00
 <p>如，访问该网站：<a href="http://zurb.com/playground/foundation-icon-fonts-3">http://zurb.com/playground/foundation-icon-fonts-3</a></p>
 <p>为啥国内很少有这种事儿发生？英文字符并不多，生成 webfont 所占用的 unicode range 很小，故英文字体的 webfont 体积是很小的。而中文字符却有好几千个，一个完整中文的 webfont 至少有 2-3M，没人会在自己的网站上使用如此庞大的 webfont 的字体。</p>
 <p>但 webicon 就不一样了，根据页面的需要，只摘取几个 unicode 段位，体积自然也是很小了。为了不影响正常字符的展示，webicon 的制作一般会选用空白的 unicode 段位，这些 unicode 在浏览器下默认展示为 <span>""</span>，一个乱码的符号。那么同样的问题就出现了，由于 CDN 的服务不太稳定或者用户网络原因，页面打开之后，部分 webicon 的资源还未加载成功，那么那些使用到 webicon 的位置便会出现乱码，如果图标较大，体验是十分不好的。</p>
-<h3 id="iconfont_1"><a class="headeranchor-link" name="user-content-iconfont_1" href="#iconfont_1"></a>☞ iconfont 制作的基本原理</h3>
+<h3 id="iconfont_1"><a class="headeranchor-link" name="user-content-iconfont_1" href="#iconfont_1"></a>iconfont 制作的基本原理</h3>
 <p>Unicode&thinsp;码表是一个很大的表格，每个表格都对应一个 Unicode 字符，每个字符都有一个 Unicode 码值对应，如 "李" 对应 "\u674e", "靖" 对应 "\u9756"。因为码表很大，有部分表格并没有对应的字符，但是它有自己的码值。iconfont 的制作，首先将绘制的图形（可以是一张图片、也可以是一个 svg 描述）通过工具或者程序生成文字icon，然后将文字icon对应到码表之中，为了不干预码表中已有的字符，我们通常会把文字icon对应到没有字符的表格中，最后导出我们额外对应的表格信息，生成iconfont。如下图所示：</p>
 
 ```
@@ -43,7 +43,7 @@ date: 2015-08-17 09:54:00
 
 <p>图中，三个icon分别对应到 Unicode 码表中码值为 Ua Ub Uc 的三个表格，那么最后导出的 iconfont 也就只包含这三个字符信息，这个体积是很小的。</p>
 <p>延伸阅读：<a href="http://www.cnblogs.com/hustskyking/p/manufacture-font-face-in-web.html">再探@font-face及webIcon制作</a></p>
-<h3 id="iconfont_2"><a class="headeranchor-link" name="user-content-iconfont_2" href="#iconfont_2"></a>☞ iconfont 的蜕化处理</h3>
+<h3 id="iconfont_2"><a class="headeranchor-link" name="user-content-iconfont_2" href="#iconfont_2"></a>iconfont 的蜕化处理</h3>
 <p>正常的情况下是一堆漂亮的 icon 图标，而当网络较慢或者 CDN 不稳定的时候，用户看到的是图示乱码的框框，优化之后，用户可以看到我们对 iconfont 的蜕化操作。效果预览：</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/170948437225461.png" alt=""></p>
 

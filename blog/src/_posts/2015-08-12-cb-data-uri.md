@@ -28,7 +28,7 @@ data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf
 
 <p>其协议为 data，并告诉客户端将这个内容作为 <code>image/gif</code> 格式来解析，需要解析的内容使用的是 base64 编码。它直接包含了内容但并没有一个确定的资源地址。</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/120937188795030.png" alt=""></p>
-<h3 id="_1"><a class="headeranchor-link" name="user-content-_1" href="#_1"></a>☞ 格式</h3>
+<h3 id="_1"><a class="headeranchor-link" name="user-content-_1" href="#_1"></a>格式</h3>
 <p>Data URI 的格式十分简单，如下所示：</p>
 
 ```
@@ -68,7 +68,7 @@ data:text/html;charset=UTF-8;base64,5L2g5aW9
 </li>
 </ul>
 <p>很多时候我们使用 data URI 来呈现一些较长的内容，如一串二进制数据编码、图片等，采用 base64 编码可以让内容变得更加简短。而对图片来说，在 gzip 压缩之后，base64 图片实际上比原图 gzip 压缩要大，体积增加大约为三分之一，所以使用的时候需要权衡。</p>
-<h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>☞ 兼容性</h3>
+<h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>兼容性</h3>
 <p>由于出现时间较早，目前主流的浏览器基本都支持 data URI：</p>
 <ul>
 <li>Firefox 2+</li>
@@ -100,7 +100,7 @@ IE 8+ 下限制为 32,768 个字符（32kb），IE9 之后移除了这个限制
 </li>
 <li>在 IE 下，Data URI 的内容必须是经过编码转换的，如 "#"、"%"、非 US-ASCII 字符、多字节字符等，必须经过编码转换</li>
 </ul>
-<p><strong>☞ 低版本IE的解决之道 - MHTML</strong></p>
+<p><strong>低版本IE的解决之道 - MHTML</strong></p>
 <p>MHTML 就是 MIME HTML，是 "Multipurpose Internet Mail Extensions HyperText Markup Language" 的简称，它就像一个带着附件的邮件一般，如下所示：</p>
 
 ```
@@ -130,7 +130,7 @@ iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHx
 <li>附件代码注意不要被压缩工具给干掉了</li>
 </ul>
 <p><strong>这里存在一个坑：部分系统兼容模式下的 IE8 也认识 css 中的 hack 符号 <code>*</code>，但是不支持 <code>mhtml</code>，所以上面的内容不会生效。处理方案估计就只有使用 IE 的条件注释了。</strong></p>
-<h3 id="https"><a class="headeranchor-link" name="user-content-https" href="#https"></a>☞ HTTPS 下的安全提示</h3>
+<h3 id="https"><a class="headeranchor-link" name="user-content-https" href="#https"></a>HTTPS 下的安全提示</h3>
 <p>HTTPS 打开页面，当在 IE6、7 下使用 data URIs 时，会看到如下提醒：</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/120937285514109.png" alt=""></p>
 <p>MS 的解释是：</p>
@@ -144,7 +144,7 @@ iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHx
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/120937376765288.png" alt=""></p>
 <p>但是从 chrome 的瀑布流，我们可以做这样的猜测：</p>
 <p>图中每个 Data URI 都发起了请求，不过状态都是 <code>data(from cache)</code>，禁用缓存之后，依然如此。所以可以断定，浏览器在下载源码解析成 DOM 的时候，会将 Data URI 的资源解析出来，并缓存在本地，最后 Data URI 每个对应位置都会发起一次请求，只是这个请求还未建立链接，就被发现存在缓存的浏览器给拍死了。</p>
-<h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>☞ 安全阀门</h3>
+<h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>安全阀门</h3>
 <p>Data URI 在 IE 下有诸多安全限制，事实上，很多 xss 注入也可以将 data URI 的源头作为入口，使用 data URI 绕过浏览器的过滤。</p>
 
 ```
@@ -154,7 +154,7 @@ http://example.com/text.php?t="><script src="data:text/html,<script>alert(" xss"
 ```
 </script>
 <p>这里可以很大程度的发散，很有意思，值得读者去深究。</p>
-<h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>☞ 扩展阅读</h3>
+<h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>扩展阅读</h3>
 <ul>
 <li><a href="http://www.ietf.org/rfc/rfc2397.txt">RFC 2397</a> RFC文档</li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/data_URIs">MDN - data_URIs</a> MDN文档</li>

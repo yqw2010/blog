@@ -17,7 +17,7 @@ date: 2015-08-24 10:29:00
 <p>小B同学早早的为自己配了一份本地开发环境，于是他遇到问题之后，直接去源码中定位错误位置，由于使用的是预处理语言，所以需要先打包编译之后再在本地预览效果。</p>
 <p><strong>情形三：</strong></p>
 <p>小C同学的调试方式是小A和小B的综合版本，将线上的资源代理到本地 build 目录文件，在 src 目录下修改之后编译打包到 build，然后预览。</p>
-<h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>☞ 代理调试的烦恼</h3>
+<h3 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>代理调试的烦恼</h3>
 <p>而对于比较复杂的线上环境，代理也会遇到很多障碍，比如：</p>
 <p><strong>线上资源 combo</strong></p>
 <p>出现错误的脚本地址为 <code>http://example.com/path/??a.js,b.js,c.js</code>，它对应着 <code>a.js</code>,<code>b.js</code>,<code>c.js</code> 三个脚本文件，如果我们使用 Fiddler/Charles 这样的经典代理工具调试代码，就必须给这些工具编写插件，或者在替换配置里头加一堆判断或者正则，成本高，门槛高。</p>
@@ -26,7 +26,7 @@ date: 2015-08-24 10:29:00
 <p><strong>代码依赖较多，拉取代码问题</strong></p>
 <p>很多时候，我们的页面依赖了多个 asserts 资源，而这些资源各自分布在多个仓库之中，甚至分布在不同的发布平台上，为了能够在源码上清晰的调试代码，我们不得不将所有的资源下载到本地，期间一旦存在下载代码的权限问题，整个调试进度就慢下来，这是十分不能忍受的事情。比如某系统构建的页面，页面上的模块都是以仓库为维度区分的，一个页面可能对应了5-50个仓库，下载代码实为麻烦。</p>
 <p>最可怕的调试是，本地没有对应的测试环境、代理工具又不满足我们的需求，然后就只能，<code>编辑代码-&gt;打包压缩-&gt;提交代码-&gt;查看效果-&gt;编辑代码-&gt;...</code>，如果你的项目开发是这种模式，请停下来，思考调试优化方案，正所谓磨刀不误砍柴工。</p>
-<h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>☞ 开启懒人调试模式</h3>
+<h3 id="_3"><a class="headeranchor-link" name="user-content-_3" href="#_3"></a>开启懒人调试模式</h3>
 <p>当看到线上出现问题（可能是其他同学负责页面的问题），脑中浮出这样的场景：</p>
 
 ```
@@ -55,7 +55,7 @@ date: 2015-08-24 10:29:00
 ```
 
 <p>除了 debug 代码，我们需要做的就只是用眼睛看效果是否 ok，整个流程优化下来，体验是很赞的！</p>
-<h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>☞ 解决代理遇到的问题</h3>
+<h3 id="_4"><a class="headeranchor-link" name="user-content-_4" href="#_4"></a>解决代理遇到的问题</h3>
 <p>上面我们提到了三个问题，平时开发遇到最头疼的一个是 combo，曾经我们页面上的代码加一个 <code>?_xxx</code> 参数就能够直接开始调试模式，那是因为程序的入口只有一个，而且所有脚本的依赖也打包到一个叫做 <code>deps.js</code> 文件中，加上调试参数之后，可以将原来 combo 加载的文件: <code>http://example.com/path/??a-min.js,b-min.js,c-min.js</code>，按照非 combo 的方式加载：</p>
 
 ```
@@ -72,7 +72,7 @@ http://example.com/path/c.js
 
 ```
 
-<p><strong>☞ 解决 combo 问题</strong></p>
+<p><strong>解决 combo 问题</strong></p>
 <p>此时通过 Fiddler/Charles 工具比较难满足需求，对于这个问题有两个处理方案：</p>
 <p><strong>1). 浏览器请求全部代理到本地的一个服务</strong></p>
 <p>首先写一个本地服务：</p>
@@ -154,7 +154,7 @@ http.createServer(function(req, res){
 ```
 
 <p>比如请求 <code>http://127.0.0.1:3399/?path=http://www.taobao.com</code>，即可拿到淘宝首页的源码，然后对拿到的代码做替换。</p>
-<p><strong>☞ 解决代码压缩问题</strong></p>
+<p><strong>解决代码压缩问题</strong></p>
 <p>对于这个问题，建议在线上放两份源码，一份是压缩源码，一份是未压缩源码，当页面 <code>url</code> 存在 <code>debug</code> 参数的时候，返回未压缩版本，正常返回压缩版本。当然，也可以采用上述方式处理问题。</p>
 <p>不过，更合理的方式应该是 <code>sourceMap</code>，前端没有秘密，压缩代码只是增加了 hacker 的攻击成本，并不妨碍有能力的 hacker 借系统漏洞入侵。所以可以为源码提供一份 <a href="http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html">sourceMap 文件</a>。</p>
 
@@ -174,7 +174,7 @@ gulp.task('javascript', function() {
 
 <p>关于 sourceMap 的 gulp 插件配置，详情可以<a href="https://www.npmjs.com/package/gulp-sourcemaps">戳这里</a>。不仅仅是 JavaScript，CSS 也有 source maps，这个信息可以在 Chrome 控制台的设置选项中看到：</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/242227387805954.png" alt=""></p>
-<p><strong>☞ 代码的拉取</strong></p>
+<p><strong>代码的拉取</strong></p>
 <p>如果一个项目只有你知道如何修改，那这个项目的技术设计就有点糟糕了，为了让众人都能处理你项目中的问题，一定要需要一个简洁的模式为开发者快速搭建测试环境，文档是一方面，如果有个一键操作的命令，那就更棒了！</p>
 
 ```
@@ -204,12 +204,12 @@ getPage:
 
 <p>上面是一个 <code>MakeFile</code> 的部分代码，作用是创建开发目录，拉取分支信息，然后开始服务器，打开浏览器，使用 IDE 打开目录，万事就绪，只等主人敲代码。</p>
 <p>整个流程就一两分钟，完成开发之前所有的准备工作。这个脚本不仅仅是给自己使用，如果其他人也需要参与开发，一个命令就能让参与者进入开发模式，加上文档说明，省却了很多沟通成本。</p>
-<h3 id="_5"><a class="headeranchor-link" name="user-content-_5" href="#_5"></a>☞ 在线调试实践(一个系统的调试工具)</h3>
+<h3 id="_5"><a class="headeranchor-link" name="user-content-_5" href="#_5"></a>在线调试实践(一个系统的调试工具)</h3>
 <p>输入需要调试的页面URL（如 <a href="http://www.taobao.com">http://www.taobao.com</a>）：</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/242227502024677.png" alt=""></p>
 <p>插件会分析 DOM，遍历拿到页面所有被引用到的仓库：</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/242227584832841.png" alt=""></p>
 <p>选择需要调试的模块（颗粒度细分到了html/js/css），点击调试按钮，可以看到调试页面的资源都会引用本地下载的文件。</p>
-<h3 id="_6"><a class="headeranchor-link" name="user-content-_6" href="#_6"></a>☞ 小结</h3>
+<h3 id="_6"><a class="headeranchor-link" name="user-content-_6" href="#_6"></a>小结</h3>
 <p>优化流程、优化架构是我们矢志不渝坚持的方向，本文主要阐述，编辑代码到调试线上效果的过程，提出了解决 combo 和代码压缩等问题的方案和建议。希望可以给不擅长代理调试的同学一点启示。</p>
 
