@@ -19,7 +19,11 @@ module.exports = function(article){
   http.createServer(function(req, res){
     if(req.url === '/') {
       var ctt = fs.readFileSync(path.join(Root, "./public/index.html")).toString();
-      ctt = ctt.replace(/<textarea>[\s\S]+?<\/textarea>/m, "<textarea>" + fs.readFileSync(articlePath) + "</textarea>");
+      var replace = fs.readFileSync(articlePath).toString();
+      if(!replace) {
+        replace = fs.readFileSync(path.join(Root, "./article.tpl"));
+      }
+      ctt = ctt.replace(/<textarea>[\s\S]+?<\/textarea>/m, "<textarea>" + replace + "</textarea>");
       res.write(ctt);
       res.end();
     } else if(req.url === '/img') {

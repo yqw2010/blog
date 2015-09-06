@@ -132,7 +132,11 @@ $(document).ready(function() {
   });
   setInterval(function(){
     $(".save").trigger("click");
-  }, 50 * 1000);
+  }, 10 * 1000);
+
+  window.onbeforeunload = function(){
+    $(".save").trigger("click");
+  };
 });
 
 function uploadImage(imgData){
