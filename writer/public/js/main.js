@@ -9,6 +9,7 @@ var Writer = {
     $codeBox.removeAttr("class").text(code);
     hljs.highlightBlock($codeBox[0]);
     $(".writerBox").height($codeBox.height() + 50);
+    $(".words-counter").text(code.length + "字");
   },
   parser: function(){
     return marked($(".writerBox textarea").val());
