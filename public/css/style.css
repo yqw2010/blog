@@ -258,6 +258,15 @@ pre::-webkit-color-swatch {
 #menuIndex::-webkit-color-swatch {
   border: none;
 }
+div#menuIndex {
+  background: rgba(255,255,255,0.9);
+}
+.body-bg-moon div#menuIndex {
+  background: rgba(0,0,0,0.9);
+}
+.body-bg-moon div#menuIndex li.on a {
+  color: #fff;
+}
 .pln {
   color: #2f1e2e;
 }
@@ -969,18 +978,22 @@ div.recent-pic {
   overflow: hidden;
 }
 .post-content h3,
-.post-content h4 {
+.post-content h4,
+.post-content h5 {
   text-shadow: 1px 1px 1px #ccc;
   margin-bottom: 15px;
 }
-.post-content h3::before,
-.post-content h4::before {
-  content: "☞";
-  margin-right: 6px;
-  font-weight: normal;
-  color: #555;
-  vertical-align: middle;
-  display: inline-block;
+.post-content h3 {
+  font-size: 26px;
+  line-height: 48px;
+}
+.post-content h4 {
+  font-size: 24px;
+  line-height: 36px;
+}
+.post-content h5 {
+  font-size: 20px;
+  line-height: 28px;
 }
 .post-content img {
   max-width: 96%;
