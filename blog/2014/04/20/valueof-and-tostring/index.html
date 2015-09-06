@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/04/20/valueof-and-tostring/">http://www.barretlee.com/blog/2014/04/20/valueof-and-tostring/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line"><span class="comment">[]</span> == !<span class="comment">[]</span> // true</span><br></pre></td></tr></table></figure>
 <p>其实这个问题没啥好讨论的，ECMA-262看看就知道了。不过很多人问，就做个笔记。</p>
 <p>前面那个 [] 在解析的时候调用的是 valueOf 返回的结果是 ‘’<br>后面那个取反运算，对 NAN undefined null “” 0 取反结果才会是true，所以 ![] 的结果是 false</p>

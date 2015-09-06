@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/12/17/cb-web-communication/">http://www.barretlee.com/blog/2013/12/17/cb-web-communication/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/12/17/web-communication.html" target="_blank">博客园</a>.</div>
 
 <p>web通信，一个特别大的topic，涉及面也是很广的。因最近学习了 javascript 中一些 web 通信知识，在这里总结下。文中应该会有理解错误或者表述不清晰的地方，还望斧正！</p><br><h3>一、前言</h3><br><h4>1. comet技术</h4><br><blockquote><br><p>浏览器作为 Web 应用的前台，自身的处理功能比较有限。浏览器的发展需要客户端升级软件，同时由于客户端浏览器软件的多样性，在某种意义上，也影响了浏览器新技术的推广。在 Web 应用中，浏览器的主要工作是发送请求、解析服务器返回的信息以不同的风格显示。AJAX 是浏览器技术发展的成果，通过在浏览器端发送异步请求，提高了单用户操作的响应性。但 Web 本质上是一个多用户的系统，对任何用户来说，可以认为服务器是另外一个用户。现有 AJAX 技术的发展并不能解决在一个多用户的 Web 应用中，将更新的信息实时传送给客户端，从而用户可能在\过时”的信息下进行操作。而 AJAX 的应用又使后台数据更新更加频繁成为可能。</p><br></blockquote><br><p>随着互联网的发展，web 应用层出不穷，也不乏各种网站监控、即时报价、即时通讯系统，为了让用户得到更好的体验，服务器需要频繁的向客户端推送信息。开发者一般会采用基于 AJAX 的长轮询方式或者基于 iframe 及 htmlfile 的流方式处理。当然有些程序需要在客户端安装各种插件( Java applet 或者 Flash )来支持性能比较良好的\推”信息。</p><br><h4>2. HTTP协议中的长、短连接</h4><br><blockquote><br><p><strong>短连接的操作步骤是：</strong>建立连接&mdash;&mdash;数据传输&mdash;&mdash;关闭连接…建立连接&mdash;&mdash;数据传输&mdash;&mdash;关闭连接<strong>长连接的操作步骤是：</strong>建立连接&mdash;&mdash;数据传输…（保持连接）…数据传输&mdash;&mdash;关闭连接</p>

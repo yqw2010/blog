@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/02/17/cb-problem-javascript-event/">http://www.barretlee.com/blog/2014/02/17/cb-problem-javascript-event/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/02/17/problem-javascript-event.html" target="_blank">博客园</a>.</div>
 
 <p>群里童鞋问到关于事件传播的一个问题：\事件捕获的时候，阻止冒泡，事件到达目标之后，还会冒泡吗？”。</p><br><p>初学 JS 的童鞋经常会有诸多疑问，我在很多 QQ 群也混了好几年了，耳濡目染也也收获了不少，以后会总结下问题的结论，顺便说说相关知识的扩展~</p><br><p>如果贸然回答还会冒泡，这不太好的，稍微严谨点考虑 0级 DOM 事件模型的话，这个答案是否定的。但是在 2级 DOM 事件模型中，答案是肯定的，这个问题值得探讨记录下。</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/problem-javascript-event.html" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/problem-javascript-event.html</a>&nbsp;</p><br><h3>一、问题结论</h3><br><p>netscape 和 微软 曾经的战争还是比较火热的，当时， netscape 主张捕获方式，微软主张冒泡方式。后来 w3c 采用折中的方式，平息了战火，制定了统一的标准&mdash;&mdash;先捕获再冒泡。</p><br><div><strong>&nbsp;事件的触发有三个阶段</strong><ol><br><li>document&nbsp;往事件触发地点，捕获前进，遇到相同注册事件立即触发执行</li><br><li>到达事件位置，触发事件（多谢&nbsp;<span>@糖果果&nbsp;<span>指出&nbsp;<a href="#2878498">问题</a>&nbsp;，</span></span><span>@update 14/2/19</span> 如果该处既注册了冒泡事件，也注册了捕获事件，按照注册顺序执行）</li><br><li>事件触发地点往 document 方向，冒泡前进，遇到相同注册事件立即触发</li><br></ol><br><p>这么说很多人比较迷糊，我们在注册事件的时候，通常使用的是 捕获 或者 冒泡 的 一种：</p>

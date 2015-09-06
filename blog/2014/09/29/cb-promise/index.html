@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/09/29/cb-promise/">http://www.barretlee.com/blog/2014/09/29/cb-promise/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/09/29/promise.html" target="_blank">博客园</a>.</div>
 
 <p id="_1">读完这篇文章，预计会消耗你 40 分钟的时间。<a class="headeranchor-link" name="user-content-_1" href="#_1"></a></p><br><p>Ajax 出现的时候，刮来了一阵异步之风，现在 Nodejs 火爆，又一阵异步狂风刮了过来。需求是越来越苛刻，用户对性能的要求也是越来越高，随之而来的是页面异步操作指数般增长，如果不能恰当的控制代码逻辑，我们就会陷入无穷的回调地狱中。</p><br><p>ECMAScript 6 已经将异步操作纳入了规范，现代浏览器也内置了 Promise 对象供我们进行异步编程，那么此刻，还在等啥？赶紧学习学习 Promise 的内部原理吧！</p><br><h3 id="promise_1"><a class="headeranchor-link" name="user-content-promise_1" href="#promise_1"></a>第一章 了解 Promise</h3><br><h4 id="_2"><a class="headeranchor-link" name="user-content-_2" href="#_2"></a>一、场景再现</h4><br><p>由于 javascript 的单线程性质，我们必须等待上一个事件执行完成才能处理下一步，如下：</p>

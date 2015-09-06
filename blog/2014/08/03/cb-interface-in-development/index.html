@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/08/03/cb-interface-in-development/">http://www.barretlee.com/blog/2014/08/03/cb-interface-in-development/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/08/03/interface-in-development.html" target="_blank">博客园</a>.</div>
 
 <p>前后端分工协作是一个老生常谈的大话题，很多公司都在尝试用工程化的方式去提升前后端之间交流的效率，降低沟通成本，并且也开发了大量的工具。但是几乎没有一种方式是令双方都很满意的。事实上，也不可能让所有人都满意。根本原因还是前后端之间的交集不够大，交流的核心往往只限于接口及接口往外扩散的一部分。这也是为什么很多公司在招聘的时候希望前端人员熟练掌握一门后台语言，后端同学了解前端的相关知识。</p><br><h3>一、开发流程</h3><br><p>前端切完图，处理好接口信息，接着就是把静态demo交给后台去拼接，这是一般的流程。这种流程存在很多的缺陷。</p><br><ul><br><li>后端同学对文件进行拆分拼接的时候，由于对前端知识不熟悉，可能会搞出一堆bug，到最后又需要前端同学帮助分析原因，而前端同学又不是特别了解后端使用的模板，造成尴尬的局面。</li><br><li>如果前端没有使用统一化的文件夹结构，并且静态资源（如图片，css，js等）没有剥离出来放到 CDN，而是使用相对路径去引用，当后端同学需要对静态资源作相关配置时，又得修改各个link，script标签的src属性，容易出错。</li><br><li>接口问题<ol><br><li>后端数据没有准备好，前端需要自己模拟一套，成本高，如果后期接口有改变，自己模拟的那套数据又不行了。</li><br><li>后端数据已经开发好，接口也准备好了，本地需要代理线上数据进行测试。这里有两个费神的地方，一是需要代理，否则可能跨域，二是接口信息如果改动，后期接你项目的人需要改你的代码，麻烦。</li><br></ol></li><br><li>不方便控制输出。为了让首屏加载速度快一点，我们期望后端先吐出一点数据，剩下的才去 ajax 渲染，但让后端吐出多少数据，我们不好控。</li><br></ul><br><p>当然，存在的问题远不止上面枚举的这些，这种传统的方式实在是不酷（Kimi 附身^_^）。还有一种开发流程，SPA（single page application），前后端职责相当清晰，后端给我接口，我全部用 ajax 异步请求，这种方式，在现代浏览器中可以使用 PJAX 稍微提高体验，Facebook 早在三四年前对这种 SPA 的模式提出了一套解决方案，quickling+bigpipe，解决了 SEO 以及数据吐出过慢的问题。他的缺点也是十分明显的：</p><br><ul><br><li>页面太重，前端渲染工作量也大</li><br><li>首屏还是慢</li><br><li>前后端模板复用不了</li><br><li>SEO 依然很狗血（quickling 架构成本高）</li><br><li>history 管理麻烦</li><br></ul><br><p>问题多的已经是无力吐槽了，当然他依然有自己的优势，咱们也不能一票否决。</p><br><p>针对上面看到的问题，现在也有一些团队在尝试前后端之间加一个中间层（比如淘宝UED的 MidWay ）。这个中间层由前端来控制。</p>

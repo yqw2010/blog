@@ -2210,6 +2210,14 @@ br {
   left: 0;
   width: 100%;
 }
+.shit-spider {
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  overflow: hidden;
+  display: none;
+  visibility: hidden;
+}
 #menuIndex ul li.h4 {
   text-indent: 12px;
 }

@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/">http://www.barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/05/14/four-method-to-Asynchronous.html" target="_blank">博客园</a>.</div>
 
 <p><span>你可能知道，Javascript语言的执行环境是<span>“单线程”</span>（single thread）。</span></p><br><blockquote><br><p>所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。</p><br></blockquote><br><p><span>这种模式的<strong><span>好处</span></strong>是实现起来比较简单，执行环境相对单纯；<strong><span>坏处</span></strong>是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。</span></p>

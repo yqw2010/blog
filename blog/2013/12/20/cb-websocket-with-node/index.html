@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/12/20/cb-websocket-with-node/">http://www.barretlee.com/blog/2013/12/20/cb-websocket-with-node/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/12/20/websocket-with-node.html" target="_blank">博客园</a>.</div>
 
 <p>在上一篇提高到了 <a href="http://www.cnblogs.com/hustskyking/p/web-communication.html" target="_blank">web 通信的各种方式</a>，包括 轮询、长连接 以及各种 HTML5 中提到的手段。本文将详细描述 WebSocket协议 在 web通讯 中的实现。</p><br><h3>一、WebSocket 协议</h3><br><h4>1. 概述</h4><br><p>websocket协议允许不受信用的客户端代码在可控的网络环境中控制远程主机。该协议包含一个握手和一个基本消息分帧、分层通过TCP。简单点说，通过握手应答之后，建立安全的信息管道，这种方式明显优于<a href="http://www.cnblogs.com/hustskyking/p/web-communication.html" target="_blank">前文</a>所说的基于 XMLHttpRequest 的 iframe 数据流和长轮询。该协议包括两个方面，握手链接（handshake）和数据传输（data transfer）。</p><br><h4>2. 握手连接</h4><br><p>这部分比较简单，就像路上遇到熟人问好。</p>

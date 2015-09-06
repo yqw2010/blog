@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/">http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2015/08/21/upgrade-insecure-requests.html" target="_blank">博客园</a>.</div>
 
 <p>HTTPS 是 HTTP over Secure Socket Layer，以安全为目标的 HTTP 通道，所以在 HTTPS 承载的页面上不允许出现 http 请求，一旦出现就是提示或报错：</p><br><blockquote><br><p>Mixed Content: The page at &lsquo;<a href="https://www.taobao.com/" target="_blank" rel="external">https://www.taobao.com/</a>&lsquo; was loaded over HTTPS, but requested an insecure image &lsquo;<a href="http://g.alicdn.com/s.gif" target="_blank" rel="external">http://g.alicdn.com/s.gif</a>&rsquo;. This content should also be served over HTTPS.</p><br></blockquote><br><p>HTTPS改造之后，我们可以在很多页面中看到如下警报：</p><br><p><img src="http://images0.cnblogs.com/blog2015/387325/201508/211107536449320.png" alt=""></p><br><p>很多运营对 https 没有技术概念，在填入的数据中不免出现 http 的资源，体系庞大，出现疏忽和漏洞也是不可避免的。</p><br><h3 id="cspupgrade-insecure-requests"><a class="headeranchor-link" name="user-content-cspupgrade-insecure-requests" href="#cspupgrade-insecure-requests"></a>CSP设置upgrade-insecure-requests</h3><br><p>好在 W3C 工作组考虑到了我们升级 HTTPS 的艰难，在 2015 年 4 月份就出了一个 <code>Upgrade Insecure Requests</code> 的<a href="http://www.w3.org/TR/mixed-content/" target="_blank" rel="external">草案</a>，他的作用就是让浏览器自动升级请求。</p><br><p>在我们服务器的响应头中加入：</p>

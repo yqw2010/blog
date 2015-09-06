@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/04/13/this-reference/">http://www.barretlee.com/blog/2015/04/13/this-reference/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <p>网友问题：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;   </span><br><span class="line">　　<span class="keyword">var</span> object = &#123;  </span><br><span class="line">　　　　name : <span class="string">"My Object"</span>,  </span><br><span class="line">　　　　getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">　　　　　　　　<span class="keyword">return</span> <span class="keyword">this</span>.name;  </span><br><span class="line">　　　　&#125;   </span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">var</span> a = object.getNameFunc;</span><br><span class="line">alert(a());</span><br><span class="line">alert(object.getNameFunc());</span><br></pre></td></tr></table></figure>
 <p>原因：</p>

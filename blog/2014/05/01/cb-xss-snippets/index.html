@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/05/01/cb-xss-snippets/">http://www.barretlee.com/blog/2014/05/01/cb-xss-snippets/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/05/01/xss-snippets.html" target="_blank">博客园</a>.</div>
 
 <p>该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/xss-snippets.html" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/xss-snippets.html</a>&nbsp;，转载请保留源地址。</p><br><h3>一、XSS学习提要</h3><br><ol><br><li><a href="http://qdemo.sinaapp.com/ppt/xss/" target="_blank">http://qdemo.sinaapp.com/ppt/xss/</a> 三水清 简单介绍 xss</li><br><li><a href="http://drops.wooyun.org/tips/689" target="_blank">http://drops.wooyun.org/tips/689</a> 乌云 xss与字符编码</li><br><li><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank">http://www.wooyun.org/whitehats/心伤的瘦子</a> 系列教程</li><br><li><a href="http://ha.ckers.org/xss.html" target="_blank">http://ha.ckers.org/xss.html</a> 反射性XSS详细分析和解释</li><br><li><a href="http://html5sec.org/" target="_blank">http://html5sec.org/</a> 各种技巧 ★★★★★</li><br><li><a href="http://www.80sec.com/" target="_blank">http://www.80sec.com/</a> 一些不错的文章</li><br><br></ol><br><h3>二、XSS攻击要点</h3><br><p><strong>注意：</strong>这些插入和修改都是为了避开浏览器自身的过滤，或者开发者认为的过滤。</p><br><p><strong>1. JS函数。</strong></p><br><p>document.write innerHTML eval setTimeout/setInterval等等都是很多XSS攻击注入的入口</p><br><p><strong>2. html实体编码</strong></p>

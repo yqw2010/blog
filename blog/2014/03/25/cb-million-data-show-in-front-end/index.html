@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/03/25/cb-million-data-show-in-front-end/">http://www.barretlee.com/blog/2014/03/25/cb-million-data-show-in-front-end/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/03/25/million-data-show-in-front-end.html" target="_blank">博客园</a>.</div>
 
 <p>如果要在前端呈现大量的数据，一般的策略就是分页。前端要呈现百万数据，这个需求是很少见的，但是展示千条稍微复杂点的数据，这种需求还是比较常见，只要内存够，javascript 肯定是吃得消的，计算几千上万条数据，js 效率根本不在话下，但是 DOM 的渲染浏览器扛不住，CPU 稍微搓点的电脑必然会卡爆。</p><br><p>本文的策略是，显示三屏数据，其他的移除 DOM。</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/million-data-show-in-front-end.html" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/million-data-show-in-front-end.html</a>，转载请注明源地址。</p><br><h3>一、 策略</h3><br><p>下面是我简单勾画的一个草图，我们把一串数据放到一个容器当中，这串数据的高度（Data List）肯定是比 Container 的高度要高很多的，如果我们一次性把数据都显示出来，浏览器需要花费大量的时间来计算每个 data 的位置，并且依次渲染出来，整个过程中 JS 并没有花费太多的时间，开销主要是 DOM 渲染。</p>

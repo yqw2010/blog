@@ -43,6 +43,10 @@
 
       </div>
       <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/">http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/12/29/how-to-achieve-loading-module.html" target="_blank">博客园</a>.</div>
 
 <p>相信很多人都用过 seajs、 requirejs 等这些模块加载器，他们都是十分便捷的工程管理工具，简化了代码的结构，更重要的是消除了各种文件依赖和命名冲突问题，并利用 AMD / CMD 规范统一了格式。如果你不太明白模块化的作用，建议看看玉伯写的<a href="https://github.com/seajs/seajs/issues/547" target="_blank">一篇文章</a>。</p><br><p>为什么他们会想到使用模块化加载呢，我觉得主要是两点。</p><br><ul><br><li><br><p>一是按需加载，业务越来越大，基础代码也会越来越多，开发人员可能开发了一百个小工具，而且都塞在一个叫做 utils.js 的包里，但是一个页面可能只需要三到五个小工具，如果直接去加载这个 utils.js 岂不是很大的浪费，PC 端还好，主要是无线端，省下 1KB 那都是很大的价值啊，所以呢，如今很多框架的开发都体现出细颗粒度的分化，像百度研究比较卖力的 <a href="http://tangram.baidu.com/" target="_blank">tangram</a>，阿里放满产品线的 <a href="http://docs.kissyui.com/" target="_blank">kissy</a>，几乎是细分到了微粒程度，这种细分方式也促进了模块化加载技术的发展，比如为了减少请求数量，kissy 的 config 中开启 combo 就可以合并多个请求为一个等等。</p><br></li><br><li><br><p>第二点，应该也是从服务器那边参考而来的，服务器脚本很多都是以文件为单位分离的，如果要利用其它文件的功能，可以轻而易举的 require 或者 include 进来，我没有去研究这些加载函数的内部实现原理，稍微猜猜应该是把文件写入到缓存，遇到 include 之类的加载函数，暂停写入，找到需要 include 的文件地址，把找到的文件接着上面继续写入缓存，以此类推，直到结束，然后编译器进行统一编译。</p><br></li><br></ul><br><h3>一、模块化加载的技术原理</h3><br><p>先不考虑各种模块定义规范，本文目的只是简要的分析加载原理， CMD / AMD 规范虽内容然不多，但是要实现起来，工程量还是不小。文章后面会提到。</p><br><h4>1. 数据模块的加载</h4><br><p>既然是模块化加载，想办法把模块内容拿到当然是重头戏，无论是 script 还是 css 文件的加载，一个 script 或者 link 标签就可以搞定问题，不过我这里采用的是 ajax，目的是为了拿到 script 的代码，也是为了照顾后面要说的 CMD 规范。</p>
