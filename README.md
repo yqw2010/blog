@@ -1,8 +1,10 @@
 ### 小胡子个人网站
 
-[![小胡子哥](http://barretlee.com/avatar150.png)](http://barretlee.com)
+[![小胡子哥](http://www.barretlee.com/avatar150.png)](http://www.barretlee.com)
 
-博客地址: <http://barretlee.com>
+博客地址: <http://www.barretlee.com>.
+
+Master 分支为博客系统的构建代码, gh-pages 分支为部署代码.
 
 
 ### Makefile使用说明
@@ -10,7 +12,7 @@
 还未做优化, 博客的 hexo 主题暂未发布.
 
 ```
-====================A common Makefilefor blog system========================
+====================A common Makefile for blog system=======================
 Copyright (C) 2015 barret.china@gmail.com
 The following targets are support:
 

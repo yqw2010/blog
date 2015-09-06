@@ -56,6 +56,7 @@ deploy:
 	cd blog; \
 	rm -rf ${BUILD}; \
 	rm -rf ${DEPLOY_GIT}; \
+	rm db.json; \
 	hexo g; \
 	hexo d; \
 	open ${WEB};
