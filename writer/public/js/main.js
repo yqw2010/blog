@@ -70,12 +70,14 @@ $(document).ready(function() {
     var evt = evt.originalEvent;
     var clipboardData = evt.clipboardData;
     var items = clipboardData && clipboardData.items;
-    var item = item && items[0];
+    var item = items && items[0];
     if(item && /^image/i.test(item.type)) {
+      item = item.getAsFile();
       uploadImage(item);
     } else {
       window.console && window.console.log("仅支持图片");
     }
+    return false;
   });
   $(".uploadImg input").on("change", function(evt){
     var $this = $(this).get(0);
