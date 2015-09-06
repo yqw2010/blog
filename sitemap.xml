@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/comments/index.html</loc>
+    <lastmod>2015-09-06T07:58:11.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/friends/index.html</loc>
+    <lastmod>2015-09-06T07:51:31.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
     <lastmod>2015-09-06T06:42:59.000Z</lastmod>
   </url>
@@ -34,16 +44,6 @@
   <url>
     <loc>http://www.barretlee.com/404.html</loc>
     <lastmod>2015-09-05T15:15:50.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/07/09/cb-window-var/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
@@ -497,12 +497,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</loc>
+    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/02/27/cb-webAudio-cross-fading/</loc>
+    <loc>http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -902,22 +902,22 @@
   </url>
   
   <url>
+    <loc>http://www.barretlee.com/blog/2014/02/27/cb-webAudio-cross-fading/</loc>
+    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/07/09/cb-window-var/</loc>
+    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2012/09/16/ajax%E8%AF%B7%E6%B1%82%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2015-09-04T15:58:20.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/about/index.html</loc>
-    <lastmod>2015-09-04T13:35:34.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/friends/index.html</loc>
-    <lastmod>2015-09-04T13:35:34.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/entry/index.html</loc>
+    <loc>http://www.barretlee.com/demo/ST/RFC-HTTP/index.html</loc>
     <lastmod>2015-09-04T13:35:34.000Z</lastmod>
   </url>
   
@@ -947,7 +947,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/message/index.html</loc>
+    <loc>http://www.barretlee.com/demo/index.html</loc>
     <lastmod>2015-09-04T13:35:34.000Z</lastmod>
   </url>
   
@@ -957,7 +957,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/demo/ST/RFC-HTTP/index.html</loc>
+    <loc>http://www.barretlee.com/entry/index.html</loc>
     <lastmod>2015-09-04T13:35:34.000Z</lastmod>
   </url>
   
@@ -992,7 +992,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/demo/index.html</loc>
+    <loc>http://www.barretlee.com/message/index.html</loc>
+    <lastmod>2015-09-04T13:35:34.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/about/index.html</loc>
     <lastmod>2015-09-04T13:35:34.000Z</lastmod>
   </url>
   
