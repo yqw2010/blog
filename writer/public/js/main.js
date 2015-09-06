@@ -77,7 +77,7 @@ $(document).ready(function() {
     } else {
       window.console && window.console.log("仅支持图片");
     }
-    return false;
+    //return false;
   });
   $(".uploadImg input").on("change", function(evt){
     var $this = $(this).get(0);
