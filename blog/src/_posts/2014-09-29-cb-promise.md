@@ -110,7 +110,7 @@ promise(ok).then(ok_1).then(ok_2).then(ok_3).reslove(value)------+
 
 ```
 var Promise = function(affair){
-    this.state = \pending";
+    this.state = "pending";
     this.affair = affair || function(o) { return o; };
     this.allAffairs = [];
 };
@@ -211,10 +211,10 @@ promise.then(function(data){
     return 3;
 }).then(function(data){
     console.log(data);
-    console.log(\end");
+    console.log("end");
 });
 // 启动事务
-promise.resolve(\start");
+promise.resolve("start");
 
 ```
 
@@ -235,7 +235,7 @@ promise.resolve(\start");
 ```
 var promise = new Promise(function(data){
     console.log(data);
-    return \end";
+    return "end";
 });
 promise.then(function(data){
     // 这里需要返回一个 Promise，让主事务切换到子事务处理
@@ -250,7 +250,7 @@ promise.then(function(data){
         return promise;
     })(data);
 });
-promise.resolve(\start");
+promise.resolve("start");
 
 ```
 
@@ -278,10 +278,10 @@ function delay(data){
 // 主事务
 var promise = new Promise(function(data){
     console.log(data);
-    return \end";
+    return "end";
 });
 promise.then(delay);
-promise.resolve(\start");
+promise.resolve("start");
 
 ```
 
@@ -292,13 +292,13 @@ promise.resolve(\start");
 
 ```
 new Promise(function(resolve, reject){
-    resolve(\start");
+    resolve("start");
 }).then(function(data){
     console.log(data);
-    throw \error";
+    throw "error";
 }).catch(function(err){
     console.log(err);
-    return \end";
+    return "end";
 }).then(function(data){
     console.log(data)
 });
@@ -349,7 +349,7 @@ promise.race();
 
 ```
 function Promise(resolver){
-    this.status = \pending";
+    this.status = "pending";
     this.value = null;
     this.handlers = [];
     this._doPromise.call(this, resolver);
@@ -390,7 +390,7 @@ resolve: function(value) {
             value && value.then && this._doPromise(value.then);
         }
         // 执行完了之后标记为完成
-        this.status = \fulfilled";
+        this.status = "fulfilled";
         this.value = value;
         this._dequeue();
     } catch(e) {
@@ -399,7 +399,7 @@ resolve: function(value) {
 },
 reject: function(reason) {
     // 标记状态为出错
-    this.status = \rejected";
+    this.status = "rejected";
     this.value = reason;
     this._dequeue();
 },
@@ -428,7 +428,7 @@ _handle: function(thenPromise, onFulfilled, onRejected){
 
     setTimeout(function() {
         // 判断下次操作采用哪个函数，reject 还是 resolve
-        var callback = self.status == \fulfilled"
+        var callback = self.status == "fulfilled"
                        ? onFulfilled
                        : onRejected;
         // 只有是函数才会继续回调
@@ -441,7 +441,7 @@ _handle: function(thenPromise, onFulfilled, onRejected){
             return;
         }
         // 否则就将 value 传递给下一个事务了
-        self.status == \fulfilled"
+        self.status == "fulfilled"
                         ? self.resolve.call(thenPromise, self.value)
                         : self.reject.call(thenPromise, self.value);
     }, 1);
@@ -455,7 +455,7 @@ _handle: function(thenPromise, onFulfilled, onRejected){
 then: function(onFulfilled, onRejected){
     var thenPromise = new Promise(function() {});
 
-    if (this.status == \pending") {
+    if (this.status == "pending") {
         this.handlers.push({
             thenPromise: thenPromise,
             onFulfilled: onFulfilled,
@@ -509,9 +509,9 @@ $.ajax({
 
 ```
 $.when(taskOne, taskTwo).done(function () {
-    console.log(\都执行完毕后才会输出我！");
+    console.log("都执行完毕后才会输出我！");
 }).fail(function(){
-    console.log(\只要有一个失败，就会输出我！")
+    console.log("只要有一个失败，就会输出我！")
 });
 
 ```
@@ -543,19 +543,19 @@ Promise.race([true, Promise.resolve(1), ...]).then(function(value){
 ```
 function taskA(){
     setTimeout(function(){
-        var result = \A";
-        E.emit(\taskA", result);
+        var result = "A";
+        E.emit("taskA", result);
     }, 1000);
 }
 
 function taskB(){
     setTimeout(function(){
-        var result = \B";
-        E.emit(\taskB", result);
+        var result = "B";
+        E.emit("taskB", result);
     }, 1000);
 }
 
-E.all([\taskA", \taskB"], function(A, B){
+E.all(["taskA", "taskB"], function(A, B){
     return A + B;
 });
 
