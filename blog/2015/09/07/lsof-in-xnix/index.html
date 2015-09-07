@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>unix下的文件操纵 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="unix/linux 下的命令太多了，花时间系统去学肯定十分枯燥，平时有需求用到某些命令的时候就会将这个命令所有的功能都看看，这次是为了关掉某个端口的进程，学习了下 lsof 和 kill 命令。在 sublime 中配置了开启 node 的快捷方式，Command + B 可以直接执行正在编辑的 ">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="unix下的文件操纵 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/07/lsof-in-xnix/">
+  <meta property="og:site_name" content="unix下的文件操纵">
+  <meta property="og:description" content="unix/linux 下的命令太多了，花时间系统去学肯定十分枯燥，平时有需求用到某些命令的时候就会将这个命令所有的功能都看看，这次是为了关掉某个端口的进程，学习了下 lsof 和 kill 命令。在 sublime 中配置了开启 node 的快捷方式，Command + B 可以直接执行正在编辑的 ">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">unix下的文件操纵</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2015-09-07 10:24:17</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/Linux/">Linux</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/linux/">linux</a>, <a class="article-tag-link" href="/blog/tags/lsof/">lsof</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="lsof-in-xnix"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/09/07/lsof-in-xnix/">http://www.barretlee.com/blog/2015/09/07/lsof-in-xnix/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>unix/linux 下的命令太多了，花时间系统去学肯定十分枯燥，平时有需求用到某些命令的时候就会将这个命令所有的功能都看看，这次是为了关掉某个端口的进程，学习了下 lsof 和 kill 命令。</p>
+<a id="more"></a>
+<p>在 sublime 中配置了开启 node 的快捷方式，<code>Command + B</code> 可以直接执行正在编辑的 js 文件。多次由于操作不当，报错：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">Error: listen EADDRINUSE</span><br><span class="line">    at exports._errnoException (util<span class="class">.js</span>:<span class="number">746</span>:<span class="number">11</span>)</span><br><span class="line">    at Server._listen2 (net<span class="class">.js</span>:<span class="number">1156</span>:<span class="number">14</span>)</span><br><span class="line">    at listen (net<span class="class">.js</span>:<span class="number">1182</span>:<span class="number">10</span>)</span><br><span class="line">    at Server<span class="class">.listen</span> (net<span class="class">.js</span>:<span class="number">1267</span>:<span class="number">5</span>)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>意思就是端口被占用 <code>EADDRINUSE</code>，即 “Error: Address in use”，这里为啥唤作 address 而不是 port 被占用，还是有说法的。</p>
+<p>在 linux/unix 下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。如 TCP/UDP 套接字，应用程序都会在系统目录下为期分配一个文件描述符，这个描述符就是程序和系统交互的接口。</p>
+<h3 id="lsof_命令">lsof 命令</h3><p><code>lsof</code> 是 *nix 下常用的一个命令，全称为 “list open file”，列举被打开的文件描述符的相关信息，包括：</p>
+<ul>
+<li><code>-u</code> 用户，如 root</li>
+<li><code>-c</code> 进程名，如 chrome</li>
+<li><code>-g</code> gid</li>
+<li><code>-p</code> pid</li>
+<li><code>-a</code> and 的意思，满足多个条件过滤</li>
+<li><code>-i</code> 端口号</li>
+</ul>
+<p>还有几个就不列举了，对一般用户来说并不常用。一次命令的执行，程序会吐出这些信息：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">➜  blogsys ✗ lsof -i :<span class="number">4001</span></span><br><span class="line">COMMAND     PID      USER   FD   TYPE NODE NAME</span><br><span class="line">Google    <span class="number">57881</span> barretlee  <span class="number">113u</span>  IPv4 TCP localhost:<span class="number">52445</span>-&gt;localhost:newoak (ESTABLISHED)</span><br><span class="line">node      <span class="number">68004</span> barretlee   <span class="number">11u</span>  IPv6 TCP *:newoak (LISTEN)</span><br><span class="line">node      <span class="number">68004</span> barretlee   <span class="number">18u</span>  IPv6 TCP localhost:newoak-&gt;localhost:<span class="number">52445</span> (ESTABLISHED)</span><br></pre></td></tr></table></figure>
+<p>中间还有一个 DEVICE 和 SIZE，被我删掉了。从上面可以看到包含如下信息：</p>
+<ul>
+<li>COMMAND 对应我们上面提到的 -c</li>
+<li>PID     对应 -p</li>
+<li>USER    对应 -u</li>
+<li>NAME    被打开文件的名字</li>
+<li>FD、TYPE、NODE 就不细说了，可以看下面两篇参考文章</li>
+</ul>
+<p>通过前面的参数，可以筛选被打开的文件。</p>
+<h3 id="关闭开启的端口">关闭开启的端口</h3><p>通过 lsof 的端口查找参数找到 pid 或者 command：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lsof -i :<span class="number">4001</span></span><br></pre></td></tr></table></figure>
+<p>比如我们找到的 command 是 node， pid 为 73220，则可以通过下面的方式关闭端口：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">kill</span> -<span class="keyword">p</span> <span class="number">73220</span></span><br><span class="line">pkill node</span></span><br></pre></td></tr></table></figure>
+<p>另外还有 killall、xkill 等命令，可以阅读 <a href="http://www.thegeekstuff.com/2009/12/4-ways-to-kill-a-process-kill-killall-pkill-xkill/" target="_blank" rel="external">4 Ways to Kill a Process – kill, killall, pkill, xkil</a></p>
+<h3 id="参考文章">参考文章</h3><ul>
+<li><a href="http://blog.csdn.net/guoguo1980/article/details/2324454" target="_blank" rel="external">linux lsof详解</a></li>
+<li><a href="http://blog.csdn.net/jkh753/article/details/10060423" target="_blank" rel="external">linux 系统监控、诊断工具之 lsof 用法简介</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/12/4-ways-to-kill-a-process-kill-killall-pkill-xkill/" target="_blank" rel="external">4 Ways to Kill a Process – kill, killall, pkill, xkil</a></li>
+</ul>
+
+        <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2015/09/07/lsof-in-xnix/">http://www.barretlee.com/blog/2015/09/07/lsof-in-xnix/</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-07 10:24:17</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/Linux/">Linux</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/linux/">linux</a>, <a class="article-tag-link" href="/blog/tags/lsof/">lsof</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-07 10:59:47</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <b>分享到: </b>
+  <i class="icon on" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+  
+    <a href="/blog/2015/09/06/set-gitignore-after-add-file/" class="post-next">
+      <b>用对 gitignore</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  
+  <a href="/blog/2015/09/06/set-gitignore-after-add-file/" class="next" title="用对 gitignore">
+    <i class="icon">&#x261e;</i>
+    <b>用对 gitignore</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="lsof-in-xnix" data-title="unix下的文件操纵" data-url="http://www.barretlee.com/blog/2015/09/07/lsof-in-xnix/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>
