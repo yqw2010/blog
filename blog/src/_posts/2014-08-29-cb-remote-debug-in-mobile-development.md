@@ -30,7 +30,7 @@ date: 2014-08-29 12:15:00
 
 ```
 +-------------+    \ /   +---------------+
-|    client   |-----&times;---→|    Internet   |
+|    client   |-----×---→|    Internet   |
 +-------------+    / \   +---------------+
        |                         ↑
        |                         |
@@ -76,7 +76,7 @@ date: 2014-08-29 12:15:00
 <h4>1. 安装</h4>
 
 ```
-npm install &ndash;g weinre
+npm install –g weinre
 
 ```
 
@@ -89,7 +89,7 @@ weinre -httpPort 7999 -boundHost -all-
 
 <ul>
 <li>httpPort 监听端口</li>
-<li>boundHost &ndash;all- 绑定主机</li>
+<li>boundHost –all- 绑定主机</li>
 </ul>
 <h4>3. 说明都写在图片里头，相信聪明的你可以悟到</h4>
 </div>

@@ -47,7 +47,7 @@ date: 2013-03-27 12:13:00
 </tr>
 <tr>
 <td><span>int maxAge</span></td>
-<td><span>该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为&ndash;1</span></td>
+<td><span>该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为–1</span></td>
 </tr>
 <tr>
 <td><span>boolean secure</span></td>

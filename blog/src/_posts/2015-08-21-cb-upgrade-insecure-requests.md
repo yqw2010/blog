@@ -14,7 +14,7 @@ date: 2015-08-21 11:08:00
 
 <p>HTTPS 是 HTTP over Secure Socket Layer，以安全为目标的 HTTP 通道，所以在 HTTPS 承载的页面上不允许出现 http 请求，一旦出现就是提示或报错：</p>
 <blockquote>
-<p>Mixed Content: The page at &lsquo;<a href="https://www.taobao.com/">https://www.taobao.com/</a>&lsquo; was loaded over HTTPS, but requested an insecure image &lsquo;<a href="http://g.alicdn.com/s.gif">http://g.alicdn.com/s.gif</a>&rsquo;. This content should also be served over HTTPS.</p>
+<p>Mixed Content: The page at "<a href="https://www.taobao.com/">https://www.taobao.com/</a>" was loaded over HTTPS, but requested an insecure image "<a href="http://g.alicdn.com/s.gif">http://g.alicdn.com/s.gif</a>". This content should also be served over HTTPS.</p>
 </blockquote>
 <p>HTTPS改造之后，我们可以在很多页面中看到如下警报：</p>
 <p><img src="http://images0.cnblogs.com/blog2015/387325/201508/211107536449320.png" alt=""></p>

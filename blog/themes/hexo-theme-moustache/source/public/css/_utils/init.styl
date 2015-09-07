@@ -15,6 +15,7 @@ body, .post h1, .post h2, .post. h3 {
 }
 body {
   -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
   font-size: 16px;
   color: #2F2F2F;
 }
@@ -45,9 +46,18 @@ input:focus, textarea:focus {
 a img {
   border:0;
 }
-a[target="_blank"], a[href=^http] { cursor: alias;}
-code {background:#F8F8F8; border-radius: 2px;padding:0 5px;font-family:"Courier";
-  line-height:1.5;font-size:16px;word-wrap:break-word;margin:0 3px;}
+a[target="_blank"] {cursor: alias;}
+code {
+  background: #F9F9F9;
+  border-radius: 2px;
+  padding: 2px 8px;
+  font-family: monospace;
+  line-height: 1.5;
+  font-size: 16px;
+  word-wrap: break-word;
+  margin: 0 3px;
+  box-shadow: 1px 1px 3px #DCDCDC;
+}
 pre {overflow:auto;_overflow:hidden;*overflow-y:hidden;}
 pre code{background-color:transparent;*overflow-y:hidden;border:none;padding:0;}
 textarea {overflow:auto;}

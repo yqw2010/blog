@@ -22,7 +22,7 @@ date: 2014-08-20 11:07:00
 
 ```
 // 数据类型判断
-if(Object.prototype.toString.call(str) === \[object String]"){
+if(Object.prototype.toString.call(str) === "[object String]"){
     // doSomething();
 }；
 
@@ -39,7 +39,7 @@ if(/.*\.css(?=\?|$)/.test(\/path/to/main.css")){
 var Queue = ["test1", "test2", "test3"];
 // 常见方式
 Queue.length = 0;
-Queue = []; 
+Queue = [];
 
 ```
 
@@ -49,13 +49,13 @@ Queue = [];
 // 注册
 var repos = {};
 
-repos[\a"] = {
-   name: \a",
+repos["a"] = {
+   name: "a",
    content: {}
 };
 
-repos[\b"] = {
-   name: \b",
+repos["b"] = {
+   name: "b",
    content: {}
 };
 
@@ -77,7 +77,7 @@ function isType(type){
     }
 }
 
-var isString = isType(\String");
+var isString = isType("String");
 var isObject = isType("Object");
 var isArray = isType("Array");
 
@@ -90,7 +90,7 @@ isObject({});
 <p class="p2">我觉得不需要太多的解释，对比</p>
 
 ```
-if(Object.prototype.toString.call(str) === \[object String]"){
+if(Object.prototype.toString.call(str) === "[object String]"){
     // code here...
 }
 
@@ -101,7 +101,7 @@ if(Object.prototype.toString.call(str) === \[object String]"){
 ```
 // 提取常量
 var isCss = /.*\.css(?=\?|$)/;
-isCss.test(\/path/to/main.css");
+isCss.test("/path/to/main.css");
 
 ```
 
@@ -133,7 +133,7 @@ function register(o){
 }
 
 register({
-  name: \a",
+  name: "a",
   content: {}
 });
 
@@ -142,8 +142,8 @@ register({
 <p class="p2">对比我们之前</p>
 
 ```
-repos[\a"] = {
-   name: \a",
+repos["a"] = {
+   name: "a",
    content: {}
 };
 

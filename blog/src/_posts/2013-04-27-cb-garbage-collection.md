@@ -153,7 +153,7 @@ arr.push.apply(arr, sliced);
 <div>
 
 ```
-for (var i = index, len = arr.length &ndash; 1; i < len; i++)
+for (var i = index, len = arr.length – 1; i < len; i++)
     arr[i] = arr[i + 1];
 arr.length = len;
 

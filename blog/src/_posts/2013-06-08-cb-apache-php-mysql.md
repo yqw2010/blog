@@ -80,7 +80,7 @@ sudo apt-get install phpmyadmin
 ```
 
 <p><span>phpmyadmin设置：</span></p>
-<p>在安装过程中会要求选择Web server：apache2或lighttpd，使用空格键选定apache2，按tab键然后确定。然后会要求输入设置的Mysql数据库密码连接密码Password of the database&rsquo;s administrative user。</p>
+<p>在安装过程中会要求选择Web server：apache2或lighttpd，使用空格键选定apache2，按tab键然后确定。然后会要求输入设置的Mysql数据库密码连接密码Password of the database"s administrative user。</p>
 <p>然后将phpmyadmin与apache2建立连接，以我的为例：www目录在/var/www，phpmyadmin在/usr/share /phpmyadmin目录，所以就用命令：</p>
 
 ```

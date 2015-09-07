@@ -37,8 +37,9 @@
 
   .page-relative-fixed {
     position: fixed;
-    right: 48px;
+    right: 60px;
     bottom: 15px;
+    z-index 30;
   }
   .page-relative-fixed .icon {
     font-size: 14px;
@@ -47,26 +48,29 @@
     filter: none;
   }
   .page-relative-fixed .icon:hover {
-    font-size: 14px;
     color: #AAA;
     opacity: 1;
     filter: none;
   }
   .page-relative-fixed .next b,.page-relative-fixed .prev b {
     position: absolute;
-    font-size: 12px;
-    top: -30px;
+    font-size: 16px;
+    top: -40px;
     overflow: visible;
     margin: 0;
     left: -60px;
+    background-color: #FAFAFA;
+    padding: 0 6px;
+    color: #000;
+    border-radius 4px;
   }
   .page-relative-fixed a.next,.page-relative-fixed a.prev {
     margin: 0;
     position: static;
     display: inline-block;
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
     text-align: center;
     margin-right: 4px;
     background-color: #EEE;
@@ -94,6 +98,12 @@
   }
   .arrow-tips {
     display: none;
+  }
+  .highlight {
+    padding: 10px 8px;
+    border-width: 1px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -205,10 +215,29 @@
     width: 480px;
   }
   .highlight pre .code, .highlight .code pre, figure span, figure {
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.5;
     -webkit-text-size-adjust: none;
-    font-family: 'courier new', courier, monospace;
+    font-family: monospace;
+  }
+  .post-content h2 {
+    font-size: 28px;
+    line-height: 48px;
+    margin-top: 0;
+  }
+  .post-content h4 {
+    font-size: 18px;
+    line-height: 32px;
+    margin-top: 0;
+  }
+  .post-content h5 {
+    font-size: 16px;
+    line-height: 28px;
+    margin-top: 0;
+  }
+  .post-content img {
+    box-shadow: 0 0 15px #ccc;
+    margin: auto;
   }
 }
 @media screen and (max-width: 481px) {

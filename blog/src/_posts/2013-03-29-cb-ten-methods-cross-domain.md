@@ -29,7 +29,7 @@ date: 2013-03-29 11:04:00
 <h3>双向<a href="http://www.woiweb.net/tag/%E8%B7%A8%E5%9F%9F">跨域</a></h3>
 <h4><strong>document.domain</strong></h4>
 <p>通过修改document的domain属性，我们可以在域和子域或者不同的子域之间通信。同域策略认为域和子域隶属于不同的域，比如www.a.com和sub.a.com是不同的域，这时，我们无法在www.a.com下的页面中调用sub.a.com中定义的JavaScript方法。但是当我们把它们document的domain属性都修改为a.com，浏览器就会认为它们处于同一个域下，那么我们就可以互相调用对方的method来通信了。</p>
-<h4><strong>FIM &ndash; Fragment Identitier Messaging</strong></h4>
+<h4><strong>FIM – Fragment Identitier Messaging</strong></h4>
 <p>不同的域之间，JavaScript只能做很有限的访问和操作，其实我们利用这些有限的访问权限就可以达到<a href="http://www.woiweb.net/tag/%E8%B7%A8%E5%9F%9F">跨域</a>通信的目的了。FIM (Fragment Identitier Messaging)就是在这个大前提下被发明的。父窗口可以对iframe进行URL读写，iframe也可以读写父窗口的URL，URL有一部分被称为frag，就是#号及其后面的字符，它一般用于浏览器锚点定位，Server端并不关心这部分，应该说HTTP请求过程中不会携带frag，所以这部分的修改不会产生HTTP请求，但是会产生浏览器历史记录。FIM的原理就是改变URL的frag部分来进行双向通信。每个window通过改变其他window的location来发送消息，并通过监听自己的URL的变化来接收消息。这个方式的通信会造成一些不必要的浏览器历史记录，而且有些浏览器不支持onhashchange事件，需要轮询来获知URL的改变，最后，URL在浏览器下有长度限制，这个制约了每次传送的数据量。</p>
 <h4><strong>Flash LocalConnection</strong></h4>
 <p>页面上的双向通信也可以通过Flash来解决，Flash API中有LocalConnection这个类，该类允许两个SWF之间通过进程通信，这时SWF可以播放在独立的Flash Player或者AIR中，也可以嵌在<span class="wp_keywordlink_affiliate"><a title="html" href="http://www.woiweb.net/category/html_css" rel="nofollow" target="_blank">html</a></span>页面或者是PDF中。遵循这个通信原则，我们可以在不同域的HTML页面各自嵌套一个SWF来达到相互传递数据的目的了。SWF通过LocalConnection交换数据是很快的，但是每次的数据量有40kb的大小限制。用这种方式来<a href="http://www.woiweb.net/tag/%E8%B7%A8%E5%9F%9F">跨域</a>通信过于复杂，而且需要了2个SWF文件，实用性不强。</p>

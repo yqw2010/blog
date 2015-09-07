@@ -97,14 +97,14 @@ function logError(e) {
     console.log(\error " + e);
 };
 
-appCache.addEventListener(&lsquo;cached&rsquo;, logEvent, false);
-appCache.addEventListener(&lsquo;checking&rsquo;, logEvent, false);
-appCache.addEventListener(&lsquo;downloading&rsquo;, logEvent, false);
-appCache.addEventListener(&lsquo;error&rsquo;, logError, false);
-appCache.addEventListener(&lsquo;noupdate&rsquo;, logEvent, false);
-appCache.addEventListener(&lsquo;obsolete&rsquo;, logEvent, false);
-appCache.addEventListener(&lsquo;progress&rsquo;, logEvent, false);
-appCache.addEventListener(&lsquo;updateready&rsquo;, logEvent, false);
+appCache.addEventListener("cached", logEvent, false);
+appCache.addEventListener("checking", logEvent, false);
+appCache.addEventListener("downloading", logEvent, false);
+appCache.addEventListener("error", logError, false);
+appCache.addEventListener("noupdate", logEvent, false);
+appCache.addEventListener("obsolete", logEvent, false);
+appCache.addEventListener("progress", logEvent, false);
+appCache.addEventListener("updateready", logEvent, false);
 
 ```
 

@@ -93,7 +93,7 @@ function ArrayPush() {
 
 ```
 var push = Array.prototype.push.uncurrying();
-push( obj, &lsquo;first&rsquo; );
+push( obj, "first" );
 
 ```
 

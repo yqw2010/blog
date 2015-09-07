@@ -177,7 +177,7 @@ header('Access-Control-Allow-Origin: *');
 
 ```
 
-<p>以前使用的是 &lsquo;//@&rsquo; 作为开头，现在使用 &lsquo;//#&rsquo;，然而对于错误上报，这玩意儿没啥用。JS 不能拿到他真实的行数，只能通过 Chrome DevTools 这样的工具辅助定位，而且并不是每个线上资源都会添加 sourceMap 文件。sourceMap 的用途目前还只能体现在开发阶段。</p>
+<p>以前使用的是 "//@" 作为开头，现在使用 "//#"，然而对于错误上报，这玩意儿没啥用。JS 不能拿到他真实的行数，只能通过 Chrome DevTools 这样的工具辅助定位，而且并不是每个线上资源都会添加 sourceMap 文件。sourceMap 的用途目前还只能体现在开发阶段。</p>
 <p>当然，如果理解了 sourceMap 的 VLQ编码和位置对应关系，也可以将拿到的日志进行二次解析，映射到真实路径位置，这个成本比较高，貌似暂时也没人尝试过。</p>
 <p>那么，有什么办法，可以定位错误的具体位置，或者说有什么办法可以缩小我们定位问题的难度呢？</p>
 <p>可以这样考虑：打包的时候，在每两个合并的文件之间加上 1000 个空行，最后上线的文件就会变成</p>
@@ -325,7 +325,7 @@ window.onerror = function(){
 </blockquote>
 <p>自定义的错误日志：</p>
 <blockquote>
-<p>\生日模块中获取后端接口信息时，eval 解析出错，错误内容为：vd is not defined."
+<p>"生日模块中获取后端接口信息时，eval 解析出错，错误内容为：vd is not defined."
 该错误在最近 10 分钟内出现 1000 次，这个错误往日的平均出错量是 50 次 / 10 分钟</p>
 
 </blockquote>
@@ -337,7 +337,7 @@ window.onerror = function(){
 <h3 id="_8"><a class="headeranchor-link" name="user-content-_8" href="#_8"></a>拓展阅读</h3>
 <ul>
 <li><a href="http://xbingoz.com/328.html">基于window.onerror事件 建立前端错误日志</a> by Dx. Yang</li>
-<li><a href="http://www.aliued.cn/2012/10/27/%E6%9E%84%E5%BB%BAweb%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F-fdsafe.html">构建web前端异常监控系统&ndash;FdSafe</a> by 石破</li>
+<li><a href="http://www.aliued.cn/2012/10/27/%E6%9E%84%E5%BB%BAweb%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F-fdsafe.html">构建web前端异常监控系统–FdSafe</a> by 石破</li>
 <li><a href="http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html">JavaScript Source Map 详解</a> by 阮一峰</li>
 <li><a href="http://www.w3.org/TR/2010/WD-html5-20100624/webappapis.html#handler-window-onerror">HTML5标准-window.onerror</a></li>
 <li><a href="http://msdn.microsoft.com/en-us/library/cc197053%28VS.85%29.aspx">MSDN-window.onerror</a></li>

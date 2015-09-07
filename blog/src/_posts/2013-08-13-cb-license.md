@@ -44,7 +44,7 @@ date: 2013-08-13 10:17:00
 <p>GPL/LGPL都保障原作者的知识产权，避免有人利用开源代码复制并开发类似的产品</p>
 <p><strong>MIT（<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>）</strong></p>
 <p>MIT是和BSD一样宽范的许可协议,作者只想保留版权,而无任何其他了限制.也就是说,你必须在你的发行版里包含原许可协议的声明,无论你是以二进制发布的还是以源代码发布的.</p>
-<p id="gulink">本文来自：<a title="五种开源协议的比较(BSD,Apache,GPL,LGPL,MIT) &ndash; 整理" href="http://www.awflasher.com/blog/archives/939">http://www.awflasher.com/blog/archives/939</a></p>
+<p id="gulink">本文来自：<a title="五种开源协议的比较(BSD,Apache,GPL,LGPL,MIT) – 整理" href="http://www.awflasher.com/blog/archives/939">http://www.awflasher.com/blog/archives/939</a></p>
 
 
 

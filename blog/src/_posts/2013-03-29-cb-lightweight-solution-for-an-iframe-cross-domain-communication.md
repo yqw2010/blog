@@ -23,11 +23,11 @@ date: 2013-03-29 11:10:00
 <li>location.hash会直接暴露在URL里，并且在一些浏览器里会产生历史记录，数据安全性不高也影响用户体验，所以不做考虑。另外由于URL大小的限制，支持传递的数据量也不大。</li>
 <li>window.name相比来讲就好很多了，支持2M的数据量，并且当iframe的页面跳到其他地址时，其window.name值保持不变，副作用可以说是最小的。</li>
 </ul>
-<p>讲到这思路也比较清晰了，咱们就用window.name呗，但问题又来了：只有两个页面同域时才能访问window.name。这个问题还好，只要把iframe改为与父页面同域就可以了。这又衍生了新的问题：这不是意味着只能单向通信了吗，iframe怎么向父页面发消息（不可能去改父页面的location吧）？在暗骂坑爹的同时偶然发现了一个很神奇的方法，就是想访问一个iframe的window.name时，只要将其location改为&lsquo;about:blank&rsquo;即可，屡试不爽~没错这个\特性"可以视为IE6/7的一项安全性问题，但利用这个特性来进行跨域通信并没有实际的安全风险。</p>
+<p>讲到这思路也比较清晰了，咱们就用window.name呗，但问题又来了：只有两个页面同域时才能访问window.name。这个问题还好，只要把iframe改为与父页面同域就可以了。这又衍生了新的问题：这不是意味着只能单向通信了吗，iframe怎么向父页面发消息（不可能去改父页面的location吧）？在暗骂坑爹的同时偶然发现了一个很神奇的方法，就是想访问一个iframe的window.name时，只要将其location改为"about:blank"即可，屡试不爽~没错这个\特性"可以视为IE6/7的一项安全性问题，但利用这个特性来进行跨域通信并没有实际的安全风险。</p>
 <p>具体的实现见下图，在iframe的内部再创建一个iframe（我们称之为信使），父子页面轮询信使的window.name，父子页面各自使用变量保存window.name，轮询时发现有变化即被视为收到消息。基本原理就是这么简单，我们继续..</p>
 <p><a href="http://www.alloyteam.com/wp-content/uploads/2012/08/one_messenger1.png" rel="prettyPhoto[1]"><img class="aligncenter size-full wp-image-2868 lh_lazyimg slideshow_imgs" title="图1" src="http://www.alloyteam.com/wp-content/uploads/2012/08/one_messenger1.png" alt="1个信使的情况" width="487" height="403"></a></p>
 <p>图1</p>
-<p>作为一个通用的解决方案，我们的目标是提供一个js文件，封装通信的接口，需要通信的页面只要加载js文件就行。但在封装前，需要考虑更复杂一点的情况：当父子页面双方频率较高地双向通信时，如何进行支持？按照上述的方案，信使的window.name并没有读写锁的概念，这意味着消息很容易乱掉或被漏掉。所以更好的方案应该是：创建两个信使，分别负责"父&ndash;&gt;子"和"子&ndash;&gt;父"的消息传递，并且为了防止消息被冲掉，发送消息时会维护一个消息队列，在取消息时处理消息队列里的所有消息。见图2。</p>
+<p>作为一个通用的解决方案，我们的目标是提供一个js文件，封装通信的接口，需要通信的页面只要加载js文件就行。但在封装前，需要考虑更复杂一点的情况：当父子页面双方频率较高地双向通信时，如何进行支持？按照上述的方案，信使的window.name并没有读写锁的概念，这意味着消息很容易乱掉或被漏掉。所以更好的方案应该是：创建两个信使，分别负责"父–&gt;子"和"子–&gt;父"的消息传递，并且为了防止消息被冲掉，发送消息时会维护一个消息队列，在取消息时处理消息队列里的所有消息。见图2。</p>
 <p><a href="http://www.alloyteam.com/wp-content/uploads/2012/08/two_messenger.png" rel="prettyPhoto[1]"><img class="aligncenter size-full wp-image-2869 lh_lazyimg slideshow_imgs" title="图2" src="http://www.alloyteam.com/wp-content/uploads/2012/08/two_messenger.png" alt="2个信使的情况" width="488" height="402"></a></p>
 <p>图2</p>
 <p><strong>四、封装</strong></p>

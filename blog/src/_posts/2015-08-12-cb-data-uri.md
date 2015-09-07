@@ -123,7 +123,7 @@ iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHx
 
 ```
 
-<pre><span>上方的一串注释就像是一个附件，这个附件内容是一个名叫 </span><code>myidBackground</code><span> 的 </span><code>base64</code><span> 编码图片，在一个 class 叫做 </span><code>myid</code><span> 的 css 中用到了它。这里有几点需要注意：</span></pre>
+<p><span>上方的一串注释就像是一个附件，这个附件内容是一个名叫 </span><code>myidBackground</code><span> 的 </span><code>base64</code><span> 编码图片，在一个 class 叫做 </span><code>myid</code><span> 的 css 中用到了它。这里有几点需要注意：</span></p>
 <ul>
 <li><code>_ANY_SEPARATOR</code> 可以是任意内容</li>
 <li>在"附件"结束位置需要加上结束符 <code>_ANY_SEPARATOR</code>，否则在 Vista 和 Win7 的 IE7 中会<a href="http://www.phpied.com/the-proper-mhtml-syntax/">出错</a>。</li>

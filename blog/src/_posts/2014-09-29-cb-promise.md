@@ -127,7 +127,7 @@ var Promise = function(affair){
 ```
 Promise.prototype.then = function (nextAffair){
     var promise = new Promise();
-    if (this.state == &lsquo;resloved&rsquo;){
+    if (this.state == "resloved"){
         // 如果当前状态是已完成，则这个事务将会被立即执行
         return this._fire(promise, nextAffair);
     }else{
@@ -164,10 +164,10 @@ Promise.prototype._fire = function (nextPromise, nextAffair){
 
 ```
 Promise.prototype.resolve = function (obj){
-    if (this.state != &lsquo;pending&rsquo;) {
-        throw &lsquo;流程已完成，不能再次开启流程！&rsquo;;
+    if (this.state != "pending") {
+        throw "流程已完成，不能再次开启流程！";
     }
-    this.state = &lsquo;resloved&rsquo;;
+    this.state = "resloved";
     // 执行该事务，并将执行结果寄存到 Promise 管理器上
     this.result = this.affair(obj);
     for (var i = 0, len = this.allAffairs.length; i < len; ++i){
@@ -384,7 +384,7 @@ _doPromise: function(resolver){
 resolve: function(value) {
     try{
         if(this === value){
-            throw new TypeError(&lsquo;流程已完成，不能再次开启流程！&rsquo;);
+            throw new TypeError("流程已完成，不能再次开启流程！");
         } else {
             // 如果还有子事务队列，继续执行
             value && value.then && this._doPromise(value.then);
@@ -432,7 +432,7 @@ _handle: function(thenPromise, onFulfilled, onRejected){
                        ? onFulfilled
                        : onRejected;
         // 只有是函数才会继续回调
-        if (typeof callback === &lsquo;function&rsquo;) {
+        if (typeof callback === "function") {
             try {
                 self.resolve.call(thenPromise, callback(self.value));
             } catch(e) {
@@ -516,7 +516,7 @@ $.when(taskOne, taskTwo).done(function () {
 
 ```
 
-<pre><span>当 taskOne 和 taskTwo 都完成之后才执行 done 回调，这个浏览器内置的 Promise 也有对应的函数：</span></pre>
+<p><span>当 taskOne 和 taskTwo 都完成之后才执行 done 回调，这个浏览器内置的 Promise 也有对应的函数：</span></p>
 
 ```
 Promise.all([true, Promise.resolve(1), ...]).then(function(value){
