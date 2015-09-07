@@ -597,8 +597,14 @@ $(function(){
     // 初始化项目
     operation.init();
     decoration.init();
-    $("code").removeClass("highlight");
     $(".highlight").parent(".highlight").removeClass("highlight");
+    $("code").removeClass("highlight").each(function(){
+        var $hasB = $(this).parent(".highlight");
+        var $hasP = $(this).parent("pre");
+        if(!$hasB.size() && $hasP.size()){
+            $hasP.wrap("<div class='highlight'></div>");
+        }
+    })
 });
 
 $(window).on("load", function(){

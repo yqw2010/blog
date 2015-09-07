@@ -61,12 +61,11 @@
 <figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ArrayPush</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = TO_UINT32( <span class="keyword">this</span>.length );</span><br><span class="line">  <span class="keyword">var</span> m = %_ArgumentsLength();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    <span class="keyword">this</span>[i+n] = %_Arguments(i); <span class="comment">//属性拷贝</span></span><br><span class="line">    <span class="keyword">this</span>.length = n + m; <span class="comment">//修正length</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到，ArrayPush方法没有对this的类型做任何显示的限制，所以理论上任何对象都可以被传入ArrayPush这个访问者。</p><br><p>我们需要解决的只剩下一个问题， 如何通过一种通用的方式来使得一个对象可以冒充array对象。</p><br><p>真正的实现代码其实很简单:</p><br><p><img src="http://images.cnitblog.com/blog/387325/201312/20145653-2d027437a9b546aaad15caa9dbed2672.gif" alt=""></p><br><p>这段代码虽然很短, 初次理解的时候还是有点费力. 我们拿push的例子看看它发生了什么.</p>
 
-<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">var <span class="keyword">push</span> = Array.<span class="keyword">prototype</span>.<span class="keyword">push</span>.uncurrying();</span><br><span class="line"><span class="keyword">push</span>( obj, &amp;lsquo;first&amp;rsquo; );</span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">var <span class="keyword">push</span> = Array.<span class="keyword">prototype</span>.<span class="keyword">push</span>.uncurrying();</span><br><span class="line"><span class="keyword">push</span>( obj, <span class="string">"first"</span> );</span><br></pre></td></tr></table></figure>
 <p><img src="http://images.cnitblog.com/blog/387325/201312/20145700-432ff23c4d42442abcdadf7777586aa4.gif" alt=""></p><br><p>本文转自：<a class="blogTitle btitle" title="javascript中有趣的反柯里化" href="http://www.alloyteam.com/2012/12/4304/" rel="external" target="_blank">javascript中有趣的反柯里化</a></p>
 
 
         <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2013/04/09/cb-uncurrying/">http://www.barretlee.com/blog/2013/04/09/cb-uncurrying/</a></p>
-        <p class="article-footer">--EOF--</p>
       </div>
     </div>
     
@@ -82,7 +81,7 @@
 <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>最后编辑时间: 2015-09-07 01:28:24</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>

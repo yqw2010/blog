@@ -59,7 +59,7 @@
 
 
 <p></p><h3>Arguments [参数]</h3><p></p>
-<table class="tbarg" border="1" cellspacing="5" cellpadding="5"><caption>&nbsp;</caption><br><tbody><br><tr><br><td width="120"><span><strong>属&nbsp; 性&nbsp; 名</strong></span></td><br><td><span><strong>描&nbsp;&nbsp;&nbsp; 述</strong></span></td><br></tr><br><tr><br><td><span>String name</span></td><br><td><span>该Cookie的名称。Cookie一旦创建，名称便不可更改</span></td><br></tr><br><tr><br><td><span>Object value</span></td><br><td><span>该Cookie的值。如果值为Unicode字符，需要为字符编码。如果值为二进制数据，则需要使用BASE64编码</span></td><br></tr><br><tr><br><td><span>int maxAge</span></td><br><td><span>该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为&ndash;1</span></td><br></tr><br><tr><br><td><span>boolean secure</span></td><br><td><span>该Cookie是否仅被使用安全协议传输。安全协议。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false</span></td><br></tr><br><tr><br><td><span>String path</span></td><br><td><span>该Cookie的使用路径。如果设置为\/sessionWeb/“，则只有contextPath为\/sessionWeb”的程序可以访问该Cookie。如果设置为\/“，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为\/“</span></td><br></tr><br><tr><br><td><span>String domain</span></td><br><td><span>可以访问该Cookie的域名。如果设置为.google.com”，则所有以\google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为.“</span></td><br></tr><br><tr><br><td><span>String comment</span></td><br><td><span>该Cookie的用处说明。浏览器显示Cookie信息的时候显示该说明</span></td><br></tr><br><tr><br><td><span>int version</span></td><br><td><span>该Cookie使用的版本号。0表示遵循Netscape的Cookie规范，1表示遵循W3C的RFC 2109规范</span></td><br></tr><br></tbody><br></table>
+<table class="tbarg" border="1" cellspacing="5" cellpadding="5"><caption>&nbsp;</caption><br><tbody><br><tr><br><td width="120"><span><strong>属&nbsp; 性&nbsp; 名</strong></span></td><br><td><span><strong>描&nbsp;&nbsp;&nbsp; 述</strong></span></td><br></tr><br><tr><br><td><span>String name</span></td><br><td><span>该Cookie的名称。Cookie一旦创建，名称便不可更改</span></td><br></tr><br><tr><br><td><span>Object value</span></td><br><td><span>该Cookie的值。如果值为Unicode字符，需要为字符编码。如果值为二进制数据，则需要使用BASE64编码</span></td><br></tr><br><tr><br><td><span>int maxAge</span></td><br><td><span>该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为–1</span></td><br></tr><br><tr><br><td><span>boolean secure</span></td><br><td><span>该Cookie是否仅被使用安全协议传输。安全协议。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false</span></td><br></tr><br><tr><br><td><span>String path</span></td><br><td><span>该Cookie的使用路径。如果设置为\/sessionWeb/“，则只有contextPath为\/sessionWeb”的程序可以访问该Cookie。如果设置为\/“，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为\/“</span></td><br></tr><br><tr><br><td><span>String domain</span></td><br><td><span>可以访问该Cookie的域名。如果设置为.google.com”，则所有以\google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为.“</span></td><br></tr><br><tr><br><td><span>String comment</span></td><br><td><span>该Cookie的用处说明。浏览器显示Cookie信息的时候显示该说明</span></td><br></tr><br><tr><br><td><span>int version</span></td><br><td><span>该Cookie使用的版本号。0表示遵循Netscape的Cookie规范，1表示遵循W3C的RFC 2109规范</span></td><br></tr><br></tbody><br></table>
 
 
 <p></p><h3>Detail [参数详解]</h3><p></p>
@@ -114,7 +114,6 @@
 <p></p><h3>Reference [参考资料]</h3><p></p>
 <p>　　1.<a title="百度文库cookie" href="http://baike.baidu.com/view/835.htm" target="_blank">百度文库</a></p><br><p>　　2.<a title="wiki cookie" href="http://zh.wikipedia.org/wiki/Cookie" target="_blank">wiki</a></p><br><p>　　3.<a title="聂微东博客 js操作cookie" href="http://www.cnblogs.com/Darren_code/archive/2011/11/24/Cookie.html" target="_blank">聂微东博客</a></p><br><p><strong>　　</strong>4.<a title="alixixi" href="http://www.alixixi.com/web/a/2008050746872.shtml" target="_blank">alixixi</a></p>
         <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2013/03/27/cb-javascript-cookie/">http://www.barretlee.com/blog/2013/03/27/cb-javascript-cookie/</a></p>
-        <p class="article-footer">--EOF--</p>
       </div>
     </div>
     
@@ -130,7 +129,7 @@
 <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>最后编辑时间: 2015-09-07 01:32:15</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>

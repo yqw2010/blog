@@ -99,7 +99,6 @@
 <p>将之前保存的修改（场景）还原回来。其内部的原理也是很简单的：</p>
 
 <figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">+---------------+      +-----------+      +-----------+       +-----------+</span><br><span class="line">|<span class="string">               </span>|<span class="string">      </span>|<span class="string">           </span>|<span class="string">      </span>|<span class="string">           </span>|<span class="string">       </span>|<span class="string">           </span>|</span><br><span class="line">|<span class="string">  last commit  </span>|<span class="string"> --&gt;  </span>|<span class="string">  working  </span>|<span class="string"> --&gt;  </span>|<span class="string">   index   </span>|<span class="string">  --&gt;  </span>|<span class="string">  commit   </span>|</span><br><span class="line">|<span class="string">               </span>|<span class="string">      </span>|<span class="string">           </span>|<span class="string">      </span>|<span class="string">           </span>|<span class="string">       </span>|<span class="string">           </span>|</span><br><span class="line">+---------------+  ↑   +-----------+      +-----------+   |<span class="string">   +-----------+</span><br><span class="line">      ↓            </span>|<span class="string">         ↓                  ↓         </span>|<span class="string">          ↓</span><br><span class="line">   上次提交         </span>|<span class="string">      当前操作            git add      </span>|<span class="string">    git commit</span><br><span class="line">                   </span>|<span class="string">                                     s</span>|</span><br><span class="line">                   |<span class="string">                                     t</span>|</span><br><span class="line">                   |<span class="string">       +---------+                   a</span>|</span><br><span class="line">                   |<span class="string">       </span>|<span class="string"> Stash 0 </span>|<span class="string">                   s</span>|</span><br><span class="line">                   |<span class="string">       +---------+                   h</span>|</span><br><span class="line">                   +------ |<span class="string"> Stash 1 </span>|<span class="string"> &lt;------------------+</span><br><span class="line">                           +---------+</span><br><span class="line">                           </span>|<span class="string">  ....   </span>|</span><br><span class="line">                           +---------+</span><br><span class="line">                           |<span class="string"> Stash n </span>|</span><br><span class="line">                           +---------+</span><br><span class="line">                                ↓                    <span class="variable">&lt;Created By Barret Lee&gt;</span></span><br><span class="line">                             stash堆栈</span><br></pre></td></tr></table></figure>
-<p>&lt;/——————+&gt;</p>
 <p>有些童鞋可能看不太懂上面的图，git 有一个场景（stash）堆栈，这个堆栈的作用是用于保存修改的，下面举个例子：</p>
 
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入文件夹</span></span><br><span class="line"><span class="variable">$ </span>cd test</span><br><span class="line"><span class="comment"># 初始化 git</span></span><br><span class="line"><span class="variable">$ </span>it init</span><br><span class="line"><span class="comment"># 新建四个文件</span></span><br><span class="line"><span class="variable">$ </span>touch f1 f2 f3 f4</span><br></pre></td></tr></table></figure>
@@ -191,7 +190,6 @@
 
 
         <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2014/05/07/cb-git-improve/">http://www.barretlee.com/blog/2014/05/07/cb-git-improve/</a></p>
-        <p class="article-footer">--EOF--</p>
       </div>
     </div>
     
@@ -207,7 +205,7 @@
 <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/git/">git</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>最后编辑时间: 2015-09-07 01:36:27</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>

@@ -70,7 +70,7 @@
 <p>&nbsp;<span>apt-get程序会自动下载安装最新的mysql版本。在安装的最后，它会要求里输入root的密码，注意，这里的root密码可不是Ubuntu的root密码啊，是你要给MySQL设定的root密码。</span></p><br><p><span>步骤四,安装phpmyadmin-Mysql数据库管理</span></p>
 
 <figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install phpmyadmin</span><br></pre></td></tr></table></figure>
-<p><span>phpmyadmin设置：</span></p><br><p>在安装过程中会要求选择Web server：apache2或lighttpd，使用空格键选定apache2，按tab键然后确定。然后会要求输入设置的Mysql数据库密码连接密码Password of the database&rsquo;s administrative user。</p><br><p>然后将phpmyadmin与apache2建立连接，以我的为例：www目录在/var/www，phpmyadmin在/usr/share /phpmyadmin目录，所以就用命令：</p>
+<p><span>phpmyadmin设置：</span></p><br><p>在安装过程中会要求选择Web server：apache2或lighttpd，使用空格键选定apache2，按tab键然后确定。然后会要求输入设置的Mysql数据库密码连接密码Password of the database”s administrative user。</p><br><p>然后将phpmyadmin与apache2建立连接，以我的为例：www目录在/var/www，phpmyadmin在/usr/share /phpmyadmin目录，所以就用命令：</p>
 
 <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo ln -s <span class="regexp">/usr/</span>share<span class="regexp">/phpmyadmin /</span>var<span class="regexp">/www</span></span><br></pre></td></tr></table></figure>
 <p><span>建立链接。</span></p><br><p>phpmyadmin测试：在浏览器地址栏中打开<a href="http://localhost/phpmyadmin。" target="_blank" rel="external">http://localhost/phpmyadmin。</a></p><br><p>以上ALMP的基本组件就安装完毕了，下面我们再来看一些其他的设置：</p><br><p><span>步骤五，设置Ubuntu文件执行读写权限</span></p><br><p>LAMP组建安装好之后，PHP网络服务器根目录默认设置是在：/var/www。由于Linux系统的安全性原则，改目录下的文件读写权限是只允许root用户操作的，所以我们不能在www文件夹中新建php文件，也不能修改和删除，必须要先修改/var/www目录的读写权限。在界面管理器中通过右键属性不能修改文件权限，得执行root终端命令：</p>
@@ -84,7 +84,6 @@
 <p></p></div><br></div><br></div><p></p>
 
         <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2013/06/08/cb-apache-php-mysql/">http://www.barretlee.com/blog/2013/06/08/cb-apache-php-mysql/</a></p>
-        <p class="article-footer">--EOF--</p>
       </div>
     </div>
     
@@ -100,7 +99,7 @@
 <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>最后编辑时间: 2015-09-07 01:28:24</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
