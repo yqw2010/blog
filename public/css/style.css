@@ -52,7 +52,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: consolas;
 }
 small {
   font-size: 12px;
@@ -1195,8 +1195,8 @@ table th {
   line-height: 24px;
 }
 .post-content pre {
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 26px;
   background: #f8f8f8;
 }
 .this-page-link {
@@ -2567,6 +2567,13 @@ div#ds-thread #ds-reset .ds-comment-body {
   }
 }
 @media screen and (max-width: 640px) {
+  .highlight,
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
   .w404-list {
     text-align: left;
     max-width: 320px;
@@ -2704,6 +2711,11 @@ div#ds-thread #ds-reset .ds-comment-body {
   .post-content img {
     box-shadow: 0 0 15px #ccc;
     margin: auto;
+  }
+  .post-content pre {
+    font-size: 14px;
+    line-height: 24px;
+    background: #f8f8f8;
   }
 }
 @media screen and (max-width: 481px) {
