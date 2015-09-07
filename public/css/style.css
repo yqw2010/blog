@@ -351,7 +351,7 @@ div#menuIndex {
   }
 }
 .highlight {
-  font-family: monospace, Consolas;
+  font-family: monospace, Consolas, "Courier New";
   background: #f8f8f8;
   padding: 10px 40px;
   overflow-x: auto;
@@ -2527,6 +2527,9 @@ div#ds-thread #ds-reset .ds-comment-body {
   .entry-cates ul {
     padding-left: 0;
   }
+  code {
+    box-shadow: none;
+  }
 }
 @media screen and (max-width: 800px) {
   .sidebar-toggler {
@@ -2611,6 +2614,7 @@ div#ds-thread #ds-reset .ds-comment-body {
   .highlight {
     font-size: 14px;
     padding: 10px;
+    font-family: "Courier New", Consolas, monospace;
   }
   .cate-wraper h2 {
     font-size: 26px;
