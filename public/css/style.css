@@ -2614,7 +2614,6 @@ div#ds-thread #ds-reset .ds-comment-body {
   .highlight {
     font-size: 14px;
     padding: 10px;
-    font-family: "Courier New", Consolas, monospace;
   }
   .cate-wraper h2 {
     font-size: 26px;
@@ -2677,7 +2676,7 @@ div#ds-thread #ds-reset .ds-comment-body {
     font-size: 0.9rem;
     line-height: 1.5;
     -webkit-text-size-adjust: none;
-    font-family: monospace;
+    font-family: consolas;
   }
   .post-content h2 {
     font-size: 28px;
