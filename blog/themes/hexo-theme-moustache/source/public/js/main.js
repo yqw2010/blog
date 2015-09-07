@@ -370,15 +370,15 @@ var operation = {
     // 分享
     share: function(title){
         var local = location.href,
-            title = title || $(".post-title").text();
+            title = title || "文章《" + weiboName + " " +  $(".post-title").text() + "》";
 
-        if(!title) title += "好站分享 ";
+        if(!title) title += "好站分享 " + weiboName + " ";
 
-        title += " - 小胡子哥 | 关注互联网，热爱生活! ";
+        title += $("meta[property='og:description']").attr("content").slice(0, 80) + "...";
 
         $("#share-weibo").off().on("click", function(){
             var url = "http://service.weibo.com/share/share.php?appkey=1812166904&title=" +
-            title + weiboName + "&url=" + local + "&searchPic=false&style=simple"; // &pic=a.jpg;
+            title + "&url=" + local + "&searchPic=false&style=simple"; // &pic=a.jpg;
 
             operation._shareWin(url);
         });
