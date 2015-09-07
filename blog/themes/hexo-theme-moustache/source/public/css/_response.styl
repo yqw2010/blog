@@ -96,7 +96,7 @@
     width: 547px;
     float: left;
   }
-  .entry-recent-post,.entry-recent-posts {
+  .entry-recent-post, .entry-recent-posts {
     width: 540px;
   }
   .arrow-tips {
@@ -111,6 +111,9 @@
 }
 
 @media screen and (max-width: 640px) {
+  .highlight, code, kbd, pre, samp {
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  }
   .w404-list {
     text-align: left;
     max-width: 320px;
@@ -122,7 +125,6 @@
     padding-left: 20px;
     display: block;
   }
-
   .w404-list li {
     list-style-type: circle;
     display: block;
@@ -235,11 +237,16 @@
   .post-content h5 {
     font-size: 16px;
     line-height: 28px;
-    margin-top: 0;
+     margin-top: 0;
   }
   .post-content img {
     box-shadow: 0 0 15px #ccc;
     margin: auto;
+  }
+  .post-content pre {
+    font-size: 14px;
+    line-height: 24px;
+    background: #f8f8f8;
   }
 }
 @media screen and (max-width: 481px) {
