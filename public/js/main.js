@@ -374,7 +374,7 @@ var operation = {
 
         if(!title) title += "好站分享 " + weiboName + " ";
 
-        title += $("meta[property='og:description']").attr("content").slice(0, 80) + "...";
+        title += $("meta[property='og:description']").attr("content").slice(0, 95) + "...";
 
         $("#share-weibo").off().on("click", function(){
             var url = "http://service.weibo.com/share/share.php?appkey=1812166904&title=" +
