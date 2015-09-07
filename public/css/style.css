@@ -894,6 +894,8 @@ div.recent-pic {
   _width: 780px;
   padding-left: 40px;
   margin: auto;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 .article {
   padding: 70px 40px 0px;
@@ -2678,7 +2680,7 @@ div#ds-thread #ds-reset .ds-comment-body {
     -webkit-text-size-adjust: none;
     font-family: consolas;
   }
-  .post-content h2 {
+  .post-content h3 {
     font-size: 28px;
     line-height: 48px;
     margin-top: 0;
