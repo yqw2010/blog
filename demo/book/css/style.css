@@ -1,0 +1,292 @@
+@charset 'utf-8'; 
+/**
+* @author barret lee
+* @email jingmingjun92@163.com
+* @date 2013/07/11 created
+*/
+
+
+/*=================init=================*/
+@font-face {
+  font-family: 'Courgette';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Courgette Regular'), local('Courgette-Regular'), url(../font/Courgette.woff) format('woff');
+}
+::selection {
+	background: rgba(83, 120, 214, .7);
+	color: #FFF;
+}
+
+html {
+	height: 100%;
+}
+body {
+	font: 14px/1.5 "Microsoft YaHei";
+	background: rgb(245, 245, 245);
+	height: 100%;
+	overflow-x: hidden;
+}
+a {
+	text-decoration: none;
+}
+a:focus {
+	outline: none;
+}
+ul li {
+	list-style: none;
+}
+
+/*=================header=================*/
+header {
+	font-family: 'Courgette', cursive;
+}
+header h2 {
+	font-size: 28px;
+	text-shadow: 0 0 1px #5378D6;
+}
+header h2 a {
+	display: inline-block;
+	color: #5378D6;
+	-webkit-transition: all 1s;
+	   -moz-transition: all 1s;
+	     -o-transition: all 1s;
+	        transition: all 1s;
+}
+header h2 a:hover {
+	-webkit-transform: rotateY(360deg);
+}
+header p {
+	color: #666;
+}
+.body-title, .main-title, .footer-title {
+	display: none !important;
+}
+.header {
+	border-bottom: 2px solid #E7E7E7;
+	background: #FAFAFA;
+}
+.header div {
+	width: 960px;
+	margin: 0 auto;
+	padding: 15px 0;
+}
+
+/*=================pages=================*/
+.page {
+	display: none;
+}
+.main {
+	width: 960px;
+	margin: 30px auto;
+	overflow: hidden;
+	position: relative;
+}
+.pic-show {
+	float: left;
+}
+.pic-show article {
+	width: 750px;
+	min-height: 450px;
+	_height: 450px;
+}
+
+
+.multichoose {
+	width: 750px;
+}
+select{
+	margin: 6px 0;	
+}
+select, input {
+	padding: 4px;
+	margin-right: 6px;
+	margin-left: 3px;
+	border:1px solid #5378D6;
+	border-radius: 3px;
+	font-weight: 900;
+	color: #333;
+	vertical-align: middle;
+}
+select:focus {
+	outline: none;
+}
+option {
+	height: 22px;
+}
+
+#submitBtn {
+	border: none;
+	display: inline-block;
+	font-size: 16px;
+	padding:0 20px;
+	line-height: 30px;
+	height: 30px;
+	background: #5378D6;
+	color: #FFF;
+	border-radius: 3px;
+	margin-left: 10px;
+	text-align: center;
+	cursor: pointer;
+}
+#submitBtn:hover {
+	background: #2973AD;
+	color: #EFEFEF;
+}
+.multichoose {
+	display: block;
+	margin-bottom: 20px;
+}
+.nav-list {
+	float: right;
+	width: 160px;
+	margin-left: 30px;
+	background: #F3F3F3;
+	margin-right: 20px;
+}
+.nav-list li {}
+.nav-list li a {
+	display: block;
+	line-height: 40px;
+	height: 40px;
+	background: #FAFAFA;
+	text-indent: 2em;
+	color: #9E9E9E;
+	*border-bottom: 2px solid #E7E7E7;
+	*border-right: 1px solid #EFEFEF;
+	box-shadow: 3px 3px 5px #bbb;
+	margin-bottom: 8px;
+	*margin-bottom:3px;
+	border-radius: 3px;
+	-webkit-transition: all 0.5s;
+	   -moz-transition: all 0.5s;
+	     -o-transition: all 0.5s;
+	        transition: all 0.5s;
+}
+.nav-list li a:hover {
+	text-indent: 3em;
+	*text-indent: 2em;
+	color: #FFF;
+	background: #97B3FD;
+	position: relative;
+	left: 1em;
+	*left:0;
+}
+ #nav-list-on {
+ 	text-shadow: 0 0 1px #666;
+ 	*font-weight: bold;
+ }
+.kinds-list {
+	overflow: hidden;
+}
+.kinds-list li {
+	float: left;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 20px;
+	margin-left: 30px;
+	_margin-left: 28px;
+	margin-bottom: 30px;
+	box-shadow: 3px 3px 8px #ccc;
+	background: #FAFAFA;
+}
+.kinds-list li a {
+	width: 240px;
+	height: 140px;
+	display: block;
+	position: relative;
+}
+.kinds-list li h3 {
+	font-size: 40px;
+	font-weight: normal;
+	position: absolute;
+	right: 0px;
+	bottom:0px;
+	color:#E9E9E9;
+	-webkit-transition: color 0.5s;
+	   -moz-transition: color 0.5s;
+	     -o-transition: color 0.5s;
+	        transition: color 0.5s;
+}
+.kinds-list li p {
+	width: 200px;
+	color:#333;
+}
+.kinds-list a:hover h3 {
+	color:#666;
+}
+
+/*=================footer=================*/
+.footer {
+	text-align: center;
+	height: 100px;
+	clear: both;
+}
+footer {
+	line-height: 30px;
+	font-family: 'Courgette', cursive;
+}
+footer a {
+	color: #5378D6;
+	border-bottom: 1px dotted #999;
+	margin-right: 4px;
+	cursor: help;
+}
+
+
+/*=================effects=================*/
+#submitBtn.wait {
+	background: #808080 !important;
+	cursor: wait;
+}
+.xiongwenjie {
+	display: inline-block;
+	margin: 30px 35px;
+	color: #999;
+	margin-left: 50px;
+	cursor: alias;
+	*cursor: pointer;
+	line-height: 20px;
+}
+.xiongwenjie:hover {
+	font-weight: bold;
+	color: #5378D6;
+}
+.xiongwenjie span {
+	color: #5378D6;
+	font-weight: bold;
+	font-size: 20px;
+	-webkit-transition: all 0.5s;
+	   -moz-transition: all 0.5s;
+	     -o-transition: all 0.5s;
+	        transition: all 0.5s;
+}
+.xiongwenjie:hover span {
+	position: relative;
+	top:30px;
+	left: 30px;
+	opacity: 0;
+}
+
+/*===============fullscreen============*/
+#pic-show-container {
+	position: relative;
+}
+.fullscreen {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	padding: 0 10px;
+	height: 26px;
+	line-height: 26px;
+	border-radius: 3px;
+	color: #FFF;
+	background: #5378D6;
+	text-align: center;
+	cursor: pointer;
+	z-index: 1003;
+}
+.fullscreen:hover {
+	background: #4267C5;
+	color: #EEE;
+}

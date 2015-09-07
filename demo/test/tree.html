@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>  
+<html>  
+<head>  
+	<meta charset="UTF-8">  
+	<title>跟我来做一棵树</title>
+    <style type="text/css">
+        ul li span{ cursor: pointer;}
+    </style>
+    
+</head>  
+
+<body>  
+<p>This is a demo of Tree</p>
+
+<script type="text/javascript">
+    //<![[
+        var tree = {
+            "id": 0,
+            "a1": {
+                "id": 1,
+                "name": "a1",
+                "children": {
+                    "b1": "b1_1",
+                    "b2": "b1_2",
+                    "b3": "b1_3"
+                }   
+            },
+            "a2": {
+                "id": 1,
+                "name": "a2",
+                "children": {}
+            },
+            "a3": {
+                "id": 1,
+                "name": "a3",
+                "children": {
+                    "b1": "b3_1",
+                    "b2": "b3_2",
+                    "b3": "b3_3"
+                }
+            }
+        };
+
+        var Tree = function Tree( module ){
+            function createNodeList( obj ) {
+                //创建ul节点和documentFragmeng中间变量
+                var n = document.createElement("ul"),
+                    docfrag = document.createDocumentFragment();
+
+                //判断obj是根节点还是孩子节点
+                if(obj.id == 0) {
+                    n.setAttribute("class", "tree_0");
+
+                    for(var key in obj) {
+                        if(key == "id") continue;
+                        //将节点插入
+                        var c = document.createElement("li"),
+                            span = document.createElement("span");
+                        span.appendChild(document.createTextNode( obj[key].name ));
+                        c.appendChild(span);
+                        docfrag.appendChild( c );
+                    }
+                }else if(obj.id && obj.id == 1) {
+                    n.setAttribute("class", "tree_1");
+
+                    for(var key in obj) {
+                        if(key == "id" || key == "name" || !obj.children) continue;
+                        for( var item in obj.children){
+                            //将节点插入
+                            var c = document.createElement("li");
+                            c.appendChild(document.createTextNode( obj.children[item] ));
+                            docfrag.appendChild( c );
+                        }
+                    }
+                }
+                n.appendChild( docfrag );
+                //返回开始构建的ul节点
+                return n;
+            }
+
+            //隐藏及显示 工具函数
+            function toggle(c){
+                c.style.display = ((c.style.display == "none") ? "" : "none");
+            }
+
+            function createTree( obj ) {
+                var root, child, count = 0;
+
+                root = createNodeList( obj );
+                for(var key in obj){
+                    if(obj[key] == "id" || !obj[key].children) continue;
+                    child = createNodeList(obj[key]);
+                    root.children[count].appendChild( child );
+                    //count来判断插入的位置
+                    count++;
+                }
+                return root;
+            }
+
+            var T = createTree(module);
+            var list = T.children;
+            for(var i = 0, len = list.length; i < len; i++){
+                list[i].getElementsByTagName("span")[0].onclick = function(){
+                    var obj = this.nextSibling;
+                    toggle(obj);
+                }
+            }
+            return T;
+        }
+
+        window.onload = function(){
+            var T = new Tree(tree);
+            document.getElementsByTagName("body")[0].appendChild(T);
+        }
+    //]]>
+    </script>
+</body>  
+</html>

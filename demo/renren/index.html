@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>renren</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../public/js/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+https://graph.renren.com/oauth/token?grant_type=authorization_code&
+     client_id=YOUR_API_KEY&redirect_uri=YOUR_CALLBACK_URL&
+     client_secret=YOUR_SECRET_KEY&code=THE_CODE_FROM_ABOVE
+
+	var s = document.createElement("a"),
+		API_KEY = "dea3ca3d754148a8821f6e610724e4be",
+		S_KEY = "e892e6e8ed4740099f05d1d026358f11",
+		R_URL = "http://qianduannotes.sinaapp.com/renren/index.html";
+
+	s.setAttribute("href", encodeURI("https://graph.renren.com/oauth/token?client_id=" + API_KEY + "&redirect_uri=" + R_URL + "&grant_type=authorization_code&client_secret=" + S_KEY + "&code=" + 
+		location.href.slice(location.href.indexOf("code")+5))); 
+
+
+    s.innerHTML = "renren";
+    document.body.appendChild(s);
+*/
+    $.ajax({
+    	"url": "./get.php",
+    	"data": {
+    		"code": location.href.slice(location.href.indexOf("code")+5),
+    	},
+    	success: function(data){
+    		console.log(data)
+    	}
+    });
+
+</script>
+</body>
+</html>

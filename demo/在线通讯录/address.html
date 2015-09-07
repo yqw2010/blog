@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>APP|在线通讯录</title>
+	<style>
+		* { margin:0; padding:0;}
+		body { padding:10px; font-size: 12px; font-family: "微软雅黑"; position: relative;;}
+		.addTr input { margin-right: 5px;}
+		.contain { width:680px; margin: 20px auto;}
+		.contain h1 { text-align: center; border-bottom: 2px solid #999; padding-bottom: 10px; margin-bottom: 20px;}
+		#tb { vertical-align: middle; margin-top: 20px;}
+		#tb tr:hover { background-color: #f4f4f4;}
+		.firstTr td { font-weight: bold;}
+		td { text-align: center;}
+		input[type=button] { padding:3px 5px; line-height: 16px;}
+		.attention { text-decoration: underline; font-size: 10px; color: #D8D0D0; margin-top: 15px; font-style: italic;;}
+		label b { color: red; padding: 0 2px; font-size: 14px;}
+		#menu { list-style: none; overflow: hidden; background: #fbfbfb; width: 80px; position: absolute; height: 30px; border: 1px solid #999;}
+		#menu li { line-height: 30px; height:30px; width: 100%; cursor: pointer; border-bottom: 1px solid #999; padding: 0 20px;}
+		#menu li:hover { background-color: #fafafa;}
+		.more { line-height:30px; font-size:14px; margin-top:50px; text-align:center}
+	</style>
+</head>
+
+<body>
+	<div class="contain">
+		<h1>通　讯　录</h1>
+
+		<div class="addTr">
+			<label for="name"><b>*</b>姓名：</label><input type="text" id="name" size="8" />
+			<label for="phone"><b>*</b>电话：</label><input type="text" id="phone" size="16" />
+			<label for="address">住址：</label><input type="text" id="address" size="24"/>
+			<input type="button" value="添加" id="add" />
+			<input type="button" value="清空" id="zero" />
+		</div>
+
+		<table cellpadding="5" border="1" id="tb">
+			<tr class="firstTr">
+				<td width="130">姓名</td>
+				<td width="190">电话</td>
+				<td width="320">住址</td>
+			</tr>
+		</table>
+		<div class="more">table右键可删除项~</div>
+		<p class="attention">
+			注：本程序主要利用浏览器localStorage属性，故非IE9以下版本不支持.使用IE的userData可以使之通用。
+		</p>
+	</div>
+	<script type="text/javascript" src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/address.js"></script>
+</body>
+</html>

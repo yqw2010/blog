@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="uft-8" />
+    <title>animate</title>
+	<style type="text/css">
+		body,div,p { padding:0; margin:0}
+		.wrap { height:600px; position:relative; width:700px; overflow:hidden;}
+		.wrap div { position:absolute;}
+		.ele { position:fixed; left:0; top:130px;}
+		.ele a,.restart a { 
+			position:absolute;
+			background:orange;
+			top: 150px;
+			left: 70px;
+			width: 181px;
+			height: 42px;
+			text-align: center;
+			line-height: 42px;
+			font-size: 20px;
+			font-family: "Microsoft YaHei";
+			color:#FFF;
+			background:#2AB6B0;
+			text-decoration:none;
+			-webkit-transition:all 0.5s ease;
+			-moz-transition:all 0.5s ease;
+			-o-transition:all 0.5s ease;
+			-ms-transition:all 0.5s ease;
+			transition:all 0.5s ease;
+		}
+		.restart {
+			left:6400px;
+			top:0px;
+		}
+		.restart a {
+			top:0;
+			left:0;
+		}
+		.ele a:hover, .restart a {
+			background:#FF5700;
+		}
+		.ele_1 { bottom:0px; left:680px;}
+		.ele_2 { top:10px; left:800px;}
+		.ele_3 { bottom:0px; left:1100px;}
+		.ele_4 { top:10px; left:1400px;}
+		.ele_5 { bottom:0px; left:1700px;}
+		.ele_6 { top:10px; left:2000px;}
+		.ele_7 { bottom:0px; left:2200px;}
+		.ele_8 { top:10px; left:2400px;}
+		.ele_9 { bottom:0px; left:2650px;}
+		
+		.face_1 { left:3200px; top:200px;}
+		.face_2 { left:4000px; top:200px;}
+		.face_3 { left:4800px; top:100px;}
+		.face_4 { left:5600px; top:200px;}
+		
+		div.face { position:fixed; width:621px; height:645px; background:url(./images/ani/face.png) no-repeat; left:600px;}
+		div.people { position:fixed; width:133px; height:333px; background:url(./images/people.png) no-repeat 0 0; top:55px; left:600px; zoom:1.4}
+		
+		.face img { display:none; position:absolute;}
+		.face_info_03 { top:80px; left:-40px;}
+		.face_info_02 { top:200px; left:380px;}
+		.face_info_01 { top:20px; left:-20px;}
+		.face_info_04 { top:290px; left:290px;}
+		
+	</style> 
+</head>
+
+<body>
+<div class="wrap" id="wrap">
+	<div class="ele">
+		<img src="./images/ani/ani.png" />
+		<a href="#" onclick="run();return false;">关于我们</a>
+	</div>
+	<div class="people" id="people" style="left:260px;background-position:0 0;"></div>
+	<div class="ele_1"><img src="./images/ani/ani-01.png" alt="intro_01"/></div>
+	<div class="ele_2"><img src="./images/ani/ani-02.png" alt="intro_02"/></div>
+	<div class="ele_3"><img src="./images/ani/ani-03.png" alt="intro_03"/></div>
+	<div class="ele_4"><img src="./images/ani/ani-04.png" alt="intro_04"/></div>
+	<div class="ele_5"><img src="./images/ani/ani-05.png" alt="intro_05"/></div>
+	<div class="ele_6"><img src="./images/ani/ani-02.png" alt="intro_06"/></div>
+	<div class="ele_7"><img src="./images/ani/ani-07.png" alt="intro_07"/></div>
+	<div class="ele_8"><img src="./images/ani/ani-08.png" alt="intro_08"/></div>
+	<div class="ele_9"><img src="./images/ani/ani-09.png" alt="intro_09"/></div>
+	
+	<div class="face" id="face" style="left:80px;background-position:0 0;display:none;">
+		<img src="./images/ani/face-03a.png" alt="face_03_info" class="face_info_01"/>
+		<img src="./images/ani/face-02a.png" alt="face_02_info" class="face_info_02"/>
+		<img src="./images/ani/face-01a.png" alt="face_01_info" class="face_info_03"/>
+		<img src="./images/ani/face-04a.png" alt="face_04_info" class="face_info_04"/>
+	</div>
+	<div class="face_1"><img src="./images/ani/face-01.png" alt="face_01"/></div>
+	<div class="face_2"><img src="./images/ani/face-02.png" alt="face_02"/></div>
+	<div class="face_3"><img src="./images/ani/face-03.png" alt="face_03"/></div>
+	<div class="face_4"><img src="./images/ani/face-04.png" alt="face_04"/></div>
+	
+	<div class="restart"><a href="#" onclick="restart();return false;">重新播放</a></div>
+</div>
+
+<script type="text/javascript">
+	function run(e){
+		var evt = window.event || e;
+		if(evt.preventDefault) evt.preventDefault();
+		else  evt.returnValue = false;
+		
+		var p  = document.getElementById("people"),
+			w  = document.getElementById("wrap"),
+			f  = document.getElementById("face"),
+			img= f.getElementsByTagName("img"),
+			L  = parseInt(p.style.left),
+			wW = w.clientWidth,
+			bp = 1;
+			
+		timer = setInterval(Iscroll, 15);
+		
+		function Iscroll(){
+			if(w.scrollLeft == 2680){
+				p.style.display = "none";
+				f.style.display = "block";
+				clearInterval(timer2);
+			}
+			
+			for(var i = 1; i <= 4; i++) Iplugin(3200 + 800 * (i - 1), i);
+			
+			if(w.scrollLeft >= 6300){
+				clearInterval(timer);
+				p.style.backgroundPosition = 0 + "px 0";
+			}
+			w.scrollLeft += 2;
+		}
+		
+		function Iplugin(a, b){
+			if(w.scrollLeft == a) {
+				f.style.backgroundPosition  = -622 * b - 20 + "px 0";
+				for(var i = 0; i < 4; i++) img[i].style.display = "none";
+				img[b - 1].style.display = "block";
+				clearInterval(timer);
+				timer3 = setTimeout(function(){
+					for(var i = 0; i < 4; i++) img[i].style.display = "none";
+					f.style.backgroundPosition  = 0 + "px 0";
+					timer = setInterval(Iscroll, 8);
+				},1000);
+			}
+		}
+		timer2 = setInterval(function(){
+			if(bp == 11) bp = 1;
+			p.style.backgroundPosition = -bp * 132 + "px 0";
+			bp++;
+		},500);
+	}
+	
+	function restart(){
+		document.getElementById("wrap").scrollLeft = 0;
+		clearInterval(timer);
+		clearInterval(timer2);
+		
+		var p = document.getElementById("people");
+		p.style.display = "block";
+		p.style.backgroundPosition = 0 + "px 0";
+		
+		var f = document.getElementById("face"),
+			img= f.getElementsByTagName("img");
+			
+		for(var i = 0; i < 4; i++) img[i].style.display = "none";
+		
+		f.style.display = "none";
+		f.style.backgroundPosition = 0 + "px 0";
+		
+		run();
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>店铺展示</title>
+    <link rel="stylesheet" type="text/css" href="./css/yishion_sub.css" />
+</head>
+
+<body>
+	<div class="contain clearfix">
+        <div class="sidebar">
+            <div class="logo"><a href="http://www.yishion.com"><img src="./images/logo.jpg" /></a></div>
+            <div>
+                <ul class="sidebar-list clearfix">
+                    <li><a href="index.html">办事处介绍</a></li>
+                    <li><a href="news.html">区域资讯</a></li>
+                    <li class="li_on"><a href="show.html">店铺展示</a></li>
+                    <li><a href="join.html">加盟信息</a></li>
+                    <li><a href="http://e.weibo.com/yishionhenan?ref=http%3A%2F%2Fweibo.com%2Fmygroups%3Fgid%3D201105190219796698%26wvr%3D5" target="_blank">公司留言</a></li>
+                </ul>
+            </div>
+            <div class="share">
+                <a href="http://e.weibo.com/yishiongroupltd" class="share-sina"></a>
+                <a href="http://page.renren.com/yishion" class="share-renren"></a>
+                <a href="http://e.t.qq.com/yishiongroupltd" class="share-tencent"></a>
+            </div>
+        </div>
+        <!-- end of sidebar -->
+        <div class="mainbox">
+            <div class="lang">
+                <a href="index_en.html">ENGLISH </a> | 
+                <a href="index.html"> 简体中文</a>
+            </div>
+            <div class="content">
+            	<h1><a href="show.html" class="store-search">>>返回</a>门店查询</h1>
+                <div class="shops store-search-box">
+                	<p class="p-boder">
+						<input name="search" type="radio" id="quickS" checked="checked"/><label for="quickS">快速查询</label>
+						<input name="search" type="radio" id="codeS" /><label for="codeS">按邮编/半径查询</label>
+						<input name="search" type="radio" id="cityS" /><label for="cityS">按城市/地区查询</label>
+					</p>
+					<p>
+						查找门店
+						<select class="selectBox" id="locationDetail">
+							<option value="hubei">湖北</option>
+							<option value="hunan">湖南</option>
+							<option value="shanghai">上海</option>
+						</select>	
+						<input type="text" vaue="邮编"/>
+						<button  onclick='initialize()'>搜索</button>
+					</p>
+					<div class="map_canvas" id="map_canvas" style="width:100%; height:500px;">
+                    	
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of mainbox -->
+		<div class="b-footer">
+			<span>电话：0371-67857555</span>
+			<span>传真：0371-67107177</span>
+			<span><strong>E-mail</strong>:zzyishiontzb@yishion.net</span>
+			<span>
+				<s class="footer-ico"><img src="./images/sina-ico.png" /></s>
+				关注<a href="#">@时尚YISHION河南站</a>
+			</span>
+		</div>
+    </div>
+<script type="text/javascript" src="./js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  function initialize(x, y) {
+    var latlng = new google.maps.LatLng(x, y);
+    var myOptions = {
+      zoom: 8,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+  $(document).ready(function(){
+	initialize(-34.397, 150.644);
+  })
+</script>
+</body>
+</html>

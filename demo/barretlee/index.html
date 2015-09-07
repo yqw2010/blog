@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./js/prettify/prettify-light.css" />
+    <title>Barretlee's Blog | 关注互联网，热爱生活</title>
+</head>
+<body>
+<div class="container">
+    <div class="article">
+        <div class="post">
+            <div class="post-title">骑在房子十二年</div>
+            <div class="post-info">
+                <span>分类：<a href="#">寂寞</a>, <a href="#">空虚</a></span>
+                <!--<span>作者：<a href="#">小胡子哥</a></span>-->
+                <span>2014-06-27 11:27</span>
+                <span>评论数：<a href="#">20</a></span>
+                <span>阅读量：1234</span>
+            </div>
+            <div class="post-content">
+                <p>甲午年丁卯月辛巳日，老房子今天拆。</p>
+                <blockquote>
+                    <p><strong>经验越足、知道的越多编程越慢</strong><br>
+                    这就是为何不能让老程序员冲锋在一线开发岗位的原因。因为编程经验越足、知道的越多，他做项目时就会思前顾后。往往一个小功能给菜鸟开发需要一周，老鸟开发可能得两周，结果用户一个需求变更直接干趴老鸟程序员。</p>
+                </blockquote>
+                <p>我们家正前院有三间一进的老屋，我们都管她叫老房子。原来今天是我们家最后一间老屋子“落叶归根”的日子，我身处千里之外，无法目送她的离去，只能遥遥能的想起她传统而落寞的身姿。</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>属性                </th>
+                        <th> 描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>onreadystatechange  </td>
+                        <td> 存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。</td>
+                    </tr>
+                    <tr>
+                        <td>readyState          </td>
+                        <td> 存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。<br><br>  0: 请求未初始化<br>  1: 服务器连接已建立<br>  2: 请求已接收<br>3: 请求处理中<br>  4: 请求已完成，且响应已就绪<br></td>
+                    </tr>
+                    <tr>
+                        <td>status              </td>
+                        <td> 200: "OK" <br>404: 未找到页面</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>老家那边是传统的村子，生死婚丧都得按传统规矩来，凡事顺天意尽人事图个吉利。旧宅搬屋、拆迁，新居落成、乔迁都得找个日子召集亲朋好友大家来按章程热热闹闹的办了。我早早知道父亲已经请先生算了个日子准备拆房子和盖新房，但我却没料到这一天这么快就到了，转心一念也真是到时候了。</p>
+                <div class="image-box">
+                    <img src="./imgs/avatar.jpg" alt="mine"/>
+                    <p class="image-info">图：我的自画像</p>
+                </div>
+                <p>一年一年的光景过去，我不再是那个剃着童生头、穿着开档裤的小屁孩，老房子也不再和颜悦色地晒着太阳温暖着我们的童年。如今在外面的路人看起来，她不过是几间低矮的老房子，瓦片发黑干枯，残破夹杂，墙面都是粘着外边的尘土，掉色的掉色，落土的落土，是一件再普通不过的乡下老屋了。再抬眼看看周遭，那是一间一间拔地而起的宽敞明亮的小楼，她的不入流让人看着是那么的碍眼，明事理人都觉得是时候该拆掉了新建。</p><p>甲午年丁卯月辛巳日，老房子今天拆。</p>
+                <p>我们家正前院有三间一进的老屋，我们都管她叫老房子。原来今天是我们家最后一间老屋子“落叶归根”的日子，我身处千里之外，无法目送她的离去，只能遥遥能的想起她传统而落寞的身姿。</p>
+                <pre>var Zombie = require("zombie");
+var read = require('fs').readFileSync;
+var write = require('fs').writeFileSync;
+
+read('top1000.txt', 'utf8').forEach(function(url, idx) {
+  var browser = new Zombie();
+  browser.visit('http://www.' + url, function () {
+    if (!browser.success) {
+      return;
+    }
+    write('fetched/' + (idx + 1) + '.html', browser.html());
+
+  });
+});</pre>
+                <p>老家那边是传统的村子，生死婚丧都得按传统规矩来，凡事顺天意尽人事图个吉利。旧宅搬屋、拆迁，新居落成、乔迁都得找个日子召集亲朋好友大家来按章程热热闹闹的办了。我早早知道父亲已经请先生算了个日子准备拆房子和盖新房，但我却没料到这一天这么快就到了，转心一念也真是到时候了。</p>
+                <p>一年一年的光景过去，我不再是那个剃着童生头、穿着开档裤的小屁孩，老房子也不再和颜悦色地晒着太阳温暖着我们的童年。如今在外面的路人看起来，她不过是几间低矮的老房子，瓦片发黑干枯，残破夹杂，墙面都是粘着外边的尘土，掉色的掉色，落土的落土，是一件再普通不过的乡下老屋了。再抬眼看看周遭，那是一间一间拔地而起的宽敞明亮的小楼，她的不入流让人看着是那么的碍眼，明事理人都觉得是时候该拆掉了新建。</p>
+                <p class="article-footer">-EOF-</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <ul>
+                <li>作者： <a href="#">小胡子哥 (Barret Lee)</a></li>
+                <li>发表日期： 2014年6月26日</li>
+                <li>分类： <a href="#">寂寞</a>, <a href="#">空虚</a></li>
+                <li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+                <li>最后编辑时间：2014年6月26日</li>
+                <li>Feed订阅：<i class="icon">&#xe607;</i></li>
+            </ul>
+            <img src="./imgs/avatar.jpg" />
+        </div>
+        <div class="share-article">
+            <a class="rate-article" href="#">
+                <i class="icon">&#xe60c;</i>
+                嗯，还不错
+            </a>
+            <span class="share-box">
+                <i class="icon">&#xe60e;</i>
+                <i class="icon">&#xe60d;</i>
+                <i class="icon">&#xe60f;</i>
+                <i class="icon">&#xe613;</i>
+            </span>
+        </div>
+    </div>
+    <div class="post-relative">
+        <a href="#" class="post-prev"><i class="icon">&#xe603;</i>上一篇</a>
+        <a href="#" class="post-next">下一篇<i class="icon">&#xe602;</i></a>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-wraper">
+        <div class="footer-content">
+            <div class="footer-nav">
+                <a href="#" id="footer-nav-on">相关文章</a>
+                <a href="#">10条评论</a>
+                <a href="#">友情链接</a>
+                <a href="#">关于作者</a>
+            </div>
+            <div class="nav-detail">
+                <div>
+                    <ul class="nav-detail-list">
+                        <li>
+                            <strong>2013.02.23:</strong>
+                            <a href="#">曾经的谋篇文章</a>
+                            <p>这里是文章简介，这里是文章简介，这里是文章简介。</p>
+                        </li>
+                        <li>
+                            <strong>2013.02.23:</strong>
+                            <a href="#">曾经的谋篇文章</a>
+                            <p>这里是文章简介，这里是文章简介，这里是文章简介。</p>
+                        </li>
+                        <li>
+                            <strong>2013.02.23:</strong>
+                            <a href="#">曾经的谋篇文章</a>
+                            <p>这里是文章简介，这里是文章简介，这里是文章简介。</p>
+                        </li>
+                    </ul>
+                </div>
+                <div></div>
+                <div></div>
+                <div class="author" style="display: none">
+                    <a href="#" class="author-avatar"><img src="https://avatars0.githubusercontent.com/u/2698003?s=100" alt="avatar"/></a>
+                    <strong>小胡子哥</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="func-btns">
+        <!--<span class="func-item">-->
+            <!--<i class="func-home icon">&#xe606;</i>-->
+            <!--<div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="#">去首页看看~</a></div>-->
+        <!--</span>-->
+        <!--<span class="func-item">-->
+            <!--<i class="func-info icon">&#xe60b;</i>-->
+            <!--<div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="#">不要陌生人传来消息！</a></div>-->
+        <!--</span>-->
+        <span class="func-item">
+            <i class="func-fb icon">&#xe608;</i>
+            <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="#">意见反馈</a></div>
+        </span>
+        <span class="func-item">
+            <i class="func-font icon">&#xe604;</i>
+            <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>content</div>
+        </span>
+        <span class="func-item">
+            <i class="func-fb icon">&#xe607;</i>
+            <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="#">订阅我吧！</a></div>
+        </span>
+    </div>
+    <div class="sidebar-toggler icon">&#xe609;</div>
+    <div class="sidebar-content" id="scrollCtt">
+        <span class="page-logo">小胡子哥</span>
+        <!--<ul class="page-nav">-->
+            <!--<li><a href="#" id="page-nav-on">主页</a></li>-->
+            <!--<li><a href="#">分类</a></li>-->
+            <!--<li><a href="#">归档</a></li>-->
+            <!--<li><a href="#">关于</a></li>-->
+        <!--</ul>-->
+        <span class="page-search">
+            <input type="text" placeholder="搜索"/>
+            <i class="icon search-btn">&#xe615;</i>
+        </span>
+        <div class="recent-post">
+            <div class="recent-pic">
+               <img src="http://img5.douban.com/img/fmadmin/chlBanner/29929.jpg" />
+            </div>
+            <div class="recent-info">
+                <h3>标题在这里</h3>
+                <p>这里写着概要，这里写着概要，这里写着概要，这里写着概要，这里写着概要这里写着概要..... <a href="#">阅读全文</a></p>
+                <span>2012-12-12 22:24 By <a href="#">Barret Lee</a></span>
+            </div>
+        </div>
+        <div class="post-catograry">
+            <strong>文章类别：</strong>
+            <a href="#">政治</a> |
+            <a href="#">文化</a> |
+            <a href="#">政治</a> |
+            <a href="#">文化</a> |
+            <a href="#">政治</a> |
+            <a href="#">文化</a> |
+            <a href="#">政治</a> |
+            <a href="#">文化</a>
+        </div>
+        <div class="recent-articles">
+            <div class="recent-pages">
+                <h3>最新文章</h3>
+                <div>
+                    <ul class="recent-articles-list">
+                        <li><i class="icon">&#xe616;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                        <li><i class="icon">&#xe616;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                        <li><i class="icon">&#xe616;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                        <li><i class="icon">&#xe616;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-panel">
+                <div class="sidebar-panel-ad"><a href="#">微分享 <small>Micro-share</small></a></div>
+                <div class="sidebar-panel-archive"><a href="#">归档</a></div>
+                <div class="sidebar-panel-seminar"><a href="#">专题</a></div>
+            </div>
+            <div class="recent-comments">
+                <h3>最新评论</h3>
+                <div>
+                    <ul class="recent-articles-list recent-comments-list">
+                        <li><i class="icon">&#xe617;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                        <li><i class="icon">&#xe617;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                        <li><i class="icon">&#xe617;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                        <li><i class="icon">&#xe617;</i>
+                            <h4><a href="#">这里是标题</a></h4>
+                            <p>这里是概要，这里是概要，这里是概要，这里是概要。。。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="toTop icon" href="#">&#xe614;</a>
+
+<script src="./js/jquery-1.7.1.min.js"></script>
+<script src="./js/jquery.mousewheel.min.js"></script>
+<script src="./js/prettify/prettify.js"></script>
+<script>
+var operation = {
+    init: function(){
+        this.prettyCode();
+        this.toggleSidebar();
+    },
+    isIE: function(num){
+        var name = navigator.appVersion.toUpperCase();
+        return num ? name.match(/MSIE (\d)/) && name.match(/MSIE (\d)/)[1] == num
+              : name.test(/MSIE (\d)/);
+    },
+    prettyCode: function(){
+        $('pre').addClass('prettyprint'); //linenums
+        prettyPrint();
+    },
+    toggleSidebar: function(){
+        var $sidebar = $(".sidebar"),
+            $toggler = $(".sidebar-toggler"),
+            $fnBtns = $(".func-btns"),
+            that = this;
+
+        $toggler.on('click', function(){
+            $fnBtns.fadeIn();
+            if($toggler.attr("spanded") == 1){
+                that.scrollSide(true);
+                $sidebar.stop().animate({
+                    "left": -680
+                }, function(){
+                    $toggler.attr("spanded", 0).html("&#xe609;");
+                    $sidebar.css("background", "none");
+                    if(!that.isIE(7)) {
+                        $("body").css({
+                            "overflow-y": "auto",
+                            "margin-left": 0
+                        });
+                    } else {
+                        $("html").css({
+                            "overflow-y": "auto",
+                            "margin-left": 0
+                        });
+                    }
+                    $(".recent-post").css("background", "none");
+                });
+                $toggler.css("left", 690).stop().animate({
+                    "left": 10
+                });
+            } else {
+                that.scrollSide();
+                $sidebar.css("background", "#FFF");
+                $fnBtns.fadeOut();
+                $(".recent-post").css("background", "#F8F8F8");
+                $sidebar.css("left", -680).stop().animate({
+                    "left": 0
+                }, function(){
+                    $toggler.attr("spanded", 1).html("&#xe60a;");
+                    if(!that.isIE(7)) {
+                        $("body").css({
+                            "overflow-y": "hidden",
+                            "margin-left": "-15px"
+                        });
+                    } else {
+                        $("html").css({
+                            "overflow-y": "hidden",
+                            "margin-left": "-15px"
+                        });
+                    }
+                });
+                $toggler.css("left", 10).stop().animate({
+                    "left": 690
+                });
+            }
+        });
+    },
+    scrollSide: function(cancel){
+        if(cancel){
+            $(document).off('mousewheel');
+        }
+        var marginTop = 0,
+            Height = $("#scrollCtt").get(0).offsetHeight;
+
+        var that = this;
+        $(document).on("mousewheel", function(event){
+            var deltaHeight = Height - $(window).height();
+            if(that.isIE(7)) event.deltaFactor *= 5;
+            marginTop += event.deltaY * event.deltaFactor;
+            marginTop = marginTop > 0 ? 0 : marginTop > -deltaHeight ? marginTop : -deltaHeight;
+            $("#scrollCtt").css("margin-top", marginTop);
+        })
+    }
+};
+operation.init();
+
+</script>
+</body>
+</html>

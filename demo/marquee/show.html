@@ -1,0 +1,218 @@
+﻿<HTML>
+<HEAD>
+   <TITLE> HTML 语言教程</TITLE>
+</HEAD>
+<BODY BGCOLOR="#D4D4D4" onLoad="alert('本页面的效果必须在 Microsoft Internet Explorer 中才能看到 :-(((')">
+
+<H1 ALIGN=CENTER>会移动的文字(Marquee)</H1>
+
+<CENTER><P>
+<HR></P></CENTER>
+
+<CENTER><P><IMG SRC="ie.gif" HEIGHT=14 WIDTH=80> <!--################## Basic ########################--><A NAME="marquee"></A></P></CENTER>
+
+<H2><IMG SRC="br20t.gif" ALT="+" HEIGHT=20 WIDTH=20 ALIGN=TOP> 基本语法</H2>
+
+<P><!------Basic-------></P>
+
+<H3>&lt;marquee&gt; ... &lt;/marquee&gt;</H3>
+
+<DL>
+<DD><TT>&lt;marquee&gt;啦啦啦，我会移动耶！&lt;/marquee&gt; </TT></DD>
+</DL>
+
+<P><marquee>啦啦啦，我会移动耶！</marquee> </P>
+
+<PRE>
+</PRE>
+
+<P><!--################## Scroll ########################--><A NAME="scrolla"></A></P>
+
+<H2><IMG SRC="br20t.gif" ALT="+" HEIGHT=20 WIDTH=20 ALIGN=TOP>文字移动属性的设置 
+</H2>
+
+<P><!------Direction-------><A NAME="dir"></A></P>
+
+<H3>方向 &lt;direction=#&gt; #=left, right</H3>
+
+<DL>
+<DD><TT>&lt;marquee direction=left&gt;啦啦啦，我从右向左移！&lt;/marquee&gt; &lt;P&gt;<BR>
+&lt;marquee direction=right&gt;啦啦啦，我从左向右移！&lt;/marquee&gt; </TT></DD>
+</DL>
+
+<P><marquee direction=left>啦啦啦，我从右向左移！</marquee> </P>
+
+<P><marquee direction=right>啦啦啦，我从左向右移！</marquee> </P>
+
+<PRE>
+</PRE>
+
+<P><!------BEHAVIOR-------><A NAME="style"></A></P>
+
+<H3>方式 &lt;bihavior=#&gt; #=scroll, slide, alternate</H3>
+
+<DL>
+<DD><TT>&lt;marquee behavior=scroll&gt;啦啦啦，我一圈一圈绕着走！&lt;/marquee&gt;
+&lt;P&gt;<BR>
+&lt;marquee behavior=slide&gt;啦啦啦，我只走一次就歇了！&lt;/marquee&gt; &lt;P&gt;<BR>
+&lt;marquee behavior=alternate&gt;啦啦啦，我来回走耶！&lt;/marquee&gt; </TT></DD>
+</DL>
+
+<P><marquee behavior=scroll>啦啦啦，我一圈一圈绕着走！</marquee> </P>
+
+<P><marquee behavior=slide>啦啦啦，我只走一次就歇了！</marquee> </P>
+
+<P><marquee behavior=alternate>啦啦啦，我来回走耶！</marquee> </P>
+
+<PRE>
+</PRE>
+
+<P><!------LOOP-------><A NAME="loop"></A></P>
+
+<H3>循环 &lt;loop=#&gt; #=次数；若未指定则循环不止(infinite)</H3>
+
+<DL>
+<DD><TT>&lt;marquee loop=3 width=50% behavior=scroll&gt;啦啦啦，我只走 3 趟哟！&lt;/marquee&gt;
+&lt;P&gt;<BR>
+&lt;marquee loop=3 width=50% behavior=slide&gt;啦啦啦，我只走 3 趟哟！&lt;/marquee&gt;
+&lt;P&gt;<BR>
+&lt;marquee loop=3 width=50% behavior=alternate&gt;啦啦啦，我只走 3 趟哟！&lt;/marquee&gt;
+</TT></DD>
+</DL>
+
+<P><marquee loop=3 width=50% behavior=scroll>啦啦啦，我只走 3 趟哟！</marquee>
+</P>
+
+<P><marquee loop=3 width=50% behavior=slide>啦啦啦，我只走 3 趟哟！</marquee> </P>
+
+<P><marquee loop=3 width=50% behavior=alternate>啦啦啦，我只走 3 趟哟！</marquee>
+</P>
+
+<PRE>
+</PRE>
+
+<P><!------SCROLL AMOUNT-------><A NAME="scroll"></A></P>
+
+<H3>速度 &lt;scrollamount=#&gt;</H3>
+
+<DL>
+<DD><TT>&lt;marquee scrollamount=20&gt;啦啦啦，我走得好快哟！&lt;/marquee&gt;
+</TT></DD>
+</DL>
+
+<P><marquee scrollamount=20>啦啦啦，我走得好快哟！</marquee> </P>
+
+<PRE>
+</PRE>
+
+<P><!------SCROLL DELAY-------></P>
+
+<H3>延时 &lt;scrolldelay=#&gt;</H3>
+
+<DL>
+<DD><TT>&lt;marquee scrolldelay=500 scrollamount=100&gt;啦啦啦，我走一步，停一停！&lt;/marquee&gt;
+</TT></DD>
+</DL>
+
+<P><marquee scrolldelay=500 scrollamount=100>啦啦啦，我走一步，停一停！</marquee>
+</P>
+
+<PRE>
+</PRE>
+
+<P><!--################## LAYOUT ########################--><A NAME="layout"></A></P>
+
+<H2><IMG SRC="br20t.gif" ALT="+" HEIGHT=20 WIDTH=20 ALIGN=TOP> 外观(Layout)设置</H2>
+
+<P><!------ALign-------><A NAME="align"></A></P>
+
+<H3>对齐方式(Align) &lt;align=#&gt; #=top, middle, bottom</H3>
+
+<DL>
+<DD><TT>&lt;font size=6&gt;<BR>
+&lt;marquee align=# width=400&gt;啦啦啦，我会移动耶！&lt;/marquee&gt;<BR>
+&lt;/font&gt;<BR>
+对齐上沿、中间、下沿。</TT></DD>
+</DL>
+
+<FONT SIZE=6>
+<P><marquee align=top width=400>啦啦啦，我会移动耶！</marquee>
+</FONT>对齐上沿。</P>
+
+<FONT SIZE=6>
+<P><marquee align=middle width=400>啦啦啦，我会移动耶！</marquee>
+</FONT>对齐中间。</P>
+
+<FONT SIZE=6>
+<P><marquee align=bottom width=400>啦啦啦，我会移动耶！</marquee>
+</FONT>对齐下沿。</P>
+
+<PRE>
+
+</PRE>
+
+<P><!------Background Color-------><A NAME="color"></A></P>
+
+<H3>底色 &lt;bgcolor=#&gt; </H3>
+<DL>
+<DD><B>#=rrggbb</B> 16 进制数码，或者是下列预定义色彩</A>：<BR>
+<FONT COLOR="#000000">Black</FONT>, <FONT COLOR="#808000">Olive</FONT>,
+<FONT COLOR="#008080">Teal</FONT>, <FONT COLOR="#FF0000">Red</FONT>, <FONT COLOR="#0000FF">Blue</FONT>,
+<FONT COLOR="#800000">Maroon</FONT>, <FONT COLOR="#000080">Navy</FONT>,
+<FONT COLOR="#808080">Gray</FONT>, <FONT COLOR="#00FF00">Lime</FONT>, <BR>
+<FONT COLOR="#FF00FF">Fuchsia</FONT>, <FONT COLOR="#FFFFFF">White</FONT>,
+<FONT COLOR="#008000">Green</FONT>, <FONT COLOR="#800080">Purple</FONT>,
+<FONT COLOR="#C0C0C0">Silver</FONT>, <FONT COLOR="#FFFF00">Yellow</FONT>,
+<FONT COLOR="#00FFFF">Aqua</FONT> </DD>
+</DL>
+
+<DL>
+<DD><TT>&lt;marquee bgcolor=aaaaee&gt;啦啦啦，我会移动耶！&lt;/marquee&gt; </TT></DD>
+</DL>
+
+<P><marquee bgcolor=aaaaee>啦啦啦，我会移动耶！</marquee> </P>
+
+<PRE>
+</PRE>
+
+<P><!------Size-------><A NAME="size"></A></P>
+
+<H3>面积 &lt;height=# width=#&gt;</H3>
+
+<DL>
+<DD><TT>&lt;marquee height=40 width=50% bgcolor=aaeeaa&gt;<BR>
+啦啦啦，我会移动耶！<BR>
+&lt;/marquee&gt; </TT></DD>
+</DL>
+
+<P><marquee height=40 width=50% bgcolor=aaeeaa>啦啦啦，我会移动耶！</marquee>
+</P>
+
+<PRE>
+</PRE>
+
+<P><!------Margins-------><A NAME="margin"></A></P>
+
+<H3>空白(Margins)&lt;hspace=# vspace=#&gt;</H3>
+
+<DL>
+<DD><TT>********************************************&lt;br&gt;<BR>
+嗨,<BR>
+&lt;marquee hspace=20 vspace=20 width=150 bgcolor=ffaaaa align=middle&gt;啦啦啦，我会移动耶！&lt;/marquee&gt;<BR>
+大家好！&lt;br&gt;<BR>
+******************************************** </TT></DD>
+</DL>
+
+<P>********************************************<BR>
+嗨, <marquee hspace=20 vspace=20 width=150 
+bgcolor=ffaaaa align=middle>啦啦啦，我会移动耶！</marquee>
+大家好！<BR>
+******************************************** </P>
+
+<PRE>
+</PRE>
+
+--></P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,110 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin:0;
+	border:0;
+	padding:0;
+	font-size:14px;
+	background:url(../images/bg.gif) top repeat-x #f1f4f4;
+	font-family:"宋体";
+	overflow-x:hidden;
+}
+ul{ margin:0px; padding:0px; list-style:none;}
+ul li{ margin:0px; padding:0px; }
+a{ text-decoration:none;}
+a img{ border:none;}
+a:hover{ cursor:pointer;}
+
+/*--------------------------------con-------------------------------------------*/
+.main{ width:1000px; margin:0 auto; position:relative;}
+
+.logo_box{ width:257px; height:145px; background:#026171; position:absolute; top:0px; left:0px; z-index:100; top:-81px; text-align:center; box-shadow:0px 0px 12px #01394a;}
+
+.top{width:1100px; text-align:center; background:url(../images/tob_bg.gif) repeat-y;margin:0 auto;}
+.nav{ height:79px; padding-left:250px; border-bottom:3px solid #57777f;}
+.nav_ul{ overflow:hidden; font-family:"微软雅黑";}
+.nav_ul li{ float:left; position:relative; text-align:left;}
+.nav_ul li a{ padding-top:20px; height:59px; display:block; background:url(../images/nav_bg.gif) right repeat-y; padding-left:10px; width:91px; color:#FFF; font-size:17px; line-height:17px;}
+.nav_ul li a span { font-weight:normal; text-align:left; text-transform:uppercase; font-size:13px;}
+.nav_ul li a:hover{ background-color:#053948;}
+.nav_ul .nav_home a{ padding-left:30px; width:101px; text-align:center;}
+
+.nav_subUl{ position:absolute; width:600px; left:300px;top:-3px; left:300px; display:none;}
+.nav_subUl li{ float:left;}
+.nav_subUl li a{ line-height:28px; height:28px; display:inline-block; color:#026175; padding-left:10px; padding-right:10px;}
+.nav_subUl li a:hover{ background:#57777f; color:#FFF;}
+
+.nav_2{ width:500px; position:absolute; right:0px; top:79px; background:url(../images/nav2_bg.gif) repeat-x top; height:34px;}
+
+
+.con_box{ min-height:200px; background:url(../images/nav_pic.png) top right no-repeat;}
+
+.con_tb{padding-top:190px;}
+.con_tb td{ vertical-align:top;}
+.td_mid{ width:576px;}
+.td_side{ width:212px; padding-top:30px; *padding-top:220px;}
+
+.con_mid{ background:#498b97; border-radius:5px; box-shadow:0px 4px 8px #666; z-index:20; padding:5px; padding-top:14px; padding-bottom:3px; z-index:10; position:relative; }
+.con_midIn{ background:#d8e7ea; border-radius:4px; margin-bottom:5px; position:relative;}
+.con_midTop{ padding-left:10px; padding-right:10px; line-height:32px; height:30px; border-bottom:1px solid #498b97; background:url(../images/mid_ico.gif) 8px 4px no-repeat; position:relative;}
+.con_midTopL{ text-indent:24px; float:left;  font-size:16px; color:#043d4e;text-shadow: 0px -1px  #FFF,0 1px #fff; font-weight:bold; padding-right:10px;}
+.con_midTopR{ font-size:14px; position:absolute; right:0;}
+.con_midTopR a{color:#016273; display:block;}
+.con_midTopR a:hover{color:#043d4e;text-shadow: 0px -1px  #FFF,0 1px #fff; *text-decoration:underline;}
+
+.tab { color:#498b97; padding:0 10px; cursor:pointer; display:inline-block; border:1px solid #498B97; height:100%; margin-right:-7px; border-bottom:none; *margin-top:-1px; }
+.tab:hover { background:#498B97; color:#FFF; border:1px solid #FFF; border-bottom:none;}
+
+.con_newsTb{}
+.con_newsL{ border-right:1px solid #498b97; padding:5px; width:216px;}
+
+.con_midUl{ padding:5px; padding-bottom:0px;}
+.con_midUl li{ line-height:22px; *line-height:23px; font-size:12px; height:23px; *height:21px; overflow:hidden;}
+.con_midUl li a{ color:#347a87; background:url(../images/text_ico.gif) 6px 7px no-repeat; display:block; text-indent:20px;}
+.con_midUl li a:hover{ color:#016273; background-position:6px -23px;text-shadow: 0px -1px  #FFF,0 1px #fff; *text-decoration:underline;}
+
+.con_midL{ float:left; width:280px;}
+.con_midR{ float:right; width:280px;}
+
+.con_midPic{ clear:both; *margin-top:-4px;}
+
+
+.con_left{ background:#8b9ea2; border-top-left-radius:5px; border-bottom-left-radius:5px; padding-left:5px; padding-top:10px; padding-bottom:1px;  *background:url(../images/shadow_L0.gif) right repeat-y #8b9ea2;}
+.con_right{ background:#8b9ea2;  *background:url(../images/shadow_R0.gif) left repeat-y #8b9ea2; border-top-right-radius:5px; border-bottom-right-radius:5px; padding-right:5px; padding-top:10px; padding-bottom:1px;}
+
+.con_sideL{background:#dfe5e5; border-top-left-radius:4px; border-bottom-left-radius:4px; margin-bottom:5px; *background:url(../images/shadow_L1.gif) right repeat-y #dfe5e5;}
+.con_sideR{background:#dfe5e5; border-top-right-radius:4px; border-bottom-right-radius:4px; margin-bottom:5px; background:url(../images/shadow_R1.gif) left repeat-y #dfe5e5; }
+
+.con_gap{ margin-top:5px; padding-top:5px;}
+.con_sideTop{ background-image:url(../images/side_ico.gif);}
+
+.con_end{ background:url(../images/end.gif) top repeat-x #026374; clear:both; margin-top:15px; padding-top:3px; position:relative; width:100%;}
+.con_endMain{ background:url(../images/end_bg.gif) 700px 0px repeat-y; padding:10px;}
+.con_endText{ padding-left:180px; line-height:24px; color:#009ab9; text-align:left; font-size:12px; background:url(../images/logo2.gif) 68px 5px no-repeat;}
+.con_endText a{ color:#009ab9;}
+.con_endText a:hover{ text-decoration:underline; color:#41cce8;}
+
+.bg_pic{ background:url(../images/pic.png); width:800px; height:247px; position:absolute; clear:none;bottom:80px; z-index:-50; *display:none;}
+.bg_picL{ left:0px; background-position:left;}
+.bg_picR{ right:0px; background-position:right; float:right;}
+
+/*-------------------------------------------*/
+
+.www{ text-align:right; position:absolute; top:150px; left:-140px; font-size:30px; font-family:"微软雅黑"; color:#CCC; line-height:23px;}
+
+
+/*-------------------------------------------*/
+.sub_td_side { width:225px;}
+.sub_td_mid { width:773px;}
+#td_mid .con_midIn { min-height:600px;}
+#con_midPic .con_midUl { display:none;}
+
+
+/*piclist*/
+.picList { display: block; padding:20px;}
+.picList li { width: 220px; margin-right: 20px; margin-bottom: 20px; float: left; }
+.picList a { display: block; }
+.picList a:hover p { color:#111; font-weight: bold;}
+.picList img { width: 220px;}
+.picList p { text-align:center; color:#555;}

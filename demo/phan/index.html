@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<head>
+	<title>demo for phan</title>
+	<style>
+		.boxA, .boxB {
+			margin: 20px;
+			padding: 20px;
+			border: 1px solid #333;
+			background: #EFEFEF;
+			height: 300px;
+			width: 400px;
+			display: inline-block;
+		}
+
+		span {
+			display: inline-block;
+			padding: 5px 10px;
+			margin: 10px;
+			text-align: center;
+			line-height: 24px;
+			cursor: pointer;
+			color: blue;
+			text-decoration: underline;
+		}
+
+		span:hover {
+			background: #FDD;
+		}
+	</style>
+</head>
+
+<body>
+	<span id="btn">click me toggle the boxs</span><br />
+	<div class="boxA" id="A" style="display:none;">This is box AAAAAAAAAA.</div>
+	<div class="boxB" id="B">This is box BBBBBBBBBBB.</div>
+
+	<script type="text/javascript">
+		var a = document.getElementById("A");
+		var b = document.getElementById("B");
+		var btn = document.getElementById("btn");
+
+		btn.onclick = function(){
+			toggle(a);
+			toggle(b);
+		}
+		
+
+		function toggle(object){
+			var attr = object.style.display;
+			object.style.display = (attr == "none" ? "block" : "none");
+		}
+	</script>
+</body>

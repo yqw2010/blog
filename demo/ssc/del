@@ -1,0 +1,29 @@
+return tplTag ? [
+			'<div class="ssc-type-choose">',
+			'	<%for(var i = 0; i < this.length; i++){%>',
+			'	<span>',
+			'		<strong><%this[i]["group"]%>：</strong>',
+			'		<%for(var j = 0; j < this[i]["data"].length; j++){',
+			'			var tmp = this[i]["data"][j];',
+			'			var id = "SSC_" + tmp["pos"][0] + "_" + tmp["pos"][1];',
+			'		%>',
+			'		<input type="radio" id="<%id%>" data-type="<%tmp["type"]%>" data-tip="<%tmp["intro"]%>" name="ctype" />',
+			'		<label for="<%id%>"><%tmp["m"]%></label>',
+			'		<%}%>',
+			'	</span>',
+			'	<%}%>',
+			'</div>',
+			'<div class="ssc-tip">[玩法介绍]：<% this[0]["data"][0]["intro"]%></div>'
+		].join("") : [
+			'<div class="ssc-type-choose">',
+			'	<span>',
+			'		<%for(var i = 0; i < this.length; i++){',
+			'			var id = "SSC_" + this[i]["pos"][0] + "_" + this[i]["pos"][1];',
+			'		%>',
+			'		<input type="radio" id="<%id%>" data-type="<%this[i]["type"]%>" data-tip="<%this[i]["intro"]%>" name="ctype" />',
+			'		<label for="<%id%>"><%this[i]["m"]%></label>',
+			'		<%}%>',
+			'	</span>',
+			'</div>',
+			'<div class="ssc-tip"><%this[0]["intro"]%></div>'
+		].join("");

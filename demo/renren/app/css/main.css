@@ -1,0 +1,487 @@
+/*=======================================
+ *  @author Barret Lee
+ *  @email  barret.china@gmail.com
+ *=====================================*/
+
+body, p, h2, img, a {
+	padding:0;
+	margin:0;
+}
+body {
+	font-size: 16px;
+	font-family: "幼圆", "Microsoft YaHei", "宋体";
+	background: #CACACA;
+}
+ul,li {
+	list-style: none;
+	padding:0;
+}
+a, input {
+	outline:none;
+}
+a {
+	text-decoration: none;
+	cursor: pointer;
+}
+a img {
+	border: none;
+}
+.clearfix:before, .clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix:after{
+    clear:both;
+}
+.clearfix{
+    *zoom:1;/*ie6,7*/
+}
+/*================ index =================*/
+.wraper {
+	padding:15px;
+}
+.search {
+	height: 52px;
+	position: relative;
+	box-shadow: 0 3px 3px #666, 2px 0 2px #AAA, -2px 0 2px #AAA;
+	background: #FFF;
+}
+.search label {
+	position: absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	width:66px;
+	background:url(../images/search-btn.gif) no-repeat right;
+	cursor: pointer;
+}
+.search input {
+	position:absolute;
+	left: 67px;
+	top:0;
+	bottom:0;
+	right:0;
+	font-size: 18px;
+	border: none;
+	text-indent: 1em;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-spb2a891: nowrap;
+}
+.res-list {
+	display: block;
+}
+.res-list li {
+	display: block;
+	margin-top: 15px;
+	background: #FFF;
+	padding:10px;
+	overflow: hidden;
+	zoom:1;
+	box-shadow: 0 5px 5px #666, 3px 0 3px #AAA, -3px 0 3px #AAA;
+}
+.pinfo {
+	width: 210px;
+	float:left;
+}
+.avatar {
+	border-radius: 168px;
+	width: 168px;
+	height:168px;
+	margin-bottom: 20px;
+	border: 10px solid #FFF;
+	box-shadow: 3px 3px 3px #CCC;
+	background-color: #EEE;
+	background-size: cover;
+	background-repeat: no-repeat;
+	display: inline-block;
+	overflow:hidden;
+}
+.pinfoA {
+	display: block;
+	width:124px;
+	height: 34px;
+	font-size: 18px;
+	font-weight: 500;
+	color: #FFF;
+	text-align: center;
+	margin: 8px auto;
+	border-radius: 3px;
+	line-height: 34px;
+	background: -moz-linear-gradient(top, #0d98f6, #3b9ed0); 
+	background: -webkit-gradient(linear,top,from(#0d98f6),to(#3b9ed0));
+	background: -webkit-linear-gradient(top, #0d98f6, #3b9ed0);
+	background: -o-linear-gradient(top, #0d98f6, #3b9ed0);
+}
+.pinfoA:hover {
+	background: -moz-linear-gradient(top, #3b9ed0, #0d98f6); 
+	background: -webkit-gradient(linear,top,from(#3b9ed0),to(#0d98f6));
+	background: -webkit-linear-gradient(top, #3b9ed0, #0d98f6);
+	background: -o-linear-gradient(top, #3b9ed0, #0d98f6);
+}
+a.follow {
+	background: -moz-linear-gradient(top, #98c541, #8ebd34); 
+	background: -webkit-gradient(linear,top,from(#98c541),to(#8ebd34));
+	background: -webkit-linear-gradient(top, #98c541, #8ebd34);
+	background: -o-linear-gradient(top, #98c541, #8ebd34);
+}
+a.follow:hover {
+	background: -moz-linear-gradient(top, #8ebd34, #98c541); 
+	background: -webkit-gradient(linear,top,from(#8ebd34),to(#98c541));
+	background: -webkit-linear-gradient(top, #8ebd34, #98c541);
+	background: -o-linear-gradient(top, #8ebd34, #98c541);
+}
+.pdetail {
+	min-width: 100px;
+	float:left;
+}
+.pdetail p {
+	margin-top: 5px;
+}
+.pdetail em {
+	font-style: normal;
+	font-weight: bold;
+	display: inline-block;
+	vertical-align: top;
+}
+.pdetail span {
+	display: inline-block;
+}
+.pdetail span.rate {
+	/*background: url(../images/five-star.gif) no-repeat;
+	width: 144px;
+	height:19px;
+	vertical-align: middle;*/
+	color: red;
+	font-size: 24px;
+	position: relative;
+	top: -7px;
+	letter-spacing: 2px;
+}
+.plist {
+	padding: 10px;
+	position:relative;
+}
+.plist span {
+	position:absolute;
+	top:50%;
+	margin-top: -14px;
+	right:-6px;
+	cursor:pointer;
+	font-weight: bold;
+}
+.plist span:hover {
+	right:-8px;
+}
+
+.plist>a {
+	display: inline-block;
+	margin-right: 8px;
+	margin-bottom: 8px;
+}
+.plist>a img {
+	background: #F5F5F5;
+	border-radius: 64px;
+	width: 64px;
+	height:64px;
+	padding: 3px;
+}
+.plist>a:hover img {
+	background: #EEE;
+}
+/*================ person =================*/
+.person-page {
+	margin-bottom: 20px;
+}
+.person {
+	background:#FFF;
+	margin-top: 25px;
+	padding: 15px;
+	padding-top:22px;
+	position:relative;
+	box-shadow: 0 5px 5px #666, 3px 0 3px #AAA, -3px 0 3px #AAA;
+}
+.person .avatar {
+	float: left;
+	margin-right: 20px;
+}
+.person i {
+	position:absolute;
+	width:33px;
+	height:40px;
+	background:url(../images/dingzi.png) no-repeat;
+	top:-20px;
+	left:50%;
+	margin-right: 16px;
+	display:block;
+}
+.person p {
+	margin-top: 13px;
+}
+#more-list .plist {
+	width:auto;
+	max-width: auto;
+	max-height: auto;
+}
+#flow-rate {
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+	z-index: 98;
+}
+#flow-rate .pinfoA {
+	width:50%;
+	margin:0;
+	padding:0;
+	float:left;
+	height:50px;
+	line-height: 50px;
+	border-radius: 0;
+}
+
+
+/*================ widget =================*/
+#alertBox {
+	position: absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	margin:auto;
+	width:80%;
+	padding:15px 10px;
+	height: 200px;
+	max-width:500px;
+	min-height: 200px;
+	background:#000;
+	opacity:.75;
+	-moz-opacity: .75;
+	color:#FFF;
+	z-index: 100;
+}
+#alertBox h3 {
+	text-align: center;
+	margin-bottom: 25px;
+	font-size: 24px;
+}
+#alertBox div {
+	text-align: center;
+	margin-bottom: 30px;
+}
+#alertBox span {
+	display:inline-block;
+	font-size: 16px;
+}
+#alertBox a {
+	display:inline-block;
+	width: 35%;
+	height: 36px;
+	margin: 0 10px;
+	line-height: 36px;
+	text-align: center;
+	background:#739385;
+	color: #FFF;
+	font-size: 18px;
+	font-weight: bold;
+}
+#alertBox .alertBox-OK {
+	background:#db7676;
+}
+#alertBox .alertBox-star {
+	font-size: 22px;
+	letter-spacing: 2px;
+	position: relative;
+	text-indent: -36px;
+	top:2px;
+	width:90px;
+	overflow:hidden;
+	white-space: nowrap;
+}
+#alertBox .alertBox-star strong {
+	font-weight: normal;
+	margin-right: 2px;
+}
+#alertBox .red-star {
+	color:red;
+}
+
+
+/*================ media query =================*/
+@media screen and (max-width: 320px) {
+	body {
+		font-size: 12px;
+	}
+	.wraper {
+		min-width: auto;
+	}
+	.pinfo a {
+		width:74px;
+		height: 24px;
+		line-height: 24px;
+		font-size: 14px;
+	}
+	.pinfo {
+		width: 120px;
+		margin: 0;
+		margin-right: 6px;
+	}
+	a.avatar {
+		border-radius: 98px;
+		width: 98px;
+		height:98px;
+		margin-bottom: 15px;
+	}
+	.pdetail span {
+		max-width: 100px;
+	}
+	.pdetail span.rate {
+		font-size: 18px;
+		top: -6px;
+		letter-spacing: 2px;
+	}
+	.plist>a img {
+		border-radius: 40px;
+		width: 40px;
+		height:40px;
+		padding: 3px;
+	}
+	.plist {
+		width: 120px;
+	}
+
+	.person .avatar {
+		height: 80px;
+		width:80px;
+		border-radius: 80px;
+	}
+}
+
+@media screen and (min-width: 321px) and (max-width: 384px) {
+	body {
+		font-size: 14px;
+	}
+	.wraper {
+		min-width: auto;
+	}
+	.pinfo a {
+		width:84px;
+		height: 28px;
+		line-height: 28px;
+		font-size: 16px;
+	}
+	.pinfo {
+		width: 120px;
+		margin: 0;
+		margin-right: 8px;
+	}
+	a.avatar {
+		border-radius: 98px;
+		width: 98px;
+		height:98px;
+		margin-bottom: 15px;
+	}
+	.pdetail span {
+		max-width: 120px;
+	}
+	.pdetail span.rate {
+		font-size: 20px;
+		top: -6px;
+		letter-spacing: 2px;
+	}
+	.plist>a img {
+		border-radius: 50px;
+		width: 50px;
+		height:50px;
+		padding: 3px;
+	}
+	.plist {
+		width: 140px;
+	}
+}
+
+@media screen and (min-width: 385px) and (max-width: 480px) {
+	.pinfo {
+		width: 170px;
+	}
+	.wraper {
+		min-width: auto;
+	}
+	.pinfo a {
+		width:104px;
+		height: 32px;
+		line-height: 32px;
+		font-size: 16px;
+	}
+	a.avatar {
+		border-radius: 138px;
+		width: 138px;
+		height:138px;
+		margin-bottom: 20px;
+	}
+	.pdetail span {
+		max-width: 148px;
+	}
+	.plist {
+		width: 170px;
+	}
+}
+@media screen and (min-width:481px) and (max-width: 568px) {
+	.pinfo {
+		width: 210px;
+	}
+	.wraper {
+		min-width: auto;
+	}
+	a.avatar {
+		border-radius: 168px;
+		width: 168px;
+		height:168px;
+		margin-bottom: 30px;
+	}
+	.pdetail span.rate {
+		font-size: 24px;
+		top: -7px;
+		letter-spacing: 3px;
+	}
+	.pdetail span {
+		max-width: 308px;
+	}
+	.plist {
+		width: 250px;
+	}
+}
+
+@media screen and (min-width:569px) and (max-width: 640px) {
+	.pinfo {
+		width: 210px;
+	}
+	.wraper {
+		min-width: auto;
+	}
+	a.avatar {
+		border-radius: 168px;
+		width: 168px;
+		height:168px;
+		margin-bottom: 30px;
+	}
+	.pdetail span.rate {
+		font-size: 24px;
+		top: -7px;
+		letter-spacing: 3px;
+	}
+	.pdetail span {
+		max-width: 308px;
+	}
+	.plist {
+		width: 340px;
+	}
+}
+@media screen and (min-width: 641px) {
+	
+	.person .avatar {
+		height: 130px;
+		width:130px;
+		border-radius: 130px;
+	}
+}
