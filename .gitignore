@@ -8,3 +8,5 @@ themes/landscape/
 .idea/
 node_modules/
 blog/node_modules/
+
+/demo/
