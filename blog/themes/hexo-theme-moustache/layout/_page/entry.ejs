@@ -43,7 +43,7 @@
 			<h3 itemprop="name"><a href="<%- url_for(recentPost.path) %>" itemprop="url"><%= rTitle  %></a></h3>
 			<p itemprop="description">
 				<%= excerpt %>
-				<a href="<%- url_for(recentPost.path) %>">阅读全文</a>
+				<a href="<%- url_for(recentPost.path) %>">阅读全文 »</a>
 			</p>
 			<span>
 				Post by
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="entry-recent-posts">
-			<h2>随机文章</h2>
+			<h2><a href="<%- url_for('/blog/archives/') %>">博客归档 »</a>近期文章</h2>
 			<ul itemscope itemtype="http://schema.org/Article">
 			<% site.posts.slice(0, 12).each(function(post){ %>
 				<li><span itemprop="timeCreated"><%- date(post.date, "YYYY-MM-DD")%> » </span><a href="<%- url_for(post.path) %>" itemprop="url" itemprop="name"><%- post.title %></a> <span><b class="ds-thread-count" data-thread-key="<%- post.slug || post.path %>"></b></span></li>
