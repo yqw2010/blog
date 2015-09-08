@@ -5,12 +5,12 @@
   <title>XSS零碎指南 | 小胡子哥的个人网站</title>
   <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
   <meta name="email" content="barret.china@gmail.com">
-  <meta name="description" content="本文为归档内容,原始地址在 博客园.该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。本文地址：http://www.cnblogs.com/hu">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。一、XSS学习提要http://qdemo.sinaapp.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="XSS零碎指南 | 小胡子哥的个人网站">
   <meta property="og:url" content="http://www.barretlee.com/blog/2014/05/01/cb-xss-snippets/">
   <meta property="og:site_name" content="XSS零碎指南">
-  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。本文地址：http://www.cnblogs.com/hu">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。一、XSS学习提要http://qdemo.sinaapp.">
   <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="renderer" content="webkit">
@@ -50,7 +50,7 @@
         </div>
         <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/05/01/xss-snippets.html" target="_blank">博客园</a>.</div>
 
-<p>该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/xss-snippets.html" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/xss-snippets.html</a>&nbsp;，转载请保留源地址。</p><br><h3>一、XSS学习提要</h3><br><ol><br><li><a href="http://qdemo.sinaapp.com/ppt/xss/" target="_blank">http://qdemo.sinaapp.com/ppt/xss/</a> 三水清 简单介绍 xss</li><br><li><a href="http://drops.wooyun.org/tips/689" target="_blank">http://drops.wooyun.org/tips/689</a> 乌云 xss与字符编码</li><br><li><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank">http://www.wooyun.org/whitehats/心伤的瘦子</a> 系列教程</li><br><li><a href="http://ha.ckers.org/xss.html" target="_blank">http://ha.ckers.org/xss.html</a> 反射性XSS详细分析和解释</li><br><li><a href="http://html5sec.org/" target="_blank">http://html5sec.org/</a> 各种技巧 ★★★★★</li><br><li><a href="http://www.80sec.com/" target="_blank">http://www.80sec.com/</a> 一些不错的文章</li><br><br></ol><br><h3>二、XSS攻击要点</h3><br><p><strong>注意：</strong>这些插入和修改都是为了避开浏览器自身的过滤，或者开发者认为的过滤。</p><br><p><strong>1. JS函数。</strong></p><br><p>document.write innerHTML eval setTimeout/setInterval等等都是很多XSS攻击注入的入口</p><br><p><strong>2. html实体编码</strong></p>
+<p>该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。</p><br><h3>一、XSS学习提要</h3><br><ol><br><li><a href="http://qdemo.sinaapp.com/ppt/xss/" target="_blank">http://qdemo.sinaapp.com/ppt/xss/</a> 三水清 简单介绍 xss</li><br><li><a href="http://drops.wooyun.org/tips/689" target="_blank">http://drops.wooyun.org/tips/689</a> 乌云 xss与字符编码</li><br><li><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank">http://www.wooyun.org/whitehats/心伤的瘦子</a> 系列教程</li><br><li><a href="http://ha.ckers.org/xss.html" target="_blank">http://ha.ckers.org/xss.html</a> 反射性XSS详细分析和解释</li><br><li><a href="http://html5sec.org/" target="_blank">http://html5sec.org/</a> 各种技巧 ★★★★★</li><br><li><a href="http://www.80sec.com/" target="_blank">http://www.80sec.com/</a> 一些不错的文章</li><br><br></ol><br><h3>二、XSS攻击要点</h3><br><p><strong>注意：</strong>这些插入和修改都是为了避开浏览器自身的过滤，或者开发者认为的过滤。</p><br><p><strong>1. JS函数。</strong></p><br><p>document.write innerHTML eval setTimeout/setInterval等等都是很多XSS攻击注入的入口</p><br><p><strong>2. html实体编码</strong></p>
 
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&gt; <span class="string">"alert("</span>Barret李靖<span class="string">")"</span>.replace(<span class="regexp">/./g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">s</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="string">"&lt;#"</span> + s.charCodeAt(<span class="number">0</span>)</span><br><span class="line">      <span class="comment">/*.toString(16) 转换成16进制也可以滴*/</span></span><br><span class="line">      + <span class="string">";"</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&gt; <span class="string">"&lt;#97;&lt;#108;&lt;#101;&lt;#114;&lt;#116;&lt;#40;&lt;#49;&lt;#41;"</span></span><br><span class="line"></span><br><span class="line">&lt;img src=<span class="string">"x"</span> onerror=<span class="string">"&lt;#97;&lt;#108;&lt;#101;&lt;#114;&lt;#116;&lt;#40;&lt;#49;&lt;#41;"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>3. 如果过滤 html 实体编码，可以改成URL编码</strong></p>
@@ -170,7 +170,7 @@
 <a class="article-tag-link" href="/blog/tags/XSS/">XSS</a>, <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>最后编辑时间: 2015-09-08 03:50:08</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>

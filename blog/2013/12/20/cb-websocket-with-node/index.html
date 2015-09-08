@@ -113,7 +113,7 @@
 <p>如果使用的是 wss 协议，那么 URI 将会以安全方式连接。 这里的 wss 大小写不敏感。</p><br><h4>2. 协议中”多余”的部分（吐槽）</h4><br><p>握手请求中包含Sec-WebSocket-Key字段，明眼人一下就能看出来是websocket连接，而且这个字段的加密方式在服务器也是固定的，如果别人想黑你，不会太难。</p><br><p>再就是那个 MaskingKey 掩码，既然强制加密了（Mask为1表示加密，加密方式就是 MaskingKey 与 PayLoadData 进行异或处理），还有必要让开发者处理这个东西么？直接封装到内部不就行了？</p><br><h4 id="menuIndex9">3. 与 TCP 和 HTTP 之间的关系</h4><br><p>WebSocket协议是一个基于TCP的协议，就是握手链接的时候跟HTTP相关（发了一个HTTP请求），这个请求被Server切换到（Upgrade）websocket协议了。websocket把 80 端口作为默认websocket连接端口，而websocket的运行使用的是443端口。</p><br><h3>三、参考资料</h3><br><ul><br><li><a href="http://tools.ietf.org/html/rfc6455" target="_blank">http://tools.ietf.org/html/rfc6455</a> web standard - The WebSocket Protocol</li><br><li><a href="http://www.w3.org/TR/websockets/" target="_blank">http://www.w3.org/TR/websockets/</a> W3.ORG - WebSockets</li><br></ul><br><h3>四、特别感谢</h3><br><p>再次感谢 <a href="http://www.web-tinker.com/" target="_blank">次碳酸钴</a> 跟我交流了几个小时 : )，本文部分 node 代码参考自他的博客。</p>
 
 
-<p>下次将以php作为后台，讲解websocket的相关知识。</p><br><p><a href="http://www.cnblogs.com/hustskyking/p/websocket-with-php.html" target="_blank">细说WebSocket-php篇</a></p>
+<p>下次将以php作为后台，讲解websocket的相关知识。</p>
 
 
 
@@ -134,7 +134,7 @@
 <a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-05 09:46:52</li>
+		<li>最后编辑时间: 2015-09-08 03:50:08</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
