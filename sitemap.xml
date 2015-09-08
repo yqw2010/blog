@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2014/01/18/cb-how-regular-expressions-work/</loc>
+    <lastmod>2015-09-08T08:06:24.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2014/08/29/dollar-in-different-face/</loc>
     <lastmod>2015-09-08T07:52:06.000Z</lastmod>
   </url>
@@ -24,11 +29,6 @@
   <url>
     <loc>http://www.barretlee.com/blog/2014/04/26/clip-in-sys/</loc>
     <lastmod>2015-09-08T07:52:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
   <url>
@@ -103,6 +103,11 @@
   
   <url>
     <loc>http://www.barretlee.com/blog/2014/03/31/tap-highlight-in-webview/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -244,11 +249,6 @@
   <url>
     <loc>http://www.barretlee.com/404.html</loc>
     <lastmod>2015-09-05T15:15:50.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2014/09/07/onclick-in-javascript/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
@@ -542,7 +542,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/01/18/cb-how-regular-expressions-work/</loc>
+    <loc>http://www.barretlee.com/blog/2015/03/28/mac-data-backup/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -552,7 +552,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/03/28/mac-data-backup/</loc>
+    <loc>http://www.barretlee.com/blog/2015/03/26/attention-in-gulp-minify-css/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -567,17 +567,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/03/26/attention-in-gulp-minify-css/</loc>
+    <loc>http://www.barretlee.com/blog/2015/02/10/%E6%88%91%E6%B2%A1%E4%BB%80%E4%B9%88%E5%8F%AF%E4%BB%A5%E5%A4%B1%E5%8E%BB%E7%9A%84/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://www.barretlee.com/blog/2013/12/17/cb-web-communication/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2015/02/10/%E6%88%91%E6%B2%A1%E4%BB%80%E4%B9%88%E5%8F%AF%E4%BB%A5%E5%A4%B1%E5%8E%BB%E7%9A%84/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -592,12 +587,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/11/26/cb-authentication-in-web/</loc>
+    <loc>http://www.barretlee.com/blog/2014/12/21/cb-wai/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/12/21/cb-wai/</loc>
+    <loc>http://www.barretlee.com/blog/2013/11/26/cb-authentication-in-web/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -608,6 +603,11 @@
   
   <url>
     <loc>http://www.barretlee.com/blog/2014/12/14/%E7%A7%8D%E5%AD%90%EF%BC%8C%E7%9A%84%E7%9C%BA%E6%9C%9B/</loc>
+    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -637,12 +637,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
+    <loc>http://www.barretlee.com/blog/2014/11/28/data-compile-by-f2e-or-r2e/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/11/28/data-compile-by-f2e-or-r2e/</loc>
+    <loc>http://www.barretlee.com/blog/2014/11/18/%E6%93%A6%E8%82%A9%E8%80%8C%E8%BF%87%E7%9A%84%E9%83%BD%E6%98%AF%E8%BF%87%E7%9C%BC%E4%BA%91%E7%83%9F/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -682,7 +682,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/11/18/%E6%93%A6%E8%82%A9%E8%80%8C%E8%BF%87%E7%9A%84%E9%83%BD%E6%98%AF%E8%BF%87%E7%9C%BC%E4%BA%91%E7%83%9F/</loc>
+    <loc>http://www.barretlee.com/blog/2014/11/17/web-accessibility/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -692,7 +692,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/11/17/web-accessibility/</loc>
+    <loc>http://www.barretlee.com/blog/2014/11/17/input-close-btn-in-ie11/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -722,7 +722,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/11/17/input-close-btn-in-ie11/</loc>
+    <loc>http://www.barretlee.com/blog/2014/11/01/cb-communication-in-d2/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -737,7 +737,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/11/01/cb-communication-in-d2/</loc>
+    <loc>http://www.barretlee.com/blog/2014/10/30/cb-life-in-alibaba/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -772,7 +772,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/10/30/cb-life-in-alibaba/</loc>
+    <loc>http://www.barretlee.com/blog/2014/10/09/%E7%99%BE%E9%98%BF%EF%BC%8C%E6%88%91%E4%BB%AC%E6%98%AF%E6%80%8E%E4%B9%88%E2%80%98%E8%B5%B0%E2%80%99%E5%88%B0%E4%B8%80%E8%B5%B7%E7%9A%84/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -782,7 +782,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/10/09/%E7%99%BE%E9%98%BF%EF%BC%8C%E6%88%91%E4%BB%AC%E6%98%AF%E6%80%8E%E4%B9%88%E2%80%98%E8%B5%B0%E2%80%99%E5%88%B0%E4%B8%80%E8%B5%B7%E7%9A%84/</loc>
+    <loc>http://www.barretlee.com/blog/2014/10/06/%E7%88%B1%E6%98%AF%E5%B9%B3%E6%B7%A1%E7%9A%84/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -822,7 +822,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/10/06/%E7%88%B1%E6%98%AF%E5%B9%B3%E6%B7%A1%E7%9A%84/</loc>
+    <loc>http://www.barretlee.com/blog/2014/10/04/%E4%B8%8D%E6%95%A2%E9%80%89%E6%8B%A9%EF%BC%8C%E5%9C%A8%E6%80%95%E4%BB%80%E4%B9%88%EF%BC%9F/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -842,11 +842,6 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/10/04/%E4%B8%8D%E6%95%A2%E9%80%89%E6%8B%A9%EF%BC%8C%E5%9C%A8%E6%80%95%E4%BB%80%E4%B9%88%EF%BC%9F/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2014/10/02/what-is-our-persuits/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
@@ -857,12 +852,17 @@
   </url>
   
   <url>
+    <loc>http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</loc>
+    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2013/03/28/cb-javascript-userdata-and-localstorage/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/09/02/webmaster-in-baidu-and-google/</loc>
+    <loc>http://www.barretlee.com/blog/2014/09/28/why-we-behind-the-world/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -872,7 +872,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/09/28/why-we-behind-the-world/</loc>
+    <loc>http://www.barretlee.com/blog/2014/09/23/%E9%97%B2%E6%89%AF%E4%B8%89%E5%9B%BD/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -902,17 +902,17 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/09/23/%E9%97%B2%E6%89%AF%E4%B8%89%E5%9B%BD/</loc>
-    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2014/09/21/%E5%BE%BD%E6%9D%AD%E5%8F%A4%E9%81%93%E6%B8%B8%E8%AE%B0/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://www.barretlee.com/blog/2014/09/17/%E5%8D%83%E5%B2%9B%E6%B9%96%E5%9C%9F%E8%8F%9C%E9%A6%86/</loc>
+    <lastmod>2015-09-05T13:46:52.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2014/09/07/onclick-in-javascript/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
