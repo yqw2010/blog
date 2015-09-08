@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>nodejs给图片批量加水印 | 小胡子哥的个人网站</title>
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=0">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="nodejs给图片批量加水印 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/">
+  <meta property="og:site_name" content="nodejs给图片批量加水印">
+  <meta property="og:description" content="本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.">
+  <link rel="shoticon" href="/favicon.ico" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" type="application/rss+xml" href="/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+  <script src="/public/js/jquery.js" type="text/javascript"></script>
+<script src="/public/js/main.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">nodejs给图片批量加水印</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span><time itemprop="timeCreated">2015-09-08 09:27:57</time></span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/网络技术/">网络技术</a>
+
+</span>
+        <span>标签: 
+<a class="article-tag-link" href="/blog/tags/npm/">npm</a>, <a class="article-tag-link" href="/blog/tags/水印/">水印</a>
+</span>
+        <span>评论数: <a href="#footer-nav-on" class="ds-thread-count hash-to-comments" data-thread-key="add-watermark-to-images"></a></span>
+
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/">http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.</p>
+<a id="more"></a>
+<p>这个库的地址是：<a href="https://github.com/zhangyuanwei/node-images" target="_blank" rel="external">https://github.com/zhangyuanwei/node-images</a>，它是一个跨平台极为轻量的图片编解码工具，同时附加了一些图片的操作函数，如：</p>
+<ul>
+<li><code>.size()</code> 比例伸缩</li>
+<li><code>.draw(img, x, y)</code> 在图片上绘制一个图片</li>
+<li><code>.encode()</code> 将图片解码到 buffer 中</li>
+</ul>
+<p>给图片加水印主要就用到了 <code>.draw()</code> 函数。</p>
+<p>首先需要安装 <code>images</code> 库：</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> images</span><br></pre></td></tr></table></figure>
+<p>然后开撸，基本代码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">'images'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> watermarkImg = images(path.join(__dirname, <span class="string">'path/to/watermark.ext'</span>));</span><br><span class="line"><span class="keyword">var</span> sourceImg = images(path.join(__dirname, <span class="string">'path/to/sourceImg.ext'</span>));</span><br><span class="line"><span class="keyword">var</span> savePath = path.join(__dirname, <span class="string">'path/to/saveImg.jpg'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比如放置在右下角，先获取原图的尺寸和水印图片尺寸</span></span><br><span class="line"><span class="keyword">var</span> sWidth = sourceImg.width();</span><br><span class="line"><span class="keyword">var</span> sHeight = sourceImg.height();</span><br><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.width();</span><br><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.height();</span><br><span class="line"></span><br><span class="line">images(sourceImg)</span><br><span class="line">  <span class="comment">// 设置绘制的坐标位置，右下角距离 10px</span></span><br><span class="line">  .draw(watermarkPath, sWidth - wmWidth - <span class="number">10</span>, sHeight - wmHeight - <span class="number">10</span>)</span><br><span class="line">  <span class="comment">// 保存格式会自动识别</span></span><br><span class="line">  .save(savePath);</span><br></pre></td></tr></table></figure>
+<p>晒一张本博客的一个水印截图：</p>
+<p><img src="/blogimgs/2015/9/201592102.jpg" alt="博客水印截图"></p>
+<p>看到右下角的水印了么 ；）</p>
+
+        <p class="this-page-link">本文链接：<a href="http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/">http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-08 09:27:57</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/网络技术/">网络技术</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/npm/">npm</a>, <a class="article-tag-link" href="/blog/tags/水印/">水印</a>
+</li>
+		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+		<li>最后编辑时间: 2015-09-08 09:46:06</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+      <span class="share-box">
+  <b>分享到: </b>
+  <i class="icon on" title="新浪微博" id="share-weibo">&#x535a;</i>
+  <i class="icon" title="腾讯微博" id="share-tencent">&#xe61c;</i>
+  <i class="icon" title="twitter" id="share-twitter">&#x9e1f;</i>
+  <i class="icon" title="豆瓣社区" id="share-douban">&#x8c46;</i>
+</span>
+
+    </div>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+  
+    <a href="/blog/2015/09/07/lsof-in-xnix/" class="post-next">
+      <b>unix下的文件操纵</b>
+      <i class="icon">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed">
+  
+  
+  <a href="/blog/2015/09/07/lsof-in-xnix/" class="next" title="unix下的文件操纵">
+    <i class="icon">&#x261e;</i>
+    <b>unix下的文件操纵</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;</i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="http://weibo.com/173248656" target="_blank">微博关注</a></div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;</i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/about/" class="func-about-link">关于作者</a>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/message/" target="_blank"><i class="func-fb icon">&#x2121;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/message">给我留言</a></div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;</i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" id="footer-nav-on">评论内容</a>
+	<a href="/friends">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div style="display:block;">
+		
+<div class="ds-thread" data-thread-key="add-watermark-to-images" data-title="nodejs给图片批量加水印" data-url="http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,还在加载~</p>
+	</div>
+</div>
+<!-- <div class="ds-recent-comments" data-num-items="50" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div> -->
+
+
+	</div>
+	<div class="friends-box">
+		<ul>
+		
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a></li>
+		
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a></li>
+		
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a></li>
+		
+			<li><a href="http://imququ.com" target="_blank">屈屈</a></li>
+		
+		</ul>
+	</div>
+</div>
+			<div class="website-info">
+	<span>Copyright &copy;2013-2015 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+<a class="toTop icon" href="#">&#x2191;</a>
+
+</body>
+</html>

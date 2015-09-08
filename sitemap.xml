@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</loc>
+    <lastmod>2015-09-08T13:46:06.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2014/01/18/cb-how-regular-expressions-work/</loc>
     <lastmod>2015-09-08T08:08:20.000Z</lastmod>
   </url>
@@ -32,6 +37,16 @@
   </url>
   
   <url>
+    <loc>http://www.barretlee.com/blog/2014/05/02/cb-ecmascript6-overview/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2014/01/05/cb-javascript-asynchronous-programming/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2013/11/28/cb-ES6-computed-properties/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
@@ -42,22 +57,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/01/05/cb-javascript-asynchronous-programming/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/12/06/cb-history-api-in-html5/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/12/20/cb-websocket-with-node/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/05/24/cb-canvas-clock/</loc>
+    <loc>http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -67,7 +67,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/05/02/cb-ecmascript6-overview/</loc>
+    <loc>http://www.barretlee.com/blog/2013/05/24/cb-canvas-clock/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -107,7 +107,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/05/11/cb-etag-in-node/</loc>
+    <loc>http://www.barretlee.com/blog/2013/12/06/cb-history-api-in-html5/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/12/20/cb-websocket-with-node/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -142,17 +147,17 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/20/cb-fe-monitor/</loc>
-    <lastmod>2015-09-07T05:32:15.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2013/08/13/cb-license/</loc>
     <lastmod>2015-09-07T05:32:15.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://www.barretlee.com/blog/2013/03/27/cb-javascript-cookie/</loc>
+    <lastmod>2015-09-07T05:32:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/08/20/cb-fe-monitor/</loc>
     <lastmod>2015-09-07T05:32:15.000Z</lastmod>
   </url>
   
@@ -167,27 +172,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/05/27/cb-php-optimization/</loc>
-    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/03/30/cb-javascript-applicationcache/</loc>
-    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/06/08/cb-apache-php-mysql/</loc>
-    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/04/09/cb-uncurrying/</loc>
-    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/03/28/JSON/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
@@ -197,7 +182,27 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
+    <loc>http://www.barretlee.com/blog/2013/06/08/cb-apache-php-mysql/</loc>
+    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/05/27/cb-php-optimization/</loc>
+    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/03/28/JSON/</loc>
+    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/03/30/cb-javascript-applicationcache/</loc>
+    <lastmod>2015-09-07T05:28:24.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/04/09/cb-uncurrying/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
@@ -232,12 +237,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/17/cb-iconfont-opt/</loc>
     <lastmod>2015-09-06T06:42:59.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/17/cb-iconfont-opt/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/31/migrate-blog-to-hexo/</loc>
     <lastmod>2015-09-06T06:42:59.000Z</lastmod>
   </url>
   

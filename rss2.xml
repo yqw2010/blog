@@ -8,8 +8,37 @@
     <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
-    <pubDate>Mon, 07 Sep 2015 14:59:47 GMT</pubDate>
+    <pubDate>Tue, 08 Sep 2015 13:46:06 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[nodejs给图片批量加水印]]></title>
+      <link>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</link>
+      <guid>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</guid>
+      <pubDate>Tue, 08 Sep 2015 13:27:57 GMT</pubDate>
+      <description>
+      <![CDATA[本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.</p>
+<a id="more"></a>
+<p>这个库的地址是：<a href="https://github.com/zhangyuanwei/node-images" target="_blank" rel="external">https://github.com/zhangyuanwei/node-images</a>，它是一个跨平台极为轻量的图片编解码工具，同时附加了一些图片的操作函数，如：</p>
+<ul>
+<li><code>.size()</code> 比例伸缩</li>
+<li><code>.draw(img, x, y)</code> 在图片上绘制一个图片</li>
+<li><code>.encode()</code> 将图片解码到 buffer 中</li>
+</ul>
+<p>给图片加水印主要就用到了 <code>.draw()</code> 函数。</p>
+<p>首先需要安装 <code>images</code> 库：</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> images</span></pre></td></tr></table></figure>
+<p>然后开撸，基本代码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">'images'</span>);</span><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><span class="line"><span class="keyword">var</span> watermarkImg = images(path.join(__dirname, <span class="string">'path/to/watermark.ext'</span>));</span><span class="line"><span class="keyword">var</span> sourceImg = images(path.join(__dirname, <span class="string">'path/to/sourceImg.ext'</span>));</span><span class="line"><span class="keyword">var</span> savePath = path.join(__dirname, <span class="string">'path/to/saveImg.jpg'</span>);</span><span class="line"></span><span class="line"><span class="comment">// 比如放置在右下角，先获取原图的尺寸和水印图片尺寸</span></span><span class="line"><span class="keyword">var</span> sWidth = sourceImg.width();</span><span class="line"><span class="keyword">var</span> sHeight = sourceImg.height();</span><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.width();</span><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.height();</span><span class="line"></span><span class="line">images(sourceImg)</span><span class="line">  <span class="comment">// 设置绘制的坐标位置，右下角距离 10px</span></span><span class="line">  .draw(watermarkPath, sWidth - wmWidth - <span class="number">10</span>, sHeight - wmHeight - <span class="number">10</span>)</span><span class="line">  <span class="comment">// 保存格式会自动识别</span></span><span class="line">  .save(savePath);</span></pre></td></tr></table></figure>
+<p>晒一张本博客的一个水印截图：</p>
+<p><img src="/blogimgs/2015/9/201592102.jpg" alt="博客水印截图"></p>
+<p>看到右下角的水印了么 ；）</p>
+]]></content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[unix下的文件操纵]]></title>
@@ -582,6 +611,25 @@
     </item>
     
     <item>
+      <title><![CDATA[this的指向]]></title>
+      <link>http://www.barretlee.com/blog/2015/04/13/this-reference/</link>
+      <guid>http://www.barretlee.com/blog/2015/04/13/this-reference/</guid>
+      <pubDate>Sun, 12 Apr 2015 16:00:00 GMT</pubDate>
+      <description>
+      <![CDATA[<p>网友问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name ]]>
+      </description>
+      <content:encoded><![CDATA[<p>网友问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;   </span><span class="line">　　<span class="keyword">var</span> object = &#123;  </span><span class="line">　　　　name : <span class="string">"My Object"</span>,  </span><span class="line">　　　　getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><span class="line">　　　　　　　　<span class="keyword">return</span> <span class="keyword">this</span>.name;  </span><span class="line">　　　　&#125;   </span><span class="line">&#125;;  </span><span class="line"><span class="keyword">var</span> a = object.getNameFunc;</span><span class="line">alert(a());</span><span class="line">alert(object.getNameFunc());</span></pre></td></tr></table></figure>
+<p>原因：</p>
+<p><code>object.getNameFunc()</code> ，此时的 <code>object.getNameFunc</code> 为引用类型，其 base 为 <code>object</code>，this 指向的是 base，所以返回 <code>object.name</code> 的值</p>
+<p><code>name = object.getNameFunc</code>, <code>test</code> 作为标识符，生成了其他引用类型的值，此时 base 已经从 <code>object</code> 重置为 <code>null</code>，也就是会指向 global（window），所以返回的是 window.name 的值。</p>
+<p>问题的关键在于「引用类型（type Reference）的中间值发生改变」</p>
+]]></content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/04/13/this-reference/#disqus_thread</comments>
+    </item>
+    
+    <item>
       <title><![CDATA[Xcode-select Error]]></title>
       <link>http://www.barretlee.com/blog/2015/04/13/xcode-select-error/</link>
       <guid>http://www.barretlee.com/blog/2015/04/13/xcode-select-error/</guid>
@@ -599,25 +647,6 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span></pre></td></tr></table></figure>
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/04/13/xcode-select-error/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[this的指向]]></title>
-      <link>http://www.barretlee.com/blog/2015/04/13/this-reference/</link>
-      <guid>http://www.barretlee.com/blog/2015/04/13/this-reference/</guid>
-      <pubDate>Sun, 12 Apr 2015 16:00:00 GMT</pubDate>
-      <description>
-      <![CDATA[<p>网友问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name ]]>
-      </description>
-      <content:encoded><![CDATA[<p>网友问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"The Window"</span>;   </span><span class="line">　　<span class="keyword">var</span> object = &#123;  </span><span class="line">　　　　name : <span class="string">"My Object"</span>,  </span><span class="line">　　　　getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><span class="line">　　　　　　　　<span class="keyword">return</span> <span class="keyword">this</span>.name;  </span><span class="line">　　　　&#125;   </span><span class="line">&#125;;  </span><span class="line"><span class="keyword">var</span> a = object.getNameFunc;</span><span class="line">alert(a());</span><span class="line">alert(object.getNameFunc());</span></pre></td></tr></table></figure>
-<p>原因：</p>
-<p><code>object.getNameFunc()</code> ，此时的 <code>object.getNameFunc</code> 为引用类型，其 base 为 <code>object</code>，this 指向的是 base，所以返回 <code>object.name</code> 的值</p>
-<p><code>name = object.getNameFunc</code>, <code>test</code> 作为标识符，生成了其他引用类型的值，此时 base 已经从 <code>object</code> 重置为 <code>null</code>，也就是会指向 global（window），所以返回的是 window.name 的值。</p>
-<p>问题的关键在于「引用类型（type Reference）的中间值发生改变」</p>
-]]></content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/04/13/this-reference/#disqus_thread</comments>
     </item>
     
     <item>
@@ -673,25 +702,6 @@
 <p>当然，通过 cookie 或者 pageshow 事件属性判断用户浏览器是否有缓存数据不是最终的解决方案，但这是一种思考模式，可以发散思维~</p>
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[Safari不认识type为search的input]]></title>
-      <link>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/</link>
-      <guid>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/</guid>
-      <pubDate>Thu, 02 Apr 2015 16:00:00 GMT</pubDate>
-      <description>
-      <![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
-<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
-<figure class="highligh]]>
-      </description>
-      <content:encoded><![CDATA[<p>我平时很少测试 safari 和 firefox，系统默认的浏览器被我设置成 chrome.</p>
-<p>昨天切图看到个表单，没用人家写好的组件，那一层套一层的 div 看了就怕，因为不需要做什么扩展，就自己写了个。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><span class="line">  <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"search"</span> <span class="attribute">name</span>=<span class="value">"q"</span> <span class="attribute">id</span>=<span class="value">"J_Query"</span> /&gt;</span></span><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></pre></td></tr></table></figure>
-<p>给 <code>J_Query</code> 写了一些样式，可是…Safari很任性的不认，左改右改搞了五六分钟没反应，火了！</p>
-<p>把 type 改成 text 就好了。</p>
-]]></content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/04/03/input-bug-in-safari/#disqus_thread</comments>
     </item>
     
   </channel>
