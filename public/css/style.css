@@ -2211,11 +2211,7 @@ br {
   border-width: 1px 0;
   font-family: monospace;
   margin-top: 42px;
-}
-.old-article-warning:hover,
-.history-article:hover {
-  background-color: #ffff8b;
-  transition: background-color 0.3s;
+  font-size: 16px;
 }
 .old-article-warning b,
 .history-article b {
