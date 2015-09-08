@@ -7,23 +7,32 @@ br
 .highlight br
   display block
 .old-article-warning, .history-article
-  display: none;
-  background-color: #FFFFD0;
-  margin: 0 -30px;
-  padding: 10px 15px;
-  border: 1px dashed #CCC;
-  color: #5F5F5F;
-  transition: background-color 0.3s;
-  font-size: 16px;
+  position: relative;
+  padding: 20px 20px 20px 20px;
+  background: #FFF9F2;
+  border: 1px dashed #ECAD99;
+  border-width: 1px 0;
+  font-family: monospace;
+  margin-top: 42px;
   &:hover
     background-color: #FFFF8B;
     transition: background-color 0.3s;
   b
     color: #F40;
-.history-article
-  margin: 0;
-  &:hover
-    background-color: #FFFFD0;
+.old-article-warning::after, .history-article::after {
+  content: "attention";
+  position: absolute;
+  left: -26px;
+  top: -17px;
+  background-color: #E2947C;
+  padding: 0 6px;
+  border-radius: 4px;
+  transform: rotateZ(-17deg);
+  box-shadow: 1px 1px 3px #ccc;
+  color: #fff;
+  font-size: 16px;
+}
+
 .grey
   color: grey
 .body-bg-moon
