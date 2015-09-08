@@ -2204,14 +2204,13 @@ br {
 }
 .old-article-warning,
 .history-article {
-  display: none;
-  background-color: #ffffd0;
-  margin: 0 -30px;
-  padding: 10px 15px;
-  border: 1px dashed #ccc;
-  color: #5f5f5f;
-  transition: background-color 0.3s;
-  font-size: 16px;
+  position: relative;
+  padding: 20px 20px 20px 20px;
+  background: #fff9f2;
+  border: 1px dashed #ecad99;
+  border-width: 1px 0;
+  font-family: monospace;
+  margin-top: 42px;
 }
 .old-article-warning:hover,
 .history-article:hover {
@@ -2222,11 +2221,19 @@ br {
 .history-article b {
   color: #f40;
 }
-.history-article {
-  margin: 0;
-}
-.history-article:hover {
-  background-color: #ffffd0;
+.old-article-warning::after,
+.history-article::after {
+  content: "attention";
+  position: absolute;
+  left: -26px;
+  top: -17px;
+  background-color: #e2947c;
+  padding: 0 6px;
+  border-radius: 4px;
+  transform: rotateZ(-17deg);
+  box-shadow: 1px 1px 3px #ccc;
+  color: #fff;
+  font-size: 16px;
 }
 .grey {
   color: #808080;
