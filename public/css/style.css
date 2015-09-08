@@ -2047,6 +2047,12 @@ body.body-bg-moon {
 .entry-recent-posts {
   float: left;
 }
+.entry-recent-posts h2 a {
+  float: right;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: bold;
+}
 .entry-recent-posts h2,
 .entry-cates h2 {
   font-size: 22px;
