@@ -370,11 +370,11 @@ var operation = {
     // 分享
     share: function(title){
         var local = location.href,
-            title = title || "文章《" + weiboName + " " +  $(".post-title").text() + "》";
+            title = $(".post-title").text() && ("文章《" + weiboName + " " +  $(".post-title").text() + "》");
 
         if(!title) title += "好站分享 " + weiboName + " ";
 
-        title += $("meta[property='og:description']").attr("content").slice(0, 95) + "...";
+        title += $("meta[property='og:description']").attr("content").slice(0, 95);
 
         $("#share-weibo").off().on("click", function(){
             var url = "http://service.weibo.com/share/share.php?appkey=1812166904&title=" +
@@ -459,7 +459,7 @@ var decoration = {
     consoleCtt: function(){
         if(window.console&&window.console.log) {
             var url = "http://" + window.location.host;
-            console.log("\n\n\n\n\n\n\n\n\n\n%c", "background:url(" + url + "/avatar150.png); background-repeat:no-repeat; font-size:0; line-height:30px; padding-top:150px;padding-left:150px;");
+            console.log("\n\n\n\n\n\n\n\n\n\n%c", "background:url(" + url + "/blogimgs/avatar150.png); background-repeat:no-repeat; font-size:0; line-height:30px; padding-top:150px;padding-left:150px;");
             console.log("欢迎踩点我的博客：http://barretlee.com，我觉得编程是一件非常愉快的事情。\n对一个疯狂的程序员来说，代码就是他的一切，我还没有那么疯狂，但是也希望coding\n的时候可以融入自己的生活哲学，让更多娱乐化的元素出现在代码中~%c\n\nWeibo: http://weibo.com/hustskyking (@Barret李靖)", "color:red");
         }
     },

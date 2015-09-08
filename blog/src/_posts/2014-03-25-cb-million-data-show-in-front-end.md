@@ -121,14 +121,14 @@ insert(len - 1);
 Container 可以容纳的 Data 数目为 `num = height / delta`，Container 顶部第一个节点的索引值为
 
 ```javascript
-	 var first = parseInt(Container.scrollTop / delta);
+ var first = parseInt(Container.scrollTop / delta);
 ```
 
 由于我们上下都有留出一屏，所以
 
 ```javascript
-	var start = Math.max(first - num, 0);
-	var end = Math.min(first + num, len - 1);
+var start = Math.max(first - num, 0);
+var end = Math.min(first + num, len - 1);
 ```
 
 #### 2. 插入节点
@@ -136,28 +136,28 @@ Container 可以容纳的 Data 数目为 `num = height / delta`，Container 顶�
 通过上面的计算，从 start 到 end 将节点一次插入到 Container 中，并且将最后一个节点插入到 DOM 中。
 
 ```javascript
-	// 插入最后一个节点
-	insert(len - 1);
-	// 插入从 start 到 end 之间的节点
-	for(var s = start; s <= end; s++){
-		var child = Container.children[s];
-		// 如果 Container 中已经有该节点，或者该节点为最后一个节点则跳过
-		if(!Container.contains(child) && s != len - 1){
-			insert(s);
-		}
-	}
+// 插入最后一个节点
+insert(len - 1);
+// 插入从 start 到 end 之间的节点
+for(var s = start; s <= end; s++){
+  var child = Container.children[s];
+  // 如果 Container 中已经有该节点，或者该节点为最后一个节点则跳过
+  if(!Container.contains(child) && s != len - 1){
+    insert(s);
+  }
+}
 ```
 
 这里解释下为什么要插入最后一个节点，插入节点的方式是：
 
 ```javascript
-	function insert(i){
-		var div = document.createElement("div");
-		div.setAttribute("data-index", i);
-		div.style.top = delta * i + "px";
-		div.appendChild(document.createTextNode(data[i].content));
-		Container.appendChild(div);
-	}
+function insert(i){
+  var div = document.createElement("div");
+  div.setAttribute("data-index", i);
+  div.style.top = delta * i + "px";
+  div.appendChild(document.createTextNode(data[i].content));
+  Container.appendChild(div);
+}
 ```
 
 可以看到我们给插入的节点都加了一个 top 属性，最后一个节点的 top 是最大的，只有把这个节点插入到 DOM 中，才能让滚动条拉长，让人感觉放了很多的数据。
@@ -167,13 +167,13 @@ Container 可以容纳的 Data 数目为 `num = height / delta`，Container 顶�
 为了减少浏览器的重排（reflow），我们可以隐藏三屏之外的数据。我这里为了方便，直接给删除掉了，后续需要再重新插入。
 
 ```javascript
-	while(child = Container.children[i++]){
-		var index = child.getAttribute("data-index");
-		// 这里记得不要把最后一个节点给删除掉了
-		if((index > end || index < start) && index != len - 1){
-			Container.removeChild(child);
-		}
-	}
+while(child = Container.children[i++]){
+  var index = child.getAttribute("data-index");
+  // 这里记得不要把最后一个节点给删除掉了
+  if((index > end || index < start) && index != len - 1){
+    Container.removeChild(child);
+  }
+}
 ```
 
 当 DOM 加载完毕之后，触发一次 `Container.onscroll()`，然后整个程序就 OK 了。
