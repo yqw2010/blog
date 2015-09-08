@@ -30,9 +30,8 @@ preg_match_all($regdata, $html, $mdata);
 print_r($mdata);
 
 ```
-</bs></]*)<br></bf></font>
+
 <p>当时写代码还真是欢乐多，什么都不懂，什么都是新知识，学起来津津有味。我觉得学习知识一定要把握最基本的原理，先把一个知识的大概轮廓搞清楚，然后学习怎么去使用他，完了就是深入学习，了解底层基础实现。很多人解决问题都是靠经验，这个当然很重要，但如果我们弄懂了一项技术最底层的实现，完全可以靠自己的推断分析出问题的根源。我对一些公司的招聘要求特别不满，说什么要三年五年Javascript编程经验云云，经验当然和时间成正相关，但是对于那些没有三年五年工作经验却照样能够解决实际的人呢？算是小小的吐槽吧，下面进入正题。</p>
-<p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/how-regular-expressions-work.html" target="_blank">http://www.cnblogs.com/hustskyking/p/how-regular-expressions-work.html</a></p>
 <h3>一、正则表达式的工作机制</h3>
 <p>画了一个草图，简单的说明了下正则表达式的工作原理。</p>
 
@@ -58,20 +57,8 @@ print_r($mdata);
 
 ```
 
-<p>你写的任何一个正则直接量或者 RegExp 都会被浏览器编译为一个原生代码程序，第一次匹配是从头个字符开始，匹配成功时，他会查看是否还有其他的路径没有匹配到，如果有的话，回退到上一次成功匹配的位置，然后重复第二步操作，不过此时开始匹配的位置（lastIndex）是上次成功位置加 1.这样说有点难以理解，下面写了一个 demo，这个 demo 就是实现一个正则表达式的解析引擎，因为逻辑和效果的表现都太复杂了，所以只做了一个简单的演示：</p>
-<div id="demoBox"> Reg:
-<div class="d_reg">/<span data-index="0">H</span><span data-index="1">(<span data-index="2">i</span>|<span data-index="3">ello</span>)</span><span data-index="4">,</span><span data-index="5">&nbsp;</span><span data-index="6">b</span><span data-index="7">a</span><span data-index="8">r</span><span data-index="9">r</span><span data-index="10">e</span><span data-index="11">t</span>/g</div>
+<p>你写的任何一个正则直接量或者 RegExp 都会被浏览器编译为一个原生代码程序，第一次匹配是从头个字符开始，匹配成功时，他会查看是否还有其他的路径没有匹配到，如果有的话，回退到上一次成功匹配的位置，然后重复第二步操作，不过此时开始匹配的位置（lastIndex）是上次成功位置加 1.</p>
 
-    Str:
-<div class="d_str">Lalala. Hi, barret. Hello, John</div>
-
-
-<div class="aniBox">&nbsp;</div>
-<div class="d_info"><a id="runDemo" onclick="return false;" href="#">点击开始演示</a></div>
-
-</div>
-<p>如果上面的 demo 跑不起来，请戳这里：</p>
-<p><a href="http://qianduannotes.duapp.com/demo/regexp/index.html" target="_blank">http://qianduannotes.duapp.com/demo/regexp/index.html</a></p>
 <p>如果要深入了解正则表达式的内部原理，必须先理解匹配过程的一个基础环节&mdash;&mdash;回溯，他是驱动正则的一个基本动力，也是性能消耗、计算消耗的根源。</p>
 <h3>二、回溯</h3>
 <p>正则表达式中出现最多的是分支和量词，上面的 demo 中可以很清楚的看到 hi 和 hello 这两个分支，当匹配到第一个字符 h 之后，进入 (i|ello) 的分支选择，首先是进入 i 分支，当 i 分支匹配完了之后，再回到分支选择的位置，重新选择分支。简单点说，分支就是 <code>|</code> 操作符带来的多项选择问题，而量词指的是诸如 <code>*, +?, {m,n}</code> 之类的符号，正则表达式必须决定何时尝试匹配更多的字符。下面结合回溯详细说说分支和量词。</p>
@@ -253,7 +240,5 @@ console.log(reg.test(str2)); //true
 <p>关于正则的学习，重点是要多练习多实践，并且多尝试用不同的方案去解决一个正则问题，一个很典型的例子，去除字符串首尾的空白，尝试用5-10种不同的正则去测试，并思考哪些方式的效率最高，为什么？通过这一连串的思考可以带动学习的兴趣，提高学习效率~</p>
 
 
-<p>相关文章：<a href="http://www.cnblogs.com/hustskyking/p/javascript-regexp.html" target="_blank">玩转正则之Highlight代码高亮</a></p>
+<p>相关文章：<a href="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/">玩转正则之Highlight代码高亮</a></p>
 
-
-<script type="text/javascript" src="http://files.cnblogs.com/hustskyking/article-regexp.js"></script>
