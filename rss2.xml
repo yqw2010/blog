@@ -8,7 +8,7 @@
     <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
-    <pubDate>Tue, 08 Sep 2015 13:46:06 GMT</pubDate>
+    <pubDate>Tue, 08 Sep 2015 13:49:04 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -17,10 +17,10 @@
       <guid>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</guid>
       <pubDate>Tue, 08 Sep 2015 13:27:57 GMT</pubDate>
       <description>
-      <![CDATA[本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.]]>
+      <![CDATA[本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images。]]>
       
       </description>
-      <content:encoded><![CDATA[<p>本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.</p>
+      <content:encoded><![CDATA[<p>本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images。</p>
 <a id="more"></a>
 <p>这个库的地址是：<a href="https://github.com/zhangyuanwei/node-images" target="_blank" rel="external">https://github.com/zhangyuanwei/node-images</a>，它是一个跨平台极为轻量的图片编解码工具，同时附加了一些图片的操作函数，如：</p>
 <ul>
@@ -36,6 +36,7 @@
 <p>晒一张本博客的一个水印截图：</p>
 <p><img src="/blogimgs/2015/9/201592102.jpg" alt="博客水印截图"></p>
 <p>看到右下角的水印了么 ；）</p>
+<p>至于批量加水印，额，for 循环吧，while 循环也行=。 =</p>
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/#disqus_thread</comments>
     </item>
