@@ -2370,6 +2370,22 @@ br {
 .entry-recent-posts {
   margin-bottom: 30px;
 }
+.notice {
+  text-align: center;
+  line-height: 40px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #eee;
+  color: #ff5900;
+  position: static;
+  min-height: 40px;
+  background-image: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 15px;
+  -webkit-user-select: none;
+  font-weight: bold;
+}
 .ds-thread .ds-loading {
   padding: 20px 0;
   text-align: center;
@@ -2517,13 +2533,14 @@ div#ds-thread #ds-reset .ds-comment-body {
     position: absolute;
     font-size: 16px;
     top: -40px;
-    overflow: visible;
     margin: 0;
     left: -60px;
     background-color: #fafafa;
     padding: 0 6px;
     color: #000;
     border-radius: 4px;
+    overflow: hidden;
+    width: 180px;
   }
   .page-relative-fixed a.next,
   .page-relative-fixed a.prev {
