@@ -37,7 +37,7 @@
 	</div>
 		<% var recentPost = site.posts.data[1];
 		var rTitle = recentPost.title;
-		var excerpt = recentPost.excerpt || recentPost.content.replace(/<[^>]+?>|\n/gm, '').slice(0, 100) + "...";
+		var excerpt = recentPost.excerpt.replace(/<[^>]+?>|\n/gm, '') || recentPost.content.replace(/<[^>]+?>|\n/gm, '').slice(0, 100) + "...";
 		%>
 		<div class="entry-recent-post clearfix" itemscope itemtype="http://schema.org/Article">
 			<h3 itemprop="name"><a href="<%- url_for(recentPost.path) %>" itemprop="url"><%= rTitle  %></a></h3>

@@ -1,5 +1,5 @@
 title: nodejs给图片批量加水印
-description: 本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.
+description: 本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images。
 warning: true
 categories:
   - JavaScript
@@ -11,7 +11,7 @@ date: 2015-09-08 21:27:57
 ---
 
 
-本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images.
+本只是想给博客添加个水印，github 上搜索了半天，找了一个比较小巧的库，叫做 images。
 
 <!--more-->
 
@@ -57,3 +57,5 @@ images(sourceImg)
 ![博客水印截图](/blogimgs/2015/9/201592102.jpg)
 
 看到右下角的水印了么 ；）
+
+至于批量加水印，额，for 循环吧，while 循环也行=。 =
