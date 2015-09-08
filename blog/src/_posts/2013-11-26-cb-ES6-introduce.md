@@ -109,5 +109,4 @@ re({raw:'line1: (words )*\nline2: \w+',
 
 </ul>
 <p>后续文章将陆续详细介绍上述新特性。</p>
-<p>本文同步自我的<a href="http://barretlee.com" target="_blank">github</a>博客。</p>
 

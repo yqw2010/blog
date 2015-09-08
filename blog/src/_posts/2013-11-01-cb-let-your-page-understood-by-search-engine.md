@@ -144,7 +144,3 @@ date: 2013-11-01 03:40:00
 <p>因后面几个用的比较少，如果要做具体了解，请移步<a href="http://schema.org/docs/gs.html" target="_blank">原网页</a>。</p>
 
 
-
-
-<p>小插曲：呵呵，刚文章被博客园团队移除了首页，本文同步自从我的<a title="barretlee的github博客" href="http://barretlee.com/" target="_blank">github博客</a>，欢迎踩点啦~~</p>
-

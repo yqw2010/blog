@@ -14,7 +14,6 @@ date: 2014-05-02 09:42:00
 <p>预计在2014年底，ECMAScript 6将会正式发布，他的草案在13年3月份被冻结，后续提出新特性将会移至ECMASript 7中。目前还没有哪款浏览器实现了ES6的全部内容，兼容性最强的一款要数FireFox了。具体情况可以在<a href="http://kangax.github.io/es5-compat-table/es6/" target="_blank">这里</a>查看。</p>
 <p>关于 ECMAScript 6 草案，我在博客里头复制了一份，可以点击<a href="http://barretlee.com/ST/ES6/" target="_blank">这里</a>。</p>
 <p>JavaScript的内容是越来越丰富，在ES6中还添加了模块（module）和类（class），感觉他已经失去了曾经的单纯了，不知道这些新功能的补充对开发者来说是福音还是负担。之前写过两篇关于ES6的文章，<a href="http://www.cnblogs.com/hustskyking/p/ES6-introduce.html">ECMAScript 6 简介</a> 和 <a href="http://www.cnblogs.com/hustskyking/p/ES6-computed-properties.html">ECMAScript 6中的let和const关键词</a>，本文将一一介绍ES6中的一些新特性。</p>
-<p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/ecmascript6-overview.html">http://www.cnblogs.com/hustskyking/p/ecmascript6-overview.html</a>，转载请注明源地址。</p>
 <p><strong>注意：如果想测试以下属性，请安装 0.11+ 版本的 node，并添加上 --harmony 参数。</strong></p>
 <h3>一、let 和 const</h3>
 <p>这个内容在 <a href="http://www.cnblogs.com/hustskyking/p/ES6-computed-properties.html">ECMAScript 6中的let和const关键词</a>&nbsp;一文中已经介绍过了。简单来说就是一句话：ES6中引入了块级作用域，let的有效区间是他所在的 <code>{}</code> 大括号中。const 为常量，定义之后不能更改，也删除不了。</p>

@@ -78,5 +78,4 @@ fn();
 ```
 
 <p><span>详情可以去</span><a href="https://github.com/olov/defs" target="_blank">https://github.com/olov/defs</a><span>这里瞅瞅。</span></p>
-<p>本文同步自我的<a href="http://barretlee.com" target="_blank">github</a>博客。</p>
 

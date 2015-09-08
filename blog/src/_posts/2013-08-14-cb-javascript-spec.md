@@ -483,4 +483,3 @@ B.prototype.constructor = B; //原则上，记得把这句话加上
 
 
 <p><strong>相关阅读：</strong><a href="http://www.cnblogs.com/hustskyking/p/css-spec.html" target="_blank">前端编码规范之CSS</a></p>
-<p>&nbsp;&nbsp;</p>

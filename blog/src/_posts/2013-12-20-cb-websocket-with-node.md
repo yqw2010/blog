@@ -366,7 +366,6 @@ wss-URI = "wss:" "//" host [ ":" port ] path [ "?" query ]
 
 
 <p>下次将以php作为后台，讲解websocket的相关知识。</p>
-<p><a href="http://www.cnblogs.com/hustskyking/p/websocket-with-php.html" target="_blank">细说WebSocket-php篇</a></p>
 
 
 

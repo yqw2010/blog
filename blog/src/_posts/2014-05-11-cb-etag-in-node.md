@@ -14,7 +14,6 @@ date: 2014-05-11 07:26:00
 <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/05/11/etag-in-node.html" target="_blank">博客园</a>.</div>
 
 <p>HTTP 提供了许多页面缓存的方案，其中属 Etag 和 Last-Modified 应用最广。本文会先介绍 Etag 的应用场景，然后说说他在 php 和 node 中的使用。</p>
-<p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/etag-in-node.html">http://www.cnblogs.com/hustskyking/p/etag-in-node.html</a>，转载请注明源地址。</p>
 <h3>一、Etag的使用</h3>
 <p>客户端和浏览器之间的交互：</p>
 

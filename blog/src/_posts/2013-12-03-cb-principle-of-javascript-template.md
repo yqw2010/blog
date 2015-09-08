@@ -394,4 +394,3 @@ var barretTpl = function(str, data) {
 <p>[2]&nbsp;<a href="http://tangram.baidu.com/BaiduTemplate/" target="_blank">http://tangram.baidu.com/BaiduTemplate/</a>&nbsp; JS template</p>
 
 
-<p>本文同步自我的<a href="http://barretlee.com/" target="_blank">github pages</a></p>

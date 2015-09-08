@@ -13,7 +13,6 @@ date: 2014-05-01 12:59:00
 <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/05/01/xss-snippets.html" target="_blank">博客园</a>.</div>
 
 <p>该文章是本人两天的学习笔记，共享出来，跟大家交流。知识比较零散，但是对有一定 JS 基础的人来说，每个小知识都有助于开阔你的 Hack 视角。首先声明，本文只是 XSS 攻击的冰山一角，读者自行深入研究。</p>
-<p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/xss-snippets.html">http://www.cnblogs.com/hustskyking/p/xss-snippets.html</a>&nbsp;，转载请保留源地址。</p>
 <h3>一、XSS学习提要</h3>
 <ol>
 <li><a href="http://qdemo.sinaapp.com/ppt/xss/" target="_blank">http://qdemo.sinaapp.com/ppt/xss/</a> 三水清 简单介绍 xss</li>

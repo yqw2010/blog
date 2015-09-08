@@ -18,4 +18,4 @@ date: 2014-04-20 00:00:00
 
 左边是 '' ，右边是 false，答案是什么一目了然了。
 
-具体可以看看：<http://barretlee.com/ST/ES5.1/#sec-11.9.3>
+具体可以看看：<http://barretlee.com/demo/ST/ES5.1/#sec-11.9.3>

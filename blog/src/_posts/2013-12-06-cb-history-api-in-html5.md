@@ -142,5 +142,4 @@ function is_pjax(){
 </ul>
 
 
-<p>本文同步自我的<a href="http://barretlee.com" target="_blank">github pages</a></p>
 

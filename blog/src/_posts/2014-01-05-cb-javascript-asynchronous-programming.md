@@ -531,5 +531,4 @@ fs.readdir(source, function(err, files) {
 <li><a href="http://www.web-tinker.com/article/20444.html" target="_blank">非常有意义，却尚未兼容的SharedWorker</a> 次碳酸钴</li>
 <li><a href="http://www.cnblogs.com/_franky/archive/2010/11/23/1885773.html" target="_blank">HTML5 Web Worker</a> Franky</li>
 </ul>
-<p>&nbsp;本文同步自我的 <a href="http://barretlee.com/javascript-asynchronous-programming/" target="_blank">github pages</a></p>
 

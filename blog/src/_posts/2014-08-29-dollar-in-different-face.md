@@ -16,4 +16,3 @@ date: 2014-08-29 00:00:00
     <style>i {font-family:"Microsoft Yahei";}</style>
     <i>&yen;</i>
     
--EOF-    
