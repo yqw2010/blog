@@ -4,6 +4,7 @@ var http = require('http');
 var fs = require("fs");
 var path = require("path");
 var querystring = require("querystring");
+var images = require("images");
 
 var markdown = require( "markdown-js" );
 var formidable = require('formidable');
@@ -85,7 +86,7 @@ var Writer = {
     form.uploadDir = path.join(Root, "./tmp/");
     form.parse(req,function(error, fields, files){
       var year = new Date().getFullYear().toString();
-      var month = new Date().getMonth().toString();
+      var month = String(new Date().getMonth() + 1);
       var day = new Date().getDay().toString();
 
       if(!fs.existsSync(path.join(Root, "../blog/src/blogimgs/", year))) {
@@ -94,9 +95,34 @@ var Writer = {
       if(!fs.existsSync(path.join(Root, "../blog/src/blogimgs/", year, month))) {
         fs.mkdirSync(path.join(Root, "../blog/src/blogimgs/", year, month));
       }
-      var name = year + "" + month + day + (++index) + path.extname(files.img.name);
-      fs.renameSync(files.img.path, path.join(Root, "../blog/src/blogimgs/", year, month, name));
-      console.log("save: " + path.join(Root, "../blog/src/blogimgs/", year, month, name));
+
+      var extname = path.extname(files.img.name);
+      if((files.img.name == "blob") && !extname) {
+        extname = ".jpg";
+      }
+      var name = year + "" + month + day + (++index) + extname;
+
+      var img = images(files.img.path);
+      var width = img.width();
+      var height = img.height();
+      var shuiyin = 100;
+      var delta = 1;
+      var size = width;
+      if(width >= 1000) {
+        shuiyin = 200;
+        delta = 2;
+        size = 1000;
+      }
+      var imgPath = path.join(Root, "../blog/src/blogimgs/", year, month, name);
+      var shuiyinPath = path.join(Root, "./shuiyin/sy" + shuiyin + ".png");
+      img.draw(images(shuiyinPath), width  - 110 * delta, height - 36 * delta)
+        // 如果大于 1000px 则缩放到 1000
+        .size(size)
+        // 保存图片 删除 tmp
+        .save(imgPath);
+
+      fs.unlinkSync(files.img.path);
+
       res.writeHead(200, {
         "Content-Type": "text/json"
       });
