@@ -5,13 +5,13 @@ var fs = require("fs");
 var path = require("path");
 var querystring = require("querystring");
 var images = require("images");
+var crypto = require('crypto');
 
 var markdown = require( "markdown-js" );
 var formidable = require('formidable');
 
 var PORT = 4001;
 var Root = __dirname;
-var index = 100;
 var articlePath;
 
 module.exports = function(article){
@@ -41,6 +41,9 @@ module.exports = function(article){
       }
       res.write(fs.readFileSync(path.join(Root, "." + req.url)));
       res.end();
+    } else {
+      res.write("404 not found!");
+      res.end();
     }
 
   }).listen(PORT, function(){
@@ -51,13 +54,11 @@ module.exports = function(article){
 var Writer = {
   getPOST: function(req, res){
     req.setEncoding('utf-8');
-    var postData = [], len = 0;
+    var postData = "";
     req.on("data", function (postDataChunk) {
-      postData.push(postDataChunk);
-      len += postDataChunk.length;
+      postData += postDataChunk;
     });
     req.on("end", function () {
-      postData = Buffer.concat(postData, len);
       postData = querystring.parse(postData);
       fs.writeFileSync(articlePath, postData['md']);
       res.writeHead(200, {
@@ -85,6 +86,8 @@ var Writer = {
       var year = new Date().getFullYear().toString();
       var month = String(new Date().getMonth() + 1);
       var day = new Date().getDay().toString();
+      month = month < 10 ? "0" + month : month;
+      day = day < 10 ? "0" + day : day;
 
       if(!fs.existsSync(path.join(Root, "../blog/src/blogimgs/", year))) {
         fs.mkdirSync(path.join(Root, "../blog/src/blogimgs/", year));
@@ -97,7 +100,23 @@ var Writer = {
       if((files.img.name == "blob") && !extname) {
         extname = ".jpg";
       }
-      var name = year + "" + month + day + (++index) + extname;
+      var hash = crypto.createHash('md5').update(fs.readFileSync(files.img.path)).digest('hex').slice(0, 8);
+      var name = year + "" + month + day + "_" + hash + extname;
+      var imgPath = path.join(Root, "../blog/src/blogimgs/", year, month, name);
+
+      console.log(imgPath);
+      // 放置重复写入
+      if(fs.existsSync(imgPath)) {
+        res.writeHead(200, {
+          "Content-Type": "text/json"
+        });
+        res.write(JSON.stringify({
+          code: 200,
+          path: path.join("/blogimgs/", year, month, name)
+        }));
+        res.end();
+        return;
+      }
 
       var img = images(files.img.path);
       var width = img.width();
@@ -114,7 +133,6 @@ var Writer = {
       if(width <= 200 || height <= 40) {
         needSY = false;
       }
-      var imgPath = path.join(Root, "../blog/src/blogimgs/", year, month, name);
       var shuiyinPath = path.join(Root, "./shuiyin/sy" + shuiyin + ".png");
       if(needSY) {
         img.draw(images(shuiyinPath), width  - 110 * delta, height - 36 * delta)
