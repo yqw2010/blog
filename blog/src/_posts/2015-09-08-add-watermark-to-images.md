@@ -47,7 +47,7 @@ var wmWidth = watermarkImg.height();
 
 images(sourceImg)
   // 设置绘制的坐标位置，右下角距离 10px
-  .draw(watermarkPath, sWidth - wmWidth - 10, sHeight - wmHeight - 10)
+  .draw(watermarkImg, sWidth - wmWidth - 10, sHeight - wmHeight - 10)
   // 保存格式会自动识别
   .save(savePath);
 ```

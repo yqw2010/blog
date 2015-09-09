@@ -41,9 +41,6 @@ module.exports = function(article){
       }
       res.write(fs.readFileSync(path.join(Root, "." + req.url)));
       res.end();
-    } else {
-      res.write("404 not found!");
-      res.end();
     }
 
   }).listen(PORT, function(){
@@ -107,19 +104,27 @@ var Writer = {
       var height = img.height();
       var shuiyin = 100;
       var delta = 1;
+      var needSY = true;
       var size = width;
-      if(width >= 1000) {
+      if(width >= 1500) {
         shuiyin = 200;
         delta = 2;
-        size = 1000;
+        size = 1500;
+      }
+      if(width <= 200 || height <= 40) {
+        needSY = false;
       }
       var imgPath = path.join(Root, "../blog/src/blogimgs/", year, month, name);
       var shuiyinPath = path.join(Root, "./shuiyin/sy" + shuiyin + ".png");
-      img.draw(images(shuiyinPath), width  - 110 * delta, height - 36 * delta)
-        // 如果大于 1000px 则缩放到 1000
-        .size(size)
-        // 保存图片 删除 tmp
-        .save(imgPath);
+      if(needSY) {
+        img.draw(images(shuiyinPath), width  - 110 * delta, height - 36 * delta)
+          // 如果大于 1000px 则缩放到 1000
+          .size(size)
+          // 保存图片 删除 tmp
+          .save(imgPath);
+      } else {
+        img.save(imgPath);
+      }
 
       fs.unlinkSync(files.img.path);
 
