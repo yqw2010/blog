@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2015/09/09/jd-architecture-analysis/</loc>
+    <lastmod>2015-09-09T10:09:42.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2015/09/08/add-watermark-to-images/</loc>
-    <lastmod>2015-09-08T13:49:04.000Z</lastmod>
+    <lastmod>2015-09-09T05:48:54.000Z</lastmod>
   </url>
   
   <url>
@@ -37,7 +42,17 @@
   </url>
   
   <url>
+    <loc>http://www.barretlee.com/blog/2014/04/20/valueof-and-tostring/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2014/05/02/cb-ecmascript6-overview/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2014/05/01/cb-xss-snippets/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -47,12 +62,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/11/28/cb-ES6-computed-properties/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/12/03/cb-principle-of-javascript-template/</loc>
+    <loc>http://www.barretlee.com/blog/2013/11/26/cb-ES6-introduce/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -72,7 +82,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/05/01/cb-xss-snippets/</loc>
+    <loc>http://www.barretlee.com/blog/2014/03/31/tap-highlight-in-webview/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/11/28/cb-ES6-computed-properties/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -82,27 +97,17 @@
   </url>
   
   <url>
+    <loc>http://www.barretlee.com/blog/2013/12/03/cb-principle-of-javascript-template/</loc>
+    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/blog/2013/11/01/cb-let-your-page-understood-by-search-engine/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/11/04/cb-white-screen-in-chrome/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/11/26/cb-ES6-introduce/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2014/04/20/valueof-and-tostring/</loc>
-    <lastmod>2015-09-08T07:50:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2014/03/31/tap-highlight-in-webview/</loc>
+    <loc>http://www.barretlee.com/blog/2013/12/20/cb-websocket-with-node/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -112,7 +117,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/12/20/cb-websocket-with-node/</loc>
+    <loc>http://www.barretlee.com/blog/2013/11/04/cb-white-screen-in-chrome/</loc>
     <lastmod>2015-09-08T07:50:08.000Z</lastmod>
   </url>
   
@@ -132,7 +137,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/03/29/cb-lightweight-solution-for-an-iframe-cross-domain-communication/</loc>
+    <loc>http://www.barretlee.com/blog/2013/08/13/cb-license/</loc>
+    <lastmod>2015-09-07T05:32:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/08/20/cb-fe-monitor/</loc>
     <lastmod>2015-09-07T05:32:15.000Z</lastmod>
   </url>
   
@@ -147,7 +157,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/08/13/cb-license/</loc>
+    <loc>http://www.barretlee.com/blog/2013/04/27/cb-garbage-collection/</loc>
+    <lastmod>2015-09-07T05:32:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2013/03/29/cb-lightweight-solution-for-an-iframe-cross-domain-communication/</loc>
     <lastmod>2015-09-07T05:32:15.000Z</lastmod>
   </url>
   
@@ -157,27 +172,17 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/20/cb-fe-monitor/</loc>
-    <lastmod>2015-09-07T05:32:15.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/blog/2013/04/27/cb-garbage-collection/</loc>
-    <lastmod>2015-09-07T05:32:15.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2013/04/24/cb-ie6-bugs/</loc>
     <lastmod>2015-09-07T05:31:22.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
+    <loc>http://www.barretlee.com/blog/2014/09/29/cb-promise/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/09/29/cb-promise/</loc>
+    <loc>http://www.barretlee.com/blog/2013/06/11/cb-linux-learning-details/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
@@ -192,7 +197,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/03/28/JSON/</loc>
+    <loc>http://www.barretlee.com/blog/2015/08/21/cb-upgrade-insecure-requests/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
@@ -202,12 +207,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/04/09/cb-uncurrying/</loc>
+    <loc>http://www.barretlee.com/blog/2013/03/28/JSON/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2013/06/11/cb-linux-learning-details/</loc>
+    <loc>http://www.barretlee.com/blog/2013/04/09/cb-uncurrying/</loc>
     <lastmod>2015-09-07T05:28:24.000Z</lastmod>
   </url>
   
@@ -502,12 +507,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/03/01/cb-javascript-fullscreen/</loc>
+    <loc>http://www.barretlee.com/blog/2015/03/29/mac-backup-about-xcode/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/03/29/mac-backup-about-xcode/</loc>
+    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   
@@ -612,7 +617,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2014/02/28/cb-webAudio-filter/</loc>
+    <loc>http://www.barretlee.com/blog/2014/03/01/cb-javascript-fullscreen/</loc>
     <lastmod>2015-09-05T13:46:52.000Z</lastmod>
   </url>
   

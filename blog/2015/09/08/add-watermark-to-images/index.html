@@ -60,9 +60,9 @@
 <p>首先需要安装 <code>images</code> 库：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> images</span><br></pre></td></tr></table></figure>
 <p>然后开撸，基本代码如下:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">'images'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> watermarkImg = images(path.join(__dirname, <span class="string">'path/to/watermark.ext'</span>));</span><br><span class="line"><span class="keyword">var</span> sourceImg = images(path.join(__dirname, <span class="string">'path/to/sourceImg.ext'</span>));</span><br><span class="line"><span class="keyword">var</span> savePath = path.join(__dirname, <span class="string">'path/to/saveImg.jpg'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比如放置在右下角，先获取原图的尺寸和水印图片尺寸</span></span><br><span class="line"><span class="keyword">var</span> sWidth = sourceImg.width();</span><br><span class="line"><span class="keyword">var</span> sHeight = sourceImg.height();</span><br><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.width();</span><br><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.height();</span><br><span class="line"></span><br><span class="line">images(sourceImg)</span><br><span class="line">  <span class="comment">// 设置绘制的坐标位置，右下角距离 10px</span></span><br><span class="line">  .draw(watermarkPath, sWidth - wmWidth - <span class="number">10</span>, sHeight - wmHeight - <span class="number">10</span>)</span><br><span class="line">  <span class="comment">// 保存格式会自动识别</span></span><br><span class="line">  .save(savePath);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">'images'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> watermarkImg = images(path.join(__dirname, <span class="string">'path/to/watermark.ext'</span>));</span><br><span class="line"><span class="keyword">var</span> sourceImg = images(path.join(__dirname, <span class="string">'path/to/sourceImg.ext'</span>));</span><br><span class="line"><span class="keyword">var</span> savePath = path.join(__dirname, <span class="string">'path/to/saveImg.jpg'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比如放置在右下角，先获取原图的尺寸和水印图片尺寸</span></span><br><span class="line"><span class="keyword">var</span> sWidth = sourceImg.width();</span><br><span class="line"><span class="keyword">var</span> sHeight = sourceImg.height();</span><br><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.width();</span><br><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.height();</span><br><span class="line"></span><br><span class="line">images(sourceImg)</span><br><span class="line">  <span class="comment">// 设置绘制的坐标位置，右下角距离 10px</span></span><br><span class="line">  .draw(watermarkImg, sWidth - wmWidth - <span class="number">10</span>, sHeight - wmHeight - <span class="number">10</span>)</span><br><span class="line">  <span class="comment">// 保存格式会自动识别</span></span><br><span class="line">  .save(savePath);</span><br></pre></td></tr></table></figure>
 <p>晒一张本博客的一个水印截图：</p>
-<p><img src="/blogimgs/2015/9/201592102.jpg" alt="博客水印截图"></p>
+<p><img src="/blogimgs/2015/09/201592102.jpg" alt="博客水印截图"></p>
 <p>看到右下角的水印了么 ；）</p>
 <p>至于批量加水印，额，for 循环吧，while 循环也行=。 =</p>
 
@@ -82,7 +82,7 @@
 <a class="article-tag-link" href="/blog/tags/npm/">npm</a>, <a class="article-tag-link" href="/blog/tags/水印/">水印</a>
 </li>
 		<li>版权声明: 自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
-		<li>最后编辑时间: 2015-09-08 09:49:04</li>
+		<li>最后编辑时间: 2015-09-09 01:48:54</li>
 		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
@@ -101,6 +101,13 @@
   <div class="post-relative">
 <div class="page-relative">
   
+    <a href="/blog/2015/09/09/jd-architecture-analysis/" class="post-prev">
+      <i class="icon">&#x261c;</i>
+      
+        <b>京东首页前端技术剖析与对比</b>
+      
+    </a>
+  
   
     <a href="/blog/2015/09/07/lsof-in-xnix/" class="post-next">
       <b>unix下的文件操纵</b>
@@ -111,6 +118,13 @@
 
 
 <div class="page-relative-fixed">
+  
+  <a href="/blog/2015/09/09/jd-architecture-analysis/" class="prev" title="京东首页前端技术剖析与对比">
+    <i class="icon">&#xe600;</i>
+    
+    <b>京东首页前端技术剖析与对比</b>
+    
+  </a>
   
   
   <a href="/blog/2015/09/07/lsof-in-xnix/" class="next" title="unix下的文件操纵">

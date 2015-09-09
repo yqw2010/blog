@@ -8,8 +8,59 @@
     <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
-    <pubDate>Tue, 08 Sep 2015 13:49:04 GMT</pubDate>
+    <pubDate>Wed, 09 Sep 2015 10:09:42 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[京东首页前端技术剖析与对比]]></title>
+      <link>http://www.barretlee.com/blog/2015/09/09/jd-architecture-analysis/</link>
+      <guid>http://www.barretlee.com/blog/2015/09/09/jd-architecture-analysis/</guid>
+      <pubDate>Wed, 09 Sep 2015 02:35:05 GMT</pubDate>
+      <description>
+      <![CDATA[逛京东的时候开着 chrome 控制台，无意间看到了下面这串似曾相识的代码，仔细扒拉看了之后，做了一个简单的分析，同时也提出了一些看法。]]>
+      
+      </description>
+      <content:encoded><![CDATA[<p>逛京东的时候开着 chrome 控制台，无意间看到了下面这串似曾相识的代码，</p>
+<p><img src="/blogimgs/2015/09/20150903_c32208d1.jpg" alt="京东网页部分源码"></p>
+<p>再看了下 localstorage，</p>
+<p><img src="/blogimgs/2015/09/20150903_2d854b82.jpg" alt="京东网页 localstorage"></p>
+<p>看到这些内容，其实京东首页的前端架构雏形就出来了。</p>
+<a id="more"></a>
+<p>JD 使用 seajs 作为模块加载器，使用 jd-jquery 为基本库，看到它的 jq 版本是 1.6.4，</p>
+<p><img src="/blogimgs/2015/09/201593104.jpg" alt="jd-jQuery"></p>
+<p>对比了下”正版” <a href="http://code.jquery.com/jquery-1.6.4.min.js" target="_blank" rel="external">jquery-1.6.4</a> 的源码，很显然，JD 使用的是自己造的轮子，这说明京东的前端生态应该是十分完善的，有轮子就会有很多组件、插件，这对一个公司批量造网页很有裨益。</p>
+<h3 id="前后端情况">前后端情况</h3><p>电商的主页都是以呈现为主，展示各个横向市场和纵向市场的入口，也可能会有一些个性化（所谓个性化，就是给不同的用户推荐不同的内容）的推荐。它不像交易、详情等页面，页面逻辑后端重而前端轻，后端需要做各种内容推荐、数据校验、类型判断等工作，而前端更多的是将后端的信息有序地呈现出来。</p>
+<p>首页则不同，首页承载了大量的二级页面入口和一些频道的推荐内容，而这些数据更多的是由运营去维护，可以认为数据是死的，就算存在一些个性化的数据，也会使用 jsonp 的形式去加载，前端需要快速高效地处理这些数据，可见前端任务相当艰巨。加上作为一个网站的门面，它的安全稳定性也是极为重要的。</p>
+<p>如果没有猜错，京东后端也有一个中间层，中间层负责组装数据，以模块为单位，根据前端的请求响应对应模块的内容，而数据是在另外一个运营平台上维护，运营填好的数据会即时的推送到 CDN 或者应用，中间层拼合数据。看不到的东西就不猜测了，我们来看看京东首页的整体结构。</p>
+<h3 id="前端技术简要分析">前端技术简要分析</h3><p>如果希望一个网站跑起来飞快，你觉得怎么做最靠谱？</p>
+<p>我们都玩过微博，都上过手机淘宝，进入这些 app 应用，会发现很多页面几乎看不到加载的痕迹，因为他们是本地应用，很多图片、脚本、样式都已经打包在本地了，所以加载起来速度是很快的。如果希望一个网页也能飞奔起来，同样的道理，让请求的个数少一点，让请求的内容少一点。还有一个至关重要的，让那些次要的内容慢一点加载（我们称之为懒加载）。</p>
+<h4 id="前端缓存和异步加载">前端缓存和异步加载</h4><p>京东在按需加载和数据缓存上的工作做的十分到位。</p>
+<p><img src="/blogimgs/2015/09/201593105.jpg" alt="JD-page-loader"></p>
+<p>每个具有 lazyload 异步标识的模块，都包含两个属性，一个是渲染该模块需要的内容（数据+JS），一个是这个内容过期的时间，只要内容不变就不会过期，所以这里使用的是文件 hash 来标注。</p>
+<p><img src="/blogimgs/2015/09/20150903_9f0924a6.jpg" alt="JD-data-via-localstorage"></p>
+<p>把需要请求的路径写在 dom 上，用户滚动时，一旦该模块进入了视窗，则请求 dom 上对应的 <code>data-path</code> 地址，拿到渲染这个模块所需要的脚本和数据，不过这中间还有一层本地缓存 localstorage，如果在本地缓存中匹配到了对应的 hash string 内容，则直接渲染，否则请求到数据之后更新本地缓存。dom 上的 <code>data-time</code> 会在页面加载时候，后端计算文件 hash，hash 不变则输出内容也不变。</p>
+<p>这里其实存在两个请求，一个请求是加载数据和脚本，而这里的内容是：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span>&#123;html&#125;<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="actionscript"></span><span class="line"><span class="keyword">var</span> data = &#123;JSONSting&#125;;</span><span class="line">seajs.<span class="keyword">use</span>(<span class="string">'path/to/$version$/script.js'</span>, <span class="function"><span class="keyword">function</span><span class="params">(Script)</span></span>&#123;</span><span class="line">  Script.init(data);</span><span class="line">&#125;);</span><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>为啥不在返回的内容中直接把脚本也输出出来？为了让数据充分缓存下了不少功夫。数据的变化频率比较高，如果数据和初始化脚本包装在一起，虽然节约了一个请求，但一旦数据变化，整个脚本都得重新加载，而将数据和脚本分离，脚本可以长期缓存在本地，单独请求数据，这个量会小很多。直接改变上面的 <code>version</code> 版本号便可以让浏览器重新请求最新脚本。</p>
+<p>从上面可以看出，任何一个模块的改动，在前端只会引起一个较小的加载变化，加上 http 的缓存策略，服务器的压力也是很小的。</p>
+<h4 id="工程结构">工程结构</h4><p>比较常见的工程结构，如下：</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">.</span><span class="line">├── build/</span><span class="line">└── src/</span><span class="line">    ├── widgets/</span><span class="line">    ├── mods/</span><span class="line">    |<span class="string">   ├── moduleA/        </span><span class="line">    </span>|<span class="string">   </span>|<span class="string">   ├── index.js  </span><span class="line">    </span>|<span class="string">   </span>|<span class="string">   ├── index.tpl</span><span class="line">    </span>|<span class="string">   </span>|<span class="string">   └── index.less</span><span class="line">    </span>|<span class="string">   ├── moduleB/ </span><span class="line">    </span>|<span class="string">   └── moduleC/  </span><span class="line">    ├── index.js  </span><span class="line">    ├── index.tpl</span><span class="line">    └── index.less</span></span></pre></td></tr></table></figure>
+<p>所有 mods 中的 <code>tpl</code> 文件通过一些标签，引入到 <code>src/index.tpl</code> 中，需要同步渲染的模块信息直接引入，而异步渲染的模块内容，比如 <code>moduleA/index.tpl</code>，其内容就十分简单：</p>
+<figure class="highlight erb"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> </span><span class="line">  <span class="attribute">lazyload</span> </span><span class="line">  <span class="attribute">data-path</span>=<span class="value">"</span></span></span>&lt;%<span class="ruby"> moduleA </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span> </span><span class="line">  <span class="attribute">data-time</span>=<span class="value">"</span></span></span>&lt;%<span class="ruby"> md5(moduleA + getData()) </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span></pre></td></tr></table></figure>
+<p>只引入一个模块钩子（hook），然后按需加载/懒加载这个模块钩子内容。相比 JD 采用的也是类似的模型。</p>
+<h3 id="横向技术对比">横向技术对比</h3><p>看看上面列出的目录结构，一般情况下，为了减少网页的请求数，我们会把所有 mods 和 wedgets 中的 js 和 css 分别打包成一个文件，然后前端 combo 请求，提前加载但是懒执行，这是 CMD 的思维方式。而京东使用了更懒的方式：懒加载并且懒执行。</p>
+<p>这种方式带来的好处就是，单个模块的更改，前端只更新一小部分缓存；而提前加载所有模块的方式，任何一个模块有改动，整体都得重新下载。脚本懒加载的缺点是，需要发起请求，如果需要加载多个模块，则需要发起多个脚本请求，可以看到，快速拖动 JD 首页，模块的加载速度不容乐观。当然，脚本是可以被浏览器缓存的，这个问题也就是首次访问或者清空了缓存才会出现。</p>
+<p>对请求控制如此严格，怎么就没考虑下优化源码当中的<a href="view-source:http://www.jd.com/" target="_blank" rel="external">两大段 css 和 js 代码</a>呢？是不是也可以把 css 和 js 放到 localstorage 中，减少请求数。</p>
+<p>源码中通过函数去加载资源：</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> loadCss = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><span class="line">  <span class="keyword">var</span> style = loadFromLocalstorage();</span><span class="line">  inserCss(style);</span><span class="line">&#125;;</span></pre></td></tr></table></figure>
+<p>如果 localstorage 中不存在，也不需要重新发请求，后端脚本通过 cookie 判断是否需要同步输出代码：</p>
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 伪代码</span></span><span class="line"><span class="keyword">if</span><span class="params">(cookies<span class="params">('cssV')</span> || cookie<span class="params">('cssV')</span> !== 'setsV')</span>&#123;</span><span class="line">  <span class="built_in">echo</span> CSSCode;</span><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>如果发现 cookie 中的版本号与设定的版本号不一样，或者没有 cssV cookie，则同步内联输出 css 和 js。</p>
+<h3 id="小结">小结</h3><p>本文只是对京东首页用到的部分技术做一个简要的分析，页面加载速度确实十分可观，赞！</p>
+<p>随着需求的多元化和终端设备的多元化，前端技术在 web 舞台上一直展现着优美的身姿，她在进化、在演变，几乎每隔一两个月就能听到新的前端技术出来，所以学是学不过来的，前端的学习就两个字：”理解为什么”。</p>
+]]></content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/09/09/jd-architecture-analysis/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[nodejs给图片批量加水印]]></title>
@@ -32,9 +83,9 @@
 <p>首先需要安装 <code>images</code> 库：</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> images</span></pre></td></tr></table></figure>
 <p>然后开撸，基本代码如下:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">'images'</span>);</span><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><span class="line"><span class="keyword">var</span> watermarkImg = images(path.join(__dirname, <span class="string">'path/to/watermark.ext'</span>));</span><span class="line"><span class="keyword">var</span> sourceImg = images(path.join(__dirname, <span class="string">'path/to/sourceImg.ext'</span>));</span><span class="line"><span class="keyword">var</span> savePath = path.join(__dirname, <span class="string">'path/to/saveImg.jpg'</span>);</span><span class="line"></span><span class="line"><span class="comment">// 比如放置在右下角，先获取原图的尺寸和水印图片尺寸</span></span><span class="line"><span class="keyword">var</span> sWidth = sourceImg.width();</span><span class="line"><span class="keyword">var</span> sHeight = sourceImg.height();</span><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.width();</span><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.height();</span><span class="line"></span><span class="line">images(sourceImg)</span><span class="line">  <span class="comment">// 设置绘制的坐标位置，右下角距离 10px</span></span><span class="line">  .draw(watermarkPath, sWidth - wmWidth - <span class="number">10</span>, sHeight - wmHeight - <span class="number">10</span>)</span><span class="line">  <span class="comment">// 保存格式会自动识别</span></span><span class="line">  .save(savePath);</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> images = <span class="built_in">require</span>(<span class="string">'images'</span>);</span><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><span class="line"><span class="keyword">var</span> watermarkImg = images(path.join(__dirname, <span class="string">'path/to/watermark.ext'</span>));</span><span class="line"><span class="keyword">var</span> sourceImg = images(path.join(__dirname, <span class="string">'path/to/sourceImg.ext'</span>));</span><span class="line"><span class="keyword">var</span> savePath = path.join(__dirname, <span class="string">'path/to/saveImg.jpg'</span>);</span><span class="line"></span><span class="line"><span class="comment">// 比如放置在右下角，先获取原图的尺寸和水印图片尺寸</span></span><span class="line"><span class="keyword">var</span> sWidth = sourceImg.width();</span><span class="line"><span class="keyword">var</span> sHeight = sourceImg.height();</span><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.width();</span><span class="line"><span class="keyword">var</span> wmWidth = watermarkImg.height();</span><span class="line"></span><span class="line">images(sourceImg)</span><span class="line">  <span class="comment">// 设置绘制的坐标位置，右下角距离 10px</span></span><span class="line">  .draw(watermarkImg, sWidth - wmWidth - <span class="number">10</span>, sHeight - wmHeight - <span class="number">10</span>)</span><span class="line">  <span class="comment">// 保存格式会自动识别</span></span><span class="line">  .save(savePath);</span></pre></td></tr></table></figure>
 <p>晒一张本博客的一个水印截图：</p>
-<p><img src="/blogimgs/2015/9/201592102.jpg" alt="博客水印截图"></p>
+<p><img src="/blogimgs/2015/09/201592102.jpg" alt="博客水印截图"></p>
 <p>看到右下角的水印了么 ；）</p>
 <p>至于批量加水印，额，for 循环吧，while 循环也行=。 =</p>
 ]]></content:encoded>
@@ -670,39 +721,6 @@
 <p>我看到的是一个年轻有活力有底蕴的大叔，希望阿里巴巴因为这位技术大牛的加入而更加丰满！</p>
 ]]></content:encoded>
       <comments>http://www.barretlee.com/blog/2015/04/07/zhaohaiping-in-my-eye/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[根据访问属性进行差异化数据加载]]></title>
-      <link>http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/</link>
-      <guid>http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/</guid>
-      <pubDate>Thu, 02 Apr 2015 16:00:00 GMT</pubDate>
-      <description>
-      <![CDATA[<p>判断用户是否第一次访问页面，先不说怎么做，想想什么场景下会用到？</p>
-<p>如果我们页面的体积过大，用户第一次访问，会消耗大量的时间(2-5s)去下载页面所需要的资源，给用户带来的体验是很不好的，尤其是移动端的用户。如果我们可以在用户第一次访问的时候只加载主要内容，在这]]>
-      </description>
-      <content:encoded><![CDATA[<p>判断用户是否第一次访问页面，先不说怎么做，想想什么场景下会用到？</p>
-<p>如果我们页面的体积过大，用户第一次访问，会消耗大量的时间(2-5s)去下载页面所需要的资源，给用户带来的体验是很不好的，尤其是移动端的用户。如果我们可以在用户第一次访问的时候只加载主要内容，在这个主要内容中引导用户做更多的加载资源的操作，一方面可以让用户熟悉系统，一方面也给页面加载资源争取了巨量的时间，何乐而不为？！</p>
-<p>我们能最快想到的方案是，使用 cookie ，服务器根据 cookie 的属性（如某个 Tag 的值为 1 或者 0）来判断要给用户呈现什么样的内容，这样做有几点不好：</p>
-<ol>
-<li>需要服务器协助，而很多时候前端对服务器的控制为 0</li>
-<li>cookie在每次网页请求的时候都会附带，浪费 （当然，可以在用户访问一次之后清理这个 cookie，比如服务器端设置 session 值，不过又增加了后端的逻辑负担，而且不靠谱）</li>
-<li>如果用户禁用了 cookie 呢？</li>
-</ol>
-<p>问题有很多，解决问题的方案也不少，针对这个问题，HTML5规范也提供了相应的事件和属性支持。</p>
-<h3 id="如何判断用户是否为第一次访问页面">如何判断用户是否为第一次访问页面</h3><p>当页面加载的时候会触发 onload 事件，完了之后触发 pageShow 事件，pageShow 事件是页面每次加载都会触发的，而 onload 不然。默认情况下，浏览器会缓存当前访问的页面（隐私模式除外，特殊处理，也会缓存，退出隐私模式时，缓存的所有内容全部删除），当用户点击前进或者后退按钮时，浏览器会从缓存中获取内容，这个时候 onload 事件是不会触发的。</p>
-<p>可以这么说：</p>
-<ul>
-<li>如果待加载的页面不存在于缓存中，会触发 onload ，再触发 pageShow</li>
-<li>如果待加载的页面存在于缓存中，不触发 onload，只触发 pageShow</li>
-</ul>
-<p>pageShow 事件对象 event 中有一个属性值，叫做 persisted，如果这个值为 true，则为缓存数据，false，则为第一次加载。</p>
-<h3 id="差异化加载">差异化加载</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.body;</span><span class="line">body.onpageshow = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><span class="line">  <span class="keyword">if</span>(evt.persisted)&#123;</span><span class="line">    <span class="comment">// 如果从缓存加载，该干啥干啥</span></span><span class="line">    doSomething();</span><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><span class="line">    <span class="comment">// 如果用户第一次访问（没有缓存），只加载主体框架</span></span><span class="line">    loadMainContent();</span><span class="line">  &#125;</span><span class="line">&#125;;</span></pre></td></tr></table></figure>
-<p>在 <code>loadMainContent()</code> 我们可以这样干：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">funtion loadMainContent()&#123;</span><span class="line">  <span class="comment">// 引导用户执行操作，操作一次加载点东西</span></span><span class="line">  leadUserDoSomething();</span><span class="line">  <span class="comment">// 或者悄悄地缓慢的加载需要的数据</span></span><span class="line">  loadDataInQuickMode();</span><span class="line">&#125;</span></pre></td></tr></table></figure>
-<p>当然，通过 cookie 或者 pageshow 事件属性判断用户浏览器是否有缓存数据不是最终的解决方案，但这是一种思考模式，可以发散思维~</p>
-]]></content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/#disqus_thread</comments>
     </item>
     
   </channel>
